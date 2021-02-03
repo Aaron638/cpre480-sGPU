@@ -65,7 +65,7 @@ architecture mixed of user_logic is
 
   -- Finite State Machine signals
   type state_type is (S0, S1, S2, S3, S4);
-  signal cur_state : state_type;
+  signal cur_state, matrix_state : state_type;
   signal count_i, count_j : natural range 0 to 4;
   signal s_ADDRreal : std_logic_vector(14 downto 0);
 
@@ -126,6 +126,7 @@ architecture mixed of user_logic is
   begin
     if (i_RST = '1') then
       cur_state <= S0;
+	  matrix_state <= S0;
 	   s_ADDRa <= (others => '0');
 		count_i <= 0;
 		count_j <= 0;
@@ -146,19 +147,33 @@ architecture mixed of user_logic is
           -- we wait a cycle to start our reading.
 		  when S1 =>
           -- This is the recommended mechanism for doing math operations on 
-          -- std_logic_vectors. 		  
-		    s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
-		    cur_state <= S2;
+          -- std_logic_vectors. 	
+			if (s_ADDRa != "00000000000000") then
+				s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
+			end if;
+			case matrix_state is
+			
+			when S0 =>
+				cur_state <= S2;
+				
+			when S1 =>
+				cur_state <= S3;
+			
+			when others => 
+				cur_state <= S0;
+				s_ADDRa <= (others => '0');			
+			end case;
 
 		  -- We are grabbing two unit16's per 32-bit BRAM read
 		  when S2 =>
-		      s_Amatrix(count_i)(count_j) <= unsigned(s_RDATAa(31 downto 16));
+		        s_Amatrix(count_i)(count_j) <= unsigned(s_RDATAa(31 downto 16));
 			    s_Amatrix(count_i)(count_j+1) <= unsigned(s_RDATAa(15 downto 0));
 			  if (count_j = 2) then
 			     count_j <= 0;
 			     if (count_i = 3) then
 				    count_i <= 0;
 				    cur_state <= S3;
+					matrix_state <= S1;
 			     else
 				    count_i <= count_i + 1;
 			     end if;
@@ -204,7 +219,7 @@ architecture mixed of user_logic is
 				s_Amatrix(3)(2) * s_XVector(2) +
 				s_Amatrix(3)(3) * s_XVector(3)
 			);
-			cur_state <= S0;
+			cur_state <= S1;
 
 		  when others =>
 		      cur_state <= S0;
