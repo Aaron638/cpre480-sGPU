@@ -61,11 +61,13 @@ architecture mixed of user_logic is
   type uint16_1x4array is array(0 to 3) of unsigned(15 downto 0);
   type uint16_4x4array is array(0 to 3) of uint16_1x4array;
   signal s_Amatrix : uint16_4x4array;
+  signal s_XVector : uint16_1x4array;
 
   -- Finite State Machine signals
   type state_type is (S0, S1, S2, S3, S4);
   signal cur_state : state_type;
   signal count_i, count_j : natural range 0 to 4;
+  signal s_ADDRreal : std_logic_vector(14 downto 0);
 
   begin
 
@@ -100,20 +102,21 @@ architecture mixed of user_logic is
   -- Temporary process - this waits for 200001 clock cycles and then sets 
   -- s_DONE. You will need to replace this with your own s_DONE calculation
   -- logic
-  P1: process(i_CLK, i_RST)
-  begin
-    if (i_RST = '1') then
-	   s_DONE <= '0';
-		s_CNT <= (others => '0');
-	 elsif (rising_edge(i_CLK)) then
-      s_CNT <= s_CNT + 1;
-		if (s_CNT = 200000) then
-		  s_DONE <= '1';
-		else
-		  s_DONE <= '0';
-		end if;
-	 end if;
-  end process;
+  
+--  P1: process(i_CLK, i_RST)
+--  begin
+--    if (i_RST = '1') then
+--  	   s_DONE <= '0';
+--		s_CNT <= (others => '0');
+--	 elsif (rising_edge(i_CLK)) then
+--      s_CNT <= s_CNT + 1;
+--		if (s_CNT = 200000) then
+--		  s_DONE <= '1';
+--		else
+--		  s_DONE <= '0';
+--		end if;
+--	 end if;
+--  end process;
 
   
   -- Temporary process - this creates a simple FSM to load the 16 values of A
@@ -166,8 +169,16 @@ architecture mixed of user_logic is
  		    s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 			 
 		when S3 =>
-			
-
+			s_XVector(count_i) <= unsigned(s_RDATAa(31 downto 16));
+			s_XVector(count_i + 1) <= unsigned(s_RDATAa(15 downto 0));
+			if (count_i = 0) then 
+				count_i <= 2;
+			else
+				count_i <= 0;
+				cur_state <= S4;
+			end if;
+			s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
+	
       	when S4 =>
 			o_Y0 <= unsigned(
 				s_Amatrix(0)(0) * s_XVector(0) +
@@ -193,6 +204,7 @@ architecture mixed of user_logic is
 				s_Amatrix(3)(2) * s_XVector(2) +
 				s_Amatrix(3)(3) * s_XVector(3)
 			);
+			cur_state <= S0;
 
 		  when others =>
 		      cur_state <= S0;
