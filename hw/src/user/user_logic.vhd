@@ -26,11 +26,10 @@ entity user_logic is
   port(i_CLK    : in std_logic;
        i_RST    : in std_logic;
        o_DONE   : out std_logic;
-
        o_Y0     : out std_logic_vector(63 downto 0);
-	   o_Y1     : out std_logic_vector(63 downto 0);
-	   o_Y2     : out std_logic_vector(63 downto 0);
-	   o_Y3     : out std_logic_vector(63 downto 0));
+	     o_Y1     : out std_logic_vector(63 downto 0);
+	     o_Y2     : out std_logic_vector(63 downto 0);
+	     o_Y3     : out std_logic_vector(63 downto 0));
 
 end user_logic;
 
@@ -84,9 +83,9 @@ architecture mixed of user_logic is
              i_WEa      => '0',
              i_WEb      => '0',
              i_ADDRa    => s_ADDRa,
-	         i_ADDRb    => (others => '0'),
-	         i_WDATAa   => (others => '0'),
-	         i_WDATAb   => (others => '0'),
+	           i_ADDRb    => (others => '0'),
+	           i_WDATAa   => (others => '0'),
+	           i_WDATAb   => (others => '0'),
              o_RDATAa   => s_RDATAa,
              o_RDATAb   => open);	
 
@@ -151,7 +150,7 @@ architecture mixed of user_logic is
 		  -- We are grabbing two unit16's per 32-bit BRAM read
 		  when S2 =>
 		      s_Amatrix(count_i)(count_j) <= unsigned(s_RDATAa(31 downto 16));
-			  s_Amatrix(count_i)(count_j+1) <= unsigned(s_RDATAa(15 downto 0));
+			    s_Amatrix(count_i)(count_j+1) <= unsigned(s_RDATAa(15 downto 0));
 			  if (count_j = 2) then
 			     count_j <= 0;
 			     if (count_i = 3) then
@@ -166,8 +165,34 @@ architecture mixed of user_logic is
 			 
  		    s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 			 
-		  when S3 =>
-		  
+		when S3 =>
+			
+
+      	when S4 =>
+			o_Y0 <= unsigned(
+				s_Amatrix(0)(0) * s_XVector(0) +
+				s_Amatrix(0)(1) * s_XVector(1) +
+				s_Amatrix(0)(2) * s_XVector(2) +
+				s_Amatrix(0)(3) * s_XVector(3)
+			);
+			o_Y1 <= unsigned(
+				s_Amatrix(1)(0) * s_XVector(0) +
+				s_Amatrix(1)(1) * s_XVector(1) +
+				s_Amatrix(1)(2) * s_XVector(2) +
+				s_Amatrix(1)(3) * s_XVector(3)
+			);
+			o_Y2 <= unsigned(
+				s_Amatrix(2)(0) * s_XVector(0) +
+				s_Amatrix(2)(1) * s_XVector(1) +
+				s_Amatrix(2)(2) * s_XVector(2) +
+				s_Amatrix(2)(3) * s_XVector(3)
+			);
+			o_Y3 <= unsigned(
+				s_Amatrix(3)(0) * s_XVector(0) +
+				s_Amatrix(3)(1) * s_XVector(1) +
+				s_Amatrix(3)(2) * s_XVector(2) +
+				s_Amatrix(3)(3) * s_XVector(3)
+			);
 
 		  when others =>
 		      cur_state <= S0;
