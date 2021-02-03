@@ -68,6 +68,9 @@ architecture mixed of user_logic is
   signal cur_state, matrix_state : state_type;
   signal count_i, count_j : natural range 0 to 4;
   signal s_ADDRreal : std_logic_vector(14 downto 0);
+  
+  --intermediate signals
+  s_Y0, s_Y1, s_Y2, sY3 : std_logic_vector(31 downto 0);
 
   begin
 
@@ -148,7 +151,7 @@ architecture mixed of user_logic is
 		  when S1 =>
           -- This is the recommended mechanism for doing math operations on 
           -- std_logic_vectors. 	
-			if (s_ADDRa != "00000000000000") then
+			if (s_ADDRa /= "00000000000000") then
 				s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 			end if;
 			case matrix_state is
@@ -195,31 +198,36 @@ architecture mixed of user_logic is
 			s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 	
       	when S4 =>
-			o_Y0 <= unsigned(
+			s_Y0(31 downto 0) <= std_logic_vector(unsigned(
 				s_Amatrix(0)(0) * s_XVector(0) +
 				s_Amatrix(0)(1) * s_XVector(1) +
 				s_Amatrix(0)(2) * s_XVector(2) +
 				s_Amatrix(0)(3) * s_XVector(3)
-			);
-			o_Y1 <= unsigned(
+			));
+			s_Y0(63 downto 32) <= X"00000000";
+			s_Y1(31 downto 0) <= std_logic_vector(unsigned(
 				s_Amatrix(1)(0) * s_XVector(0) +
 				s_Amatrix(1)(1) * s_XVector(1) +
 				s_Amatrix(1)(2) * s_XVector(2) +
 				s_Amatrix(1)(3) * s_XVector(3)
-			);
-			o_Y2 <= unsigned(
+			));
+			s_Y1(63 downto 32) <= X"00000000";
+			s_Y2(31 downto 0) <= std_logic_vector(unsigned(
 				s_Amatrix(2)(0) * s_XVector(0) +
 				s_Amatrix(2)(1) * s_XVector(1) +
 				s_Amatrix(2)(2) * s_XVector(2) +
 				s_Amatrix(2)(3) * s_XVector(3)
-			);
-			o_Y3 <= unsigned(
+			));
+			s_Y2(63 downto 32) <= X"00000000";
+			s_Y3(31 downto 0) <= std_logic_vector(unsigned(
 				s_Amatrix(3)(0) * s_XVector(0) +
 				s_Amatrix(3)(1) * s_XVector(1) +
 				s_Amatrix(3)(2) * s_XVector(2) +
 				s_Amatrix(3)(3) * s_XVector(3)
-			);
+			));
+			s_Y3(63 downto 32) <= X"00000000";
 			cur_state <= S1;
+			
 
 		  when others =>
 		      cur_state <= S0;
