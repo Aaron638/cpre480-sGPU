@@ -198,34 +198,34 @@ architecture mixed of user_logic is
 			s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 	
       	when S4 =>
-			s_Y0(31 downto 0) <= std_logic_vector(unsigned(
-				s_Amatrix(0)(0) * s_XVector(0) +
-				s_Amatrix(0)(1) * s_XVector(1) +
-				s_Amatrix(0)(2) * s_XVector(2) +
-				s_Amatrix(0)(3) * s_XVector(3)
-			));
-			s_Y0(63 downto 32) <= X"00000000";
-			s_Y1(31 downto 0) <= std_logic_vector(unsigned(
-				s_Amatrix(1)(0) * s_XVector(0) +
-				s_Amatrix(1)(1) * s_XVector(1) +
-				s_Amatrix(1)(2) * s_XVector(2) +
-				s_Amatrix(1)(3) * s_XVector(3)
-			));
-			s_Y1(63 downto 32) <= X"00000000";
-			s_Y2(31 downto 0) <= std_logic_vector(unsigned(
-				s_Amatrix(2)(0) * s_XVector(0) +
-				s_Amatrix(2)(1) * s_XVector(1) +
-				s_Amatrix(2)(2) * s_XVector(2) +
-				s_Amatrix(2)(3) * s_XVector(3)
-			));
-			s_Y2(63 downto 32) <= X"00000000";
-			s_Y3(31 downto 0) <= std_logic_vector(unsigned(
-				s_Amatrix(3)(0) * s_XVector(0) +
-				s_Amatrix(3)(1) * s_XVector(1) +
-				s_Amatrix(3)(2) * s_XVector(2) +
-				s_Amatrix(3)(3) * s_XVector(3)
-			));
-			s_Y3(63 downto 32) <= X"00000000";
+			s_Y0(35 downto 0) <= std_logic_vector(
+				('0' &(s_Amatrix(0)(0) * s_XVector(0))) +
+				('0' &(s_Amatrix(0)(1) * s_XVector(1))) +
+				('0' &(s_Amatrix(0)(2) * s_XVector(2))) +
+				('0' &(s_Amatrix(0)(3) * s_XVector(3)))
+			);
+			s_Y0(63 downto 36) <= X"0000000";
+			s_Y1(35 downto 0) <= std_logic_vector(
+				('0' &(s_Amatrix(1)(0) * s_XVector(0))) +
+				('0' &(s_Amatrix(1)(1) * s_XVector(1))) +
+				('0' &(s_Amatrix(1)(2) * s_XVector(2))) +
+				('0' &(s_Amatrix(1)(3) * s_XVector(3)))
+			);
+			s_Y1(63 downto 36) <= X"0000000";
+			s_Y2(35 downto 0) <= std_logic_vector(
+				('0' &(s_Amatrix(2)(0) * s_XVector(0))) +
+				('0' &(s_Amatrix(2)(1) * s_XVector(1))) +
+				('0' &(s_Amatrix(2)(2) * s_XVector(2))) +
+				('0' &(s_Amatrix(2)(3) * s_XVector(3)))
+			);
+			s_Y2(63 downto 36) <= X"0000000";
+			s_Y3(35 downto 0) <= std_logic_vector(
+				('0' &(s_Amatrix(3)(0) * s_XVector(0))) +
+				('0' &(s_Amatrix(3)(1) * s_XVector(1))) +
+				('0' &(s_Amatrix(3)(2) * s_XVector(2))) +
+				('0' &(s_Amatrix(3)(3) * s_XVector(3)))
+			);
+			s_Y3(63 downto 36) <= X"0000000";
 			cur_state <= S1;
 			
 
