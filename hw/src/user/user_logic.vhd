@@ -27,9 +27,9 @@ entity user_logic is
        i_RST    : in std_logic;
        o_DONE   : out std_logic;
        o_Y0     : out std_logic_vector(63 downto 0);
-	     o_Y1     : out std_logic_vector(63 downto 0);
-	     o_Y2     : out std_logic_vector(63 downto 0);
-	     o_Y3     : out std_logic_vector(63 downto 0));
+	   o_Y1     : out std_logic_vector(63 downto 0);
+	   o_Y2     : out std_logic_vector(63 downto 0);
+	   o_Y3     : out std_logic_vector(63 downto 0));
 
 end user_logic;
 
@@ -70,17 +70,15 @@ architecture mixed of user_logic is
   signal s_ADDRreal : std_logic_vector(14 downto 0);
   
   --intermediate signals
-  s_Y0, s_Y1, s_Y2, sY3 : std_logic_vector(31 downto 0);
+  signal s_Y0, s_Y1, s_Y2, s_Y3 : std_logic_vector(31 downto 0);
 
   begin
-
   -- Set o_DONE as s_DONE
   o_DONE <= s_DONE;
 
-
   -- Currently, we are just instantiating a single-port, read-only version
   -- of the dmem. You will want to improve upon this mapping.
-  U1: dmem
+    U1: dmem
     port map(i_CLKa     => i_CLK,
              i_CLKb     => i_CLK,
              i_ENa      => '1',
@@ -88,9 +86,9 @@ architecture mixed of user_logic is
              i_WEa      => '0',
              i_WEb      => '0',
              i_ADDRa    => s_ADDRa,
-	           i_ADDRb    => (others => '0'),
-	           i_WDATAa   => (others => '0'),
-	           i_WDATAb   => (others => '0'),
+	         i_ADDRb    => (others => '0'),
+	         i_WDATAa   => (others => '0'),
+	         i_WDATAb   => (others => '0'),
              o_RDATAa   => s_RDATAa,
              o_RDATAb   => open);	
 
@@ -125,19 +123,18 @@ architecture mixed of user_logic is
   -- Temporary process - this creates a simple FSM to load the 16 values of A
   -- by reading from dmem at the appropriate addresses. You may be able to 
   -- resuse / extend this code depending on your design strategy. 
-  P2: process(i_CLK, i_RST)
-  begin
-    if (i_RST = '1') then
-      cur_state <= S0;
-	  matrix_state <= S0;
-	   s_ADDRa <= (others => '0');
-		count_i <= 0;
-		count_j <= 0;
+    P2: process(i_CLK, i_RST)
+    begin
+        if (i_RST = '1') then
+            cur_state <= S0;
+	        matrix_state <= S0;
+	        s_ADDRa <= (others => '0');
+		    count_i <= 0;
+		    count_j <= 0;
 		
 	 elsif (rising_edge(i_CLK)) then
 	 
 	   case cur_state is
-	   
 	   
 	       -- When we've reset, we can initialize the s_ADDRa signal
            when S0 =>
@@ -234,9 +231,6 @@ architecture mixed of user_logic is
 		      s_ADDRa <= (others => '0');
 
       end case;
-
 	end if;
-  
   end process;
-  
 end mixed;
