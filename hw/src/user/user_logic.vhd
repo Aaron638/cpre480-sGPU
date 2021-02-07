@@ -94,10 +94,10 @@ architecture mixed of user_logic is
 
 
   -- Temporary logic - set the result vector to arbitrary values. 
-  o_Y0 <= x"0000000000000000";
-  o_Y1 <= x"0000000000000000";
-  o_Y2 <= x"0000000000000000";
-  o_Y3 <= x"0000000000000000";
+--  o_Y0 <= x"0000000000000000";
+--  o_Y1 <= x"0000000000000000";
+--  o_Y2 <= x"0000000000000000";
+--  o_Y3 <= x"0000000000000000";
 
 
   -- Temporary process - this waits for 200001 clock cycles and then sets 
@@ -195,13 +195,21 @@ architecture mixed of user_logic is
 			s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 	
       	when S4 =>      	
-			o_Y0(33 downto 0) <= std_logic_vector(
+			o_Y0(33 downto 0) <= std_logic_vector(unsigned(
 				resize((s_Amatrix(0)(0) * s_XVector(0)), 34) +
 				resize((s_Amatrix(0)(1) * s_XVector(1)), 34) +
 				resize((s_Amatrix(0)(2) * s_XVector(2)), 34) +
 				resize((s_Amatrix(0)(3) * s_XVector(3)), 34)
-			);
+			));
 			o_Y0(63 downto 34) <= X"0000000" & "00";			
+
+--            o_Y0(63 downto 0) <= std_logic_vector(unsigned(
+--				(s_Amatrix(0)(0) * s_XVector(0)) +
+--				(s_Amatrix(0)(1) * s_XVector(1)) +
+--				(s_Amatrix(0)(2) * s_XVector(2)) +
+--				(s_Amatrix(0)(3) * s_XVector(3))
+--			));
+
 			o_Y1(33 downto 0) <= std_logic_vector(
 				resize((s_Amatrix(1)(0) * s_XVector(0)), 34) +
 				resize((s_Amatrix(1)(1) * s_XVector(1)), 34) +
@@ -222,7 +230,7 @@ architecture mixed of user_logic is
 				resize((s_Amatrix(3)(2) * s_XVector(2)), 34) +
 				resize((s_Amatrix(3)(3) * s_XVector(3)), 34)
 			);
-			o_Y2(63 downto 34) <= X"0000000" & "00";
+			o_Y3(63 downto 34) <= X"0000000" & "00";
 			cur_state <= S1;
 			
 
