@@ -70,7 +70,7 @@ architecture mixed of user_logic is
   signal s_ADDRreal : std_logic_vector(14 downto 0);
   
   --intermediate signals
-  signal s_Y0, s_Y1, s_Y2, s_Y3 : std_logic_vector(31 downto 0);
+--  signal s_Y0, s_Y1, s_Y2, s_Y3 : std_logic_vector(31 downto 0);
 
   begin
   -- Set o_DONE as s_DONE
@@ -94,10 +94,10 @@ architecture mixed of user_logic is
 
 
   -- Temporary logic - set the result vector to arbitrary values. 
-  o_Y0 <= x"1a1a1a1a2b2b2b2b";
-  o_Y1 <= x"3c3c3c3c4d4d4d4d";
-  o_Y2 <= x"5e5e5e5e6f6f6f6f";
-  o_Y3 <= x"7070707081818181";
+  o_Y0 <= x"0000000000000000";
+  o_Y1 <= x"0000000000000000";
+  o_Y2 <= x"0000000000000000";
+  o_Y3 <= x"0000000000000000";
 
 
   -- Temporary process - this waits for 200001 clock cycles and then sets 
@@ -194,35 +194,35 @@ architecture mixed of user_logic is
 			end if;
 			s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 	
-      	when S4 =>
-			s_Y0(35 downto 0) <= std_logic_vector(
+      	when S4 =>      	
+			o_Y0(32 downto 0) <= std_logic_vector(
 				('0' &(s_Amatrix(0)(0) * s_XVector(0))) +
 				('0' &(s_Amatrix(0)(1) * s_XVector(1))) +
 				('0' &(s_Amatrix(0)(2) * s_XVector(2))) +
 				('0' &(s_Amatrix(0)(3) * s_XVector(3)))
 			);
-			s_Y0(63 downto 36) <= X"0000000";
-			s_Y1(35 downto 0) <= std_logic_vector(
+			o_Y0(63 downto 33) <= X"0000000" & "000";			
+			o_Y1(32 downto 0) <= std_logic_vector(
 				('0' &(s_Amatrix(1)(0) * s_XVector(0))) +
 				('0' &(s_Amatrix(1)(1) * s_XVector(1))) +
 				('0' &(s_Amatrix(1)(2) * s_XVector(2))) +
 				('0' &(s_Amatrix(1)(3) * s_XVector(3)))
 			);
-			s_Y1(63 downto 36) <= X"0000000";
-			s_Y2(35 downto 0) <= std_logic_vector(
+			o_Y1(63 downto 33) <= X"0000000" & "000";
+			o_Y2(32 downto 0) <= std_logic_vector(
 				('0' &(s_Amatrix(2)(0) * s_XVector(0))) +
 				('0' &(s_Amatrix(2)(1) * s_XVector(1))) +
 				('0' &(s_Amatrix(2)(2) * s_XVector(2))) +
 				('0' &(s_Amatrix(2)(3) * s_XVector(3)))
 			);
-			s_Y2(63 downto 36) <= X"0000000";
-			s_Y3(35 downto 0) <= std_logic_vector(
+			o_Y2(63 downto 33) <= X"0000000" & "000";
+			o_Y3(32 downto 0) <= std_logic_vector(
 				('0' &(s_Amatrix(3)(0) * s_XVector(0))) +
 				('0' &(s_Amatrix(3)(1) * s_XVector(1))) +
 				('0' &(s_Amatrix(3)(2) * s_XVector(2))) +
 				('0' &(s_Amatrix(3)(3) * s_XVector(3)))
 			);
-			s_Y3(63 downto 36) <= X"0000000";
+			o_Y2(63 downto 33) <= X"0000000" & "000";
 			cur_state <= S1;
 			
 
