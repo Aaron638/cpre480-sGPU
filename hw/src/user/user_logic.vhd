@@ -138,6 +138,7 @@ architecture mixed of user_logic is
 	   
 	       -- When we've reset, we can initialize the s_ADDRa signal
            when S0 =>
+            s_DONE <= '0';
 		      s_ADDRa <= (others => '0');
 			  count_i <= 0;
 			 count_j <= 0;
@@ -202,14 +203,6 @@ architecture mixed of user_logic is
 				resize((s_Amatrix(0)(3) * s_XVector(3)), 34)
 			));
 			o_Y0(63 downto 34) <= X"0000000" & "00";			
-
---            o_Y0(63 downto 0) <= std_logic_vector(unsigned(
---				(s_Amatrix(0)(0) * s_XVector(0)) +
---				(s_Amatrix(0)(1) * s_XVector(1)) +
---				(s_Amatrix(0)(2) * s_XVector(2)) +
---				(s_Amatrix(0)(3) * s_XVector(3))
---			));
-
 			o_Y1(33 downto 0) <= std_logic_vector(
 				resize((s_Amatrix(1)(0) * s_XVector(0)), 34) +
 				resize((s_Amatrix(1)(1) * s_XVector(1)), 34) +
@@ -231,9 +224,11 @@ architecture mixed of user_logic is
 				resize((s_Amatrix(3)(3) * s_XVector(3)), 34)
 			);
 			o_Y3(63 downto 34) <= X"0000000" & "00";
+			if (s_XVector(0) = X"0000") then
+			     s_DONE <= '1';
+			end if;
 			cur_state <= S1;
 			
-
 		  when others =>
 		      cur_state <= S0;
 		      s_ADDRa <= (others => '0');
