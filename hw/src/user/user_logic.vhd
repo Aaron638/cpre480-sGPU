@@ -51,7 +51,7 @@ architecture mixed of user_logic is
 
   -- Glue logic signals.
   signal s_DONE : std_logic;
-  signal s_CNT : unsigned(128 downto 0);
+--  signal s_CNT : unsigned(128 downto 0);
 
   -- Signals to interface with the dmem component
   signal s_ADDRa : std_logic_vector(14 downto 0);
@@ -70,7 +70,8 @@ architecture mixed of user_logic is
   signal s_ADDRreal : std_logic_vector(14 downto 0);
   
   --intermediate signals
---  signal s_Y0, s_Y1, s_Y2, s_Y3 : std_logic_vector(31 downto 0);
+  signal s_Y0, s_Y1, s_Y2, s_Y3 : std_logic_vector(63 downto 0);
+  signal s_Y0ac, s_Y1ac, s_Y2ac, s_Y3ac : std_logic_vector(63 downto 0);
 
   begin
   -- Set o_DONE as s_DONE
@@ -119,6 +120,10 @@ architecture mixed of user_logic is
 --	 end if;
 --  end process;
 
+     o_Y0 <= s_Y0ac; 
+     o_Y1 <= s_Y1ac;
+     o_Y2 <= s_Y2ac;
+     o_Y3 <= s_Y3ac;
   
   -- Temporary process - this creates a simple FSM to load the 16 values of A
   -- by reading from dmem at the appropriate addresses. You may be able to 
@@ -139,25 +144,38 @@ architecture mixed of user_logic is
 	       -- When we've reset, we can initialize the s_ADDRa signal
            when S0 =>
             s_DONE <= '0';
-		      s_ADDRa <= (others => '0');
-			  count_i <= 0;
-			 count_j <= 0;
-			 cur_state <= S1;
+		    s_ADDRa <= (others => '0');
+			count_i <= 0;
+			count_j <= 0;
+			cur_state <= S1;
+			
+			s_Y0 <= x"0000000000000000";
+            s_Y1 <= x"0000000000000000";
+            s_Y2 <= x"0000000000000000";
+            s_Y3 <= x"0000000000000000";
+            
+            s_Y0ac <= x"0000000000000000";
+            s_Y1ac <= x"0000000000000000";
+            s_Y2ac <= x"0000000000000000";
+            s_Y3ac <= x"0000000000000000";
 			 
 		  -- The prev s_ADDRa takes a cycle to be latched by the BRAM, so 
           -- we wait a cycle to start our reading.
 		  when S1 =>
           -- This is the recommended mechanism for doing math operations on 
           -- std_logic_vectors. 	
-			if (s_ADDRa /= "00000000000000") then
-				s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
-			end if;
+            s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 			case matrix_state is
 			
 			when S0 =>
 				cur_state <= S2;
 				
 			when S1 =>
+			    s_Y0ac <= std_logic_vector(unsigned(s_Y0) + unsigned(s_Y0ac));
+			    s_Y1ac <= std_logic_vector(unsigned(s_Y1) + unsigned(s_Y1ac));
+			    s_Y2ac <= std_logic_vector(unsigned(s_Y2) + unsigned(s_Y2ac));
+			    s_Y3ac <= std_logic_vector(unsigned(s_Y3) + unsigned(s_Y3ac));
+			    
 				cur_state <= S3;
 			
 			when others => 
@@ -167,8 +185,8 @@ architecture mixed of user_logic is
 
 		  -- We are grabbing two unit16's per 32-bit BRAM read
 		  when S2 =>
-		        s_Amatrix(count_i)(count_j) <= unsigned(s_RDATAa(31 downto 16));
-			    s_Amatrix(count_i)(count_j+1) <= unsigned(s_RDATAa(15 downto 0));
+		      s_Amatrix(count_i)(count_j) <= unsigned(s_RDATAa(31 downto 16));
+			  s_Amatrix(count_i)(count_j+1) <= unsigned(s_RDATAa(15 downto 0));
 			  if (count_j = 2) then
 			     count_j <= 0;
 			     if (count_i = 3) then
@@ -178,11 +196,11 @@ architecture mixed of user_logic is
 			     else
 				    count_i <= count_i + 1;
 			     end if;
-			 else
+			   else
 			     count_j <= count_j + 2;
-			 end if;
+			   end if;
 			 
- 		    s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
+ 		       s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 			 
 		when S3 =>
 			s_XVector(count_i) <= unsigned(s_RDATAa(31 downto 16));
@@ -196,36 +214,34 @@ architecture mixed of user_logic is
 			s_ADDRa <= std_logic_vector(unsigned(s_ADDRa) + 1);
 	
       	when S4 =>      	
-			o_Y0(33 downto 0) <= std_logic_vector(unsigned(
-				resize((s_Amatrix(0)(0) * s_XVector(0)), 34) +
-				resize((s_Amatrix(0)(1) * s_XVector(1)), 34) +
-				resize((s_Amatrix(0)(2) * s_XVector(2)), 34) +
-				resize((s_Amatrix(0)(3) * s_XVector(3)), 34)
-			));
-			o_Y0(63 downto 34) <= X"0000000" & "00";			
-			o_Y1(33 downto 0) <= std_logic_vector(
-				resize((s_Amatrix(1)(0) * s_XVector(0)), 34) +
-				resize((s_Amatrix(1)(1) * s_XVector(1)), 34) +
-				resize((s_Amatrix(1)(2) * s_XVector(2)), 34) +
-				resize((s_Amatrix(1)(3) * s_XVector(3)), 34)
+			s_Y0(63 downto 0) <= std_logic_vector(
+				resize((s_Amatrix(0)(0) * s_XVector(0)), 64) +
+				resize((s_Amatrix(0)(1) * s_XVector(1)), 64) +
+				resize((s_Amatrix(0)(2) * s_XVector(2)), 64) +
+				resize((s_Amatrix(0)(3) * s_XVector(3)), 64)
 			);
-			o_Y1(63 downto 34) <= X"0000000" & "00";
-			o_Y2(33 downto 0) <= std_logic_vector(
-				resize((s_Amatrix(2)(0) * s_XVector(0)), 34) +
-				resize((s_Amatrix(2)(1) * s_XVector(1)), 34) +
-				resize((s_Amatrix(2)(2) * s_XVector(2)), 34) +
-				resize((s_Amatrix(2)(3) * s_XVector(3)), 34)
+            s_Y1(63 downto 0) <= std_logic_vector(
+				resize((s_Amatrix(1)(0) * s_XVector(0)), 64) +
+				resize((s_Amatrix(1)(1) * s_XVector(1)), 64) +
+				resize((s_Amatrix(1)(2) * s_XVector(2)), 64) +
+				resize((s_Amatrix(1)(3) * s_XVector(3)), 64)
 			);
-			o_Y2(63 downto 34) <= X"0000000" & "00";
-			o_Y3(33 downto 0) <= std_logic_vector(
-				resize((s_Amatrix(3)(0) * s_XVector(0)), 34) +
-				resize((s_Amatrix(3)(1) * s_XVector(1)), 34) +
-				resize((s_Amatrix(3)(2) * s_XVector(2)), 34) +
-				resize((s_Amatrix(3)(3) * s_XVector(3)), 34)
+			s_Y2(63 downto 0) <= std_logic_vector(
+				resize((s_Amatrix(2)(0) * s_XVector(0)), 64) +
+				resize((s_Amatrix(2)(1) * s_XVector(1)), 64) +
+				resize((s_Amatrix(2)(2) * s_XVector(2)), 64) +
+				resize((s_Amatrix(2)(3) * s_XVector(3)), 64)
 			);
-			o_Y3(63 downto 34) <= X"0000000" & "00";
+			s_Y3(63 downto 0) <= std_logic_vector(
+				resize((s_Amatrix(3)(0) * s_XVector(0)), 64) +
+				resize((s_Amatrix(3)(1) * s_XVector(1)), 64) +
+				resize((s_Amatrix(3)(2) * s_XVector(2)), 64) +
+				resize((s_Amatrix(3)(3) * s_XVector(3)), 64)
+			);
+
 			if (s_XVector(0) = X"0000") then
 			     s_DONE <= '1';
+			    			     
 			end if;
 			cur_state <= S1;
 			
