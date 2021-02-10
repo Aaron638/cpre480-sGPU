@@ -1,0 +1,17 @@
+0.7
+2020.1
+May 27 2020
+20:09:33
+X:/cpre480/cpre-480/hw/proj/mvmac.sim/sim_1/behav/xsim/glbl.v,1590624368,verilog,,,,glbl,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/bin_to_ascii.vhd,1612727736,vhdl,,,,bin_to_ascii,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/fixed_logic.vhd,1612727736,vhdl,,,,fixed_logic,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/outmem.v,1612727736,verilog,,X:/cpre480/cpre-480/hw/src/fixed/uart_Controller.v,,outmem,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/uart/baud_cnt.vhd,1612727736,vhdl,,,,baud_cnt,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/uart/fifo/sim/fifo.v,1612727919,verilog,,X:/cpre480/cpre-480/hw/src/user/dmem.v,,fifo,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/uart/mmu_uart_top.vhd,1612727736,vhdl,,,,mmu_uart_top,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/uart/rx.vhd,1612727736,vhdl,,,,rx,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/uart/tx.vhd,1612727736,vhdl,,,,tx,,,,,,,,
+X:/cpre480/cpre-480/hw/src/fixed/uart_Controller.v,1612727736,verilog,,,,uart_Controller,,,,,,,,
+X:/cpre480/cpre-480/hw/src/mvmac.vhd,1612727736,vhdl,,,,mvmac,,,,,,,,
+X:/cpre480/cpre-480/hw/src/user/dmem.v,1612727736,verilog,,X:/cpre480/cpre-480/hw/src/fixed/outmem.v,,dmem,,,,,,,,
+X:/cpre480/cpre-480/hw/src/user/user_logic.vhd,1612814119,vhdl,,,,user_logic,,,,,,,,
