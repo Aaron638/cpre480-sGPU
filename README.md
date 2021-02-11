@@ -11,3 +11,4 @@ Useful links:
 TODO:
 - Add .gitignore for Vivado https://www.xilinx.com/support/answers/61232.html
 - Merge fast into main branch
+- Add .gitattributes file `*  text=auto  eol=lf`
