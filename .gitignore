@@ -1,0 +1,9 @@
+# ignore everything in hw/proj/ EXCEPT .tcl files
+**/hw/proj/*
+!*.tcl
+
+**/hw/src/fixed/uart/fifo/*
+!*.xci
+
+**/sw/mvmac
+**/sw/mvmac.o
