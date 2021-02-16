@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <math.h>
+#include <string.h>
 GLFWwindow *window;
 
 #include <shader.hpp>
@@ -12,6 +13,7 @@ GLFWwindow *window;
 int distInPixels(float x1, float y1, float x2, float y2);
 void makeLine(GLfloat *arr, int n, float x1, float y1, float x2, float y2);
 void colorLine(GLfloat *arr, int n, float red, float green, float blue);
+void colorLineHex(GLfloat *arr, int n, char *hexcolor);
 
 int main()
 {
@@ -65,7 +67,9 @@ int main()
 
 	//Color it red
 	GLfloat *g_color_buffer_data = (GLfloat *)malloc(buffersize);
-	colorLine(g_color_buffer_data, numpoints, 1.0f, 0.0f, 0.0f);
+	// colorLine(g_color_buffer_data, numpoints, 1.0f, 0.0f, 0.0f);
+	char redHex[7] = "FF0000";
+	colorLineHex(g_color_buffer_data, numpoints, redHex);
 	// printf("rgb of point 1: %lf,%lf,%lf\n", g_color_buffer_data[3], g_color_buffer_data[4], g_color_buffer_data[5]);
 
 	GLuint vertexbuffer;
@@ -170,11 +174,41 @@ void colorLine(GLfloat *arr, int n, float red, float green, float blue)
 {
 	for (int i = 0; i < (n * 3); i += 3)
 	{
-		arr[i] = red;
+		arr[i + 0] = red;
 		arr[i + 1] = green;
 		arr[i + 2] = blue;
 		// printf("%lf,%lf,%lf\n", arr[i], arr[i + 1], arr[i + 2]);
 	}
 }
+/*
+	same as colorLine but supports passing a hex value for the color
+	Example: "0xFF3320" 
+	Red = FF_16 = 255_10 = 255/255 = 100%
+	Grn = 33_16 = 51_10 = 51/255 = 20%
+	Blu = 20_16 = 32_10 = 32/255 = 12.5%
+*/
+void colorLineHex(GLfloat *arr, int n, char *hexcolor)
+{
+	if (strlen(hexcolor) != 6)
+	{
+		fprintf(stderr, "ERROR: Invalid Hexadecimal. Must look like: \"FFAA33\"\n");
+		return;
+	}
+	//Copy 2 characters of hexcolor w/ strncpy
+	//Convert to hex w/ strtol
+	char redstr[2], blustr[2], grnstr[2];
+	strncpy(redstr, hexcolor, 2);
+	strncpy(blustr, hexcolor + 2, 2);
+	strncpy(grnstr, hexcolor + 4, 2);
+	float red = (float)strtol(redstr, NULL, 16);
+	float grn = (float)strtol(blustr, NULL, 16);
+	float blu = (float)strtol(grnstr, NULL, 16);
 
-//TODO unsigned char color a hex value for the color (0xAABBCC)
+	for (int i = 0; i < (n * 3); i += 3)
+	{
+		arr[i + 0] = red / 100.0f;
+		arr[i + 1] = grn / 100.0f;
+		arr[i + 2] = blu / 100.0f;
+		// printf("%lf,%lf,%lf\n", arr[i], arr[i + 1], arr[i + 2]);
+	}
+}
