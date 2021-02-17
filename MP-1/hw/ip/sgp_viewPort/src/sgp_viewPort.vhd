@@ -237,15 +237,24 @@ begin
 							state      <= CALC_YMULT;
 						end if;
 					when CALC_YMULT =>
-						--viewport_y <= signed(viewport_width_div_2 * y_ndc_coords + viewport_y_reg);
+						if (S_AXIS_TVALID = '1') then
+							viewport_y <= signed(viewport_height_div_2 * y_ndc_coords + viewport_y_reg);
+							state 	   <= CALC_VPCOORDS;
+						end if;
 					when CALC_VPCOORDS =>
-						--(viewport_farval_reg - viewport_nearval_reg) * zndc +  (viewport_nearval_reg - viewport_farval_reg)
-						--Because we are currently only working with 2d, we can ignore z for now (z = 0)
-						signed(viewport_nearval_reg - viewport_farval_reg);
-						--tdata_reg(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64) <= signed('0' & viewport_width_reg(15 downto 0) & "000000000000000");
+						if (S_AXIS_TVALID = '1') then
+							
+							--(viewport_farval_reg - viewport_nearval_reg) * zndc +  (viewport_nearval_reg - viewport_farval_reg)
+							--Because we are currently only working with 2d, we can ignore z for now (z = 0)
+							signed(viewport_nearval_reg - viewport_farval_reg);
+							--tdata_reg(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64) <= signed('0' & viewport_width_reg(15 downto 0) & "000000000000000");
+							state 	<= VERTEX_WRITE;
+						end if;
 					when VERTEX_WRITE =>
-
+						M_AXIS_TDATA <= tdata_reg(C_NUM_VERTEX_ATTRIB * 128 -1 downto 64) & viewport_y & viewport_x; -- Check this eventually. Should follow the format we were given.
+						state 	<= WAIT_FOR_VERTEX;
 					when others =>
+						state <= WAIT_FOR_VERTEX;  -- This isn't really needed, it is just a catchall.
 				end case;
 
 			end if;
