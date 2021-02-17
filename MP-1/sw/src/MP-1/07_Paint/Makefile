@@ -16,7 +16,7 @@ EXECUTABLE := 07_Paint
 SHAREDIR := ../../shared/ogldir1/
 
 # C source files (separated by spaces)
-CFILES :=  
+CFILES := PaintUtils.c
 CPPFILES := $(SHAREDIR)shader.cpp $(EXECUTABLE).cpp
 
 # Additional include directories
