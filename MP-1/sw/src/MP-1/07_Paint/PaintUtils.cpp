@@ -3,21 +3,24 @@
 
 #include <math.h>
 #include <string.h>
-
+#include <vector>
+#include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <shader.hpp>
+using namespace std;
+
 
 void drawPixel(GLfloat *vtx_arr, float x, float y);
 void colorPixel(GLfloat *shd_arr, float r, float g, float b);
 int distPixels(float x1, float y1, float x2, float y2);
-void drawLine(GLfloat *vtx_arr, int n, float x1, float y1, float x2, float y2);
+void drawLine(vector<GLfloat> *vtx_arr, float x1, float y1, float x2, float y2);
 void colorLineRGB(GLfloat *shd_arr, int n, float r, float g, float b);
 void colorLineHex(GLfloat *shd_arr, int n, char *hexcolor);
 int countPixelsTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
 void drawTriangle(GLfloat *arr, int n, float x1, float y1, float x2, float y2, float x3, float y3);
 void colorTriangle(GLfloat *vtx_arr, GLfloat *shd_arr, int n, float x1, float y1, float x2, float y2, float x3, float y3);
-
+void drawVerts(GLfloat *g_vertex_buffer_data, GLfloat *g_color_buffer_data, int buffersize);
 void drawPixel(GLfloat *vtx_arr, float x, float y)
 {
     vtx_arr[0] = x;
@@ -42,10 +45,73 @@ int distPixels(float x1, float y1, float x2, float y2)
 	Plots a line using Bresenham's line algorithm, modified for floating point.
 	TODO: Does not work with downward slopes I think
 */
-void drawLine(GLfloat *vtx_arr, float x1, float y1, float x2, float y2)
+void drawLine(vector<GLfloat> *vtx_arr, float x1, float y1, float x2, float y2)
 {
-    
+   
+    float delX = x2-x1;
+    float delY = y2-y1;
+    float mag = (float) sqrt((delX*delX) + (delY*delY));
+    printf("Suite is: (%.3f, %.3f, %.3f)", delX,delY,mag);
+    float curX = x1;
+    float curY = y1;
+    float i =0.0f;
+   
+    if(delX >=0 && delY >=0)
+    {
+        while(curY <= y2 && curX <= x2)
+        {
+            curX = x1 + (delX*(i/mag));
+            curY = y1 + (delY*(i/mag));
+            vtx_arr->push_back(curX); 
+            vtx_arr->push_back(curY);
+            vtx_arr->push_back(0.0f);
+            i+=.005;
+        }
+    }
+    else if(delX >=0 && delY < 0)
+    {
+        while(curY >= y2 && curX <= x2)
+        {
+            curX = x1 + (delX*(i/mag));
+            curY = y1 + (delY*(i/mag));
+            vtx_arr->push_back(curX); 
+            vtx_arr->push_back(curY);
+            vtx_arr->push_back(0.0f);
+            i+=.005;
+        }
+    }
+    else if(delX < 0 && delY >= 0)
+    {
+        while(curY <= y2 && curX >= x2)
+        {
+            curX = x1 + (delX*(i/mag));
+            curY = y1 + (delY*(i/mag));
+            vtx_arr->push_back(curX); 
+            vtx_arr->push_back(curY);
+            vtx_arr->push_back(0.0f);
+            i+=.005;
+        }
+    }
+    else
+    {
+           while(curY >= y2 && curX >= x2)
+        {
+            curX = x1 + (delX*(i/mag));
+            curY = y1 + (delY*(i/mag));
+            vtx_arr->push_back(curX); 
+            vtx_arr->push_back(curY);
+            vtx_arr->push_back(0.0f);
+            i+=.005;
+        } 
+    }
+    // for(int i =0; i < vtx_arr->size(); i+=3)
+    // {
+    //     printf("Point is: (%.3f,%.3f,%.3f)",vtx_arr->at(i),vtx_arr->at(i+1),vtx_arr->at(i+2));
+    // }
 }
+
+
+
 
 void colorLineRGB(GLfloat *shd_arr, int n, float r, float g, float b)
 {
@@ -137,7 +203,7 @@ void drawTriangle(GLfloat *arr, int n, float x1, float y1, float x2, float y2, f
         float scanline = (float)y * 0.005f;
         pixels_in_line = distPixels(curx1, scanline, curx2, scanline);
         //draw line horizontally
-        drawLine(&arr[pixels_drawn], pixels_in_line, curx1, scanline, curx2, scanline);
+        //drawLine(&arr[pixels_drawn], pixels_in_line, curx1, scanline, curx2, scanline);
         printf("Current bounds of x : %f --- %f\n", curx1, curx2);
         printf("number of pixels in line %d: %d\n", y, pixels_in_line);
         //Move the address pointer
@@ -182,4 +248,85 @@ void colorTriangle(GLfloat *vtx_arr, GLfloat *shd_arr, int n,
         shd_arr[i + 1] = grn;
         shd_arr[i + 2] = blu;
     }
+}
+void drawVerts(GLfloat *g_vertex_buffer_data, GLfloat *g_color_buffer_data, int buffersize)
+{
+  	int numpoints = buffersize/3;
+    if (!glfwInit())
+	{
+		fprintf(stderr, "ERROR: could not start GLFW3\n");
+		return;
+	}
+
+	window = glfwCreateWindow(1280, 1024, "07_Paint", NULL, NULL);
+	if (!window)
+	{
+		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
+		glfwTerminate();
+        return;
+	}
+	glfwMakeContextCurrent(window);
+
+	// start GLEW extension handler
+	glewExperimental = GL_TRUE;
+	glewInit();
+
+	// Ensure we can capture the escape key being pressed below
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+	// Dark blue background
+	glClearColor(0.68f, 0.85f, 0.90f, 0.0f);
+
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+	// Create and compile our GLSL program from the shaders
+	GLuint programID = LoadShaders("../common/shaders/bigpoints.vert", "../common/shaders/passthrough.frag");
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	
+	glBufferData(GL_ARRAY_BUFFER, buffersize, g_vertex_buffer_data, GL_STATIC_DRAW);
+	
+	GLuint colorbuffer;
+	glGenBuffers(1, &colorbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+	
+	glBufferData(GL_ARRAY_BUFFER, buffersize, g_color_buffer_data, GL_STATIC_DRAW);
+
+	// It can be hard to see single pixels at a time.
+	glEnable(GL_PROGRAM_POINT_SIZE);
+
+	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
+	{
+
+		glClear(GL_COLOR_BUFFER_BIT);
+		glUseProgram(programID);
+
+		// 1st attribute buffer : vertices
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+
+		// 2nd attribute buffer : colors
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+
+		// Draw the point(s)!
+		glDrawArrays(GL_POINTS, 0, numpoints); // 1 index starting at 0
+
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+
+		glfwPollEvents();
+		glfwSwapBuffers(window);
+	}
+
+	glfwTerminate();
+
+	//Remember to free memory
+	free(g_vertex_buffer_data);
+	free(g_color_buffer_data);
 }

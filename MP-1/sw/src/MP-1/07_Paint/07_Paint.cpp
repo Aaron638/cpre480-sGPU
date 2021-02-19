@@ -6,45 +6,13 @@
 #include <math.h>
 #include <string.h>
 GLFWwindow *window;
-
 #include <shader.hpp>
-
-#include "PaintUtils.c"
+#include "PaintUtils.cpp"
+using namespace std;
 
 int main()
 {
 
-	if (!glfwInit())
-	{
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		return 1;
-	}
-
-	window = glfwCreateWindow(1280, 1024, "07_Paint", NULL, NULL);
-	if (!window)
-	{
-		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
-		glfwTerminate();
-		return 1;
-	}
-	glfwMakeContextCurrent(window);
-
-	// start GLEW extension handler
-	glewExperimental = GL_TRUE;
-	glewInit();
-
-	// Ensure we can capture the escape key being pressed below
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-	// Dark blue background
-	glClearColor(0.68f, 0.85f, 0.90f, 0.0f);
-
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
-	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders("../common/shaders/bigpoints.vert", "../common/shaders/passthrough.frag");
 
 	/*
 		1. Count how many points are in the thing you want to draw
@@ -60,80 +28,44 @@ int main()
 	// const static float x3 = 0.5;
 	// const static float y3 = 0.0;
 
-	int numpoints = 0;
-	int axislength = distPixels(0, -0.5, 0, 0.5);
-	printf("axis length: %d\n",axislength);
-	for (float i = -0.5; i < 0.6; i += 0.1)
-	{
-		numpoints += distPixels(i, -0.5, i, 0.5);
-		printf("numpoints: %d\n",numpoints);
-	}
-	for (float j = -0.5; j < 0.6; j += 0.1)
-	{
-		numpoints += distPixels(-0.5, j, 0.5, j);
-	}
+	vector<GLfloat> temp(0);
+	drawLine(&temp,0,0,0.5,0);
+	//drawLine(&temp,0,0,0,0.5);
+	printf("\n Newline: ");
+	// for(int i = 0; i < temp.size(); i+=3)
+	// {
+	// 	printf("\n Point is: (%.3f,%.3f,%.3f) ",temp[i],temp[i+1],temp[i+2]);
+	// }
+	// printf("\n Newline: ");
+	//int tempsize = temp.size();
 
+	//printf("\n Newline: ");
+	// for(int k = 0; k < temp.size(); k+=3)
+	// {
+	// 	printf("\n Point is: (%.3f,%.3f,%.3f) ",temp[k],temp[k+1],temp[k+2]);
+	// }
+	
+	int buffersize = temp.size();
+	int numpoints = buffersize/3;
 	printf("Numpoints in Object: %d\n", numpoints);
-
-	size_t buffersize = numpoints * 3 * sizeof(GLfloat);
-	GLfloat *g_vertex_buffer_data = (GLfloat *)malloc(buffersize);
-	GLfloat *g_color_buffer_data = (GLfloat *)malloc(buffersize);
-
-	GLfloat *point = g_vertex_buffer_data;
-	for (float k = 0.5; k < 0.6; k+=.1)
+	GLfloat* g_vertex_buffer_data = &temp[0];
+	for(int k = 0; k < buffersize; k+=3)
 	{
-		drawLine(point, axislength, k, -0.5, k, 0.5);
-		point += 3 * axislength;
+		printf("\n Point is: (%.3f,%.3f,%.3f) ",g_vertex_buffer_data [k],g_vertex_buffer_data [k+1],g_vertex_buffer_data [k+2]);
 	}
-	for (float m = 0.5; m < 0.6; m+=.1)
+	vector<GLfloat> tempColor(0);
+	for(int c = 0; c < buffersize; c+=3)
 	{
-		drawLine(point, axislength, -0.5, m, 0.5, m);
-		point += 3 * axislength;
+		tempColor.push_back(1.0f);
+		tempColor.push_back(0.0f);
+		tempColor.push_back(0.0f);
 	}
+	GLfloat* g_color_buffer_data = &tempColor[0];
 
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, buffersize, g_vertex_buffer_data, GL_STATIC_DRAW);
 
-	GLuint colorbuffer;
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, buffersize, g_color_buffer_data, GL_STATIC_DRAW);
-
-	// It can be hard to see single pixels at a time.
-	glEnable(GL_PROGRAM_POINT_SIZE);
-
-	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
-	{
-
-		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(programID);
-
-		// 1st attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
-
-		// 2nd attribute buffer : colors
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
-
-		// Draw the point(s)!
-		glDrawArrays(GL_POINTS, 0, numpoints); // 1 index starting at 0
-
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-
-		glfwPollEvents();
-		glfwSwapBuffers(window);
-	}
-
-	glfwTerminate();
-
-	//Remember to free memory
-	free(g_vertex_buffer_data);
-	free(g_color_buffer_data);
+	
+	
+	
+	drawVerts(g_vertex_buffer_data,g_color_buffer_data,buffersize);
 	return 0;
 }
