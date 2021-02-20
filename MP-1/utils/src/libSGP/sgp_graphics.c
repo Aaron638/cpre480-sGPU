@@ -325,7 +325,11 @@ void SGP_glViewport(GLint x, GLint y, GLsizei width, GLsizei height) {
 	SGP_graphicsstate.viewport_height = height;
 
 	// Store the updated values in the viewPort registers
-
+	uint32_t baseaddr = SGP_graphicsmap[SGP_VIEWPORT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_X_REG, x);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_Y_REG, y);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_WIDTH_REG, width);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_HEIGHT_REG, height);
 
 	return;
 }
