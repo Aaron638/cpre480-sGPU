@@ -67,7 +67,13 @@ entity sgp_viewPort is
 	attribute SIGIS of ACLK : signal is "Clk";
 
 end sgp_viewPort;
+<<<<<<< HEAD
 architecture behavioral of sgp_viewPort is
+=======
+
+architecture behavioral of sgp_viewPort is
+
+>>>>>>> c43ff2687e78ecffb137ec248e6ddad1973e73f5
 	-- component declaration
 	component sgp_viewPort_axi_lite_regs is
 		generic (
@@ -75,6 +81,7 @@ architecture behavioral of sgp_viewPort is
 			C_S_AXI_ADDR_WIDTH : integer := 10
 		);
 		port (
+<<<<<<< HEAD
 			S_AXI_ACLK    : in std_logic;
 			S_AXI_ARESETN : in std_logic;
 			S_AXI_AWADDR  : in std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
@@ -137,6 +144,76 @@ begin
 	generic map(
 		C_S_AXI_DATA_WIDTH => C_S_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH
+=======
+		S_AXI_ACLK	    : in std_logic;
+		S_AXI_ARESETN	: in std_logic;
+		S_AXI_AWADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+		S_AXI_AWPROT	: in std_logic_vector(2 downto 0);
+		S_AXI_AWVALID	: in std_logic;
+		S_AXI_AWREADY	: out std_logic;
+		S_AXI_WDATA	    : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		S_AXI_WSTRB	    : in std_logic_vector((C_S_AXI_DATA_WIDTH/8)-1 downto 0);
+		S_AXI_WVALID	: in std_logic;
+		S_AXI_WREADY	: out std_logic;
+		S_AXI_BRESP	    : out std_logic_vector(1 downto 0);
+		S_AXI_BVALID	: out std_logic;
+		S_AXI_BREADY	: in std_logic;
+		S_AXI_ARADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+		S_AXI_ARPROT	: in std_logic_vector(2 downto 0);
+		S_AXI_ARVALID	: in std_logic;
+		S_AXI_ARREADY	: out std_logic;
+		S_AXI_RDATA	    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		S_AXI_RRESP	    : out std_logic_vector(1 downto 0);
+		S_AXI_RVALID	: out std_logic;
+		S_AXI_RREADY	: in std_logic;
+		
+		-- Our registers that we need to operate this core. Manually map these in axi_lite_regs
+        SGP_AXI_VIEWPORT_X_REG            : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_VIEWPORT_Y_REG            : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_VIEWPORT_WIDTH_REG        : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_VIEWPORT_HEIGHT_REG       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_VIEWPORT_NEARVAL_REG      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_VIEWPORT_FARVAL_REG       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_VIEWPORT_DEBUG            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
+		
+		);
+	end component sgp_viewPort_axi_lite_regs;
+
+    -- User register values
+    signal viewport_x_reg 	            : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal viewport_y_reg 	            : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal viewport_width_reg 	        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal viewport_height_reg 	        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal viewport_nearval_reg 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal viewport_farval_reg 	        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+    signal viewport_debug 	            : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+
+    -- Intermediate values for viewport transformation. 
+    signal tdata_reg  : std_logic_vector(C_NUM_VERTEX_ATTRIB*128-1 downto 64);
+    signal viewport_x                   : fixed_t;
+    signal viewport_y                   : fixed_t;
+    signal viewport_width_div_2         : fixed_t;
+    signal viewport_height_div_2        : fixed_t;
+    signal viewport_xmult               : wfixed_t;
+    signal viewport_ymult               : wfixed_t;
+
+    -- Input and output of viewport transformation. Keep in Q16.16 format and if input is normalized, there should be no overflow. 
+    signal x_ndc_coords : fixed_t;
+    signal y_ndc_coords : fixed_t;
+    signal x_vp_coords  : fixed_t;
+    signal y_vp_coords  : fixed_t;
+
+    type STATE_TYPE is (WAIT_FOR_VERTEX, CALC_XMULT, CALC_YMULT, CALC_VPCOORDS, VERTEX_WRITE);
+    signal state        : STATE_TYPE;
+   
+begin
+
+  -- Instantiation of Axi Bus Interface S_AXI_LITE
+  sgp_viewPort_axi_lite_regs_inst : sgp_viewPort_axi_lite_regs
+	generic map (
+		C_S_AXI_DATA_WIDTH	=> C_S_AXI_DATA_WIDTH,
+		C_S_AXI_ADDR_WIDTH	=> C_S_AXI_ADDR_WIDTH
+>>>>>>> c43ff2687e78ecffb137ec248e6ddad1973e73f5
 	)
 	port map(
 		S_AXI_ACLK    => ACLK,
@@ -192,9 +269,7 @@ begin
 	-- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
 	-- It would also be useful to connect internal signals to this register for software debug purposes
 	viewport_debug <= x"00000003";
-
-	--  type STATE_TYPE is (WAIT_FOR_VERTEX, CALC_XMULT, CALC_YMULT, CALC_VPCOORDS, VERTEX_WRITE);
-
+	
 	process (ACLK) is
 	begin
 		if rising_edge(ACLK) then
@@ -211,6 +286,10 @@ begin
 				y_vp_coords    <= fixed_t_zero;
 
 			else
+<<<<<<< HEAD
+=======
+
+>>>>>>> c43ff2687e78ecffb137ec248e6ddad1973e73f5
 				case state is
 
 						-- Wait here until we receive a vertex
@@ -224,19 +303,31 @@ begin
 
 							state <= CALC_XMULT;
 						end if;
-
+                        -- widthvp/2 * (xndc + 1)
+                        -- viewport_xmult and ymult are both wfixed_t_zero, see sgp_types.vhd
+                        --This means Q32.32 fixed point. This is because the 2 things being multiplied are Q16.16, so we need a larger data type here
 					when CALC_XMULT =>
 						if (S_AXIS_TVALID = '1') then
-							viewport_x <= signed(viewport_width_div_2 * x_ndc_coords + viewport_x_reg);
+							viewport_xmult <= signed(viewport_width_div_2 * x_ndc_coords);
 							state      <= CALC_YMULT;
 						end if;
+						-- heigtvp/2 * (yndc + 1)
 					when CALC_YMULT =>
 						if (S_AXIS_TVALID = '1') then
+<<<<<<< HEAD
 							viewport_y <= signed(viewport_height_div_2 * y_ndc_coords + viewport_y_reg);
 							state      <= CALC_VPCOORDS;
+=======
+							viewport_ymult <= signed(viewport_height_div_2 * y_ndc_coords);
+							state 	   <= CALC_VPCOORDS;
+>>>>>>> c43ff2687e78ecffb137ec248e6ddad1973e73f5
 						end if;
+						--  Because we are currently only working with 2d, we can ignore z for now (z = 0)
+						--  Here I think we're reduce the size of the values with the built in functions in sgp_types.vhd
+						--  Also vp_coords just refer to portions within the M_AXIS_TDATA
 					when CALC_VPCOORDS =>
 						if (S_AXIS_TVALID = '1') then
+<<<<<<< HEAD
 
 							--(viewport_farval_reg - viewport_nearval_reg) * zndc +  (viewport_nearval_reg - viewport_farval_reg)
 							--Because we are currently only working with 2d, we can ignore z for now (z = 0)
@@ -247,6 +338,21 @@ begin
 					when VERTEX_WRITE =>
 						M_AXIS_TDATA <= tdata_reg(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64) & viewport_y & viewport_x; -- Check this eventually. Should follow the format we were given.
 						state        <= WAIT_FOR_VERTEX;
+=======
+							x_vp_coords     <= wfixed_t_to_fixed_t (viewport_xmult);
+ 							y_vp_coords     <= wfixed_t_to_fixed_t (viewport_ymult);
+							state 	<= VERTEX_WRITE;
+						end if;
+						-- We tell M_AXIS we're ready to write, ctrl+f VERTEX_WRITE to see that he already sets M_AXIS_TREADY here
+						-- LM02 talks about how to do handshakes, and we probably wanna get Bryce's expertise on this
+						-- All we should have to do is reset the FSM when the last word of data gets transmitted
+					when VERTEX_WRITE =>				
+                        -- Check this eventually. Should follow the format we were given.
+                        -- M_AXIS_TDATA <= tdata_reg(C_NUM_VERTEX_ATTRIB * 128 -1 downto 64) & viewport_y & viewport_x; 
+                        if (S_AXIS_TLAST = '1') then
+                            state 	<= WAIT_FOR_VERTEX;
+                        end if;
+>>>>>>> c43ff2687e78ecffb137ec248e6ddad1973e73f5
 					when others =>
 						state <= WAIT_FOR_VERTEX; -- This isn't really needed, it is just a catchall.
 				end case;
