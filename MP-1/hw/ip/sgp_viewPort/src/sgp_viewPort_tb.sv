@@ -1,9 +1,9 @@
 module sgp_viewPort_tb;
     timeunit 1ns;
 
-    integer c_s_axi_data_width = 32;
-    integer c_s_axi_addr_width = 10;
-    integer c_num_vertex_attrib = 4;
+    localparam c_s_axi_data_width = 32;
+    localparam c_s_axi_addr_width = 10;
+    localparam c_num_vertex_attrib = 4;
 
     logic aclk;
     logic arsetn;
@@ -88,6 +88,6 @@ module sgp_viewPort_tb;
 		.M_AXIS_TDATA	(M_AXIS_TDATA),
 		.M_AXIS_TLAST	(M_AXIS_TLAST),
 		.M_AXIS_TREADY	(M_AXIS_TREADY)
-    )
+    );
 
 endmodule
