@@ -10,7 +10,6 @@
 #include <shader.hpp>
 using namespace std;
 
-
 void drawPixel(GLfloat *vtx_arr, float x, float y);
 void colorPixel(GLfloat *shd_arr, float r, float g, float b);
 int distPixels(float x1, float y1, float x2, float y2);
@@ -47,71 +46,68 @@ int distPixels(float x1, float y1, float x2, float y2)
 */
 void drawLine(vector<GLfloat> *vtx_arr, float x1, float y1, float x2, float y2)
 {
-   
-    float delX = x2-x1;
-    float delY = y2-y1;
-    float mag = (float) sqrt((delX*delX) + (delY*delY));
-    printf("Suite is: (%.3f, %.3f, %.3f)", delX,delY,mag);
+
+    float delX = x2 - x1;
+    float delY = y2 - y1;
+    float mag = (float)sqrt((delX * delX) + (delY * delY));
+    printf("Suite is: (%.3f, %.3f, %.3f)", delX, delY, mag);
     float curX = x1;
     float curY = y1;
-    float i =0.0f;
-   
-    if(delX >=0 && delY >=0)
+    float i = 0.0f;
+
+    if (delX >= 0 && delY >= 0)
     {
-        while(curY <= y2 && curX <= x2)
+        while (curY <= y2 && curX <= x2)
         {
-            curX = x1 + (delX*(i/mag));
-            curY = y1 + (delY*(i/mag));
-            vtx_arr->push_back(curX); 
+            curX = x1 + (delX * (i / mag));
+            curY = y1 + (delY * (i / mag));
+            vtx_arr->push_back(curX);
             vtx_arr->push_back(curY);
             vtx_arr->push_back(0.0f);
-            i+=.005;
+            i += .005;
         }
     }
-    else if(delX >=0 && delY < 0)
+    else if (delX >= 0 && delY < 0)
     {
-        while(curY >= y2 && curX <= x2)
+        while (curY >= y2 && curX <= x2)
         {
-            curX = x1 + (delX*(i/mag));
-            curY = y1 + (delY*(i/mag));
-            vtx_arr->push_back(curX); 
+            curX = x1 + (delX * (i / mag));
+            curY = y1 + (delY * (i / mag));
+            vtx_arr->push_back(curX);
             vtx_arr->push_back(curY);
             vtx_arr->push_back(0.0f);
-            i+=.005;
+            i += .005;
         }
     }
-    else if(delX < 0 && delY >= 0)
+    else if (delX < 0 && delY >= 0)
     {
-        while(curY <= y2 && curX >= x2)
+        while (curY <= y2 && curX >= x2)
         {
-            curX = x1 + (delX*(i/mag));
-            curY = y1 + (delY*(i/mag));
-            vtx_arr->push_back(curX); 
+            curX = x1 + (delX * (i / mag));
+            curY = y1 + (delY * (i / mag));
+            vtx_arr->push_back(curX);
             vtx_arr->push_back(curY);
             vtx_arr->push_back(0.0f);
-            i+=.005;
+            i += .005;
         }
     }
     else
     {
-           while(curY >= y2 && curX >= x2)
+        while (curY >= y2 && curX >= x2)
         {
-            curX = x1 + (delX*(i/mag));
-            curY = y1 + (delY*(i/mag));
-            vtx_arr->push_back(curX); 
+            curX = x1 + (delX * (i / mag));
+            curY = y1 + (delY * (i / mag));
+            vtx_arr->push_back(curX);
             vtx_arr->push_back(curY);
             vtx_arr->push_back(0.0f);
-            i+=.005;
-        } 
+            i += .005;
+        }
     }
     // for(int i =0; i < vtx_arr->size(); i+=3)
     // {
     //     printf("Point is: (%.3f,%.3f,%.3f)",vtx_arr->at(i),vtx_arr->at(i+1),vtx_arr->at(i+2));
     // }
 }
-
-
-
 
 void colorLineRGB(GLfloat *shd_arr, int n, float r, float g, float b)
 {
@@ -251,82 +247,82 @@ void colorTriangle(GLfloat *vtx_arr, GLfloat *shd_arr, int n,
 }
 void drawVerts(GLfloat *g_vertex_buffer_data, GLfloat *g_color_buffer_data, int buffersize)
 {
-  	int numpoints = buffersize/3;
+    int numpoints = buffersize / 3;
     if (!glfwInit())
-	{
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		return;
-	}
-
-	window = glfwCreateWindow(1280, 1024, "07_Paint", NULL, NULL);
-	if (!window)
-	{
-		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
-		glfwTerminate();
+    {
+        fprintf(stderr, "ERROR: could not start GLFW3\n");
         return;
-	}
-	glfwMakeContextCurrent(window);
+    }
 
-	// start GLEW extension handler
-	glewExperimental = GL_TRUE;
-	glewInit();
+    window = glfwCreateWindow(1280, 1024, "07_Paint", NULL, NULL);
+    if (!window)
+    {
+        fprintf(stderr, "ERROR: could not open window with GLFW3\n");
+        glfwTerminate();
+        return;
+    }
+    glfwMakeContextCurrent(window);
 
-	// Ensure we can capture the escape key being pressed below
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    // start GLEW extension handler
+    glewExperimental = GL_TRUE;
+    glewInit();
 
-	// Dark blue background
-	glClearColor(0.68f, 0.85f, 0.90f, 0.0f);
+    // Ensure we can capture the escape key being pressed below
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+    // Dark blue background
+    glClearColor(0.68f, 0.85f, 0.90f, 0.0f);
 
-	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders("../common/shaders/bigpoints.vert", "../common/shaders/passthrough.frag");
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	
-	glBufferData(GL_ARRAY_BUFFER, buffersize, g_vertex_buffer_data, GL_STATIC_DRAW);
-	
-	GLuint colorbuffer;
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	
-	glBufferData(GL_ARRAY_BUFFER, buffersize, g_color_buffer_data, GL_STATIC_DRAW);
+    GLuint VertexArrayID;
+    glGenVertexArrays(1, &VertexArrayID);
+    glBindVertexArray(VertexArrayID);
 
-	// It can be hard to see single pixels at a time.
-	glEnable(GL_PROGRAM_POINT_SIZE);
+    // Create and compile our GLSL program from the shaders
+    GLuint programID = LoadShaders("../common/shaders/bigpoints.vert", "../common/shaders/passthrough.frag");
+    GLuint vertexbuffer;
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 
-	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
-	{
+    glBufferData(GL_ARRAY_BUFFER, buffersize, g_vertex_buffer_data, GL_STATIC_DRAW);
 
-		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(programID);
+    GLuint colorbuffer;
+    glGenBuffers(1, &colorbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 
-		// 1st attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+    glBufferData(GL_ARRAY_BUFFER, buffersize, g_color_buffer_data, GL_STATIC_DRAW);
 
-		// 2nd attribute buffer : colors
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+    // It can be hard to see single pixels at a time.
+    glEnable(GL_PROGRAM_POINT_SIZE);
 
-		// Draw the point(s)!
-		glDrawArrays(GL_POINTS, 0, numpoints); // 1 index starting at 0
+    while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
+    {
 
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glUseProgram(programID);
 
-		glfwPollEvents();
-		glfwSwapBuffers(window);
-	}
+        // 1st attribute buffer : vertices
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
 
-	glfwTerminate();
+        // 2nd attribute buffer : colors
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
 
-	//Remember to free memory
-	free(g_vertex_buffer_data);
-	free(g_color_buffer_data);
+        // Draw the point(s)!
+        glDrawArrays(GL_POINTS, 0, numpoints); // 1 index starting at 0
+
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
+    glfwTerminate();
+
+    //Remember to free memory
+    free(g_vertex_buffer_data);
+    free(g_color_buffer_data);
 }

@@ -13,7 +13,6 @@ using namespace std;
 int main()
 {
 
-
 	/*
 		1. Count how many points are in the thing you want to draw
 			Place it in numpoints
@@ -29,8 +28,15 @@ int main()
 	// const static float y3 = 0.0;
 
 	vector<GLfloat> temp(0);
-	drawLine(&temp,0,0,0.5,0);
-	//drawLine(&temp,0,0,0,0.5);
+	// drawLine(&temp, 0, 0.5, 1.0, 0.5);
+
+	// temp.push_back(0.5);
+	// temp.push_back(0.5);
+	// temp.push_back(0);
+
+	drawLine(&temp, 0, 0, 1.0, 0);
+
+	// drawLine(&temp, 0.75, 0.75, 0.5, 0.5);
 	printf("\n Newline: ");
 	// for(int i = 0; i < temp.size(); i+=3)
 	// {
@@ -44,28 +50,25 @@ int main()
 	// {
 	// 	printf("\n Point is: (%.3f,%.3f,%.3f) ",temp[k],temp[k+1],temp[k+2]);
 	// }
-	
+
 	int buffersize = temp.size();
-	int numpoints = buffersize/3;
+	int numpoints = buffersize / 3;
 	printf("Numpoints in Object: %d\n", numpoints);
-	GLfloat* g_vertex_buffer_data = &temp[0];
-	for(int k = 0; k < buffersize; k+=3)
+	// GLfloat *g_vertex_buffer_data = &temp[0];
+	GLfloat *g_vertex_buffer_data = temp.data();
+	for (int k = 0; k < buffersize; k += 3)
 	{
-		printf("\n Point is: (%.3f,%.3f,%.3f) ",g_vertex_buffer_data [k],g_vertex_buffer_data [k+1],g_vertex_buffer_data [k+2]);
+		printf("\n Point is: (%.3f,%.3f,%.3f) ", g_vertex_buffer_data[k], g_vertex_buffer_data[k + 1], g_vertex_buffer_data[k + 2]);
 	}
 	vector<GLfloat> tempColor(0);
-	for(int c = 0; c < buffersize; c+=3)
+	for (int c = 0; c < buffersize; c += 3)
 	{
 		tempColor.push_back(1.0f);
 		tempColor.push_back(0.0f);
 		tempColor.push_back(0.0f);
 	}
-	GLfloat* g_color_buffer_data = &tempColor[0];
+	GLfloat *g_color_buffer_data = &tempColor[0];
 
-
-	
-	
-	
-	drawVerts(g_vertex_buffer_data,g_color_buffer_data,buffersize);
+	drawVerts(g_vertex_buffer_data, g_color_buffer_data, buffersize);
 	return 0;
 }
