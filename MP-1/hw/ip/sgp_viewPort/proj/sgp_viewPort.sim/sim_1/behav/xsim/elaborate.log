@@ -1,0 +1,18 @@
+Vivado Simulator 2020.1
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.1/bin/unwrapped/win64.o/xelab.exe -wto 2b46729c49db4333b7c2dccc7beb4fb6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot sgp_viewPort_behav xil_defaultlib.sgp_viewPort -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-730] function return type array bounds do not match function return value array bounds [U:/cpre480/MP-1/hw/ip/sgp_types.vhd:146]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.sgp_types
+Compiling architecture arch_imp of entity xil_defaultlib.sgp_viewPort_axi_lite_regs [sgp_viewport_axi_lite_regs_defau...]
+Compiling architecture behavioral of entity xil_defaultlib.sgp_viewport
+Built simulation snapshot sgp_viewPort_behav
