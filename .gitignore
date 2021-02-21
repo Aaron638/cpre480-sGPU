@@ -7,12 +7,17 @@
 !*.xci
 
 # Software
-
 #   ignore contents of bin folder
-**/sw/bin
+**/sw/bin/*
 
 #   ignore o files
 **/sw/*.o
+
+# Utils
+#   ignore object files generated from building utils
+**/utils/bin/*
+**/utils/lib/*
+**/utils/lib64/*
 
 # VScode
 .vscode/*
