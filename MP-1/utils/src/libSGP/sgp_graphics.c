@@ -424,136 +424,138 @@ void SGP_glxSwapBuffers(uint32_t flag)
 			int all_done = 0;
 			while (all_done == 0)
 			{
-				if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
-					SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
+				if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 	&&
+					SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 		&&
 					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
 				{
 					all_done = 1;
 				}
 			}
-
-			uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
-			SGP_setactivebuffer(SGPconfig, backbuffer);
-
-			// Let the renderOutput module know where the backbuffer currently is
-			uint8_t cur_buffer = 0;
-			if (backbuffer == 0)
-			{
-				cur_buffer = 1;
-			}
-
-			framecount++;
-			if (framecount % 100 == 0)
-			{
-				if (SGPconfig->driverMode != 0)
-				{
-					printf("\n\n\n\n\n\nFramecount - \x1B[32m%d\n\x1B[0m\n\n\n\n\n", framecount);
-				}
-			}
-
-			return;
 		}
+	}
 
-		// Converts a GLfloat to a fixed-point value
-		sglu_fixed_t sglu_float_to_fixed(GLfloat float_val, uint8_t fixed_point_frac_bits)
+	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
+	SGP_setactivebuffer(SGPconfig, backbuffer);
+
+	// Let the renderOutput module know where the backbuffer currently is
+	uint8_t cur_buffer = 0;
+	if (backbuffer == 0)
+	{
+		cur_buffer = 1;
+	}
+
+	framecount++;
+	if (framecount % 100 == 0)
+	{
+		if (SGPconfig->driverMode != 0)
 		{
-			return (sglu_fixed_t)(float_val * (1 << fixed_point_frac_bits));
+			printf("\n\n\n\n\n\nFramecount - \x1B[32m%d\n\x1B[0m\n\n\n\n\n", framecount);
 		}
+	}
 
-		// Converts a .rgba float-point value to our fixedc color buffer format (32-bit ARGB)
-		uint32_t sglu_color_float_to_int(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
+	return;
+}
+
+// Converts a GLfloat to a fixed-point value
+sglu_fixed_t sglu_float_to_fixed(GLfloat float_val, uint8_t fixed_point_frac_bits)
+{
+	return (sglu_fixed_t)(float_val * (1 << fixed_point_frac_bits));
+}
+
+// Converts a .rgba float-point value to our fixedc color buffer format (32-bit ARGB)
+uint32_t sglu_color_float_to_int(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
+{
+
+	uint32_t pixel_val = 0x00000000;
+	pixel_val |= ((uint8_t)(alpha * 256) << 24);
+	pixel_val |= ((uint8_t)(red * 256) << 16);
+	pixel_val |= ((uint8_t)(blue * 256) << 8);
+	pixel_val |= ((uint8_t)(green * 256) << 0);
+
+	return pixel_val;
+}
+
+// Graphics initialization. Configures the various IP in the system for video output
+int SGP_graphicsInit(sgp_config *config)
+{
+
+	int i;
+
+	// Update the address map for components that are actually sitting in main memory
+	for (i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
+	{
+		if (SGP_graphicsmap[i].system_offset == SGP_GRAPHICS_MEMORY_OFFSET)
 		{
-
-			uint32_t pixel_val = 0x00000000;
-			pixel_val |= ((uint8_t)(alpha * 256) << 24);
-			pixel_val |= ((uint8_t)(red * 256) << 16);
-			pixel_val |= ((uint8_t)(blue * 256) << 8);
-			pixel_val |= ((uint8_t)(green * 256) << 0);
-
-			return pixel_val;
+			SGP_graphicsmap[i].baseaddr += SGP_systemmap[SGP_MEM_INTERFACE].baseaddr;
+			SGP_graphicsmap[i].highaddr += SGP_systemmap[SGP_MEM_INTERFACE].baseaddr;
 		}
+	}
 
-		// Graphics initialization. Configures the various IP in the system for video output
-		int SGP_graphicsInit(sgp_config * config)
+	// Print out the memory map if SGP_STDOUT
+	if (config->driverMode & SGP_STDOUT)
+	{
+		SGP_print_graphicsmap();
+	}
+
+	// Initialize the graphics state
+	SGP_graphicsstate.num_vertex_buffer_objects = 0;
+	SGP_graphicsstate.num_vertex_attributes = 0;
+	SGP_graphicsstate.cur_vertex_buffer_object = 0;
+	SGP_graphicsstate.gpu_mem_free_ptr = SGP_graphicsmap[SGP_ARRAYBUFFERS].baseaddr;
+
+	// Set each buffer to have a status of 0x0, to note they are unitialized
+	for (i = 0; i < SGP_GRAPHICS_MAX_VERTEX_BUFFER_OBJECTS; i++)
+	{
+		SGP_graphicsstate.vertex_buffer_objects[i].status = 0;
+	}
+
+	// Set each attribute to have a status of 0x0, to note they are invalid
+	for (i = 0; i < SGP_GRAPHICS_MAX_VERTEX_ATTRIB; i++)
+	{
+		SGP_graphicsstate.vertex_attributes[i].status = 0;
+	}
+
+	// Set the renderOutput to point to the initial backbuffer and configure it's cache
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
+
+	// Also set the resolution stride and height in the renderOutput so it knows how much to multiply incoming y values by
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_STRIDE, SGP_videomodes[VMODE_1920x1080].width * 4);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_HEIGHT, SGP_videomodes[VMODE_1920x1080].height);
+
+	if (SGPconfig->driverMode & SGP_ETH)
+		SGP_print_debugregs();
+
+	return 0;
+}
+
+void SGP_print_debugregs()
+{
+
+	printf("\nSGP graphics subsystem debug registers:\n");
+	printf("   Name                   Value\n");
+	for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
+	{
+		if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_DEBUG)
 		{
-
-			int i;
-
-			// Update the address map for components that are actually sitting in main memory
-			for (i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
-			{
-				if (SGP_graphicsmap[i].system_offset == SGP_GRAPHICS_MEMORY_OFFSET)
-				{
-					SGP_graphicsmap[i].baseaddr += SGP_systemmap[SGP_MEM_INTERFACE].baseaddr;
-					SGP_graphicsmap[i].highaddr += SGP_systemmap[SGP_MEM_INTERFACE].baseaddr;
-				}
-			}
-
-			// Print out the memory map if SGP_STDOUT
-			if (config->driverMode & SGP_STDOUT)
-			{
-				SGP_print_graphicsmap();
-			}
-
-			// Initialize the graphics state
-			SGP_graphicsstate.num_vertex_buffer_objects = 0;
-			SGP_graphicsstate.num_vertex_attributes = 0;
-			SGP_graphicsstate.cur_vertex_buffer_object = 0;
-			SGP_graphicsstate.gpu_mem_free_ptr = SGP_graphicsmap[SGP_ARRAYBUFFERS].baseaddr;
-
-			// Set each buffer to have a status of 0x0, to note they are unitialized
-			for (i = 0; i < SGP_GRAPHICS_MAX_VERTEX_BUFFER_OBJECTS; i++)
-			{
-				SGP_graphicsstate.vertex_buffer_objects[i].status = 0;
-			}
-
-			// Set each attribute to have a status of 0x0, to note they are invalid
-			for (i = 0; i < SGP_GRAPHICS_MAX_VERTEX_ATTRIB; i++)
-			{
-				SGP_graphicsstate.vertex_attributes[i].status = 0;
-			}
-
-			// Set the renderOutput to point to the initial backbuffer and configure it's cache
-			uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
-			SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
-			SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
-
-			// Also set the resolution stride and height in the renderOutput so it knows how much to multiply incoming y values by
-			SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_STRIDE, SGP_videomodes[VMODE_1920x1080].width * 4);
-			SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_HEIGHT, SGP_videomodes[VMODE_1920x1080].height);
-
-			if (SGPconfig->driverMode & SGP_ETH)
-				SGP_print_debugregs();
-
-			return 0;
+			printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].debug_register));
 		}
+	}
+	printf("\x1B[0m\n");
 
-		void SGP_print_debugregs()
-		{
+	return;
+}
 
-			printf("\nSGP graphics subsystem debug registers:\n");
-			printf("   Name                   Value\n");
-			for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
-			{
-				if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_DEBUG)
-				{
-					printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].debug_register));
-				}
-			}
-			printf("\x1B[0m\n");
+void SGP_print_graphicsmap()
+{
 
-			return;
-		}
+	printf("\nSGP graphics subsystem memory map:\n");
+	printf("   Name                   BaseAddr       HighAddr     Description\n");
+	for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
+	{
+		printf("   %s     0x%08x     0x%08x     %s\n", SGP_graphicsmap[i].name, SGP_graphicsmap[i].baseaddr, SGP_graphicsmap[i].highaddr, SGP_graphicsmap[i].desc);
+	}
 
-		void SGP_print_graphicsmap()
-		{
-
-			printf("\nSGP graphics subsystem memory map:\n");
-			printf("   Name                   BaseAddr       HighAddr     Description\n");
-			for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
-			{
-				printf("   %s     0x%08x     0x%08x     %s\n", SGP_graphicsmap[i].name, SGP_graphicsmap[i].baseaddr, SGP_graphicsmap[i].highaddr, SGP_graphicsmap[i].desc);
-			}
-
-			return;
-		}
+	return;
+}

@@ -43,6 +43,7 @@ int main() {
   glewExperimental = GL_TRUE;
   glewInit();
 
+
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
@@ -59,14 +60,14 @@ int main() {
   // Just a single vertex for GL_POINTS to test. Add to this to draw more points
 	static const GLfloat g_vertex_buffer_data[] = { 
 		 0.0f, 0.0f, 0.0f,
-		 0.075f, 0.075f, 0.0f
+		 //0.5f, -0.5f, 0.0f,
 		 //0.0f,  0.5f, 0.0f,
 	};
 
 	// One color (RGB for this) for each vertex.
 	static const GLfloat g_color_buffer_data[] = { 
 		1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f
+		//1.0f, 0.0f, 0.0f,
 		//1.0f, 0.0f, 0.0f,
 	};
 
@@ -99,7 +100,7 @@ int main() {
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 		// Draw the point!
-		glDrawArrays(GL_POINTS, 0, 2); // 1 index starting at 0
+		glDrawArrays(GL_POINTS, 0, 1); // 1 index starting at 0
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
