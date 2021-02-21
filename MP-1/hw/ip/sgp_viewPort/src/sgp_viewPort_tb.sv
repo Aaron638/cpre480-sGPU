@@ -48,11 +48,11 @@ module sgp_viewPort_tb;
         #5 aclk = 0;    
     end
 
-    sgp_viewPort_dut # (
+    sgp_viewPort # (
         .C_S_AXI_DATA_WIDTH(c_s_axi_data_width),
 		.C_S_AXI_ADDR_WIDTH(c_s_axi_addr_width),
 		.C_NUM_VERTEX_ATTRIB(c_num_vertex_attrib)
-    ) spg_viewPort (
+    ) sgp_viewPort_dut (
         .ACLK   (aclk),
         .ARSETN (arsetn),
 
