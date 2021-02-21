@@ -1,9 +1,18 @@
-# ignore everything in hw/proj/ EXCEPT .tcl files
+# Hardware
+#   ignore everything in hw/proj/ EXCEPT .tcl files
 **/hw/proj/*
 !*.tcl
 
 **/hw/src/fixed/uart/fifo/*
 !*.xci
 
-**/sw/mvmac
-**/sw/mvmac.o
+# Software
+
+#   ignore contents of bin folder
+**/sw/bin
+
+#   ignore o files
+**/sw/*.o
+
+# VScode
+.vscode/*
