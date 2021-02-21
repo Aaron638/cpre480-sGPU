@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../src/vertexFetch_axi_lite_regs.vhd" \
+"../../../../../src/vertexFetch_core.vhd" \
+
+# Do not sort compile order
+nosort

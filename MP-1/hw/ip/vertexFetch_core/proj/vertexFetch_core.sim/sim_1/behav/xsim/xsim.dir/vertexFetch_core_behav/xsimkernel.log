@@ -1,0 +1,4 @@
+Running: xsim.dir/vertexFetch_core_behav/xsimk.exe -simmode gui -wdb vertexFetch_core_behav.wdb -simrunnum 0 -socket 60719
+Design successfully loaded
+Design Loading Memory Usage: 6456 KB (Peak: 6456 KB)
+Design Loading CPU Usage: 31 ms

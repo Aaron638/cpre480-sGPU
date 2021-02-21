@@ -107,16 +107,12 @@ entity sgp_renderOutput is
 		m_axi_rvalid	: in std_logic;
 		m_axi_rready	: out std_logic);
 
-
-
 attribute SIGIS : string; 
 attribute SIGIS of ACLK : signal is "Clk"; 
 
 end sgp_renderOutput;
 
-
 architecture behavioral of sgp_renderOutput is
-
 
 	-- component declaration
 	component sgp_renderOutput_axi_lite_regs is
@@ -206,9 +202,6 @@ architecture behavioral of sgp_renderOutput is
   end component dcache;
 
 
-
-
-
   type STATE_TYPE is (WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE);
   signal state        : STATE_TYPE;
    
@@ -220,7 +213,6 @@ architecture behavioral of sgp_renderOutput is
   signal renderoutput_stride        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_height        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-
 
 
   signal input_fragment	            : vertexVector_t;
@@ -381,7 +373,38 @@ begin
 
     -- The vertexArray_t data types will make this code look much cleaner
     input_fragment_array <= to_vertexArray_t(input_fragment);
+
+-- input_fragment_array contains all the data needed to generate a pixel. It is a vertex_array_t, which is a custom type
+-- We can convert it to a vertexRecord_t, and obtain 4 attributes as shown in sgp_types.vhd
+--            att0 : attributeRecord_t;  -- Attribute 0 (e.g. 'position')
+--            att1 : attributeRecord_t;  -- Attribute 1 (e.g. 'color')
+--            att2 : attributeRecord_t;  -- Attribute 2 (e.g. 'normal')
+--            att3 : attributeRecord_t;  -- Attribute 3 (e.g. 'texCoord')
+
+--              signal x_pos_fixed                : fixed_t;
+--              signal x_pos_short                : signed(15 downto 0);
+--              signal x_pos_short_reg            : signed(15 downto 0);
+--              signal y_pos_fixed                : fixed_t;
+--              signal y_pos_short                : signed(15 downto 0);
+--              signal y_pos_short_reg            : signed(15 downto 0);
+--              signal frag_address               : signed(31 downto 0);
+--              signal frag_color                 : std_logic_vector(31 downto 0);
+--              signal a_color                    : wfixed_t;
+--              signal r_color                    : wfixed_t;
+--              signal g_color                    : wfixed_t;
+--              signal b_color                    : wfixed_t;
+--              signal a_color_reg                : std_logic_vector(7 downto 0);
+--              signal r_color_reg                : std_logic_vector(7 downto 0);
+--              signal g_color_reg                : std_logic_vector(7 downto 0);
+--              signal b_color_reg                : std_logic_vector(7 downto 0);
+    x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
+    y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
     
+    r_color <= to_vertexRecord_t(input_fragment_array).att1.x;
+    g_color <= to_vertexRecord_t(input_fragment_array).att1.y;
+    b_color <= to_vertexRecord_t(input_fragment_array).att1.z;
+    a_color <= to_vertexRecord_t(input_fragment_array).att1.w;
+
     -- Our framebuffer is currently ARBG, so we have to re-assemble a bit. We only need the integer values now
   
 
@@ -410,19 +433,39 @@ begin
         b_color_reg     <= (others => '0');
         g_color_reg     <= (others => '0');
 
-
       else
         case state is
-
             -- Wait here until we receive a fragment
             -- Consider looking at TLAST to determine cache flushability
             when WAIT_FOR_FRAGMENT =>
                 if (S_AXIS_TVALID = '1') then
                     input_fragment <= signed(S_AXIS_TDATA);
                     state <= GEN_ADDRESS;
+                    --if TLAST = '1' then mem_cacheable <= '1'??
                 end if;
-
-            when others =>
+            -- If we have valid data, generate the address value
+            -- To generate the address value, we have to interact with the global framebuffer memory
+            -- To do this, we handshake with s_axi_lite instead of the S_AXIS
+            -- sgp_graphics.c has the addressses for the color buffers, we see that SGP_RENDER_OUTPUT is at 0x44A90000
+            -- 0x44A90000 + Offset
+           
+            when GEN_ADDRESS =>
+                
+                
+--                mem_addr <= signed();
+                state <= WRITE_ADDRESS;
+            --Wait for S_AXI to write back
+            when WAIT_FOR_RESPONSE =>
+                if (mem_writeback = '1') then
+                    
+                    state <= WRITE_ADDRESS;
+                end if;
+            when WRITE_ADDRESS =>
+                if (m_axi_wready = '1') then
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
+            when others => 
+                state <= WAIT_FOR_FRAGMENT;
         end case;
       end if;
     end if;
