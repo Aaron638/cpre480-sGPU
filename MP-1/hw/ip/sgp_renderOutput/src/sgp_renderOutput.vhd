@@ -387,8 +387,6 @@ begin
 --              signal y_pos_fixed                : fixed_t;
 --              signal y_pos_short                : signed(15 downto 0);
 --              signal y_pos_short_reg            : signed(15 downto 0);
---              signal frag_address               : signed(31 downto 0);
---              signal frag_color                 : std_logic_vector(31 downto 0);
 --              signal a_color                    : wfixed_t;
 --              signal r_color                    : wfixed_t;
 --              signal g_color                    : wfixed_t;
@@ -443,18 +441,46 @@ begin
                     state <= GEN_ADDRESS;
                     --if TLAST = '1' then mem_cacheable <= '1'??
                 end if;
-            -- If we have valid data, generate the address value
-            -- To generate the address value, we have to interact with the global framebuffer memory
-            -- To do this, we handshake with s_axi_lite instead of the S_AXIS
-            -- sgp_graphics.c has the addressses for the color buffers, we see that SGP_RENDER_OUTPUT is at 0x44A90000
-            -- 0x44A90000 + Offset
-           
-            when GEN_ADDRESS =>
                 
+            -- If we have valid data, generate the address value
+            -- To generate the address value, we have to get info from the global framebuffer memory
+            -- The dcache is a fragment cache which has a copy of the framebuffer memory I think.
+            -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
+            -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
+            -- The config will tell us whether COLORBUFFER_1 or 2 is the backbuffer
+            -- sgp_graphics.h defines SGP_AXI_RENDEROUTPUT_COLORBUFFER as the renderOutput register 0x0000
+            --
+            -- TODO: Conduct a handshake using the signals connected to axi_lite. We want to obtain the render_output config at 0x0000
+            
+--            Parker Bibus: My understanding, and current implementation of the cache signals, 
+--            follows that the data cache sets mem_accept high when it is ready to recieve data, 
+--            at which point the write and data signals can be set, and finally the cache will 
+--            set mem_ack high once it has recieved the data write.
+
+            when GEN_ADDRESS =>
+                --When mem_accept is 1, the dcache is ready
+                if (mem_accept = '1') then
+                    
+                
+                end if;
                 
 --                mem_addr <= signed();
-                state <= WRITE_ADDRESS;
-            --Wait for S_AXI to write back
+                state <= WAIT_FOR_RESPONSE;
+                
+            -- I think what we'll recieve is the address in the global framebuffer, or: 0 = COLORBUFFER_1/ 1 = COLORBUFFER_2
+            -- COLORBUFFER_1 0x00000000 to 0x007E8FFC = 8,294,396
+            -- COLORBUFFER_2 0x007E9000 to 0x00FD1FFC
+            
+            -- Let's say the backbuffer is COLORBUFFER_2, which is true for frame 1. (They're swapped every other frame)
+            -- "The stride length of our framebuffer is fixed at 1920 words (7680 bytes), independent of the viewport and selected resolution. This can be hard-coded in your design." - from MP-1.pdf
+            -- Say we want to plot the pixel at (0, 0), which is in the exact middle of the screen
+            -- So we write the color word (0x007FBFFF the example in MP-1.pdf) to the addr: (1920/2 + 0) * (1080/2 + 0)
+
+            -- 1920/2 = 0x3C0 | 1080/2 = 0x21C
+--            mem_addr <= to_stdlogicvector(signed((1920/2 + x_pos_short_reg) * (1080/2 + y_pos_short_reg)));
+            mem_addr <= std_logic_vector(signed((x"3C0" + x_pos_short_reg) * (x"21C" + y_pos_short_reg)));
+            mem_data_wr <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
+            
             when WAIT_FOR_RESPONSE =>
                 if (mem_writeback = '1') then
                     
