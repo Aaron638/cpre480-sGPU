@@ -54,7 +54,7 @@ module sgp_viewPort_tb;
 		.C_NUM_VERTEX_ATTRIB(c_num_vertex_attrib)
     ) sgp_viewPort_dut (
         .ACLK   (aclk),
-        .ARSETN (arsetn),
+        .ARESETN (arsetn),
 
 		// Ports of AXI-Lite slave interface
 		.s_axi_lite_awaddr  (s_axi_lite_araddr),
