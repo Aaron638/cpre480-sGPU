@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a200tsbg484-1" LaunchTime="1613850957">
+  <File Type="BITSTR-BMM" Name="sgp_viewPort_bd.bmm"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="sgp_viewPort_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="sgp_viewPort_timing_summary_init.rpt"/>
+  <File Type="ROUTE-PWR" Name="sgp_viewPort_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="sgp_viewPort.tcl"/>
+  <File Type="OPT-TIMING" Name="sgp_viewPort_timing_summary_opted.rpt"/>
+  <File Type="OPT-DCP" Name="sgp_viewPort_opt.dcp"/>
+  <File Type="ROUTE-PWR-SUM" Name="sgp_viewPort_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="sgp_viewPort_reports.tcl"/>
+  <File Type="OPT-DRC" Name="sgp_viewPort_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="sgp_viewPort.hwdef"/>
+  <File Type="PWROPT-DCP" Name="sgp_viewPort_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="sgp_viewPort_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="sgp_viewPort_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="sgp_viewPort_placed.dcp"/>
+  <File Type="PLACE-IO" Name="sgp_viewPort_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="sgp_viewPort_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="sgp_viewPort_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="sgp_viewPort_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="sgp_viewPort_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="sgp_viewPort_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="sgp_viewPort_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="sgp_viewPort_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="sgp_viewPort_postplace_pwropt.dcp"/>
+  <File Type="BG-BIN" Name="sgp_viewPort.bin"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="sgp_viewPort_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="sgp_viewPort_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="sgp_viewPort_drc_physopted.rpt"/>
+  <File Type="BITSTR-MSK" Name="sgp_viewPort.msk"/>
+  <File Type="PHYSOPT-TIMING" Name="sgp_viewPort_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="sgp_viewPort_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="sgp_viewPort_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="sgp_viewPort_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="sgp_viewPort_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="sgp_viewPort_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="sgp_viewPort_drc_routed.rpx"/>
+  <File Type="BITSTR-MMI" Name="sgp_viewPort.mmi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="sgp_viewPort_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="sgp_viewPort_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="sgp_viewPort_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="sgp_viewPort_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="sgp_viewPort_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="sgp_viewPort_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="sgp_viewPort_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="sgp_viewPort_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="sgp_viewPort_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="sgp_viewPort_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="sgp_viewPort_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="sgp_viewPort_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="sgp_viewPort_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="sgp_viewPort_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="sgp_viewPort_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="sgp_viewPort_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="sgp_viewPort_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="sgp_viewPort_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="sgp_viewPort_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="sgp_viewPort_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="sgp_viewPort_bus_skew_postroute_physopted.pb"/>
+  <File Type="BG-BIT" Name="sgp_viewPort.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="sgp_viewPort_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BITSTR-RBT" Name="sgp_viewPort.rbt"/>
+  <File Type="BITSTR-NKY" Name="sgp_viewPort.nky"/>
+  <File Type="PDI-FILE" Name="sgp_viewPort.pdi"/>
+  <File Type="RCFI_FILE" Name="sgp_viewPort.rcfi"/>
+  <File Type="CFI_FILE" Name="sgp_viewPort.cfi"/>
+  <File Type="RNPI_FILE" Name="sgp_viewPort.rnpi"/>
+  <File Type="NPI_FILE" Name="sgp_viewPort.npi"/>
+  <File Type="RBD_FILE" Name="sgp_viewPort.rbd"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="sgp_viewPort.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="sgp_viewPort.sysdef"/>
+  <File Type="BG-BGN" Name="sgp_viewPort.bgn"/>
+  <File Type="BG-DRC" Name="sgp_viewPort.drc"/>
+  <File Type="RDI-RDI" Name="sgp_viewPort.vdi"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PPRDIR/../../sgp_types.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../src/sgp_viewPort_axi_lite_regs.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../src/sgp_viewPort.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../component.xml">
+      <FileInfo SFType="IPXACT"/>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="sgp_viewPort"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>

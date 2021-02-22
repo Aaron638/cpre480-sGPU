@@ -107,16 +107,12 @@ entity sgp_renderOutput is
 		m_axi_rvalid	: in std_logic;
 		m_axi_rready	: out std_logic);
 
-
-
 attribute SIGIS : string; 
 attribute SIGIS of ACLK : signal is "Clk"; 
 
 end sgp_renderOutput;
 
-
 architecture behavioral of sgp_renderOutput is
-
 
 	-- component declaration
 	component sgp_renderOutput_axi_lite_regs is
@@ -206,9 +202,6 @@ architecture behavioral of sgp_renderOutput is
   end component dcache;
 
 
-
-
-
   type STATE_TYPE is (WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE);
   signal state        : STATE_TYPE;
    
@@ -220,7 +213,6 @@ architecture behavioral of sgp_renderOutput is
   signal renderoutput_stride        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_height        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-
 
 
   signal input_fragment	            : vertexVector_t;
@@ -261,8 +253,12 @@ architecture behavioral of sgp_renderOutput is
   signal r_color_reg                : std_logic_vector(7 downto 0);
   signal g_color_reg                : std_logic_vector(7 downto 0);
   signal b_color_reg                : std_logic_vector(7 downto 0);
-
-
+  
+  signal a_color_reg64              : std_logic_vector(63 downto 0);
+  signal r_color_reg64              : std_logic_vector(63 downto 0);
+  signal g_color_reg64              : std_logic_vector(63 downto 0);
+  signal b_color_reg64              : std_logic_vector(63 downto 0);
+  
 begin
 
 
@@ -354,7 +350,6 @@ begin
         axi_arburst_o       => m_axi_arburst,
         axi_rready_o        => m_axi_rready);
 
-
   -- Many of the AXI signals can be hard-coded for our purposes. 
     m_axi_awsize   <= "010";             -- AXI Write Burst Size. Set to 2 for 2^2=4 bytes for the write
     m_axi_awlock   <= '0';               -- AXI Write Lock. Not supported in AXI-4
@@ -375,54 +370,136 @@ begin
     mem_writeback   <= renderoutput_cachectrl(2);   -- Writeback request to memory through cache
     mem_flush       <= renderoutput_cachectrl(3);   -- Flush entire cache
 
-
-    S_AXIS_TREADY <= '1' when state = WAIT_FOR_FRAGMENT else
-                     '0';
+    S_AXIS_TREADY <= '1' when state = WAIT_FOR_FRAGMENT else '0';         
 
     -- The vertexArray_t data types will make this code look much cleaner
     input_fragment_array <= to_vertexArray_t(input_fragment);
+
+    -- Unpack the fragment here:
+    -- We can convert it to a vertexRecord_t, and obtain attributes as shown in sgp_types.vhd
+    --            att0 : attributeRecord_t;  -- Attribute 0 (e.g. 'position')
+    --            att1 : attributeRecord_t;  -- Attribute 1 (e.g. 'color')
     
     -- Our framebuffer is currently ARBG, so we have to re-assemble a bit. We only need the integer values now
-  
+    
+    x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
+    y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
+    
+    a_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.x);
+    r_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.y);
+    b_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.z);
+    g_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.w);
 
-  -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
-  -- It would also be useful to connect internal signals to this register for software debug purposes
-  renderoutput_debug <= x"00000001";
+    -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
+    -- It would also be useful to connect internal signals to this register for software debug purposes
+    renderoutput_debug <= x"00000001";
 
-  -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
-  -- and generate an AXI Write request based on that data.
-   process (ACLK) is
-   begin 
+    -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
+    -- and generate an AXI Write request based on that data.
+    process (ACLK) is
+    begin 
     if rising_edge(ACLK) then  
-      if ARESETN = '0' then    
+        if ARESETN = '0' then    
 
-        -- Start at WAIT_FOR_FRAGMENT and initialize all other registers
-        state           <= WAIT_FOR_FRAGMENT;
-        mem_addr        <= (others => '0');
-        mem_data_wr     <= (others => '0');
-        mem_rd          <= '0';
-        mem_wr          <= (others => '0');
-        input_fragment  <= vertexVector_t_zero;
-        x_pos_short_reg <= (others => '0');
-        y_pos_short_reg <= (others => '0');
-        a_color_reg     <= (others => '0');
-        r_color_reg     <= (others => '0');
-        b_color_reg     <= (others => '0');
-        g_color_reg     <= (others => '0');
+            -- Start at WAIT_FOR_FRAGMENT and initialize all other registers
+            state           <= WAIT_FOR_FRAGMENT;
+            mem_addr        <= (others => '0');
+            mem_data_wr     <= (others => '0');
+            mem_rd          <= '0';
+            mem_wr          <= (others => '0');
+            input_fragment  <= vertexVector_t_zero;
+            x_pos_short_reg <= (others => '0');
+            y_pos_short_reg <= (others => '0');
+            a_color_reg     <= (others => '0');
+            r_color_reg     <= (others => '0');
+            b_color_reg     <= (others => '0');
+            g_color_reg     <= (others => '0');
 
-
-      else
+        else
         case state is
-
             -- Wait here until we receive a fragment
             -- Consider looking at TLAST to determine cache flushability
             when WAIT_FOR_FRAGMENT =>
                 if (S_AXIS_TVALID = '1') then
                     input_fragment <= signed(S_AXIS_TDATA);
                     state <= GEN_ADDRESS;
+                    --if TLAST = '1' then mem_cacheable <= '1'??
                 end if;
+               
+            -- To generate the address value, we have to get info from the global framebuffer memory
+            -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
+            -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
+            -- The config will tell us whether COLORBUFFER_1 or 2 is the backbuffer
+            -- sgp_graphics.h defines SGP_AXI_RENDEROUTPUT_COLORBUFFER as the renderOutput register 0x0000
 
-            when others =>
+            when GEN_ADDRESS =>
+                -- xvp and yvp are Q16.16s that need to be converted into signed ints
+                -- Round if fraction >= 0.5
+                if (x_pos_fixed(15) = '1') then
+                    x_pos_short_reg <= x_pos_fixed(31 downto 16) + 1;
+                else
+                    x_pos_short_reg <= x_pos_fixed(31 downto 16);
+                end if;
+                
+                if (y_pos_fixed(15) = '1') then
+                    y_pos_short_reg <= y_pos_fixed(31 downto 16) + 1;
+                else
+                    y_pos_short_reg <= y_pos_fixed(31 downto 16);
+                end if;
+                
+                -- Convert colors into ungisned ints
+                -- 1.0 = 255, 0.5 = 127
+                -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
+                -- Truncate color to a fixed_t
+                -- 32 bits * 32 bits => 64 bit result
+                r_color_reg64 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
+                g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
+                b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
+                a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+                
+                -- Want the first 8 integer bits of the integer result
+                r_color_reg     <= r_color_reg64(39 downto 32);
+                g_color_reg     <= g_color_reg64(39 downto 32);
+                b_color_reg     <= b_color_reg64(39 downto 32);
+                a_color_reg     <= a_color_reg64(39 downto 32);
+                
+                -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
+                -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
+                
+                -- Viewport handles the conversion of coordinates.
+                -- Every 4 bits in COLORBUFFER represents a pixel
+                -- COLORBUFFER is a 1D array, so the conversion from vp coords to memory address is:
+                -- baseaddr + (1920 * 4 * yvp) + (4 * x)
+                
+                frag_address    <= signed(renderoutput_colorbuffer) + (1920 * 4 * y_pos_short_reg) + (x_pos_short_reg * 4) ;
+                frag_color      <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
+                
+                state <= WRITE_ADDRESS;
+                
+            -- Parker Bibus: ... the data cache sets mem_accept high when it is ready to recieve data, 
+            -- at which point the write and data signals can be set, and finally the cache will 
+            -- set mem_ack high once it has recieved the data write.
+            -- Parker Bibus: The signals I am using include mem_addr for the address to write to, 
+            -- mem_data_wr for the data to write to the address, and mem_wr for the bytes to write 
+            -- to at the address which in this case should be "1111" since we are writing 
+            -- to all 4 bytes of the data signal.
+            when WRITE_ADDRESS =>
+                if (mem_accept = '1') then
+                    mem_addr        <= std_logic_vector(frag_address);
+                    mem_data_wr     <= frag_color;
+                    mem_rd          <= '0';
+                    mem_wr          <= "1111";  
+                    state <= WAIT_FOR_RESPONSE;
+                end if;
+                
+            -- Once the data has been recieved, we reset
+            when WAIT_FOR_RESPONSE =>
+                if (mem_ack = '1') then
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
+                
+            when others => 
+                state <= WAIT_FOR_FRAGMENT;
         end case;
       end if;
     end if;

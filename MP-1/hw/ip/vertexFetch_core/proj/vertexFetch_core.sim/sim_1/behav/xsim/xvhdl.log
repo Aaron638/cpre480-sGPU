@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "U:/cpre480/MP-1/hw/ip/vertexFetch_core/src/vertexFetch_axi_lite_regs.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'vertexFetch_axi_lite_regs'
+INFO: [VRFC 10-163] Analyzing VHDL file "U:/cpre480/MP-1/hw/ip/vertexFetch_core/src/vertexFetch_core.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'vertexFetch_core'
