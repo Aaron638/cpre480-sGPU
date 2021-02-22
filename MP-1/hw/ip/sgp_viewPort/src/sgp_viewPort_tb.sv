@@ -1,9 +1,9 @@
 module sgp_viewPort_tb;
     timeunit 1ns;
 
-    integer c_s_axi_data_width = 32;
-    integer c_s_axi_addr_width = 10;
-    integer c_num_vertex_attrib = 4;
+    localparam c_s_axi_data_width = 32;
+    localparam c_s_axi_addr_width = 10;
+    localparam c_num_vertex_attrib = 4;
 
     logic aclk;
     logic arsetn;
@@ -48,13 +48,13 @@ module sgp_viewPort_tb;
         #5 aclk = 0;    
     end
 
-    sgp_viewPort_dut # (
+    sgp_viewPort # (
         .C_S_AXI_DATA_WIDTH(c_s_axi_data_width),
 		.C_S_AXI_ADDR_WIDTH(c_s_axi_addr_width),
 		.C_NUM_VERTEX_ATTRIB(c_num_vertex_attrib)
-    ) spg_viewPort (
+    ) sgp_viewPort_dut (
         .ACLK   (aclk),
-        .ARSETN (arsetn),
+        .ARESETN (arsetn),
 
 		// Ports of AXI-Lite slave interface
 		.s_axi_lite_awaddr  (s_axi_lite_araddr),
@@ -88,6 +88,6 @@ module sgp_viewPort_tb;
 		.M_AXIS_TDATA	(M_AXIS_TDATA),
 		.M_AXIS_TLAST	(M_AXIS_TLAST),
 		.M_AXIS_TREADY	(M_AXIS_TREADY)
-    )
+    );
 
 endmodule
