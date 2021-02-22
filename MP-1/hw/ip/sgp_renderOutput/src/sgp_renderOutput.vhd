@@ -374,37 +374,24 @@ begin
     -- The vertexArray_t data types will make this code look much cleaner
     input_fragment_array <= to_vertexArray_t(input_fragment);
 
--- input_fragment_array contains all the data needed to generate a pixel. It is a vertex_array_t, which is a custom type
--- We can convert it to a vertexRecord_t, and obtain 4 attributes as shown in sgp_types.vhd
---            att0 : attributeRecord_t;  -- Attribute 0 (e.g. 'position')
---            att1 : attributeRecord_t;  -- Attribute 1 (e.g. 'color')
---            att2 : attributeRecord_t;  -- Attribute 2 (e.g. 'normal')
---            att3 : attributeRecord_t;  -- Attribute 3 (e.g. 'texCoord')
-
---              signal x_pos_fixed                : fixed_t;
---              signal x_pos_short                : signed(15 downto 0);
---              signal x_pos_short_reg            : signed(15 downto 0);
---              signal y_pos_fixed                : fixed_t;
---              signal y_pos_short                : signed(15 downto 0);
---              signal y_pos_short_reg            : signed(15 downto 0);
---              signal a_color                    : wfixed_t;
---              signal r_color                    : wfixed_t;
---              signal g_color                    : wfixed_t;
---              signal b_color                    : wfixed_t;
---              signal a_color_reg                : std_logic_vector(7 downto 0);
---              signal r_color_reg                : std_logic_vector(7 downto 0);
---              signal g_color_reg                : std_logic_vector(7 downto 0);
---              signal b_color_reg                : std_logic_vector(7 downto 0);
+    -- Unpack the fragment here:
+    -- We can convert it to a vertexRecord_t, and obtain attributes as shown in sgp_types.vhd
+    --            att0 : attributeRecord_t;  -- Attribute 0 (e.g. 'position')
+    --            att1 : attributeRecord_t;  -- Attribute 1 (e.g. 'color')
+    
+    -- Our framebuffer is currently ARBG, so we have to re-assemble a bit. We only need the integer values now
+    
     x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
     y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
     
-    r_color <= to_vertexRecord_t(input_fragment_array).att1.x;
-    g_color <= to_vertexRecord_t(input_fragment_array).att1.y;
+    a_color <= to_vertexRecord_t(input_fragment_array).att1.x;
+    r_color <= to_vertexRecord_t(input_fragment_array).att1.y;
     b_color <= to_vertexRecord_t(input_fragment_array).att1.z;
-    a_color <= to_vertexRecord_t(input_fragment_array).att1.w;
-
-    -- Our framebuffer is currently ARBG, so we have to re-assemble a bit. We only need the integer values now
-  
+    g_color <= to_vertexRecord_t(input_fragment_array).att1.w;
+    
+    --Hard code stride and height to be 1920 by 1080
+    renderoutput_stride <= x"780";
+    renderoutput_height <= x"438";
 
   -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
   -- It would also be useful to connect internal signals to this register for software debug purposes
@@ -412,26 +399,26 @@ begin
 
   -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
   -- and generate an AXI Write request based on that data.
-   process (ACLK) is
-   begin 
+    process (ACLK) is
+    begin 
     if rising_edge(ACLK) then  
-      if ARESETN = '0' then    
+        if ARESETN = '0' then    
 
-        -- Start at WAIT_FOR_FRAGMENT and initialize all other registers
-        state           <= WAIT_FOR_FRAGMENT;
-        mem_addr        <= (others => '0');
-        mem_data_wr     <= (others => '0');
-        mem_rd          <= '0';
-        mem_wr          <= (others => '0');
-        input_fragment  <= vertexVector_t_zero;
-        x_pos_short_reg <= (others => '0');
-        y_pos_short_reg <= (others => '0');
-        a_color_reg     <= (others => '0');
-        r_color_reg     <= (others => '0');
-        b_color_reg     <= (others => '0');
-        g_color_reg     <= (others => '0');
+            -- Start at WAIT_FOR_FRAGMENT and initialize all other registers
+            state           <= WAIT_FOR_FRAGMENT;
+            mem_addr        <= (others => '0');
+            mem_data_wr     <= (others => '0');
+            mem_rd          <= '0';
+            mem_wr          <= (others => '0');
+            input_fragment  <= vertexVector_t_zero;
+            x_pos_short_reg <= (others => '0');
+            y_pos_short_reg <= (others => '0');
+            a_color_reg     <= (others => '0');
+            r_color_reg     <= (others => '0');
+            b_color_reg     <= (others => '0');
+            g_color_reg     <= (others => '0');
 
-      else
+        else
         case state is
             -- Wait here until we receive a fragment
             -- Consider looking at TLAST to determine cache flushability
@@ -441,8 +428,7 @@ begin
                     state <= GEN_ADDRESS;
                     --if TLAST = '1' then mem_cacheable <= '1'??
                 end if;
-                
-            -- If we have valid data, generate the address value
+               
             -- To generate the address value, we have to get info from the global framebuffer memory
             -- The dcache is a fragment cache which has a copy of the framebuffer memory I think.
             -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
@@ -458,15 +444,60 @@ begin
 --            set mem_ack high once it has recieved the data write.
 
             when GEN_ADDRESS =>
-                --When mem_accept is 1, the dcache is ready
-                if (mem_accept = '1') then
+                if (S_AXIS_TVALID = '1') then
+                    -- xvp and yvp are Q16.16s that need to be converted into signed ints
+                    -- Round if fraction >= 0.5
+                    if (x_pos_fixed(7) = '1') then
+                        x_pos_short_reg <= signed((x"00" & std_logic_vector(x_pos_fixed(15 downto 8)))) + 1;
+                    else
+                        x_pos_short_reg <= signed(x"00" & std_logic_vector(x_pos_fixed(15 downto 8)));
+                    end if;
                     
-                
+                    if (y_pos_fixed(7) = '1') then
+                        y_pos_short_reg <= signed(x"00" & std_logic_vector(y_pos_fixed(15 downto 8))) + 1;
+                    else
+                        y_pos_short_reg <= signed(x"00" & std_logic_vector(y_pos_fixed(15 downto 8)));
+                    end if;
+                    
+                    -- Convert colors into ungisned ints
+                    -- Just multiply by 255 (I'm not sure if this is doing the multiplication correctly)
+                    r_color_reg <= std_logic_vector(signed(r_color * x"FF"));
+                    g_color_reg <= std_logic_vector(signed(g_color * x"FF"));
+                    b_color_reg <= std_logic_vector(signed(b_color * x"FF"));
+                    a_color_reg <= std_logic_vector(signed(a_color * x"FF"));
+                    
+                    
+                    
+                    state <= WAIT_FOR_RESPONSE;
                 end if;
-                
---                mem_addr <= signed();
-                state <= WAIT_FOR_RESPONSE;
-                
+            when WAIT_FOR_RESPONSE =>
+                if (mem_rd = '1') then
+                    if (mem_writeback = '1') then
+                    
+                        -- Read the color buffer address from memory
+                        -- By default frag_address is COLORBUFFER_1 baseaddr
+                        frag_address <= x"00000000";
+                        -- Switch if the backbuffer is COLORBUFFER_2
+                        if (mem_data_wr = x"00000001") then
+                            frag_address <= x"007E9000";     --COLORBUFFER_2 baseaddr
+                        end if;
+                        
+                        -- Place the fragment data into the registers
+                        x_pos_short_reg <= signed(x_pos_short);
+                        y_pos_short_reg <= signed(y_pos_short);
+                        a_color_reg     <= std_logic_vector(a_color);
+                        r_color_reg     <= std_logic_vector(r_color);
+                        b_color_reg     <= std_logic_vector(b_color);
+                        g_color_reg     <= std_logic_vector(g_color);
+                    
+                        -- 
+                        mem_rd <= '0';
+                        
+                        state <= WRITE_ADDRESS;
+                    end if;
+               end if;     
+            when WRITE_ADDRESS =>
+                if (m_axi_wready = '1') then
             -- I think what we'll recieve is the address in the global framebuffer, or: 0 = COLORBUFFER_1/ 1 = COLORBUFFER_2
             -- COLORBUFFER_1 0x00000000 to 0x007E8FFC = 8,294,396
             -- COLORBUFFER_2 0x007E9000 to 0x00FD1FFC
@@ -477,17 +508,9 @@ begin
             -- So we write the color word (0x007FBFFF the example in MP-1.pdf) to the addr: (1920/2 + 0) * (1080/2 + 0)
 
             -- 1920/2 = 0x3C0 | 1080/2 = 0x21C
---            mem_addr <= to_stdlogicvector(signed((1920/2 + x_pos_short_reg) * (1080/2 + y_pos_short_reg)));
-            mem_addr <= std_logic_vector(signed((x"3C0" + x_pos_short_reg) * (x"21C" + y_pos_short_reg)));
-            mem_data_wr <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
-            
-            when WAIT_FOR_RESPONSE =>
-                if (mem_writeback = '1') then
-                    
-                    state <= WRITE_ADDRESS;
-                end if;
-            when WRITE_ADDRESS =>
-                if (m_axi_wready = '1') then
+                    -- mem_addr <= to_stdlogicvector(signed((1920/2 + x_pos_short_reg) * (1080/2 + y_pos_short_reg)));
+                    frag_address <= signed(frag_address + ((x"3C0" + x_pos_short_reg) * (x"21C" + y_pos_short_reg)));
+                    frag_color <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
                     state <= WAIT_FOR_FRAGMENT;
                 end if;
             when others => 
