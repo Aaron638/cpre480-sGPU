@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "cmath": "cpp",
-        "math.h": "c",
-        "glfw3.h": "c"
-    }
-}

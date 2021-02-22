@@ -478,6 +478,7 @@ begin
 
                         -- Once the data has been recieved, we reset
                     when WAIT_FOR_RESPONSE =>
+                        mem_wr <= "0000";
                         if (mem_ack = '1') then
                             state <= WAIT_FOR_FRAGMENT;
                         end if;
