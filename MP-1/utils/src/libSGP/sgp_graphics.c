@@ -421,21 +421,21 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		// Loop until all components are done at the same time.
 		if (SGPconfig->driverMode & SGP_ETH)
 		{
-			int all_done = 0;
-			while (all_done == 0)
-			{
-				if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
-					SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
-					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
-				{
-					all_done = 1;
-				}
-			}
+			// int all_done = 0;
+			// while (all_done == 0)
+			// {
+			// 	if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
+			// 		SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
+			// 		SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
+			// 	{
+			// 		all_done = 1;
+			// 	}
+			// }
 		}
 	}
 
-	uint8_t cur_buffer = SGP_getactivebuffer(SGPconfig);
-	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);	
+	// uint8_t cur_buffer = SGP_getactivebuffer(SGPconfig);
+	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
 	SGP_setactivebuffer(SGPconfig, backbuffer);
 
 	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
@@ -443,15 +443,15 @@ void SGP_glxSwapBuffers(uint32_t flag)
 	// Let the renderOutput module know where the backbuffer currently is
 	if (backbuffer == 0)
 	{
-		//renderOutput points to new backbuffer: COLORBUFFER_2
-		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
+		//renderOutput points to new backbuffer: COLORBUFFER_1
+		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
 		// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
 		// cur_buffer = 1;
 	}
 	else
 	{
-		//renderOutput points to new backbuffer: COLORBUFFER_1
-		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
+		//renderOutput points to new backbuffer: COLORBUFFER_2
+		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
 		// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
 		// cur_buffer = 0;
 	}
