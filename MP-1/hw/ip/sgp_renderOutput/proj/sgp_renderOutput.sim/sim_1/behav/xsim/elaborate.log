@@ -1,0 +1,33 @@
+Vivado Simulator 2020.1
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.1/bin/unwrapped/win64.o/xelab.exe -wto 95c5f32f302849179b8dc1a0350abe58 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot sgp_renderOutput_behav xil_defaultlib.sgp_renderOutput xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 4 for port 'inport_id_i' [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_axi.v:208]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.sgp_types
+Compiling package vl.vl_types
+Compiling module xil_defaultlib.glbl
+Compiling architecture arch_imp of entity xil_defaultlib.sgp_renderOutput_axi_lite_regs [sgp_renderoutput_axi_lite_regs_d...]
+Compiling module xil_defaultlib.dcache_if_pmem_fifo(WIDTH=70,DEP...
+Compiling module xil_defaultlib.dcache_if_pmem_fifo(WIDTH=11,DEP...
+Compiling module xil_defaultlib.dcache_if_pmem
+Compiling module xil_defaultlib.dcache_pmem_mux
+Compiling module xil_defaultlib.dcache_mux
+Compiling module xil_defaultlib.dcache_core_tag_ram
+Compiling module xil_defaultlib.dcache_core_data_ram
+Compiling module xil_defaultlib.dcache_core_default
+Compiling module xil_defaultlib.dcache_axi_fifo(WIDTH=77,DEPTH=2...
+Compiling module xil_defaultlib.dcache_axi_axi
+Compiling module xil_defaultlib.dcache_axi
+Compiling module xil_defaultlib.dcache(AXI_ID=0)
+Compiling architecture behavioral of entity xil_defaultlib.sgp_renderoutput
+Built simulation snapshot sgp_renderOutput_behav
