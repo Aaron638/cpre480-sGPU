@@ -253,8 +253,12 @@ architecture behavioral of sgp_renderOutput is
   signal r_color_reg                : std_logic_vector(7 downto 0);
   signal g_color_reg                : std_logic_vector(7 downto 0);
   signal b_color_reg                : std_logic_vector(7 downto 0);
-
-
+  
+  signal a_color_reg64              : std_logic_vector(63 downto 0);
+  signal r_color_reg64              : std_logic_vector(63 downto 0);
+  signal g_color_reg64              : std_logic_vector(63 downto 0);
+  signal b_color_reg64              : std_logic_vector(63 downto 0);
+  
 begin
 
 
@@ -346,7 +350,6 @@ begin
         axi_arburst_o       => m_axi_arburst,
         axi_rready_o        => m_axi_rready);
 
-
   -- Many of the AXI signals can be hard-coded for our purposes. 
     m_axi_awsize   <= "010";             -- AXI Write Burst Size. Set to 2 for 2^2=4 bytes for the write
     m_axi_awlock   <= '0';               -- AXI Write Lock. Not supported in AXI-4
@@ -367,9 +370,7 @@ begin
     mem_writeback   <= renderoutput_cachectrl(2);   -- Writeback request to memory through cache
     mem_flush       <= renderoutput_cachectrl(3);   -- Flush entire cache
 
-
-    S_AXIS_TREADY <= '1' when state = WAIT_FOR_FRAGMENT else
-                     '0';
+    S_AXIS_TREADY <= '1' when state = WAIT_FOR_FRAGMENT else '0';         
 
     -- The vertexArray_t data types will make this code look much cleaner
     input_fragment_array <= to_vertexArray_t(input_fragment);
@@ -388,17 +389,13 @@ begin
     r_color <= to_vertexRecord_t(input_fragment_array).att1.y;
     b_color <= to_vertexRecord_t(input_fragment_array).att1.z;
     g_color <= to_vertexRecord_t(input_fragment_array).att1.w;
-    
-    --Hard code stride and height to be 1920 by 1080
-    renderoutput_stride <= x"780";
-    renderoutput_height <= x"438";
 
-  -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
-  -- It would also be useful to connect internal signals to this register for software debug purposes
-  renderoutput_debug <= x"00000001";
+    -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
+    -- It would also be useful to connect internal signals to this register for software debug purposes
+    renderoutput_debug <= x"00000001";
 
-  -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
-  -- and generate an AXI Write request based on that data.
+    -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
+    -- and generate an AXI Write request based on that data.
     process (ACLK) is
     begin 
     if rising_edge(ACLK) then  
@@ -430,89 +427,77 @@ begin
                 end if;
                
             -- To generate the address value, we have to get info from the global framebuffer memory
-            -- The dcache is a fragment cache which has a copy of the framebuffer memory I think.
             -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
             -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
             -- The config will tell us whether COLORBUFFER_1 or 2 is the backbuffer
             -- sgp_graphics.h defines SGP_AXI_RENDEROUTPUT_COLORBUFFER as the renderOutput register 0x0000
-            --
-            -- TODO: Conduct a handshake using the signals connected to axi_lite. We want to obtain the render_output config at 0x0000
-            
---            Parker Bibus: My understanding, and current implementation of the cache signals, 
---            follows that the data cache sets mem_accept high when it is ready to recieve data, 
---            at which point the write and data signals can be set, and finally the cache will 
---            set mem_ack high once it has recieved the data write.
 
             when GEN_ADDRESS =>
-                if (S_AXIS_TVALID = '1') then
-                    -- xvp and yvp are Q16.16s that need to be converted into signed ints
-                    -- Round if fraction >= 0.5
-                    if (x_pos_fixed(7) = '1') then
-                        x_pos_short_reg <= signed((x"00" & std_logic_vector(x_pos_fixed(15 downto 8)))) + 1;
-                    else
-                        x_pos_short_reg <= signed(x"00" & std_logic_vector(x_pos_fixed(15 downto 8)));
-                    end if;
-                    
-                    if (y_pos_fixed(7) = '1') then
-                        y_pos_short_reg <= signed(x"00" & std_logic_vector(y_pos_fixed(15 downto 8))) + 1;
-                    else
-                        y_pos_short_reg <= signed(x"00" & std_logic_vector(y_pos_fixed(15 downto 8)));
-                    end if;
-                    
-                    -- Convert colors into ungisned ints
-                    -- Just multiply by 255 (I'm not sure if this is doing the multiplication correctly)
-                    r_color_reg <= std_logic_vector(signed(r_color * x"FF"));
-                    g_color_reg <= std_logic_vector(signed(g_color * x"FF"));
-                    b_color_reg <= std_logic_vector(signed(b_color * x"FF"));
-                    a_color_reg <= std_logic_vector(signed(a_color * x"FF"));
-                    
-                    
-                    
+                -- xvp and yvp are Q16.16s that need to be converted into signed ints
+                -- Round if fraction >= 0.5
+                if (x_pos_fixed(15) = '1') then
+                    x_pos_short_reg <= x_pos_fixed(31 downto 16) + 1;
+                else
+                    x_pos_short_reg <= x_pos_fixed(31 downto 16);
+                end if;
+                
+                if (y_pos_fixed(15) = '1') then
+                    y_pos_short_reg <= y_pos_fixed(31 downto 16) + 1;
+                else
+                    y_pos_short_reg <= y_pos_fixed(31 downto 16);
+                end if;
+                
+                -- Convert colors into ungisned ints
+                -- 1.0 = 255, 0.5 = 127
+                -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
+                -- Truncate color to a fixed_t
+                -- 32 bits * 32 bits => 64 bit result
+                r_color_reg64 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
+                g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
+                b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
+                a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+                
+                -- Want the first 8 integer bits of the integer result
+                r_color_reg     <= r_color_reg64(40 downto 32);
+                g_color_reg     <= g_color_reg64(40 downto 32);
+                b_color_reg     <= b_color_reg64(40 downto 32);
+                a_color_reg     <= a_color_reg64(40 downto 32);
+                
+                -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
+                -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
+                
+                -- Viewport handles the conversion of coordinates.
+                -- Every 4 bits in COLORBUFFER represents a pixel
+                -- COLORBUFFER is a 1D array, so the conversion from vp coords to memory address is:
+                -- baseaddr + (1920 * 4 * yvp) + (4 * x)
+                
+                frag_address    <= signed(renderoutput_colorbuffer) + (1920 * 4 * y_pos_short_reg) + (x_pos_short_reg * 4) ;
+                frag_color      <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
+                
+                state <= WRITE_ADDRESS;
+                
+            -- Parker Bibus: ... the data cache sets mem_accept high when it is ready to recieve data, 
+            -- at which point the write and data signals can be set, and finally the cache will 
+            -- set mem_ack high once it has recieved the data write.
+            -- Parker Bibus: The signals I am using include mem_addr for the address to write to, 
+            -- mem_data_wr for the data to write to the address, and mem_wr for the bytes to write 
+            -- to at the address which in this case should be "1111" since we are writing 
+            -- to all 4 bytes of the data signal.
+            when WRITE_ADDRESS =>
+                if (mem_accept = '1') then
+                    mem_addr        <= std_logic_vector(frag_address);
+                    mem_data_wr     <= frag_color;
+                    mem_rd          <= '0';
+                    mem_wr          <= "1111";  
                     state <= WAIT_FOR_RESPONSE;
                 end if;
+                
+            -- Once the data has been recieved, we reset
             when WAIT_FOR_RESPONSE =>
-                if (mem_rd = '1') then
-                    if (mem_writeback = '1') then
-                    
-                        -- Read the color buffer address from memory
-                        -- By default frag_address is COLORBUFFER_1 baseaddr
-                        frag_address <= x"00000000";
-                        -- Switch if the backbuffer is COLORBUFFER_2
-                        if (mem_data_wr = x"00000001") then
-                            frag_address <= x"007E9000";     --COLORBUFFER_2 baseaddr
-                        end if;
-                        
-                        -- Place the fragment data into the registers
-                        x_pos_short_reg <= signed(x_pos_short);
-                        y_pos_short_reg <= signed(y_pos_short);
-                        a_color_reg     <= std_logic_vector(a_color);
-                        r_color_reg     <= std_logic_vector(r_color);
-                        b_color_reg     <= std_logic_vector(b_color);
-                        g_color_reg     <= std_logic_vector(g_color);
-                    
-                        -- 
-                        mem_rd <= '0';
-                        
-                        state <= WRITE_ADDRESS;
-                    end if;
-               end if;     
-            when WRITE_ADDRESS =>
-                if (m_axi_wready = '1') then
-            -- I think what we'll recieve is the address in the global framebuffer, or: 0 = COLORBUFFER_1/ 1 = COLORBUFFER_2
-            -- COLORBUFFER_1 0x00000000 to 0x007E8FFC = 8,294,396
-            -- COLORBUFFER_2 0x007E9000 to 0x00FD1FFC
-            
-            -- Let's say the backbuffer is COLORBUFFER_2, which is true for frame 1. (They're swapped every other frame)
-            -- "The stride length of our framebuffer is fixed at 1920 words (7680 bytes), independent of the viewport and selected resolution. This can be hard-coded in your design." - from MP-1.pdf
-            -- Say we want to plot the pixel at (0, 0), which is in the exact middle of the screen
-            -- So we write the color word (0x007FBFFF the example in MP-1.pdf) to the addr: (1920/2 + 0) * (1080/2 + 0)
-
-            -- 1920/2 = 0x3C0 | 1080/2 = 0x21C
-                    -- mem_addr <= to_stdlogicvector(signed((1920/2 + x_pos_short_reg) * (1080/2 + y_pos_short_reg)));
-                    frag_address <= signed(frag_address + ((x"3C0" + x_pos_short_reg) * (x"21C" + y_pos_short_reg)));
-                    frag_color <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
+                if (mem_ack = '1') then
                     state <= WAIT_FOR_FRAGMENT;
                 end if;
+                
             when others => 
                 state <= WAIT_FOR_FRAGMENT;
         end case;
