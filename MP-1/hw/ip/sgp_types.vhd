@@ -45,6 +45,8 @@ package sgp_types is
     subtype fixed_t is signed(C_SGP_INTEGER_BITS+C_SGP_FIXED_BITS-1 downto 0);
     constant fixed_t_zero : fixed_t := (others => '0');    
     constant fixed_t_one  : fixed_t  := x"00010000";
+
+    constant fixed_t_twofivefive : fixed_t := x"00FF0000";
     
     -- Q32.32 for wide fixed-point data (e.g. for after multiplication)
     subtype wfixed_t is signed((fixed_t'length*2)-1 downto 0);

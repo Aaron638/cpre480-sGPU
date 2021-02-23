@@ -365,14 +365,6 @@ begin
     --            att1 : attributeRecord_t;  -- Attribute 1 (e.g. 'color')
 
     -- Our framebuffer is currently ARBG, so we have to re-assemble a bit. We only need the integer values now
-
-    x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
-    y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
-
-    a_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.x);
-    r_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.y);
-    b_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.z);
-    g_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.w);
     
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
@@ -437,18 +429,20 @@ begin
                         -- Truncate color to a fixed_t
                         -- 32 bits * 32 bits => 64 bit result
                         -- Currently x_color is a 64 bit value.
-                        
-                        r_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(r_color)) * x"00FF0000");
-                        g_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(g_color)) * x"00FF0000");
-                        b_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(b_color)) * x"00FF0000");
-                        a_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(a_color)) * x"00FF0000");
 
+                        x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
+                        y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
+                    
+                        a_color <= to_vertexRecord_t(input_fragment_array).att1.x * fixed_t_twofivefive;
+                        r_color <= to_vertexRecord_t(input_fragment_array).att1.y * fixed_t_twofivefive;
+                        b_color <= to_vertexRecord_t(input_fragment_array).att1.z * fixed_t_twofivefive;
+                        g_color <= to_vertexRecord_t(input_fragment_array).att1.w * fixed_t_twofivefive;
                         
                         -- Want the first 8 integer bits of the integer result
-                        r_color_reg <= r_color_reg64(39 downto 32);
-                        g_color_reg <= g_color_reg64(39 downto 32);
-                        b_color_reg <= b_color_reg64(39 downto 32);
-                        a_color_reg <= a_color_reg64(39 downto 32);
+                        r_color_reg <= r_color(39 downto 32);
+                        g_color_reg <= g_color(39 downto 32);
+                        b_color_reg <= b_color(39 downto 32);
+                        a_color_reg <= a_color(39 downto 32);
 
                         -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
                         -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
