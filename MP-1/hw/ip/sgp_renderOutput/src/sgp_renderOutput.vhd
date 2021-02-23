@@ -232,15 +232,18 @@ architecture behavioral of sgp_renderOutput is
     signal y_pos_short_reg : signed(15 downto 0);
     signal frag_address    : signed(31 downto 0);
     signal frag_color      : std_logic_vector(31 downto 0);
-    signal a_color         : wfixed_t;
-    signal r_color         : wfixed_t;
-    signal g_color         : wfixed_t;
-    signal b_color         : wfixed_t;
+    signal a_color         : fixed_t;
+    signal r_color         : fixed_t;
+    signal g_color         : fixed_t;
+    signal b_color         : fixed_t;
     signal a_color_reg     : std_logic_vector(7 downto 0);
     signal r_color_reg     : std_logic_vector(7 downto 0);
     signal g_color_reg     : std_logic_vector(7 downto 0);
     signal b_color_reg     : std_logic_vector(7 downto 0);
-
+    
+    signal t0              : vertexRecord_t;
+    signal t1              : attributeRecord_t;
+    signal t2              : fixed_t;
 begin
     -- Instantiation of Axi Bus Interface S_AXI_LITE
     sgp_renderOutput_axi_lite_regs_inst : sgp_renderOutput_axi_lite_regs
@@ -363,7 +366,12 @@ begin
     
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
-    renderoutput_debug <= x"00000001";
+    renderoutput_debug <= x"00000006";
+    
+    a_color <= input_fragment_array(1)(0);
+    r_color <= input_fragment_array(1)(1);
+    b_color <= input_fragment_array(1)(2);
+    g_color <= input_fragment_array(1)(3);
 
     -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
     -- and generate an AXI Write request based on that data.
@@ -427,17 +435,12 @@ begin
 
                         x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
                         y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
-                    
-                        a_color <= to_vertexRecord_t(input_fragment_array).att1.x * fixed_t_twofivefive;
-                        r_color <= to_vertexRecord_t(input_fragment_array).att1.y * fixed_t_twofivefive;
-                        b_color <= to_vertexRecord_t(input_fragment_array).att1.z * fixed_t_twofivefive;
-                        g_color <= to_vertexRecord_t(input_fragment_array).att1.w * fixed_t_twofivefive;
                         
                         -- Want the first 8 integer bits of the integer result
-                        r_color_reg <= std_logic_vector(signed(r_color(39 downto 32)));
-                        g_color_reg <= std_logic_vector(signed(g_color(39 downto 32)));
-                        b_color_reg <= std_logic_vector(signed(b_color(39 downto 32)));
-                        a_color_reg <= std_logic_vector(signed(a_color(39 downto 32)));
+                        r_color_reg <= std_logic_vector(signed(r_color(23 downto 16)));
+                        g_color_reg <= std_logic_vector(signed(g_color(23 downto 16)));
+                        b_color_reg <= std_logic_vector(signed(b_color(23 downto 16)));
+                        a_color_reg <= std_logic_vector(signed(a_color(23 downto 16)));
 
                         -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
                         -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
