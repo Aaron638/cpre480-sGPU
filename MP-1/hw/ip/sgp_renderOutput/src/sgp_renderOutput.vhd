@@ -373,7 +373,7 @@ begin
     r_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.y);
     b_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.z);
     g_color <= fixed_t_to_wfixed_t(to_vertexRecord_t(input_fragment_array).att1.w);
-
+    
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
     renderoutput_debug <= x"00000001";
@@ -431,16 +431,19 @@ begin
                             y_pos_short_reg <= y_pos_fixed(31 downto 16);
                         end if;
 
-                        -- Convert colors into ungisned ints
+                        -- Convert colors into unsigned ints
                         -- 1.0 = 255, 0.5 = 127
                         -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
                         -- Truncate color to a fixed_t
                         -- 32 bits * 32 bits => 64 bit result
-                        r_color_reg64 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
-                        g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
-                        b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
-                        a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+                        -- Currently x_color is a 64 bit value.
+                        
+                        r_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(r_color)) * x"00FF0000");
+                        g_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(g_color)) * x"00FF0000");
+                        b_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(b_color)) * x"00FF0000");
+                        a_color_reg64 <= std_logic_vector(unsigned(wfixed_t_to_fixed_t(a_color)) * x"00FF0000");
 
+                        
                         -- Want the first 8 integer bits of the integer result
                         r_color_reg <= r_color_reg64(39 downto 32);
                         g_color_reg <= g_color_reg64(39 downto 32);
