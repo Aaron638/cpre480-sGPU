@@ -1,0 +1,35 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_axi.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_axi
+INFO: [VRFC 10-311] analyzing module dcache_axi_fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_axi_axi.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_axi_axi
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_core
+WARNING: [VRFC 10-3380] identifier 'tag_hit_any_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:205]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:261]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:266]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:270]
+WARNING: [VRFC 10-3380] identifier 'tag0_hit_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:329]
+WARNING: [VRFC 10-3380] identifier 'tag0_hit_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:341]
+WARNING: [VRFC 10-3380] identifier 'tag1_hit_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:385]
+WARNING: [VRFC 10-3380] identifier 'tag1_hit_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:397]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:450]
+WARNING: [VRFC 10-3380] identifier 'data0_data_out_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:452]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:458]
+WARNING: [VRFC 10-3380] identifier 'data0_data_out_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:460]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:465]
+WARNING: [VRFC 10-3380] identifier 'data1_data_out_m_w' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:467]
+WARNING: [VRFC 10-3380] identifier 'flush_addr_q' is used before its declaration [U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core.v:513]
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core_data_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_core_data_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_core_tag_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_core_tag_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_if_pmem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_if_pmem
+INFO: [VRFC 10-311] analyzing module dcache_if_pmem_fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_mux.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_mux
+INFO: [VRFC 10-2263] Analyzing Verilog file "U:/cpre480/MP-1/hw/ip/sgp_renderOutput/src/dcache/dcache_pmem_mux.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dcache_pmem_mux

@@ -241,11 +241,6 @@ architecture behavioral of sgp_renderOutput is
     signal g_color_reg     : std_logic_vector(7 downto 0);
     signal b_color_reg     : std_logic_vector(7 downto 0);
 
-    signal a_color_reg64 : std_logic_vector(63 downto 0);
-    signal r_color_reg64 : std_logic_vector(63 downto 0);
-    signal g_color_reg64 : std_logic_vector(63 downto 0);
-    signal b_color_reg64 : std_logic_vector(63 downto 0);
-
 begin
     -- Instantiation of Axi Bus Interface S_AXI_LITE
     sgp_renderOutput_axi_lite_regs_inst : sgp_renderOutput_axi_lite_regs
@@ -439,10 +434,10 @@ begin
                         g_color <= to_vertexRecord_t(input_fragment_array).att1.w * fixed_t_twofivefive;
                         
                         -- Want the first 8 integer bits of the integer result
-                        r_color_reg <= r_color(39 downto 32);
-                        g_color_reg <= g_color(39 downto 32);
-                        b_color_reg <= b_color(39 downto 32);
-                        a_color_reg <= a_color(39 downto 32);
+                        r_color_reg <= std_logic_vector(signed(r_color(39 downto 32)));
+                        g_color_reg <= std_logic_vector(signed(g_color(39 downto 32)));
+                        b_color_reg <= std_logic_vector(signed(b_color(39 downto 32)));
+                        a_color_reg <= std_logic_vector(signed(a_color(39 downto 32)));
 
                         -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
                         -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
