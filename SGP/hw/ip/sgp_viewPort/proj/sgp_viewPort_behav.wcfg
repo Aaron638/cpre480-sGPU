@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="sgp_viewPort_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="sgp_types" />
+            <top_module name="sgp_viewPort" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="35499fs"></ZoomStartTime>
+      <ZoomEndTime time="250700fs"></ZoomEndTime>
+      <Cursor1Time time="87899fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="407"></NameColumnWidth>
+      <ValueColumnWidth column_width="118"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="51" />
+   <wvobject fp_name="/sgp_viewPort/ACLK" type="logic">
+      <obj_property name="ElementShortName">ACLK</obj_property>
+      <obj_property name="ObjectShortName">ACLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/ARESETN" type="logic">
+      <obj_property name="ElementShortName">ARESETN</obj_property>
+      <obj_property name="ObjectShortName">ARESETN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_awaddr" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_awaddr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_awaddr[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_awprot" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_awprot[2:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_awprot[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_awvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_awvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_awvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_awready" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_awready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_awready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_wdata" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_wdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_wdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_wstrb" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_wstrb[3:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_wstrb[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_wvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_wvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_wvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_wready" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_wready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_wready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_bresp" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_bresp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_bresp[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_bvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_bvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_bvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_bready" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_bready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_bready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_araddr" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_araddr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_araddr[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_arprot" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_arprot[2:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_arprot[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_arvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_arvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_arvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_arready" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_arready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_arready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_rdata" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_rdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_rdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_rresp" type="array">
+      <obj_property name="ElementShortName">s_axi_lite_rresp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_rresp[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_rvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_rvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_rvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/s_axi_lite_rready" type="logic">
+      <obj_property name="ElementShortName">s_axi_lite_rready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_lite_rready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/S_AXIS_TREADY" type="logic">
+      <obj_property name="ElementShortName">S_AXIS_TREADY</obj_property>
+      <obj_property name="ObjectShortName">S_AXIS_TREADY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/S_AXIS_TDATA" type="array">
+      <obj_property name="ElementShortName">S_AXIS_TDATA[511:0]</obj_property>
+      <obj_property name="ObjectShortName">S_AXIS_TDATA[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/S_AXIS_TLAST" type="logic">
+      <obj_property name="ElementShortName">S_AXIS_TLAST</obj_property>
+      <obj_property name="ObjectShortName">S_AXIS_TLAST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/S_AXIS_TVALID" type="logic">
+      <obj_property name="ElementShortName">S_AXIS_TVALID</obj_property>
+      <obj_property name="ObjectShortName">S_AXIS_TVALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/M_AXIS_TVALID" type="logic">
+      <obj_property name="ElementShortName">M_AXIS_TVALID</obj_property>
+      <obj_property name="ObjectShortName">M_AXIS_TVALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/M_AXIS_TDATA" type="array">
+      <obj_property name="ElementShortName">M_AXIS_TDATA[511:0]</obj_property>
+      <obj_property name="ObjectShortName">M_AXIS_TDATA[511:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/M_AXIS_TLAST" type="logic">
+      <obj_property name="ElementShortName">M_AXIS_TLAST</obj_property>
+      <obj_property name="ObjectShortName">M_AXIS_TLAST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/M_AXIS_TREADY" type="logic">
+      <obj_property name="ElementShortName">M_AXIS_TREADY</obj_property>
+      <obj_property name="ObjectShortName">M_AXIS_TREADY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_x_reg" type="array">
+      <obj_property name="ElementShortName">viewport_x_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_x_reg[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_y_reg" type="array">
+      <obj_property name="ElementShortName">viewport_y_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_y_reg[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_width_reg" type="array">
+      <obj_property name="ElementShortName">viewport_width_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_width_reg[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_height_reg" type="array">
+      <obj_property name="ElementShortName">viewport_height_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_height_reg[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_nearval_reg" type="array">
+      <obj_property name="ElementShortName">viewport_nearval_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_nearval_reg[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_farval_reg" type="array">
+      <obj_property name="ElementShortName">viewport_farval_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_farval_reg[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_debug" type="array">
+      <obj_property name="ElementShortName">viewport_debug[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_debug[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/tdata_reg" type="array">
+      <obj_property name="ElementShortName">tdata_reg[511:64]</obj_property>
+      <obj_property name="ObjectShortName">tdata_reg[511:64]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_x" type="array">
+      <obj_property name="ElementShortName">viewport_x[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_x[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_y" type="array">
+      <obj_property name="ElementShortName">viewport_y[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_y[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_width_div_2" type="array">
+      <obj_property name="ElementShortName">viewport_width_div_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_width_div_2[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_height_div_2" type="array">
+      <obj_property name="ElementShortName">viewport_height_div_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_height_div_2[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_xmult" type="array">
+      <obj_property name="ElementShortName">viewport_xmult[63:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_xmult[63:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">32</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/viewport_ymult" type="array">
+      <obj_property name="ElementShortName">viewport_ymult[63:0]</obj_property>
+      <obj_property name="ObjectShortName">viewport_ymult[63:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">32</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/x_ndc_coords" type="array">
+      <obj_property name="ElementShortName">x_ndc_coords[31:0]</obj_property>
+      <obj_property name="ObjectShortName">x_ndc_coords[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/y_ndc_coords" type="array">
+      <obj_property name="ElementShortName">y_ndc_coords[31:0]</obj_property>
+      <obj_property name="ObjectShortName">y_ndc_coords[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/x_vp_coords" type="array">
+      <obj_property name="ElementShortName">x_vp_coords[31:0]</obj_property>
+      <obj_property name="ObjectShortName">x_vp_coords[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/y_vp_coords" type="array">
+      <obj_property name="ElementShortName">y_vp_coords[31:0]</obj_property>
+      <obj_property name="ObjectShortName">y_vp_coords[31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/state" type="other">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/C_S_AXI_DATA_WIDTH" type="other">
+      <obj_property name="ElementShortName">C_S_AXI_DATA_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">C_S_AXI_DATA_WIDTH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/C_S_AXI_ADDR_WIDTH" type="other">
+      <obj_property name="ElementShortName">C_S_AXI_ADDR_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">C_S_AXI_ADDR_WIDTH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sgp_viewPort/C_NUM_VERTEX_ATTRIB" type="other">
+      <obj_property name="ElementShortName">C_NUM_VERTEX_ATTRIB</obj_property>
+      <obj_property name="ObjectShortName">C_NUM_VERTEX_ATTRIB</obj_property>
+   </wvobject>
+</wave_config>
