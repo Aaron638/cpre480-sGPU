@@ -421,16 +421,18 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		// Loop until all components are done at the same time.
 		if (SGPconfig->driverMode & SGP_ETH)
 		{
-			// int all_done = 0;
-			// while (all_done == 0)
-			// {
-			// 	if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
-			// 		SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
-			// 		SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
-			// 	{
-			// 		all_done = 1;
-			// 	}
-			// }
+			// NOTE: THIS MAY CAUSE ISSUES AND FREEZE THE PROGRAM WITHIN THIS LOOP
+			// COMMENT OUT IF NEEDED
+			int all_done = 0;
+			while (all_done == 0)
+			{
+				if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
+					SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
+					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
+				{
+					all_done = 1;
+				}
+			}
 		}
 	}
 
