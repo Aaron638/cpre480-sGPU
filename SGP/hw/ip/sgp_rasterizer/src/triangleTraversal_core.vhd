@@ -192,7 +192,7 @@ begin
                     current_position_reg.x <= linestart_position_reg.x + fixed_t_one;
                     current_position_reg.y <= linestart_position_reg.y;
 
-                    if ((fragment_test_result = testresult_out) or ((linestart_position_reg.x-fixed_t_one) < boundingbox_reg.xmin)) then
+                    if ((fragment_test_result = testresult_out) or ((linestart_position_reg.x-fixed_t_one) >= boundingbox_reg.xmax)) then
                         triangleTraversal_state <= PUSH_MOVE_DOWN;
                     else   
                         triangleTraversal_state <= MOVE_RIGHT_IN;
