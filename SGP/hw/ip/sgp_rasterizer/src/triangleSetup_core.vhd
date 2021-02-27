@@ -174,49 +174,49 @@ begin
                V0_array(0)(0) when triangleSetup_state = CALC_C3 else
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V2_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In3_wire <= V2_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V2_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V2_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V1_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In4_wire <= V0_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V0_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V2_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In5_wire <= V1_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V1_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V1_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V1_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In6_wire <= V0_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V0_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V2_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In7_wire <= V2_array(0)(0) when triangleSetup_state = CALC_C1 else 
                V2_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C2 else
                V2_array(0)(0) when triangleSetup_state = CALC_C3 else
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V0_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In8_wire <= V0_array(0)(0) when triangleSetup_state = CALC_C1 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C2 else
                V0_array(0)(0) when triangleSetup_state = CALC_C3 else
                C4_reg  when triangleSetup_state = CALC_C5 else --
                C4_reg  when triangleSetup_state = CALC_C6 else --
-               V0_array(0)(0) when triangleSetup_state = CALC_AREA else --TODO
+               V2_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
 
 
@@ -330,13 +330,21 @@ begin
                 end if;
                         
             when CALC_C3 =>
-            
+                C3_reg <= wfixed_t_to_fixed_t(Val7_reg);
+				--logic is used to stall the FSM til the info is properly propagated, this process is initiated in WAIT_FOR_DIVIDER
+                if (circuit1_state(CIRCUIT1_LATENCY) = '1') then
+                    triangleSetup_state <= CALC_C5;                    
+                    circuit1_state(0) <= '1';
+                end if;
+				
             when CALC_C5 =>
                 -- For the C5 and C6 calculations, the result is in 17.47 format (Q1.31 x Q16.16)
                 C5_reg(C5C6_attribute_count)(C5C6_size_count) <= Val7_reg(62 downto 31);
 
             when CALC_C6 =>
-            
+				-- For the C5 and C6 calculations, the result is in 17.47 format (Q1.31 x Q16.16)
+                C6_reg(C5C6_attribute_count)(C5C6_size_count) <= Val7_reg(62 downto 31);
+				
             -- For area calculations, we do need 24-bits of integer value (large triangles can have ~2M fragments in them). 
             -- We can likely drop the fractional components also, since our x/y are all in screen space at this point. 
             when CALC_AREA =>
