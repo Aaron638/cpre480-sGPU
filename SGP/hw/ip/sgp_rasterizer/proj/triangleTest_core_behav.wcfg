@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="triangleTest_core_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="sgp_types" />
+            <top_module name="triangleTest_core" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="500001fs"></ZoomEndTime>
+      <Cursor1Time time="500000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="268"></NameColumnWidth>
+      <ValueColumnWidth column_width="131"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="36" />
+   <wvobject fp_name="/triangleTest_core/ACLK" type="logic">
+      <obj_property name="ElementShortName">ACLK</obj_property>
+      <obj_property name="ObjectShortName">ACLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/ARESETN" type="logic">
+      <obj_property name="ElementShortName">ARESETN</obj_property>
+      <obj_property name="ObjectShortName">ARESETN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/Area" type="array">
+      <obj_property name="ElementShortName">Area[23:0]</obj_property>
+      <obj_property name="ObjectShortName">Area[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/direction" type="logic">
+      <obj_property name="ElementShortName">direction</obj_property>
+      <obj_property name="ObjectShortName">direction</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C5" type="array">
+      <obj_property name="ElementShortName">C5[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">C5[3:0][3:0][31:0]</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">16</obj_property>
+      <obj_property name="radix_otherWidth">0</obj_property>
+      <wvobject fp_name="/triangleTest_core/C5[3]" type="array">
+         <obj_property name="ElementShortName">[3][3:0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[3][3:0][31:0]</obj_property>
+         <wvobject fp_name="/triangleTest_core/C5[3][3]" type="array">
+            <obj_property name="ElementShortName">[3][31:0]</obj_property>
+            <obj_property name="ObjectShortName">[3][31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/triangleTest_core/C5[3][2]" type="array">
+            <obj_property name="ElementShortName">[2][31:0]</obj_property>
+            <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/triangleTest_core/C5[3][1]" type="array">
+            <obj_property name="ElementShortName">[1][31:0]</obj_property>
+            <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/triangleTest_core/C5[3][0]" type="array">
+            <obj_property name="ElementShortName">[0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+            <obj_property name="Radix">REALRADIX</obj_property>
+            <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+            <obj_property name="radix_fractionWidth">16</obj_property>
+            <obj_property name="radix_otherWidth">0</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="/triangleTest_core/C5[2]" type="array">
+         <obj_property name="ElementShortName">[2][3:0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][3:0][31:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/triangleTest_core/C5[1]" type="array">
+         <obj_property name="ElementShortName">[1][3:0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][3:0][31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/triangleTest_core/C5[0]" type="array">
+         <obj_property name="ElementShortName">[0][3:0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][3:0][31:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C6" type="array">
+      <obj_property name="ElementShortName">C6[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">C6[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/triangle_in" type="array">
+      <obj_property name="ElementShortName">triangle_in[2:0][511:0]</obj_property>
+      <obj_property name="ObjectShortName">triangle_in[2:0][511:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/setup_in_ready" type="logic">
+      <obj_property name="ElementShortName">setup_in_ready</obj_property>
+      <obj_property name="ObjectShortName">setup_in_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/setup_in_valid" type="logic">
+      <obj_property name="ElementShortName">setup_in_valid</obj_property>
+      <obj_property name="ObjectShortName">setup_in_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/command_in" type="other">
+      <obj_property name="ElementShortName">command_in</obj_property>
+      <obj_property name="ObjectShortName">command_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/fragment_test_result" type="logic">
+      <obj_property name="ElementShortName">fragment_test_result</obj_property>
+      <obj_property name="ObjectShortName">fragment_test_result</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/fragment_out_ready" type="logic">
+      <obj_property name="ElementShortName">fragment_out_ready</obj_property>
+      <obj_property name="ObjectShortName">fragment_out_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/fragment_out_valid" type="logic">
+      <obj_property name="ElementShortName">fragment_out_valid</obj_property>
+      <obj_property name="ObjectShortName">fragment_out_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/fragment_out" type="array">
+      <obj_property name="ElementShortName">fragment_out[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">fragment_out[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/triangleTest_state" type="other">
+      <obj_property name="ElementShortName">triangleTest_state</obj_property>
+      <obj_property name="ObjectShortName">triangleTest_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/triangle_reg" type="array">
+      <obj_property name="ElementShortName">triangle_reg[2:0][511:0]</obj_property>
+      <obj_property name="ObjectShortName">triangle_reg[2:0][511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/V0_array" type="array">
+      <obj_property name="ElementShortName">V0_array[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">V0_array[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/V1_array" type="array">
+      <obj_property name="ElementShortName">V1_array[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">V1_array[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/V2_array" type="array">
+      <obj_property name="ElementShortName">V2_array[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">V2_array[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C5_reg" type="array">
+      <obj_property name="ElementShortName">C5_reg[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">C5_reg[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C6_reg" type="array">
+      <obj_property name="ElementShortName">C6_reg[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">C6_reg[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/start_Area_reg" type="array">
+      <obj_property name="ElementShortName">start_Area_reg[23:0]</obj_property>
+      <obj_property name="ObjectShortName">start_Area_reg[23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/start_direction_reg" type="logic">
+      <obj_property name="ElementShortName">start_direction_reg</obj_property>
+      <obj_property name="ObjectShortName">start_direction_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/in_vals" type="array">
+      <obj_property name="ElementShortName">in_vals[2:0]</obj_property>
+      <obj_property name="ObjectShortName">in_vals[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C7_wire" type="array">
+      <obj_property name="ElementShortName">C7_wire[2:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">C7_wire[2:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C8_wire" type="array">
+      <obj_property name="ElementShortName">C8_wire[2:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">C8_wire[2:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C7_reg" type="array">
+      <obj_property name="ElementShortName">C7_reg[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">C7_reg[2:0][23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/C8_reg" type="array">
+      <obj_property name="ElementShortName">C8_reg[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">C8_reg[2:0][23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/Area_line_nextreg" type="array">
+      <obj_property name="ElementShortName">Area_line_nextreg[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">Area_line_nextreg[2:0][23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/Area_line_reg" type="array">
+      <obj_property name="ElementShortName">Area_line_reg[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">Area_line_reg[2:0][23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/Area_line_nextstack" type="array">
+      <obj_property name="ElementShortName">Area_line_nextstack[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">Area_line_nextstack[2:0][23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/Area_line_stack" type="array">
+      <obj_property name="ElementShortName">Area_line_stack[2:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">Area_line_stack[2:0][23:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/newfragment_nextreg" type="array">
+      <obj_property name="ElementShortName">newfragment_nextreg[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">newfragment_nextreg[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/newfragment_reg" type="array">
+      <obj_property name="ElementShortName">newfragment_reg[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">newfragment_reg[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/newfragment_nextstack" type="array">
+      <obj_property name="ElementShortName">newfragment_nextstack[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">newfragment_nextstack[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/triangleTest_core/newfragment_stack" type="array">
+      <obj_property name="ElementShortName">newfragment_stack[3:0][3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">newfragment_stack[3:0][3:0][31:0]</obj_property>
+   </wvobject>
+</wave_config>

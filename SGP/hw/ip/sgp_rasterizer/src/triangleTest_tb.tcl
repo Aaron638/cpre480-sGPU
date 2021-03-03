@@ -72,3 +72,11 @@ add_force {/triangleTest_core/setup_in_valid} -radix hex {1 0ns}
 
 # fragment_out_ready
 add_force {/triangleTest_core/fragment_out_ready} -radix hex {1 0ns}
+
+run 100ns
+add_force {/triangleTest_core/command_in} -radix hex {START_CMD 0ns} -cancel_after 100ns
+run 100ns
+
+add_force {/triangleTest_core/command_in} -radix hex {DONE_CMD 0ns} -cancel_after 100ns
+
+run 300ns
