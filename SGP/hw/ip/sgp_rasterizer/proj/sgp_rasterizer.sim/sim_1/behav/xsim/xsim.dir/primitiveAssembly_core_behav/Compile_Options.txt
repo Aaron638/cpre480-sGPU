@@ -1,0 +1,1 @@
+-wto "226953cb67d44eeb80b4fcecbee583d8" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" -L "xpm" --snapshot "primitiveAssembly_core_behav" "xil_defaultlib.primitiveAssembly_core" -log "elaborate.log" 

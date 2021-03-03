@@ -1,0 +1,486 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Mon Feb 22 18:05:40 2021
+# Process ID: 8528
+# Current directory: U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1
+# Command line: vivado.exe -log design_1_vertex_attrib_switch_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_vertex_attrib_switch_0.tcl
+# Log file: U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1/design_1_vertex_attrib_switch_0.vds
+# Journal file: U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source design_1_vertex_attrib_switch_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'u:/cpre480/MP-1/hw/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'u:/cpre480/MP-1/hw/if'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.1/data/ip'.
+Command: synth_design -top design_1_vertex_attrib_switch_0 -part xc7a200tsbg484-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: [Device 21-403] Loading part xc7a200tsbg484-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 14848
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1092.758 ; gain = 11.555
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'design_1_vertex_attrib_switch_0' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_vertex_attrib_switch_0/synth/design_1_vertex_attrib_switch_0.v:58]
+INFO: [Synth 8-6157] synthesizing module 'axis_switch_v1_1_21_axis_switch' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:3090]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_NUM_SI_SLOTS bound to: 1 - type: integer 
+	Parameter C_LOG_SI_SLOTS bound to: 1 - type: integer 
+	Parameter C_NUM_MI_SLOTS bound to: 4 - type: integer 
+	Parameter C_AXIS_TDATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_AXIS_TID_WIDTH bound to: 1 - type: integer 
+	Parameter C_AXIS_TDEST_WIDTH bound to: 4 - type: integer 
+	Parameter C_AXIS_TUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_AXIS_SIGNAL_SET bound to: 83 - type: integer 
+	Parameter C_ARB_ON_MAX_XFERS bound to: 1 - type: integer 
+	Parameter C_ARB_ON_NUM_CYCLES bound to: 0 - type: integer 
+	Parameter C_ARB_ON_TLAST bound to: 0 - type: integer 
+	Parameter C_INCLUDE_ARBITER bound to: 1 - type: integer 
+	Parameter C_ARB_ALGORITHM bound to: 0 - type: integer 
+	Parameter C_OUTPUT_REG bound to: 0 - type: integer 
+	Parameter C_DECODER_REG bound to: 1 - type: integer 
+	Parameter C_M_AXIS_CONNECTIVITY_ARRAY bound to: 4'b1111 
+	Parameter C_M_AXIS_BASETDEST_ARRAY bound to: 16'b0011001000010000 
+	Parameter C_M_AXIS_HIGHTDEST_ARRAY bound to: 16'b0011001000010000 
+	Parameter C_ROUTING_MODE bound to: 0 - type: integer 
+	Parameter C_S_AXI_CTRL_ADDR_WIDTH bound to: 7 - type: integer 
+	Parameter C_S_AXI_CTRL_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_COMMON_CLOCK bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TREADY bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TDATA bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TSTRB bound to: 2 - type: integer 
+	Parameter G_INDX_SS_TKEEP bound to: 3 - type: integer 
+	Parameter G_INDX_SS_TLAST bound to: 4 - type: integer 
+	Parameter G_INDX_SS_TID bound to: 5 - type: integer 
+	Parameter G_INDX_SS_TDEST bound to: 6 - type: integer 
+	Parameter G_INDX_SS_TUSER bound to: 7 - type: integer 
+	Parameter G_MASK_SS_TREADY bound to: 1 - type: integer 
+	Parameter G_MASK_SS_TDATA bound to: 2 - type: integer 
+	Parameter G_MASK_SS_TSTRB bound to: 4 - type: integer 
+	Parameter G_MASK_SS_TKEEP bound to: 8 - type: integer 
+	Parameter G_MASK_SS_TLAST bound to: 16 - type: integer 
+	Parameter G_MASK_SS_TID bound to: 32 - type: integer 
+	Parameter G_MASK_SS_TDEST bound to: 64 - type: integer 
+	Parameter G_MASK_SS_TUSER bound to: 128 - type: integer 
+	Parameter G_TASK_SEVERITY_ERR bound to: 2 - type: integer 
+	Parameter G_TASK_SEVERITY_WARNING bound to: 1 - type: integer 
+	Parameter G_TASK_SEVERITY_INFO bound to: 0 - type: integer 
+	Parameter P_DECODER_CONNECTIVITY_ARRAY bound to: 4'b1111 
+	Parameter P_TPAYLOAD_WIDTH bound to: 37 - type: integer 
+	Parameter P_SINGLE_SLAVE_CONNECTIVITY_ARRAY bound to: 4'b1111 
+	Parameter LP_NUM_SYNCHRONIZER_STAGES bound to: 4 - type: integer 
+	Parameter LP_MERGEDOWN_MUX bound to: 0 - type: integer 
+	Parameter LP_CTRL_REG_WIDTH bound to: 25 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:810]
+	Parameter C_TDATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_TID_WIDTH bound to: 1 - type: integer 
+	Parameter C_TDEST_WIDTH bound to: 4 - type: integer 
+	Parameter C_TUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_TPAYLOAD_WIDTH bound to: 37 - type: integer 
+	Parameter C_SIGNAL_SET bound to: 83 - type: integer 
+	Parameter G_INDX_SS_TREADY bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TDATA bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TSTRB bound to: 2 - type: integer 
+	Parameter G_INDX_SS_TKEEP bound to: 3 - type: integer 
+	Parameter G_INDX_SS_TLAST bound to: 4 - type: integer 
+	Parameter G_INDX_SS_TID bound to: 5 - type: integer 
+	Parameter G_INDX_SS_TDEST bound to: 6 - type: integer 
+	Parameter G_INDX_SS_TUSER bound to: 7 - type: integer 
+	Parameter G_MASK_SS_TREADY bound to: 1 - type: integer 
+	Parameter G_MASK_SS_TDATA bound to: 2 - type: integer 
+	Parameter G_MASK_SS_TSTRB bound to: 4 - type: integer 
+	Parameter G_MASK_SS_TKEEP bound to: 8 - type: integer 
+	Parameter G_MASK_SS_TLAST bound to: 16 - type: integer 
+	Parameter G_MASK_SS_TID bound to: 32 - type: integer 
+	Parameter G_MASK_SS_TDEST bound to: 64 - type: integer 
+	Parameter G_MASK_SS_TUSER bound to: 128 - type: integer 
+	Parameter G_TASK_SEVERITY_ERR bound to: 2 - type: integer 
+	Parameter G_TASK_SEVERITY_WARNING bound to: 1 - type: integer 
+	Parameter G_TASK_SEVERITY_INFO bound to: 0 - type: integer 
+	Parameter P_TDATA_INDX bound to: 0 - type: integer 
+	Parameter P_TSTRB_INDX bound to: 32 - type: integer 
+	Parameter P_TKEEP_INDX bound to: 32 - type: integer 
+	Parameter P_TLAST_INDX bound to: 32 - type: integer 
+	Parameter P_TID_INDX bound to: 33 - type: integer 
+	Parameter P_TDEST_INDX bound to: 33 - type: integer 
+	Parameter P_TUSER_INDX bound to: 37 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' (1#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:810]
+INFO: [Synth 8-6157] synthesizing module 'axis_switch_v1_1_21_axisc_decoder' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:479]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_AXIS_TDATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_AXIS_TID_WIDTH bound to: 1 - type: integer 
+	Parameter C_AXIS_TDEST_WIDTH bound to: 4 - type: integer 
+	Parameter C_AXIS_TUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_AXIS_SIGNAL_SET bound to: 83 - type: integer 
+	Parameter C_TPAYLOAD_WIDTH bound to: 37 - type: integer 
+	Parameter C_NUM_MI_SLOTS bound to: 4 - type: integer 
+	Parameter C_DECODER_REG bound to: 1 - type: integer 
+	Parameter C_CONNECTIVITY bound to: 4'b1111 
+	Parameter C_BASETDEST bound to: 16'b0011001000010000 
+	Parameter C_HIGHTDEST bound to: 16'b0011001000010000 
+	Parameter C_ROUTING_MODE bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TREADY bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TDATA bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TSTRB bound to: 2 - type: integer 
+	Parameter G_INDX_SS_TKEEP bound to: 3 - type: integer 
+	Parameter G_INDX_SS_TLAST bound to: 4 - type: integer 
+	Parameter G_INDX_SS_TID bound to: 5 - type: integer 
+	Parameter G_INDX_SS_TDEST bound to: 6 - type: integer 
+	Parameter G_INDX_SS_TUSER bound to: 7 - type: integer 
+	Parameter G_MASK_SS_TREADY bound to: 1 - type: integer 
+	Parameter G_MASK_SS_TDATA bound to: 2 - type: integer 
+	Parameter G_MASK_SS_TSTRB bound to: 4 - type: integer 
+	Parameter G_MASK_SS_TKEEP bound to: 8 - type: integer 
+	Parameter G_MASK_SS_TLAST bound to: 16 - type: integer 
+	Parameter G_MASK_SS_TID bound to: 32 - type: integer 
+	Parameter G_MASK_SS_TDEST bound to: 64 - type: integer 
+	Parameter G_MASK_SS_TUSER bound to: 128 - type: integer 
+	Parameter G_TASK_SEVERITY_ERR bound to: 2 - type: integer 
+	Parameter G_TASK_SEVERITY_WARNING bound to: 1 - type: integer 
+	Parameter G_TASK_SEVERITY_INFO bound to: 0 - type: integer 
+	Parameter TDW bound to: 4 - type: integer 
+	Parameter P_TDEST_PRESENT bound to: 1'b1 
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_21_axisc_register_slice' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/7da1/hdl/axis_register_slice_v1_1_vl_rfs.v:1964]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_DATA_WIDTH bound to: 37 - type: integer 
+	Parameter C_REG_CONFIG bound to: 1 - type: integer 
+	Parameter C_NUM_SLR_CROSSINGS bound to: 0 - type: integer 
+	Parameter C_PIPELINES_MASTER bound to: 0 - type: integer 
+	Parameter C_PIPELINES_SLAVE bound to: 0 - type: integer 
+	Parameter C_PIPELINES_MIDDLE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_21_axisc_register_slice' (2#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/7da1/hdl/axis_register_slice_v1_1_vl_rfs.v:1964]
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_21_axisc_register_slice__parameterized0' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/7da1/hdl/axis_register_slice_v1_1_vl_rfs.v:1964]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_DATA_WIDTH bound to: 4 - type: integer 
+	Parameter C_REG_CONFIG bound to: 1 - type: integer 
+	Parameter C_NUM_SLR_CROSSINGS bound to: 0 - type: integer 
+	Parameter C_PIPELINES_MASTER bound to: 0 - type: integer 
+	Parameter C_PIPELINES_SLAVE bound to: 0 - type: integer 
+	Parameter C_PIPELINES_MIDDLE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_21_axisc_register_slice__parameterized0' (2#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/7da1/hdl/axis_register_slice_v1_1_vl_rfs.v:1964]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:992]
+	Parameter C_TDATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_TID_WIDTH bound to: 1 - type: integer 
+	Parameter C_TDEST_WIDTH bound to: 4 - type: integer 
+	Parameter C_TUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_TPAYLOAD_WIDTH bound to: 37 - type: integer 
+	Parameter C_SIGNAL_SET bound to: 83 - type: integer 
+	Parameter G_INDX_SS_TREADY bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TDATA bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TSTRB bound to: 2 - type: integer 
+	Parameter G_INDX_SS_TKEEP bound to: 3 - type: integer 
+	Parameter G_INDX_SS_TLAST bound to: 4 - type: integer 
+	Parameter G_INDX_SS_TID bound to: 5 - type: integer 
+	Parameter G_INDX_SS_TDEST bound to: 6 - type: integer 
+	Parameter G_INDX_SS_TUSER bound to: 7 - type: integer 
+	Parameter G_MASK_SS_TREADY bound to: 1 - type: integer 
+	Parameter G_MASK_SS_TDATA bound to: 2 - type: integer 
+	Parameter G_MASK_SS_TSTRB bound to: 4 - type: integer 
+	Parameter G_MASK_SS_TKEEP bound to: 8 - type: integer 
+	Parameter G_MASK_SS_TLAST bound to: 16 - type: integer 
+	Parameter G_MASK_SS_TID bound to: 32 - type: integer 
+	Parameter G_MASK_SS_TDEST bound to: 64 - type: integer 
+	Parameter G_MASK_SS_TUSER bound to: 128 - type: integer 
+	Parameter G_TASK_SEVERITY_ERR bound to: 2 - type: integer 
+	Parameter G_TASK_SEVERITY_WARNING bound to: 1 - type: integer 
+	Parameter G_TASK_SEVERITY_INFO bound to: 0 - type: integer 
+	Parameter P_TDATA_INDX bound to: 0 - type: integer 
+	Parameter P_TSTRB_INDX bound to: 32 - type: integer 
+	Parameter P_TKEEP_INDX bound to: 32 - type: integer 
+	Parameter P_TLAST_INDX bound to: 32 - type: integer 
+	Parameter P_TID_INDX bound to: 33 - type: integer 
+	Parameter P_TDEST_INDX bound to: 33 - type: integer 
+	Parameter P_TUSER_INDX bound to: 37 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' (3#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:992]
+INFO: [Synth 8-6155] done synthesizing module 'axis_switch_v1_1_21_axisc_decoder' (4#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:479]
+INFO: [Synth 8-6157] synthesizing module 'axis_switch_v1_1_21_axisc_transfer_mux' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:819]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_TPAYLOAD_WIDTH bound to: 37 - type: integer 
+	Parameter C_AXIS_TDATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_AXIS_TID_WIDTH bound to: 1 - type: integer 
+	Parameter C_AXIS_TDEST_WIDTH bound to: 4 - type: integer 
+	Parameter C_AXIS_TUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_AXIS_SIGNAL_SET bound to: 83 - type: integer 
+	Parameter C_NUM_SI_SLOTS bound to: 1 - type: integer 
+	Parameter C_LOG_SI_SLOTS bound to: 1 - type: integer 
+	Parameter C_ARB_ON_TLAST bound to: 0 - type: integer 
+	Parameter C_ARB_ON_MAX_XFERS bound to: 1 - type: integer 
+	Parameter C_ARB_ON_NUM_CYCLES bound to: 0 - type: integer 
+	Parameter C_OUTPUT_REG bound to: 0 - type: integer 
+	Parameter C_CONNECTIVITY bound to: 1'b1 
+	Parameter C_SINGLE_SLAVE_CONNECTIVITY bound to: 1 - type: integer 
+	Parameter C_ROUTING_MODE bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TREADY bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TDATA bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TSTRB bound to: 2 - type: integer 
+	Parameter G_INDX_SS_TKEEP bound to: 3 - type: integer 
+	Parameter G_INDX_SS_TLAST bound to: 4 - type: integer 
+	Parameter G_INDX_SS_TID bound to: 5 - type: integer 
+	Parameter G_INDX_SS_TDEST bound to: 6 - type: integer 
+	Parameter G_INDX_SS_TUSER bound to: 7 - type: integer 
+	Parameter G_MASK_SS_TREADY bound to: 1 - type: integer 
+	Parameter G_MASK_SS_TDATA bound to: 2 - type: integer 
+	Parameter G_MASK_SS_TSTRB bound to: 4 - type: integer 
+	Parameter G_MASK_SS_TKEEP bound to: 8 - type: integer 
+	Parameter G_MASK_SS_TLAST bound to: 16 - type: integer 
+	Parameter G_MASK_SS_TID bound to: 32 - type: integer 
+	Parameter G_MASK_SS_TDEST bound to: 64 - type: integer 
+	Parameter G_MASK_SS_TUSER bound to: 128 - type: integer 
+	Parameter G_TASK_SEVERITY_ERR bound to: 2 - type: integer 
+	Parameter G_TASK_SEVERITY_WARNING bound to: 1 - type: integer 
+	Parameter G_TASK_SEVERITY_INFO bound to: 0 - type: integer 
+	Parameter P_LOG_NUM_SLAVE_SLOTS bound to: 1 - type: integer 
+	Parameter P_FIXED_MUX_VALUE bound to: 1'b0 
+INFO: [Synth 8-6157] synthesizing module 'axis_switch_v1_1_21_axisc_arb_responder' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:1123]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_ARB_GNT_WIDTH bound to: 1 - type: integer 
+	Parameter C_ARB_ON_TLAST bound to: 0 - type: integer 
+	Parameter C_ARB_ON_MAX_XFERS bound to: 1 - type: integer 
+	Parameter C_ARB_ON_NUM_CYCLES bound to: 0 - type: integer 
+	Parameter C_SINGLE_SLAVE_CONNECTIVITY bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TREADY bound to: 0 - type: integer 
+	Parameter G_INDX_SS_TDATA bound to: 1 - type: integer 
+	Parameter G_INDX_SS_TSTRB bound to: 2 - type: integer 
+	Parameter G_INDX_SS_TKEEP bound to: 3 - type: integer 
+	Parameter G_INDX_SS_TLAST bound to: 4 - type: integer 
+	Parameter G_INDX_SS_TID bound to: 5 - type: integer 
+	Parameter G_INDX_SS_TDEST bound to: 6 - type: integer 
+	Parameter G_INDX_SS_TUSER bound to: 7 - type: integer 
+	Parameter G_MASK_SS_TREADY bound to: 1 - type: integer 
+	Parameter G_MASK_SS_TDATA bound to: 2 - type: integer 
+	Parameter G_MASK_SS_TSTRB bound to: 4 - type: integer 
+	Parameter G_MASK_SS_TKEEP bound to: 8 - type: integer 
+	Parameter G_MASK_SS_TLAST bound to: 16 - type: integer 
+	Parameter G_MASK_SS_TID bound to: 32 - type: integer 
+	Parameter G_MASK_SS_TDEST bound to: 64 - type: integer 
+	Parameter G_MASK_SS_TUSER bound to: 128 - type: integer 
+	Parameter G_TASK_SEVERITY_ERR bound to: 2 - type: integer 
+	Parameter G_TASK_SEVERITY_WARNING bound to: 1 - type: integer 
+	Parameter G_TASK_SEVERITY_INFO bound to: 0 - type: integer 
+	Parameter P_XFER_CNT_WIDTH bound to: 1 - type: integer 
+	Parameter P_TIMEOUT_CNT_WIDTH bound to: 1 - type: integer 
+	Parameter P_FORCE_MAX_XFERS_PER_ARB_ONE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_switch_v1_1_21_axisc_arb_responder' (5#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:1123]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_mux_enc' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:66]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_RATIO bound to: 1 - type: integer 
+	Parameter C_SEL_WIDTH bound to: 1 - type: integer 
+	Parameter C_DATA_WIDTH bound to: 37 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_mux_enc' (6#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:66]
+INFO: [Synth 8-6157] synthesizing module 'axis_infrastructure_v1_1_0_mux_enc__parameterized0' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:66]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_RATIO bound to: 1 - type: integer 
+	Parameter C_SEL_WIDTH bound to: 1 - type: integer 
+	Parameter C_DATA_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_infrastructure_v1_1_0_mux_enc__parameterized0' (6#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/8713/hdl/axis_infrastructure_v1_1_vl_rfs.v:66]
+INFO: [Synth 8-6157] synthesizing module 'axis_register_slice_v1_1_21_axisc_register_slice__parameterized1' [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/7da1/hdl/axis_register_slice_v1_1_vl_rfs.v:1964]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_DATA_WIDTH bound to: 37 - type: integer 
+	Parameter C_REG_CONFIG bound to: 0 - type: integer 
+	Parameter C_NUM_SLR_CROSSINGS bound to: 0 - type: integer 
+	Parameter C_PIPELINES_MASTER bound to: 0 - type: integer 
+	Parameter C_PIPELINES_SLAVE bound to: 0 - type: integer 
+	Parameter C_PIPELINES_MIDDLE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_register_slice_v1_1_21_axisc_register_slice__parameterized1' (6#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/7da1/hdl/axis_register_slice_v1_1_vl_rfs.v:1964]
+INFO: [Synth 8-6155] done synthesizing module 'axis_switch_v1_1_21_axisc_transfer_mux' (7#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:819]
+INFO: [Synth 8-6155] done synthesizing module 'axis_switch_v1_1_21_axis_switch' (8#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/c0ad/hdl/axis_switch_v1_1_vl_rfs.v:3090]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_vertex_attrib_switch_0' (9#1) [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_vertex_attrib_switch_0/synth/design_1_vertex_attrib_switch_0.v:58]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1151.691 ; gain = 70.488
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1151.691 ; gain = 70.488
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1151.691 ; gain = 70.488
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 1151.691 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_vertex_attrib_switch_0/design_1_vertex_attrib_switch_0_ooc.xdc] for cell 'inst'
+Finished Parsing XDC File [u:/cpre480/MP-1/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_vertex_attrib_switch_0/design_1_vertex_attrib_switch_0_ooc.xdc] for cell 'inst'
+Parsing XDC File [U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1248.508 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.041 . Memory (MB): peak = 1259.680 ; gain = 11.172
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a200tsbg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for inst. (constraint file  U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1/dont_touch.xdc, line 9).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4490] FSM extraction disabled for register 'gen_AB_reg_slice.state_reg' through user attribute
+INFO: [Synth 8-4490] FSM extraction disabled for register 'gen_AB_reg_slice.state_reg' through user attribute
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:20 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	               37 Bit    Registers := 2     
+	                4 Bit    Registers := 3     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 10    
++---Muxes : 
+	   2 Input   37 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 1     
+	   5 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 6     
+	   4 Input    1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 740 (col length:100)
+BRAMs: 730 (col length: RAMB18 100 RAMB36 50)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:23 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:32 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:29 ; elapsed = 00:00:33 . Memory (MB): peak = 1259.680 ; gain = 178.477
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----+------+
+|      |Cell |Count |
++------+-----+------+
+|1     |LUT1 |     1|
+|2     |LUT3 |    37|
+|3     |LUT4 |    12|
+|4     |LUT5 |     9|
+|5     |LUT6 |     4|
+|6     |FDRE |    92|
++------+-----+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1265.219 ; gain = 184.016
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:23 ; elapsed = 00:00:34 . Memory (MB): peak = 1265.219 ; gain = 76.027
+Synthesis Optimization Complete : Time (s): cpu = 00:00:34 ; elapsed = 00:00:38 . Memory (MB): peak = 1265.219 ; gain = 184.016
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1277.285 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1283.781 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+42 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:41 ; elapsed = 00:00:48 . Memory (MB): peak = 1283.781 ; gain = 202.578
+INFO: [Common 17-1381] The checkpoint 'U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1/design_1_vertex_attrib_switch_0.dcp' has been generated.
+WARNING: [Common 17-576] 'use_project_ipc' is deprecated. This option is deprecated and no longer used.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_vertex_attrib_switch_0, cache-ID = 7ae6ee13e916a693
+INFO: [Coretcl 2-1174] Renamed 4 cell refs.
+INFO: [Common 17-1381] The checkpoint 'U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1/design_1_vertex_attrib_switch_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_vertex_attrib_switch_0_utilization_synth.rpt -pb design_1_vertex_attrib_switch_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Feb 22 18:06:45 2021...
