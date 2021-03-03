@@ -1,8 +1,9 @@
+restart
 # Clock
 add_force {/triangleTest_core/ACLK} -radix hex {0 0ns} {1 50000ps} -repeat_every 100000ps
 
 # End reset
-add_force {/triangleTest_core/ARESETN} -radix hex {0 0ns}
+add_force {/triangleTest_core/ARESETN} -radix hex {1 0ns}
 
 # Force area
 add_force {/triangleTest_core/Area} -radix dec {125000 0ns}
