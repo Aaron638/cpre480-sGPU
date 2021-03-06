@@ -1,43 +1,59 @@
 restart
 
 add_force {/primitiveAssembly_core/ACLK} -radix hex {1} {0 5000ps} -repeat_every 10000ps
-add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
-run 10ns
 add_force {/primitiveAssembly_core/ARESETN} -radix hex {0 0ns}
-run 10ns
-add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
 
-# Start vertex_valid at 0
-add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}
+# Start vertex_valid and primout_ready 0
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
 
 # point = 0, triangle = 4, strip = 5, fan = 6
 add_force {/primitiveAssembly_core/primtype} -radix hex {4 0ns}
 
-# 50ns of data transfer at a time
-# V0
-add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 10ns} -cancel_after 20ns
-add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000032A000001E00000 10ns} -cancel_after 20ns
-run 30ns
+run 10ns
+add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
 
-# Wait until ready before sending the next one
-vwait {/primitiveAssembly_core/vertex_in_ready}
+# 30ns of data transfer at a time
+# V0
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000032A000001E00000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
 
 # V1
-add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 10ns} -cancel_after 20ns
-add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000010E000003C00000 10ns} -cancel_after 20ns
-run 30ns
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000010E000003C00000 0ns}  -cancel_after 20ns
+run 20ns
 
-# Wait until ready before sending the next one
-vwait {/primitiveAssembly_core/vertex_in_ready}
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
 
 # V2
-add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 10ns} -cancel_after 20ns
-add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000032A000005A00000 10ns} -cancel_after 20ns
-run 30ns
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000032A000005A00000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# Tell primAssembly we're ready to read from it
+# add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}
 
 # V3 (only for strip and fan)
-# add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 10ns} -cancel_after 20ns
-# add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000010E000007800000 10ns} -cancel_after 20ns
+# add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 10ns}
+# add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000010E000007800000 10ns}
 # run 10ns
 
 # Remember all coordinates are converted to viewport

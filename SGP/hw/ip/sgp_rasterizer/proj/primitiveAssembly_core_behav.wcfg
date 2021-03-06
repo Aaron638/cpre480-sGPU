@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="primitiveAssembly_core_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="primitiveAssembly_core" />
+            <top_module name="sgp_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="96957fs"></ZoomEndTime>
+      <Cursor1Time time="38650fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="202"></NameColumnWidth>
+      <ValueColumnWidth column_width="97"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/primitiveAssembly_core/ACLK" type="logic">
+      <obj_property name="ElementShortName">ACLK</obj_property>
+      <obj_property name="ObjectShortName">ACLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/ARESETN" type="logic">
+      <obj_property name="ElementShortName">ARESETN</obj_property>
+      <obj_property name="ObjectShortName">ARESETN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/primtype" type="other">
+      <obj_property name="ElementShortName">primtype</obj_property>
+      <obj_property name="ObjectShortName">primtype</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/vertex_in_ready" type="logic">
+      <obj_property name="ElementShortName">vertex_in_ready</obj_property>
+      <obj_property name="ObjectShortName">vertex_in_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/vertex_in" type="array">
+      <obj_property name="ElementShortName">vertex_in[511:0]</obj_property>
+      <obj_property name="ObjectShortName">vertex_in[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/vertex_valid" type="logic">
+      <obj_property name="ElementShortName">vertex_valid</obj_property>
+      <obj_property name="ObjectShortName">vertex_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/primout_ready" type="logic">
+      <obj_property name="ElementShortName">primout_ready</obj_property>
+      <obj_property name="ObjectShortName">primout_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/primout_valid" type="logic">
+      <obj_property name="ElementShortName">primout_valid</obj_property>
+      <obj_property name="ObjectShortName">primout_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/V0" type="array">
+      <obj_property name="ElementShortName">V0[511:0]</obj_property>
+      <obj_property name="ObjectShortName">V0[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/V1" type="array">
+      <obj_property name="ElementShortName">V1[511:0]</obj_property>
+      <obj_property name="ObjectShortName">V1[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/V2" type="array">
+      <obj_property name="ElementShortName">V2[511:0]</obj_property>
+      <obj_property name="ObjectShortName">V2[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/V0_reg" type="array">
+      <obj_property name="ElementShortName">V0_reg[511:0]</obj_property>
+      <obj_property name="ObjectShortName">V0_reg[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/V1_reg" type="array">
+      <obj_property name="ElementShortName">V1_reg[511:0]</obj_property>
+      <obj_property name="ObjectShortName">V1_reg[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/V2_reg" type="array">
+      <obj_property name="ElementShortName">V2_reg[511:0]</obj_property>
+      <obj_property name="ObjectShortName">V2_reg[511:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/primitiveAssembly_core/primitiveAssembly_state" type="other">
+      <obj_property name="ElementShortName">primitiveAssembly_state</obj_property>
+      <obj_property name="ObjectShortName">primitiveAssembly_state</obj_property>
+   </wvobject>
+</wave_config>
