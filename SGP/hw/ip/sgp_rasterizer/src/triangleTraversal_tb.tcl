@@ -87,10 +87,10 @@ add_force {/triangleTest_sim_tb/tri_traversal_boundingbox.ymin} -radix dec {0 0n
 add_force {/triangleTest_sim_tb/tri_traversal_boundingbox.ymax} -radix bin {00000000000000001000000000000000 0ns}
 
 # Start position
-add_force{/triangleTest_sim_tb/tri_traversal_start_position.x} -radix dec {0 0ns}
-add_force{/triangleTest_sim_tb/tri_traversal_start_position.y} -radix dec {0 0ns}
-add_force{/triangleTest_sim_tb/tri_traversal_start_position.z} -radix dec {0 0ns}
-add_force{/triangleTest_sim_tb/tri_traversal_start_position.w} -radix dec {0 0ns}
+add_force {/triangleTest_sim_tb/tri_traversal_start_position.x} -radix dec {0 0ns}
+add_force {/triangleTest_sim_tb/tri_traversal_start_position.y} -radix dec {0 0ns}
+add_force {/triangleTest_sim_tb/tri_traversal_start_position.z} -radix dec {0 0ns}
+add_force {/triangleTest_sim_tb/tri_traversal_start_position.w} -radix dec {0 0ns}
 
 # End triangle traversal
 
