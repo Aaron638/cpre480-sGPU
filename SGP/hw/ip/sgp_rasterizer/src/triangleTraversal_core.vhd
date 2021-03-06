@@ -260,7 +260,7 @@ begin
 
             -- POP_MOVE_RIGHT_OUT. 
             when POP_MOVE_RIGHT_OUT =>
-                if (fragment_valid = '1') then 
+                if (fragment_out_valid = '1') then 
                     current_position_reg <= linestart_position_reg;
                     if (current_position_reg.x <= boundingbox_reg.xmax) then  -- If we are out of the triangle, but within the bounding box move right
                         triangleTraversal_state <= MOVE_RIGHT_OUT;
@@ -271,7 +271,7 @@ begin
     
             -- POP_MOVE_LEFT_OUT.
             when POP_MOVE_LEFT_OUT => 
-                if (fragment_valid = '1') then 
+                if (fragment_out_valid = '1') then 
                     current_position_reg <= linestart_position_reg;
                     if (current_position_reg.x >= boundingbox_reg.xmin) then  -- If we are out of the triangle, but within the bounding box move left
                         triangleTraversal_state <= MOVE_LEFT_OUT;

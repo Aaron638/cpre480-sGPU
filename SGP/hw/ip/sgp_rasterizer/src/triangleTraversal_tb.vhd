@@ -19,10 +19,10 @@ use ieee.numeric_std.all;
 library WORK;
 use WORK.sgp_types.all;
 
-entity triangleTest_sim_tb is
-end triangleTest_sim_tb;
+entity triangleTraversal_sim_tb is
+end triangleTraversal_sim_tb;
 
-architecture tb of triangleTest_sim_tb is
+architecture tb of triangleTraversal_sim_tb is
     -- triangleTests
     -- inputs
     signal ACLK, ARESETN, direction, setup_in_valid : std_logic;
