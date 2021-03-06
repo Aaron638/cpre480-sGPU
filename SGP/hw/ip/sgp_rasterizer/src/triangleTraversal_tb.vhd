@@ -25,7 +25,8 @@ end triangleTest_sim_tb;
 architecture tb of triangleTest_sim_tb is
     -- triangleTests
     -- inputs
-    signal ACLK, ARESETN, direction, setup_in_valid, fragment_out_ready: std_logic;
+    signal ACLK, ARESETN, direction, setup_in_valid : std_logic;
+    signal tri_test_fragment_out_ready: std_logic;
     signal tri_test_Area : signed(23 downto 0);
     signal tri_test_C5 : vertexArray_t;
     signal tri_test_C6 : vertexArray_t;
@@ -41,12 +42,10 @@ architecture tb of triangleTest_sim_tb is
     -- triangleTraversal
     signal tri_traversal_boundingbox : boundingboxRecord_t;
     signal tri_traversal_start_position : attributeRecord_t;
-    signal setup_in_valid : std_logic;
     signal tri_traversal_command_out : traversal_cmds_t;
     signal tri_traversal_status_out : std_logic;
 
     -- Other
-    signal setup_in_valid : std_logic;
 
 begin
     tri_test : entity work.triangleTest_core
@@ -86,3 +85,4 @@ begin
           -- Status out
           status_out         => tri_traversal_status_out
         );
+end architecture tb;
