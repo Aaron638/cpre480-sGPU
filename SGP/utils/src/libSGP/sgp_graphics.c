@@ -425,8 +425,6 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		// Loop until all components are done at the same time.
 		if (SGPconfig->driverMode & SGP_ETH)
 		{
-			// NOTE: THIS MAY CAUSE ISSUES AND FREEZE THE PROGRAM WITHIN THIS LOOP
-			// COMMENT OUT IF NEEDED
 			int all_done = 0;
 			while (all_done == 0)
 			{
@@ -440,7 +438,7 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		}
 	}
 
-	// uint8_t cur_buffer = SGP_getactivebuffer(SGPconfig);
+	// Backbuffer is now the active buffer
 	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
 	SGP_setactivebuffer(SGPconfig, backbuffer);
 
@@ -449,18 +447,17 @@ void SGP_glxSwapBuffers(uint32_t flag)
 	// Let the renderOutput module know where the backbuffer currently is
 	if (backbuffer == 0)
 	{
-		//renderOutput points to new backbuffer: COLORBUFFER_1
-		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
-		// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
-		// cur_buffer = 1;
+		//renderOutput backbuffer COLORBUFFER_1 -> COLORBUFFER_2
+		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
 	}
 	else
 	{
-		//renderOutput points to new backbuffer: COLORBUFFER_2
-		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
-		// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
-		// cur_buffer = 0;
+		//renderOutput backbuffer COLORBUFFER_2 -> COLORBUFFER_1
+		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
 	}
+
+	// Cache clearing
+	// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
 
 	framecount++;
 	if (framecount % 100 == 0)
