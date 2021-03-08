@@ -303,7 +303,7 @@ begin
                 if (shared_divider_dout_tvalid = '1') then
                     -- We could start by calculating C5, C6 for x and y, but they should work out to be C5=1,0 and C6=0,1, so they can be skipped
                     C5C6_attribute_count <= 0;
-                    C5C6_size_count <= 2;
+                    C5C6_size_count <= 0;
                     triangleSetup_state <= CALC_C2;
                     circuit1_state(0) <= '1';
                 end if;
