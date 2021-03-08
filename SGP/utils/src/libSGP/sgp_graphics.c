@@ -151,6 +151,10 @@ void SGP_setprimtype(GLenum mode)
 		sgp_primtype = SGP_GL_POINTS;
 	}
 
+	//Write the primtype to the rasterizer component
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RASTERIZER].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RASTERIZER_PRIMTYPE_REG, sgp_primtype);
+
 	return;
 }
 
@@ -203,8 +207,8 @@ void SGP_glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean 
 		{
 			SGP_graphicsstate.vertex_buffer_objects[SGP_graphicsstate.cur_vertex_buffer_object].status |= SGP_GRAPHICS_BUFFER_COPIED;
 
-// This should be done via burst requests, vs sending the data over word by word
-#define MAX_VERTEX_BUFFER_BURST 256
+			// This should be done via burst requests, vs sending the data over word by word
+			#define MAX_VERTEX_BUFFER_BURST 256
 			uint32_t num_bursts = ((uint32_t)SGP_graphicsstate.vertex_buffer_objects[SGP_graphicsstate.cur_vertex_buffer_object].size / 4) / MAX_VERTEX_BUFFER_BURST;
 			uint32_t burst_length = MAX_VERTEX_BUFFER_BURST;
 			uint32_t last_burst_length = ((uint32_t)SGP_graphicsstate.vertex_buffer_objects[SGP_graphicsstate.cur_vertex_buffer_object].size / 4) % MAX_VERTEX_BUFFER_BURST;
@@ -421,16 +425,18 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		// Loop until all components are done at the same time.
 		if (SGPconfig->driverMode & SGP_ETH)
 		{
-			// int all_done = 0;
-			// while (all_done == 0)
-			// {
-			// 	if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
-			// 		SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
-			// 		SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
-			// 	{
-			// 		all_done = 1;
-			// 	}
-			// }
+			// NOTE: THIS MAY CAUSE ISSUES AND FREEZE THE PROGRAM WITHIN THIS LOOP
+			// COMMENT OUT IF NEEDED
+			int all_done = 0;
+			while (all_done == 0)
+			{
+				if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
+					SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
+					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
+				{
+					all_done = 1;
+				}
+			}
 		}
 	}
 
