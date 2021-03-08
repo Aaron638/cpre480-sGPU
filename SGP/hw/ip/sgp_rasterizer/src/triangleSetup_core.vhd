@@ -177,8 +177,8 @@ begin
    In3_wire <= V2_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V2_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V2_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
-               C4_reg  when triangleSetup_state = CALC_C5 else 
-               C4_reg  when triangleSetup_state = CALC_C6 else 
+               C4_reg(32 downto 1)  when triangleSetup_state = CALC_C5 else 
+               C4_reg(32 downto 1)  when triangleSetup_state = CALC_C6 else 
                V1_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In4_wire <= V0_array(0)(1) when triangleSetup_state = CALC_C1 else 
@@ -189,8 +189,6 @@ begin
    In5_wire <= V1_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V1_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V1_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V1_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In6_wire <= V0_array(0)(1) when triangleSetup_state = CALC_C1 else 
@@ -342,7 +340,7 @@ begin
 					circuit1_state(0) <= '1';
 					if (C5C6_size_count = 3 and C5C6_attribute_count = 3) then 
 						triangleSetup_state <= CALC_AREA;
-					else if (C5C6_size_count = 3) then
+					elsif (C5C6_size_count = 3) then
 						C5C6_size_count <= 0;
 						C5C6_attribute_count <= C5C6_attribute_count + 1;
 						triangleSetup_state <= CALC_C2;
