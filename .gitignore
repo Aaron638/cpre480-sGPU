@@ -11,6 +11,7 @@
 *
 !*/
 !.gitignore
+!common/
 ###########################################################################
 ##	VIVADO
 #Source files:
@@ -74,6 +75,7 @@
 
 #Makefiles
 !*Makefile*
+!*.mk
 
 #PDFs
 !*.pdf
