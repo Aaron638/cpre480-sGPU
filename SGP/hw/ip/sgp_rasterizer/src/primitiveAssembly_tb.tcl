@@ -8,6 +8,177 @@ add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
 
+
+puts "Points tests";
+
+# point = 0, triangle = 4, strip = 5, fan = 6
+add_force {/primitiveAssembly_core/primtype} -radix hex {0 0ns}
+
+run 10ns
+add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
+
+# 30ns of data transfer at a time
+# V0 - Red point
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000000000001000000010000ffffc0000000000006900000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V1 - Green point
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000100000000000000010000ffffc0000000000006900000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V2 - Blue point
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100010000000000000000000000010000ffffc0000000000006900000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+
+puts "Triangle tests";
+
+puts "Triangle 1 - Red triangle";
+# point = 0, triangle = 4, strip = 5, fan = 6
+add_force {/primitiveAssembly_core/primtype} -radix hex {4 0ns}
+
+run 10ns
+add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
+
+# 30ns of data transfer at a time
+# V0 - Red point, x=-1, y=-1
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000000000001000000010000000000000000000000000000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V1 - Red point, x=1, y=-1
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000000000001000000010000000000000000000007800000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V2 - Red point, x=0.5, y=1
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000000000001000000010000000000000438000005a00000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+puts "Triangle 2 - Green triangle";
+# point = 0, triangle = 4, strip = 5, fan = 6
+add_force {/primitiveAssembly_core/primtype} -radix hex {4 0ns}
+
+run 10ns
+add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
+
+# 30ns of data transfer at a time
+# V0 - Green point, x=-1, y=-1
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000100000000000000010000000000000000000000000000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V1 - Green point, x=0.25, y=1
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100000000000100000000000000010000000000000438000004b00000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V2 - Green point, x=0.75, y=0
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000001010000000000010000000000000001000000000000021c000006900000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+puts "Triangle 3 - Blue triangle";
+# point = 0, triangle = 4, strip = 5, fan = 6
+add_force {/primitiveAssembly_core/primtype} -radix hex {4 0ns}
+
+run 10ns
+add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
+
+# 30ns of data transfer at a time
+# V0 - Blue point, x=0.25, y=0
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000001010001000000000000000000000001000000000000021c000004b00000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V1 - Blue point, x=0.75, y=-0.75
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {00000000000000000000000000000000000000000000000000000000000000000000010100010000000000000000000000010000000000000087000006900000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+# V2 - Blue point, x=0.75, y=0.75
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 20ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {000000000000000000000000000000000000000000000000000000000000000000000101000100000000000000000000000100000000000003b1000006900000 0ns}  -cancel_after 20ns
+run 20ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 10ns
+
+puts "Starting fan test";
+
 # point = 0, triangle = 4, strip = 5, fan = 6
 add_force {/primitiveAssembly_core/primtype} -radix hex {6 0ns}
 
