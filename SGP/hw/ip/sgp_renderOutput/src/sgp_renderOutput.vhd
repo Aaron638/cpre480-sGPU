@@ -466,7 +466,7 @@ begin
                         -- COLORBUFFER is a 1D array, so the conversion from vp coords to memory address is:
                         -- baseaddr + (1920 * 4 * yvp) + (4 * x)
 
-                        frag_address <= signed(renderoutput_colorbuffer) + (1920 * 4 * y_pos_short_reg) + (x_pos_short_reg * 4);
+                        frag_address <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
                         frag_color   <= std_logic_vector(a_color_reg & r_color_reg & b_color_reg & g_color_reg);
 
                         state <= WRITE_ADDRESS;
