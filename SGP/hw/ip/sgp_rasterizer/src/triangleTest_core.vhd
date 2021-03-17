@@ -170,13 +170,14 @@ begin
                 -- Then we save the value at the top of the stack
             when PUSH_MOVE_DOWN_CMD =>
                 for i in 0 to 2 loop
-                    Area_line_nextreg(i)   <= Area_line_nextreg(i) - C8_reg(i); -- Move the current state down
+                    C6_reg(i) <= C6_reg(i);
+                    Area_line_nextreg(i) <= Area_line_nextreg(i) - C8_reg(i); -- Move the current state down
                     Area_line_nextstack(i) <= Area_line_nextreg(i);             -- Push 
                 end loop;
                 for i in 0 to C_SGP_NUM_VERTEX_ATTRIB - 1 loop
                     for j in 0 to C_SGP_VERTEX_ATTRIB_SIZE - 1 loop
-                        newfragment_nextreg(i)(j)   <= newfragment_nextreg(i)(j) - C6_reg(i)(j); -- Move the current state down
-                        newfragment_nextstack(i)(j) <= newfragment_nextreg(i)(j);                -- Push
+                        newfragment_nextreg(i)(j) <= newfragment_nextreg(i)(j) - C6_reg(i)(j); -- Move the current state down
+                        newfragment_nextstack(i)(j)   <= newfragment_nextreg(i)(j);                -- Push
                     end loop;
                 end loop;
             when others =>

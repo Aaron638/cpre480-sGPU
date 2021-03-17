@@ -9,7 +9,7 @@ add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
 
 # point = 0, triangle = 4, strip = 5, fan = 6
-add_force {/primitiveAssembly_core/primtype} -radix hex {4 0ns}
+add_force {/primitiveAssembly_core/primtype} -radix hex {6 0ns}
 
 run 10ns
 add_force {/primitiveAssembly_core/ARESETN} -radix hex {1 0ns}
@@ -35,7 +35,7 @@ run 20ns
 add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
-run 10ns
+run 20ns
 
 # V2
 add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 20ns
@@ -46,7 +46,18 @@ run 20ns
 add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
 add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
-run 10ns
+run 20ns
+
+# V3
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {1 0ns}  -cancel_after 30ns
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}  -cancel_after 30ns
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000010E000007800000 0ns}  -cancel_after 30ns
+run 30ns
+
+add_force {/primitiveAssembly_core/vertex_valid} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/primout_ready} -radix hex {0 0ns}
+add_force {/primitiveAssembly_core/vertex_in} -radix hex {0 0ns}
+run 30ns
 
 # Tell primAssembly we're ready to read from it
 # add_force {/primitiveAssembly_core/primout_ready} -radix hex {1 0ns}
