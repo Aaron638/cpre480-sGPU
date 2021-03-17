@@ -325,6 +325,11 @@ void SGP_glViewport(GLint x, GLint y, GLsizei width, GLsizei height) {
 	SGP_graphicsstate.viewport_height = height;
 
 	// Store the updated values in the viewPort registers
+	uint32_t baseaddr = SGP_graphicsmap[SGP_VIEWPORT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_X_REG, x);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_Y_REG, y);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_WIDTH_REG, width);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_HEIGHT_REG, height);
 
 
 	return;
@@ -404,20 +409,45 @@ void SGP_glxSwapBuffers(uint32_t flag) {
 	if (flag & SGP_SYSTEM_WAITIDLE) {
 		SGP_DMAwaitidle(SGPconfig);
 
-		// For each component in the pipeline that has a status register, check it and wait until it is =0. Only do this if we're in a transmit mode. 
-		// Loop until all components are done at the same time. 
-	    if (SGPconfig->driverMode & SGP_ETH) {
-		}	
+		// For each component in the pipeline that has a status register, check it and wait until it is =0. Only do this if we're in a transmit mode.
+		// Loop until all components are done at the same time.
+		if (SGPconfig->driverMode & SGP_ETH)
+		{
+			// int all_done = 0;
+			// while (all_done == 0)
+			// {
+			// 	if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
+			// 		SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
+			// 		SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
+			// 	{
+			// 		all_done = 1;
+			// 	}
+			// }
+		}
 	}
 
-    uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
-    SGP_setactivebuffer(SGPconfig, backbuffer);
+	// uint8_t cur_buffer = SGP_getactivebuffer(SGPconfig);
+	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
+	SGP_setactivebuffer(SGPconfig, backbuffer);
+
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
 
 	// Let the renderOutput module know where the backbuffer currently is
-	uint8_t cur_buffer = 0;
-	if (backbuffer == 0) {
-		cur_buffer = 1;
+	if (backbuffer == 0)
+	{
+		//renderOutput points to new backbuffer: COLORBUFFER_1
+		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
+		// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
+		// cur_buffer = 1;
 	}
+	else
+	{
+		//renderOutput points to new backbuffer: COLORBUFFER_2
+		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
+		// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
+		// cur_buffer = 0;
+	}
+	
 
 	framecount++;
 	if (framecount % 100 == 0) {
