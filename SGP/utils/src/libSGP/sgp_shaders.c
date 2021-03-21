@@ -535,7 +535,7 @@ void SGP_glUniform1f(GLint location, GLfloat v0) {
 
 // Update the uniform at location (in the shader), this time 4 vectors. 
 // Note that this function does not take uniform cache into consideration
-void SGP_glUniform1f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) {
+void SGP_glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) {
 
 	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
 	if (sgp_uniform_loc == -1) {
