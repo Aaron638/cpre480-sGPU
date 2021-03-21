@@ -1,0 +1,8 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../sgp_types.vhd" \
+"../../../../../src/sgp_viewPort_axi_lite_regs.vhd" \
+"../../../../../src/sgp_viewPort.vhd" \
+
+# Do not sort compile order
+nosort
