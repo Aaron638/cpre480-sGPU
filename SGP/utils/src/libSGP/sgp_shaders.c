@@ -533,47 +533,54 @@ void SGP_glUniform1f(GLint location, GLfloat v0) {
 
 }
 
-// Update the uniform at location (in the shader), this time 4 vectors. 
-// Note that this function does not take uniform cache into consideration
-void SGP_glUniform4f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) {
+/*
+	https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glUniform.xhtml
+
+	Update the uniform at location. 
+	4fv means the function expects float vector/array as the value.
+
+	A count of 1 should be used if modifying the value of a single uniform variable, 
+	and a count of 1 or greater can be used to modify an entire array or part of an array. 
+
+	When loading n elements starting at an arbitrary position m in a uniform variable array, 
+	elements m + n - 1 in the array will be replaced with the new values. 
+	
+	If m + n - 1 is larger than the size of the uniform variable array, values for all array elements beyond the end of the array will be ignored. 
+	The number specified in the name of the command indicates the number of components for each element in value, 
+	and it should match the number of components in the data type of the specified uniform variable 
+	(e.g., 1 for float, int, bool; 2 for vec2, ivec2, bvec2, etc.).
+*/
+void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 
 	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
 	if (sgp_uniform_loc == -1) {
 		if (SGPconfig->driverMode & SGP_STDOUT) {
-			printf("SGP_glUniform1f: called with location=%d which is not a valid uniform location\n", (int)location);
+			printf("SGP_glUniform4f: called with location=%d which is not a valid uniform location\n", (int)location);
+		}
+		return;
+	}
+	if (count < 1) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP_glUniform4f: called with count=%d Which is < 1.\n", (int)count);
 		}
 		return;
 	}
 
+	int32_t m = sgp_uniform_loc;
+	int32_t n = count;
+	int32_t arr_size = m + n - 1;
 
-    uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr;
-	sglu_fixed_t v0_fixed = sglu_float_to_fixed(v0, 16);
-	sglu_fixed_t v1_fixed = sglu_float_to_fixed(v1, 16);
-	sglu_fixed_t v2_fixed = sglu_float_to_fixed(v2, 16);
-	sglu_fixed_t v3_fixed = sglu_float_to_fixed(v3, 16);
+	if (arr_size > 4)
+		arr_size == 4;
 
-	if (SGPconfig->driverMode & SGP_DEEP) {
-		printf("SGP_glUniform4f: updating uniform %s at address 0x%08x with values:
-				%f = 0x%08x\n
-				%f = 0x%08x\n
-				%f = 0x%08x\n
-				%f = 0x%08x\n", 
-				SGP_shadersstate.uniforms[sgp_uniform_loc].name,
-				SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr,
-				v0,
-				v0_fixed,
-				v1,
-				v1_fixed,
-				v2,
-				v2_fixed,
-				v3,
-				v3_fixed);
+
+	//Replace values from m to m + n -1
+	sglu_fixed_t v_fixed = sglu_float_to_fixed(&value, 16);
+	for (int i = m; i < arr_size; i++)
+	{
+		SGP_write32(SGPconfig, SGP_shadersstate.uniforms[i].baseaddr, (uint32_t)v_fixed);
 	}
-
-	SGP_write32(SGPconfig, baseaddr + 0 , (uint32_t)v0_fixed);
-	SGP_write32(SGPconfig, baseaddr + 16, (uint32_t)v1_fixed);
-	SGP_write32(SGPconfig, baseaddr + 32, (uint32_t)v2_fixed);
-	SGP_write32(SGPconfig, baseaddr + 48, (uint32_t)v3_fixed);
+	
 	return;
 
 }
