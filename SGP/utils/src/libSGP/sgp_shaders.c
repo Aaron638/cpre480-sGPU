@@ -533,6 +533,51 @@ void SGP_glUniform1f(GLint location, GLfloat v0) {
 
 }
 
+// Update the uniform at location (in the shader), this time 4 vectors. 
+// Note that this function does not take uniform cache into consideration
+void SGP_glUniform1f(GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) {
+
+	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
+	if (sgp_uniform_loc == -1) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP_glUniform1f: called with location=%d which is not a valid uniform location\n", (int)location);
+		}
+		return;
+	}
+
+
+    uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr;
+	sglu_fixed_t v0_fixed = sglu_float_to_fixed(v0, 16);
+	sglu_fixed_t v1_fixed = sglu_float_to_fixed(v1, 16);
+	sglu_fixed_t v2_fixed = sglu_float_to_fixed(v2, 16);
+	sglu_fixed_t v3_fixed = sglu_float_to_fixed(v3, 16);
+
+	if (SGPconfig->driverMode & SGP_DEEP) {
+		printf("SGP_glUniform4f: updating uniform %s at address 0x%08x with values:
+				%f = 0x%08x\n
+				%f = 0x%08x\n
+				%f = 0x%08x\n
+				%f = 0x%08x\n", 
+				SGP_shadersstate.uniforms[sgp_uniform_loc].name,
+				SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr,
+				v0,
+				v0_fixed,
+				v1,
+				v1_fixed,
+				v2,
+				v2_fixed,
+				v3,
+				v3_fixed);
+	}
+
+	SGP_write32(SGPconfig, baseaddr + 0 , (uint32_t)v0_fixed);
+	SGP_write32(SGPconfig, baseaddr + 16, (uint32_t)v1_fixed);
+	SGP_write32(SGPconfig, baseaddr + 32, (uint32_t)v2_fixed);
+	SGP_write32(SGPconfig, baseaddr + 48, (uint32_t)v3_fixed);
+	return;
+
+}
+
 
 // Utility function - lookup which index corresponds to the OpenGL program ID. Returns -1 if no match
 int32_t SGP_lookupProgram(GLuint gl_programID) {
