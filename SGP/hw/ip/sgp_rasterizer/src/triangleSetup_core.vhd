@@ -172,50 +172,38 @@ begin
    In2_wire <= V0_array(0)(0) when triangleSetup_state = CALC_C1 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C2 else
                V0_array(0)(0) when triangleSetup_state = CALC_C3 else
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V2_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In3_wire <= V2_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V2_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V2_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
+               C4_reg(32 downto 1)  when triangleSetup_state = CALC_C5 else 
+               C4_reg(32 downto 1)  when triangleSetup_state = CALC_C6 else 
                V1_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In4_wire <= V0_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V0_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V2_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In5_wire <= V1_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V1_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V1_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V1_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In6_wire <= V0_array(0)(1) when triangleSetup_state = CALC_C1 else 
                V0_array(0)(0) when triangleSetup_state = CALC_C2 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C3 else 
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V2_array(0)(0) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In7_wire <= V2_array(0)(0) when triangleSetup_state = CALC_C1 else 
                V2_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C2 else
                V2_array(0)(0) when triangleSetup_state = CALC_C3 else
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V0_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
    In8_wire <= V0_array(0)(0) when triangleSetup_state = CALC_C1 else 
                V0_array(C5C6_attribute_count)(C5C6_size_count) when triangleSetup_state = CALC_C2 else
                V0_array(0)(0) when triangleSetup_state = CALC_C3 else
-               C4_reg  when triangleSetup_state = CALC_C5 else --
-               C4_reg  when triangleSetup_state = CALC_C6 else --
                V2_array(0)(1) when triangleSetup_state = CALC_AREA else
 			   fixed_t_zero;
 
@@ -315,7 +303,7 @@ begin
                 if (shared_divider_dout_tvalid = '1') then
                     -- We could start by calculating C5, C6 for x and y, but they should work out to be C5=1,0 and C6=0,1, so they can be skipped
                     C5C6_attribute_count <= 0;
-                    C5C6_size_count <= 2;
+                    C5C6_size_count <= 0;
                     triangleSetup_state <= CALC_C2;
                     circuit1_state(0) <= '1';
                 end if;
@@ -339,19 +327,36 @@ begin
 				
             when CALC_C5 =>
                 -- For the C5 and C6 calculations, the result is in 17.47 format (Q1.31 x Q16.16)
-                C5_reg(C5C6_attribute_count)(C5C6_size_count) <= Val7_reg(62 downto 31);
+				if (circuit1_state(CIRCUIT1_LATENCY) = '1') then
+					C5_reg(C5C6_attribute_count)(C5C6_size_count) <= Val7_reg(62 downto 31);
+					circuit1_state(0) <= '1';
+					triangleSetup_state <= CALC_C6;
+				end if;
 
             when CALC_C6 =>
 				-- For the C5 and C6 calculations, the result is in 17.47 format (Q1.31 x Q16.16)
-                C6_reg(C5C6_attribute_count)(C5C6_size_count) <= Val7_reg(62 downto 31);
+				if (circuit1_state(CIRCUIT1_LATENCY) = '1') then
+					C6_reg(C5C6_attribute_count)(C5C6_size_count) <= Val7_reg(62 downto 31);
+					circuit1_state(0) <= '1';
+					if (C5C6_size_count = 3 and C5C6_attribute_count = 3) then 
+						triangleSetup_state <= CALC_AREA;
+					elsif (C5C6_size_count = 3) then
+						C5C6_size_count <= 0;
+						C5C6_attribute_count <= C5C6_attribute_count + 1;
+						triangleSetup_state <= CALC_C2;
+					else
+						C5C6_size_count <= C5C6_size_count + 1;
+						triangleSetup_state <= CALC_C2;
+					end if;
+				end if;
 				
             -- For area calculations, we do need 24-bits of integer value (large triangles can have ~2M fragments in them). 
             -- We can likely drop the fractional components also, since our x/y are all in screen space at this point. 
             when CALC_AREA =>
-                Area_reg <= Val7_reg(55 downto 32);
-                if (circuit1_state(CIRCUIT1_LATENCY) = '1') then
+                Area_reg <= Val7_reg(56 downto 33);  --if there are problems with the area calculation, take note that I changed this from 55 downto 32 so that we effectively get the divide by 2 for the calculation.
+                if (circuit1_state(CIRCUIT1_LATENCY) = '1') then --TODO set the circuit latency in the previous state so that we can actually move on from this step and on to the bounding box TODO
                     triangleSetup_state <= CALC_BOUNDINGBOX;                    
-                end if;            
+                end if;
 
 
             when CALC_BOUNDINGBOX =>
@@ -368,14 +373,32 @@ begin
                 end if;           
 
                 -- Ymin. Do not overthink top vs bottom, either ymin or ymax is ok as long as we are consistent. 
-
+				if ((V0_record.att0.y <= V1_record.att0.y) and (V0_record.att0.y <= V2_record.att0.y)) then
+                    boundingbox_reg.ymin <= V0_record.att0.y;
+                elsif (V1_record.att0.y <= V2_record.att0.y) then
+                    boundingbox_reg.ymin <= V1_record.att0.y;
+                else
+                    boundingbox_reg.ymin <= V2_record.att0.y;                
+                end if;
                 -- XMax
-
+				if ((V0_record.att0.x >= V1_record.att0.x) and (V0_record.att0.x >= V2_record.att0.x)) then
+                    boundingbox_reg.xmax <= V0_record.att0.x;
+                elsif (V1_record.att0.x >= V2_record.att0.x) then
+                    boundingbox_reg.xmax <= V1_record.att0.x;
+                else
+                    boundingbox_reg.xmax <= V2_record.att0.x;                
+                end if;
                 -- YMax
---                if ((V0_record.att0.y >= V1_record.att0.y) and (V0_record.att0.y >= V2_record.att0.y)) then
---                    topVertexIndex <= 0;
---                    boundingbox_reg.ymax <= V0_record.att0.y;
-
+                if ((V0_record.att0.y >= V1_record.att0.y) and (V0_record.att0.y >= V2_record.att0.y)) then
+                    topVertexIndex <= 0;
+                    boundingbox_reg.ymax <= V0_record.att0.y;
+                elsif (V1_record.att0.y >= V2_record.att0.y) then
+					topVertexIndex <= 1;
+                    boundingbox_reg.ymax <= V1_record.att0.y;
+                else
+					topVertexIndex <= 2;
+                    boundingbox_reg.ymax <= V2_record.att0.y;                
+                end if;
                 triangleSetup_state <= REORDER_TRIANGLE;
 
             -- "Up/Top" and "Down/Bottom" are relative to screen-space. We take the ymin index to mean our "top". 
@@ -392,13 +415,29 @@ begin
                         triangle_out(2) <= triangle_reg(2);
                     end if;
                 elsif (topVertexIndex = 1) then 
+					if (direction_reg = direction_ccw) then
+                        triangle_out(1) <= triangle_reg(0);
+                        triangle_out(2) <= triangle_reg(2);
+                    else
+                        triangle_out(1) <= triangle_reg(2);
+                        triangle_out(2) <= triangle_reg(0);
+                    end if;
                 else
+					if (direction_reg = direction_ccw) then
+                        triangle_out(1) <= triangle_reg(1);
+                        triangle_out(2) <= triangle_reg(0);
+                    else
+                        triangle_out(1) <= triangle_reg(0);
+                        triangle_out(2) <= triangle_reg(1);
+                    end if;
                 end if;
                 triangleSetup_state <= WRITE_SETUP;
 
+			--handshake with the triangleTraveral_core and the triangleTest_core
             when WRITE_SETUP =>
                 if (setup_out_ready = '1') then
-                      triangleSetup_state <= WAIT_FOR_TRIANGLE_DONE;
+					--setup_out_valid <= '1'; not necessary. Already implemented in dataflow logic
+                    triangleSetup_state <= WAIT_FOR_TRIANGLE_DONE;
  --                   triangleSetup_state <= WAIT_FOR_TRIANGLE;
                 end if;
   

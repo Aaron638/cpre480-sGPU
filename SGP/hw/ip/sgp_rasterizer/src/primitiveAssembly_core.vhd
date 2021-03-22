@@ -113,8 +113,9 @@ begin
                             elsif (primtype = SGP_GL_TRIANGLE_FAN and (vertex_valid = '1')) then
                                 V1_reg <= V2_reg;
                                 primitiveAssembly_state <= WAIT_FOR_VERTEX2;
+                            else
+                                primitiveAssembly_state <= WAIT_FOR_VERTEX0;
                             end if;
-                            primitiveAssembly_state <= WAIT_FOR_VERTEX0;
                         end if;
 
                 end case;
