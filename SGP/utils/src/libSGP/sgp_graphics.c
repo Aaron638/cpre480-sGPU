@@ -428,8 +428,7 @@ void SGP_glxSwapBuffers(uint32_t flag)
 			int all_done = 0;
 			while (all_done == 0)
 			{
-				if (SGP_graphicsmap[SGP_VERTEX_FETCH].status_register == 0 &&
-					SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
+				if (	SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
 					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
 				{
 					all_done = 1;
