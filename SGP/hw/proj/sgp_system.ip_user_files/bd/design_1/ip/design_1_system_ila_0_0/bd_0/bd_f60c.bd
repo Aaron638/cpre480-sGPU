@@ -805,12 +805,6 @@
       }
     },
     "interface_nets": {
-      "Conn1": {
-        "interface_ports": [
-          "SLOT_1_AXIS",
-          "g_inst/slot_1_axis"
-        ]
-      },
       "Conn": {
         "interface_ports": [
           "SLOT_0_AXI",
@@ -821,6 +815,12 @@
         "interface_ports": [
           "SLOT_2_AXIS",
           "g_inst/slot_2_axis"
+        ]
+      },
+      "Conn1": {
+        "interface_ports": [
+          "SLOT_1_AXIS",
+          "g_inst/slot_1_axis"
         ]
       }
     },

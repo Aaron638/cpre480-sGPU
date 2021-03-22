@@ -901,6 +901,12 @@ proc create_hier_cell_graphics_subsystem { parentCell nameHier } {
   create_bd_pin -dir I -type clk s_axis_aclk
   create_bd_pin -dir I -type rst s_axis_aresetn
 
+  # Create instance: rasterizer_fifo, and set properties
+  set rasterizer_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 rasterizer_fifo ]
+
+  # Create instance: sgp_rasterizer, and set properties
+  set sgp_rasterizer [ create_bd_cell -type ip -vlnv xilinx.com:user:sgp_rasterizer:1.0 sgp_rasterizer ]
+
   # Create instance: sgp_renderOutput, and set properties
   set sgp_renderOutput [ create_bd_cell -type ip -vlnv xilinx.com:user:sgp_renderOutput:1.0 sgp_renderOutput ]
   set_property -dict [ list \
@@ -933,8 +939,11 @@ proc create_hier_cell_graphics_subsystem { parentCell nameHier } {
   set viewport_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 viewport_fifo ]
 
   # Create interface connections
+  connect_bd_intf_net -intf_net rasterizer_fifo_M_AXIS [get_bd_intf_pins rasterizer_fifo/M_AXIS] [get_bd_intf_pins sgp_renderOutput/S_AXIS]
   connect_bd_intf_net -intf_net renderOutput_dcache_0_M0_AXI [get_bd_intf_pins renderOutput_dcache_0_M0_AXI] [get_bd_intf_pins sgp_renderOutput/m_axi]
   connect_bd_intf_net -intf_net [get_bd_intf_nets renderOutput_dcache_0_M0_AXI] [get_bd_intf_pins renderOutput_dcache_0_M0_AXI] [get_bd_intf_pins system_ila_0/SLOT_0_AXI]
+  connect_bd_intf_net -intf_net s_axi_lite3_1 [get_bd_intf_pins s_axi_lite3] [get_bd_intf_pins sgp_rasterizer/s_axi_lite]
+  connect_bd_intf_net -intf_net sgp_rasterizer_M_AXIS [get_bd_intf_pins rasterizer_fifo/S_AXIS] [get_bd_intf_pins sgp_rasterizer/M_AXIS]
   connect_bd_intf_net -intf_net sgp_viewPort_0_M_AXIS [get_bd_intf_pins sgp_viewPort/M_AXIS] [get_bd_intf_pins viewport_fifo/S_AXIS]
   connect_bd_intf_net -intf_net system_intercon_M07_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins sgp_vertexFetch/S_AXI]
   connect_bd_intf_net -intf_net system_intercon_M08_AXI [get_bd_intf_pins s_axi_lite2] [get_bd_intf_pins sgp_vertexFetch/s_axi_lite]
@@ -943,12 +952,11 @@ proc create_hier_cell_graphics_subsystem { parentCell nameHier } {
   connect_bd_intf_net -intf_net system_intercon_M11_AXI [get_bd_intf_pins s_axi_lite] [get_bd_intf_pins sgp_renderOutput/s_axi_lite]
   connect_bd_intf_net -intf_net vertexFetch_core_0_M_AXIS [get_bd_intf_pins sgp_vertexFetch/M_AXIS] [get_bd_intf_pins vertexfetch_fifo/S_AXIS]
   connect_bd_intf_net -intf_net vertexfetch_fifo_M_AXIS [get_bd_intf_pins sgp_viewPort/S_AXIS] [get_bd_intf_pins vertexfetch_fifo/M_AXIS]
-  connect_bd_intf_net -intf_net viewport_fifo_M_AXIS [get_bd_intf_pins sgp_renderOutput/S_AXIS] [get_bd_intf_pins viewport_fifo/M_AXIS]
-  connect_bd_intf_net -intf_net [get_bd_intf_nets viewport_fifo_M_AXIS] [get_bd_intf_pins system_ila_0/SLOT_2_AXIS] [get_bd_intf_pins viewport_fifo/M_AXIS]
+  connect_bd_intf_net -intf_net viewport_fifo_M_AXIS [get_bd_intf_pins sgp_rasterizer/S_AXIS] [get_bd_intf_pins viewport_fifo/M_AXIS]
 
   # Create port connections
-  connect_bd_net -net ARESETN_1 [get_bd_pins s_axis_aresetn] [get_bd_pins sgp_renderOutput/ARESETN] [get_bd_pins sgp_vertexFetch/m_axi_aresetn] [get_bd_pins sgp_viewPort/ARESETN] [get_bd_pins system_ila_0/resetn] [get_bd_pins vertexfetch_fifo/s_axis_aresetn] [get_bd_pins viewport_fifo/s_axis_aresetn]
-  connect_bd_net -net mem_interface_ui_clk [get_bd_pins s_axis_aclk] [get_bd_pins sgp_renderOutput/ACLK] [get_bd_pins sgp_vertexFetch/m_axis_aclk] [get_bd_pins sgp_viewPort/ACLK] [get_bd_pins system_ila_0/clk] [get_bd_pins vertexfetch_fifo/s_axis_aclk] [get_bd_pins viewport_fifo/s_axis_aclk]
+  connect_bd_net -net ARESETN_1 [get_bd_pins s_axis_aresetn] [get_bd_pins rasterizer_fifo/s_axis_aresetn] [get_bd_pins sgp_rasterizer/ARESETN] [get_bd_pins sgp_renderOutput/ARESETN] [get_bd_pins sgp_vertexFetch/m_axi_aresetn] [get_bd_pins sgp_viewPort/ARESETN] [get_bd_pins system_ila_0/resetn] [get_bd_pins vertexfetch_fifo/s_axis_aresetn] [get_bd_pins viewport_fifo/s_axis_aresetn]
+  connect_bd_net -net mem_interface_ui_clk [get_bd_pins s_axis_aclk] [get_bd_pins rasterizer_fifo/s_axis_aclk] [get_bd_pins sgp_rasterizer/ACLK] [get_bd_pins sgp_renderOutput/ACLK] [get_bd_pins sgp_vertexFetch/m_axis_aclk] [get_bd_pins sgp_viewPort/ACLK] [get_bd_pins system_ila_0/clk] [get_bd_pins vertexfetch_fifo/s_axis_aclk] [get_bd_pins viewport_fifo/s_axis_aclk]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -1259,46 +1267,49 @@ proc create_root_design { parentCell } {
   connect_bd_net -net video_subsystem_VDMA_CLK_O [get_bd_pins memory_subsystem/PIXEL_CLK_I] [get_bd_pins video_subsystem/PIXEL_CLK_O]
 
   # Create address segments
-  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
+  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
   assign_bd_address -offset 0x40600000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs debug_subsystem/axi_uartlite_0/S_AXI/Reg] -force
-  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x00000000 -range 0x00008000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs debug_subsystem/microblaze_0_local_memory/dlmb_bram_if_cntrl_0/SLMB/Mem] -force
-  assign_bd_address -offset 0x00000000 -range 0x00008000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Instruction] [get_bd_addr_segs debug_subsystem/microblaze_0_local_memory/ilmb_bram_if_cntrl_0/SLMB/Mem] -force
+  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x00000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs debug_subsystem/microblaze_0_local_memory/dlmb_bram_if_cntrl_0/SLMB/Mem] -force
+  assign_bd_address -offset 0x00000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Instruction] [get_bd_addr_segs debug_subsystem/microblaze_0_local_memory/ilmb_bram_if_cntrl_0/SLMB/Mem] -force
   assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
-  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
-  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
-  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
+  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_rasterizer/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44AA0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
+  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
+  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
   assign_bd_address -offset 0x40600000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs debug_subsystem/axi_uartlite_0/S_AXI/Reg] -force
-  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
-  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
-  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
+  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_rasterizer/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44AA0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
+  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
   assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces graphics_subsystem/sgp_renderOutput/m_axi] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
   assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces memory_subsystem/memory_dma/Data] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
-  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
+  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
   assign_bd_address -offset 0x40600000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs debug_subsystem/axi_uartlite_0/S_AXI/Reg] -force
-  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
-  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
-  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
+  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_rasterizer/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0x44AA0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
+  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
+  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces system_intercon/system_dma/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
   assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces video_subsystem/axi_vdma_0/Data_MM2S] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
 
 

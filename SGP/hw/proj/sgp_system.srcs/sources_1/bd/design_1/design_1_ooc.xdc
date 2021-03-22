@@ -7,5 +7,6 @@
 # of Vivado)
 ################################################################################
 create_clock -name sys_clk_i -period 10 [get_ports sys_clk_i]
+create_clock -name RGMII_eth_phy_rx_clk -period 10 [get_ports RGMII_eth_phy_rx_clk]
 
 ################################################################################

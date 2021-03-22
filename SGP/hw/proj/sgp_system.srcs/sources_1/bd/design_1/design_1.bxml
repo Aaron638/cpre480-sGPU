@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="design_1" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1616385959"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1616385959"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1616385959"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1616385959"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1616398347"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1616398347"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1616398347"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1616398347"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip\design_1_axi_uartlite_0_0\design_1_axi_uartlite_0_0.xci" Type="IP">
         <Instance HierarchyPath="debug_subsystem/axi_uartlite_0"/>
@@ -256,6 +256,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip\design_1_periph_intercon_0\design_1_periph_intercon_0.xci" Type="IP">
+        <Instance HierarchyPath="system_intercon/periph_intercon"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -310,7 +311,23 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\design_1_auto_pc_10\design_1_auto_pc_10.xci" Type="IP">
+      <File Name="ip\design_1_sgp_rasterizer_0_0\design_1_sgp_rasterizer_0_0.xci" Type="IP">
+        <Instance HierarchyPath="graphics_subsystem/sgp_rasterizer"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\design_1_axis_data_fifo_0_0\design_1_axis_data_fifo_0_0.xci" Type="IP">
+        <Instance HierarchyPath="graphics_subsystem/rasterizer_fifo"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\design_1_auto_pc_11\design_1_auto_pc_11.xci" Type="IP">
         <Instance HierarchyPath="system_intercon/periph_intercon/s00_couplers/auto_pc"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -392,6 +409,14 @@
       </File>
       <File Name="ip\design_1_auto_pc_9\design_1_auto_pc_9.xci" Type="IP">
         <Instance HierarchyPath="system_intercon/periph_intercon/m11_couplers/auto_pc"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip\design_1_auto_pc_10\design_1_auto_pc_10.xci" Type="IP">
+        <Instance HierarchyPath="system_intercon/periph_intercon/m12_couplers/auto_pc"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

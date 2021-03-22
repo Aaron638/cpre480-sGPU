@@ -1875,8 +1875,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>sgp_renderOutput_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>9</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-03-22T03:16:10Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>10</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-03-22T07:22:25Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@29c115ad_ARCHIVE_LOCATION">c:/users/zambr/desktop/mp-1/hw/ip/sgp_renderoutput</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@73b379f3_ARCHIVE_LOCATION">c:/users/zambr/desktop/mp-1/hw/ip/sgp_renderoutput</xilinx:tag>
@@ -1953,6 +1953,13 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5a7936bc_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3d55a90a_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@536aa7c8_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78c58a5_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53e961a5_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ea072bd_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c1d80f1_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ee66cbd_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d79c393_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d4a6b51_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_renderOutput</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>

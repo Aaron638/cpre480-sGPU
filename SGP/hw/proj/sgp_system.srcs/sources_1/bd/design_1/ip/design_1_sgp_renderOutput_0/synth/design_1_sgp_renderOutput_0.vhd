@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:sgp_renderOutput:1.0
--- IP Revision: 9
+-- IP Revision: 10
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -203,7 +203,7 @@ ARCHITECTURE design_1_sgp_renderOutput_0_arch OF design_1_sgp_renderOutput_0 IS
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF design_1_sgp_renderOutput_0_arch : ARCHITECTURE IS "design_1_sgp_renderOutput_0,sgp_renderOutput,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF design_1_sgp_renderOutput_0_arch: ARCHITECTURE IS "design_1_sgp_renderOutput_0,sgp_renderOutput,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=sgp_renderOutput,x_ipVersion=1.0,x_ipCoreRevision=9,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_S_AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=10,C_M_AXI_BURST_LEN=16,C_M_AXI_ID_WIDTH=4,C_M_AXI_ADDR_WIDTH=32,C_M_AXI_DATA_WIDTH=32,C_NUM_VERTEX_ATTRIB=4}";
+  ATTRIBUTE CORE_GENERATION_INFO OF design_1_sgp_renderOutput_0_arch: ARCHITECTURE IS "design_1_sgp_renderOutput_0,sgp_renderOutput,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=sgp_renderOutput,x_ipVersion=1.0,x_ipCoreRevision=10,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,C_S_AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=10,C_M_AXI_BURST_LEN=16,C_M_AXI_ID_WIDTH=4,C_M_AXI_ADDR_WIDTH=32,C_M_AXI_DATA_WIDTH=32,C_NUM_VERTEX_ATTRIB=4}";
   ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
   ATTRIBUTE IP_DEFINITION_SOURCE OF design_1_sgp_renderOutput_0_arch: ARCHITECTURE IS "package_project";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
