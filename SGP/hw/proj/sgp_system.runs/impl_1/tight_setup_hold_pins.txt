@@ -1,0 +1,100 @@
++--------------------------+--------------------------+----------------------------------------------------------------------------------------------------------+
+|       Launch Clock       |      Capture Clock       |                                                 Pin                                                      |
++--------------------------+--------------------------+----------------------------------------------------------------------------------------------------------+
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                          design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_de_mux_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[16]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[23]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[10]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[9]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[11]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[8]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[4]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[1]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[21]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[22]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[2]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[5]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[6]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                       design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_vsync_mux_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                       design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_hsync_mux_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[17]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[19]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[20]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                           design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_vsync_dly_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[3]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[4]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[5]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[2]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[0]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                            design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_sof_dly_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_de_dly_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                            design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_dly_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[1]/S|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_re_dly_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_sof_dly_reg/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[7]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[18]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[3]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[0]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[5]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[6]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[7]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[4]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[5]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[6]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[7]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[4]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[6]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[7]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[8]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[11]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[10]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[12]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                     design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/FSM_onehot_state_reg[9]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[8]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[9]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[10]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[11]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[17]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[18]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[16]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[19]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                        design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[12]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[15]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[13]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[14]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[12]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[0]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[1]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[3]/S|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                              design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[2]/S|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[20]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[21]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[22]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[23]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                        design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[11]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                        design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[10]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[9]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[8]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[13]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[14]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[15]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                    design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/FORMATTER_INST/in_data_mux_reg[12]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[24]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[25]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[26]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                             design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_lag_reg[27]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[3]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[0]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[1]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |                         design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/fifo_eol_cnt_reg[2]/R|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/COUPLER_INST/generate_sync_fifo.FIFO_INST/XPM_FIFO_SYNC_INST/xpm_fifo_base_inst/gen_pntr_flags_cc.gen_full_rst_val.ram_full_i_reg/D|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/COUPLER_INST/generate_sync_fifo.FIFO_INST/XPM_FIFO_SYNC_INST/xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_cc.fifo_wr_rst_cc_reg[0]/S|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/COUPLER_INST/generate_sync_fifo.FIFO_INST/XPM_FIFO_SYNC_INST/xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_cc.fifo_wr_rst_cc_reg[1]/S|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/COUPLER_INST/generate_sync_fifo.FIFO_INST/XPM_FIFO_SYNC_INST/xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_cc.fifo_wr_rst_cc_reg[2]/S|
+| video_subsystem_VDMA_CLK_O |video_subsystem_VDMA_CLK_O |design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/COUPLER_INST/generate_sync_fifo.FIFO_INST/XPM_FIFO_SYNC_INST/xpm_fifo_base_inst/wrp_inst/count_value_i_reg[5]/D|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                          design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_sof_cnt_reg[4]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                          design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_sof_cnt_reg[6]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                          design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_sof_cnt_reg[7]/R|
+|                clk_pll_i |video_subsystem_VDMA_CLK_O |                          design_1_i/video_subsystem/v_axi4s_vid_out_0/inst/SYNC_INST/vtg_sof_cnt_reg[5]/R|
++--------------------------+--------------------------+----------------------------------------------------------------------------------------------------------+

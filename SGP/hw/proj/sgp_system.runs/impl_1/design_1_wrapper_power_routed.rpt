@@ -1,0 +1,220 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version     : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+| Date             : Mon Mar 22 15:50:48 2021
+| Host             : CO2050-05 running 64-bit major release  (build 9200)
+| Command          : report_power -file design_1_wrapper_power_routed.rpt -pb design_1_wrapper_power_summary_routed.pb -rpx design_1_wrapper_power_routed.rpx
+| Design           : design_1_wrapper
+| Device           : xc7a200tsbg484-1
+| Design State     : routed
+| Grade            : commercial
+| Process          : typical
+| Characterization : Production
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Power Report
+
+Table of Contents
+-----------------
+1. Summary
+1.1 On-Chip Components
+1.2 Power Supply Summary
+1.3 Confidence Level
+2. Settings
+2.1 Environment
+2.2 Clock Constraints
+3. Detailed Reports
+3.1 By Hierarchy
+
+1. Summary
+----------
+
++--------------------------+--------------+
+| Total On-Chip Power (W)  | 1.688        |
+| Design Power Budget (W)  | Unspecified* |
+| Power Budget Margin (W)  | NA           |
+| Dynamic (W)              | 1.517        |
+| Device Static (W)        | 0.171        |
+| Effective TJA (C/W)      | 3.3          |
+| Max Ambient (C)          | 79.4         |
+| Junction Temperature (C) | 30.6         |
+| Confidence Level         | Low          |
+| Setting File             | ---          |
+| Simulation Activity File | ---          |
+| Design Nets Matched      | NA           |
++--------------------------+--------------+
+* Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
+
+
+1.1 On-Chip Components
+----------------------
+
++--------------------------+-----------+----------+-----------+-----------------+
+| On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
++--------------------------+-----------+----------+-----------+-----------------+
+| Clocks                   |     0.201 |       35 |       --- |             --- |
+| Slice Logic              |     0.086 |   106932 |       --- |             --- |
+|   LUT as Logic           |     0.071 |    38813 |    133800 |           29.01 |
+|   Register               |     0.005 |    51378 |    267600 |           19.20 |
+|   CARRY4                 |     0.005 |     1909 |     33450 |            5.71 |
+|   LUT as Distributed RAM |     0.003 |     2160 |     46200 |            4.68 |
+|   LUT as Shift Register  |     0.001 |     1912 |     46200 |            4.14 |
+|   F7/F8 Muxes            |    <0.001 |     1132 |    133800 |            0.85 |
+|   Others                 |     0.000 |     2967 |       --- |             --- |
+| Signals                  |     0.128 |    81318 |       --- |             --- |
+| Block RAM                |     0.087 |       81 |       365 |           22.19 |
+| MMCM                     |     0.310 |        3 |        10 |           30.00 |
+| PLL                      |     0.091 |        1 |        10 |           10.00 |
+| DSPs                     |     0.025 |       37 |       740 |            5.00 |
+| I/O                      |     0.450 |       73 |       285 |           25.61 |
+| PHASER                   |     0.134 |       14 |       --- |             --- |
+| XADC                     |     0.004 |        1 |       --- |             --- |
+| Static Power             |     0.171 |          |           |                 |
+| Total                    |     1.688 |          |           |                 |
++--------------------------+-----------+----------+-----------+-----------------+
+
+
+1.2 Power Supply Summary
+------------------------
+
++-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+| Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
++-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+| Vccint    |       1.000 |     0.610 |       0.571 |      0.039 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.370 |       0.338 |      0.031 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.045 |       0.040 |      0.005 |       NA    | Unspecified | NA         |
+| Vcco25    |       2.500 |     0.008 |       0.003 |      0.005 |       NA    | Unspecified | NA         |
+| Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco15    |       1.500 |     0.132 |       0.127 |      0.005 |       NA    | Unspecified | NA         |
+| Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccbram   |       1.000 |     0.008 |       0.005 |      0.003 |       NA    | Unspecified | NA         |
+| MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccadc    |       1.800 |     0.022 |       0.002 |      0.020 |       NA    | Unspecified | NA         |
++-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+
+
+1.3 Confidence Level
+--------------------
+
++-----------------------------+------------+--------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| User Input Data             | Confidence | Details                                                | Action                                                                                                     |
++-----------------------------+------------+--------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+| Design implementation state | High       | Design is routed                                       |                                                                                                            |
+| Clock nodes activity        | High       | User specified more than 95% of clocks                 |                                                                                                            |
+| I/O nodes activity          | Low        | More than 75% of inputs are missing user specification | Provide missing input activity with simulation results or by editing the "By Resource Type -> I/Os" view   |
+| Internal nodes activity     | Medium     | User specified less than 25% of internal nodes         | Provide missing internal nodes activity with simulation results or by editing the "By Resource Type" views |
+| Device models               | High       | Device models are Production                           |                                                                                                            |
+|                             |            |                                                        |                                                                                                            |
+| Overall confidence level    | Low        |                                                        |                                                                                                            |
++-----------------------------+------------+--------------------------------------------------------+------------------------------------------------------------------------------------------------------------+
+
+
+2. Settings
+-----------
+
+2.1 Environment
+---------------
+
++-----------------------+--------------------------+
+| Ambient Temp (C)      | 25.0                     |
+| ThetaJA (C/W)         | 3.3                      |
+| Airflow (LFM)         | 250                      |
+| Heat Sink             | medium (Medium Profile)  |
+| ThetaSA (C/W)         | 4.6                      |
+| Board Selection       | medium (10"x10")         |
+| # of Board Layers     | 12to15 (12 to 15 Layers) |
+| Board Temperature (C) | 25.0                     |
++-----------------------+--------------------------+
+
+
+2.2 Clock Constraints
+---------------------
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| Clock                                                                                                                                                     | Domain                                                                                                                                                                                                                                      | Constraint (ns) |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| I                                                                                                                                                         | design_1_i/video_subsystem/axi_dynclk_0/U0/Inst_mmcme2_drp/I                                                                                                                                                                                |             2.0 |
+| RGMII_eth_phy_rx_clk                                                                                                                                      | RGMII_eth_phy_rx_clk                                                                                                                                                                                                                        |             8.0 |
+| RGMII_eth_phy_rx_clk                                                                                                                                      | RGMII_eth_phy_rx_clk_IBUF                                                                                                                                                                                                                   |             8.0 |
+| clk90_mmcm_out                                                                                                                                            | design_1_i/ethernet_subsystem/axis_udp_ethernet_0/inst/clk90_mmcm_out                                                                                                                                                                       |             8.0 |
+| clk_200_mmcm_out                                                                                                                                          | design_1_i/ethernet_subsystem/axis_udp_ethernet_0/inst/clk_200_mmcm_out                                                                                                                                                                     |             5.0 |
+| clk_mmcm_out                                                                                                                                              | design_1_i/ethernet_subsystem/axis_udp_ethernet_0/inst/clk_mmcm_out                                                                                                                                                                         |             8.0 |
+| clk_pll_i                                                                                                                                                 | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/CLK                                                                                                                                          |            10.0 |
+| clk_pll_i                                                                                                                                                 | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/clk_pll_i                                                                                                                                    |            10.0 |
+| dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/TCK                                                                | dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/tck_bs                                                                                                                                                                        |            33.0 |
+| design_1_i/debug_subsystem/mdm_0/U0/Use_E2.BSCAN_I/Use_E2.BSCANE2_I/DRCK                                                                                  | design_1_i/debug_subsystem/mdm_0/U0/Use_E2.BSCAN_I/DRCK                                                                                                                                                                                     |            33.3 |
+| design_1_i/debug_subsystem/mdm_0/U0/Use_E2.BSCAN_I/Use_E2.BSCANE2_I/UPDATE                                                                                | design_1_i/debug_subsystem/mdm_0/U0/Use_E2.BSCAN_I/Ext_JTAG_UPDATE                                                                                                                                                                          |            33.3 |
+| freq_refclk                                                                                                                                               | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/freq_refclk                                                                                                                                  |             1.3 |
+| iserdes_clkdiv                                                                                                                                            | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/iserdes_clkdiv       |            10.0 |
+| iserdes_clkdiv_1                                                                                                                                          | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/iserdes_clkdiv       |            10.0 |
+| mem_refclk                                                                                                                                                | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/mem_refclk                                                                                                                                   |             2.5 |
+| mmcm_clkfb                                                                                                                                                | design_1_i/ethernet_subsystem/axis_udp_ethernet_0/inst/mmcm_clkfb                                                                                                                                                                           |            10.0 |
+| mmcm_clkout1                                                                                                                                              | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/mmcm_clkout1                                                                                                                                 |             5.0 |
+| mmcm_fbclk_out                                                                                                                                            | design_1_i/video_subsystem/axi_dynclk_0/U0/Inst_mmcme2_drp/mmcm_fbclk_out                                                                                                                                                                   |            10.0 |
+| oserdes_clk                                                                                                                                               | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk          |             2.5 |
+| oserdes_clk_1                                                                                                                                             | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk          |             2.5 |
+| oserdes_clk_2                                                                                                                                             | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk          |             2.5 |
+| oserdes_clk_3                                                                                                                                             | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk          |             2.5 |
+| oserdes_clkdiv                                                                                                                                            | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clkdiv       |            10.0 |
+| oserdes_clkdiv_1                                                                                                                                          | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clkdiv       |            10.0 |
+| oserdes_clkdiv_2                                                                                                                                          | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clkdiv       |             5.0 |
+| oserdes_clkdiv_3                                                                                                                                          | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clkdiv       |             5.0 |
+| phy_rx_clk                                                                                                                                                | design_1_i/ethernet_subsystem/axis_udp_ethernet_0/inst/core_inst/eth_mac_inst/eth_mac_1g_rgmii_inst/rgmii_phy_if_inst/rx_ssio_ddr_inst/clk_io                                                                                               |             8.0 |
+| pll_clk3_out                                                                                                                                              | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/pll_clk3_out                                                                                                                                 |            10.0 |
+| pll_clkfbout                                                                                                                                              | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/pll_clkfbout                                                                                                                                 |            10.0 |
+| sync_pulse                                                                                                                                                | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_ddr3_infrastructure/sync_pulse                                                                                                                                   |            40.0 |
+| sys_clk_i                                                                                                                                                 | sys_clk_i                                                                                                                                                                                                                                   |            10.0 |
+| u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/iserdes_clk | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/C_rst_primitives_reg |             2.5 |
+| u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/iserdes_clk | design_1_i/memory_subsystem/mem_interface/u_design_1_mem_interface_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/D_rst_primitives_reg |             2.5 |
+| video_subsystem_VDMA_CLK_O                                                                                                                                | design_1_i/video_subsystem/axi_dynclk_0/U0/PXL_CLK_O                                                                                                                                                                                        |            10.0 |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+
+
+3. Detailed Reports
+-------------------
+
+3.1 By Hierarchy
+----------------
+
++-----------------------------+-----------+
+| Name                        | Power (W) |
++-----------------------------+-----------+
+| design_1_wrapper            |     1.517 |
+|   dbg_hub                   |     0.003 |
+|     inst                    |     0.003 |
+|       BSCANID.u_xsdbm_id    |     0.003 |
+|   design_1_i                |     1.505 |
+|     debug_subsystem         |     0.002 |
+|     ethernet_subsystem      |     0.176 |
+|       axi_mm2s_mapper_0     |     0.002 |
+|       axis_data_fifo_rx_udp |     0.005 |
+|       axis_data_fifo_tx_udp |     0.005 |
+|       axis_udp_ethernet_0   |     0.164 |
+|     graphics_subsystem      |     0.246 |
+|       rasterizer_fifo       |     0.005 |
+|       sgp_rasterizer        |     0.105 |
+|       sgp_renderOutput      |     0.034 |
+|       sgp_vertexFetch       |     0.021 |
+|       sgp_viewPort          |     0.005 |
+|       system_ila_0          |     0.046 |
+|       vertexfetch_fifo      |     0.008 |
+|       viewport_fifo         |     0.023 |
+|     memory_subsystem        |     0.767 |
+|       mem_interface         |     0.680 |
+|       memory_dma            |     0.009 |
+|       memory_intercon       |     0.078 |
+|     system_intercon         |     0.046 |
+|       periph_intercon       |     0.037 |
+|       system_dma            |     0.009 |
+|     video_subsystem         |     0.267 |
+|       axi_dynclk_0          |     0.114 |
+|       axi_vdma_0            |     0.008 |
+|       rgb2dvi_0             |     0.135 |
+|       v_axi4s_vid_out_0     |     0.002 |
+|       v_tc_0                |     0.010 |
++-----------------------------+-----------+
+
+

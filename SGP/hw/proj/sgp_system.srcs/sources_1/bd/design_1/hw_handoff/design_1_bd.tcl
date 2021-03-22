@@ -1119,26 +1119,6 @@ proc create_hier_cell_debug_subsystem { parentCell nameHier } {
   # Create instance: mdm_0, and set properties
   set mdm_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:mdm:3.2 mdm_0 ]
 
-  # Create instance: microblaze_0, and set properties
-  set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:11.0 microblaze_0 ]
-  set_property -dict [ list \
-   CONFIG.C_ADDR_TAG_BITS {0} \
-   CONFIG.C_DCACHE_ADDR_TAG {16} \
-   CONFIG.C_DCACHE_ALWAYS_USED {1} \
-   CONFIG.C_DCACHE_BASEADDR {0x0000000080000000} \
-   CONFIG.C_DCACHE_DATA_WIDTH {1} \
-   CONFIG.C_DCACHE_HIGHADDR {0x000000009FFFFFFF} \
-   CONFIG.C_DCACHE_USE_WRITEBACK {1} \
-   CONFIG.C_DCACHE_VICTIMS {8} \
-   CONFIG.C_D_AXI {1} \
-   CONFIG.C_FSL_LINKS {1} \
-   CONFIG.C_USE_DCACHE {1} \
-   CONFIG.C_USE_EXTENDED_FSL_INSTR {1} \
-   CONFIG.C_USE_ICACHE {0} \
-   CONFIG.C_USE_MSR_INSTR {1} \
-   CONFIG.C_USE_REORDER_INSTR {0} \
- ] $microblaze_0
-
   # Create instance: microblaze_0_local_memory
   create_hier_cell_microblaze_0_local_memory $hier_obj microblaze_0_local_memory
 
@@ -1148,20 +1128,14 @@ proc create_hier_cell_debug_subsystem { parentCell nameHier } {
   # Create interface connections
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins S_AXI_SYSTEM_DMA] [get_bd_intf_pins axi_uartlite_0/S_AXI]
   connect_bd_intf_net -intf_net axi_uartlite_0_UART [get_bd_intf_pins usb_uart] [get_bd_intf_pins axi_uartlite_0/UART]
-  connect_bd_intf_net -intf_net mdm_0_MBDEBUG_0 [get_bd_intf_pins mdm_0/MBDEBUG_0] [get_bd_intf_pins microblaze_0/DEBUG]
-  connect_bd_intf_net -intf_net microblaze_0_DLMB [get_bd_intf_pins microblaze_0/DLMB] [get_bd_intf_pins microblaze_0_local_memory/DLMB]
-  connect_bd_intf_net -intf_net microblaze_0_ILMB [get_bd_intf_pins microblaze_0/ILMB] [get_bd_intf_pins microblaze_0_local_memory/ILMB]
-  connect_bd_intf_net -intf_net microblaze_0_M_AXI_DC [get_bd_intf_pins M_AXI_DC] [get_bd_intf_pins microblaze_0/M_AXI_DC]
-  connect_bd_intf_net -intf_net microblaze_0_M_AXI_DP [get_bd_intf_pins M_AXI_DP] [get_bd_intf_pins microblaze_0/M_AXI_DP]
 
   # Create port connections
   connect_bd_net -net ARESETN_1 [get_bd_pins interconnect_aresetn] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
   connect_bd_net -net mdm_0_Debug_SYS_Rst [get_bd_pins mdm_0/Debug_SYS_Rst] [get_bd_pins proc_sys_reset_0/mb_debug_sys_rst]
   connect_bd_net -net mem_interface_mmcm_locked [get_bd_pins dcm_locked] [get_bd_pins proc_sys_reset_0/dcm_locked]
-  connect_bd_net -net mem_interface_ui_clk [get_bd_pins system_clk] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_local_memory/LMB_clk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+  connect_bd_net -net mem_interface_ui_clk [get_bd_pins system_clk] [get_bd_pins axi_uartlite_0/s_axi_aclk] [get_bd_pins microblaze_0_local_memory/LMB_clk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
   connect_bd_net -net mem_interface_ui_clk_sync_rst [get_bd_pins ext_reset_in] [get_bd_pins proc_sys_reset_0/ext_reset_in]
   connect_bd_net -net proc_sys_reset_0_bus_struct_reset [get_bd_pins microblaze_0_local_memory/LMB_rst] [get_bd_pins proc_sys_reset_0/bus_struct_reset]
-  connect_bd_net -net proc_sys_reset_0_mb_reset [get_bd_pins microblaze_0/Reset] [get_bd_pins proc_sys_reset_0/mb_reset]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins system_aresetn] [get_bd_pins axi_uartlite_0/s_axi_aresetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
 
   # Restore current instance
@@ -1267,21 +1241,6 @@ proc create_root_design { parentCell } {
   connect_bd_net -net video_subsystem_VDMA_CLK_O [get_bd_pins memory_subsystem/PIXEL_CLK_I] [get_bd_pins video_subsystem/PIXEL_CLK_O]
 
   # Create address segments
-  assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
-  assign_bd_address -offset 0x40600000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs debug_subsystem/axi_uartlite_0/S_AXI/Reg] -force
-  assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x00000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs debug_subsystem/microblaze_0_local_memory/dlmb_bram_if_cntrl_0/SLMB/Mem] -force
-  assign_bd_address -offset 0x00000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Instruction] [get_bd_addr_segs debug_subsystem/microblaze_0_local_memory/ilmb_bram_if_cntrl_0/SLMB/Mem] -force
-  assign_bd_address -offset 0x80000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs memory_subsystem/mem_interface/memmap/memaddr] -force
-  assign_bd_address -offset 0x44A60000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs memory_subsystem/memory_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44A00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_rasterizer/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_renderOutput/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A50000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_viewPort/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A70000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs system_intercon/system_dma/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x44AA0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs video_subsystem/v_tc_0/ctrl/Reg] -force
-  assign_bd_address -offset 0x44A20000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertexFetch_core_0/s_axi_lite/reg0] -force
-  assign_bd_address -offset 0x44A30000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x44A40000 -range 0x00010000 -target_address_space [get_bd_addr_spaces debug_subsystem/microblaze_0/Data] [get_bd_addr_segs graphics_subsystem/sgp_vertexFetch/vertex_buffer_FIFO/S_AXI_FULL/Mem1] -force
   assign_bd_address -offset 0x44A80000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/axi_dynclk_0/s00_axi/reg0] -force
   assign_bd_address -offset 0x40600000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs debug_subsystem/axi_uartlite_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x44A90000 -range 0x00010000 -target_address_space [get_bd_addr_spaces ethernet_subsystem/axi_mm2s_mapper_0/Bridge] [get_bd_addr_segs video_subsystem/axi_vdma_0/S_AXI_LITE/Reg] -force
