@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="49" Path="U:/spring21/cpre480/SGP/hw/proj/sgp_system.xpr">
+<Project Version="7" Minor="49" Path="U:/cpre480/SGP/hw/proj/sgp_system.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="d8b19f6c09a4450ea6b7dcdd7a15f376"/>
@@ -87,12 +87,6 @@
           <Attr Name="ImportTime" Val="1614187182"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/bd/design_1/ip/design_1_mem_interface_0/mig_b.prj">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="ScopedToCell" Val="design_1_mem_interface_0"/>
         </FileInfo>
       </File>
       <Config>
@@ -202,7 +196,6 @@
         <Step Id="synth_design">
           <Option Id="ResourceSharing">2</Option>
           <Option Id="NoCombineLuts">1</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="ShregMinSize">5</Option>
           <Option Id="Directive">7</Option>
           <Option Id="FsmExtraction">1</Option>

@@ -1,6 +1,6 @@
 restart
 
-add_force {/primitiveAssembly_core/ACLK} -radix hex {0} {1 5000ps} -repeat_every 10000ps
+add_force {/primitiveAssembly_core/ACLK} -radix hex {1} {0 5000ps} -repeat_every 10000ps
 add_force {/primitiveAssembly_core/ARESETN} -radix hex {0 0ns}
 
 # Start vertex_valid and primout_ready 0

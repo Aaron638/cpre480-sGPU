@@ -101,6 +101,7 @@ begin
                             V2_reg <= vertex_in;
                             primitiveAssembly_state <= PRIM_WRITE;
                         end if;
+                    
                     when PRIM_WRITE =>
                         if (primout_ready = '1') then
                             -- If we stil have more triangles in the strip, shift and overrite Vertex 2

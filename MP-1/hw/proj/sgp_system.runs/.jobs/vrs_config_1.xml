@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="design_1_attrib_010_fifo_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_attrib_010_fifo_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_attrib_011_fifo_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_attrib_011_fifo_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_attrib_010_fifo_0_synth_1"/>
+	</Run>
+	<Run Id="design_1_mem_interface_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_mem_interface_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_sgp_viewPort_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_sgp_viewPort_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axi_mm2s_mapper_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axi_mm2s_mapper_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_vertexFetch_core_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertexFetch_core_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_ilmb_bram_if_cntrl_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_ilmb_bram_if_cntrl_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axis_udp_ethernet_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_system_ila_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_system_ila_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_viewport_fifo_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_viewport_fifo_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_vertex_buffer_FIFO_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_buffer_FIFO_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_dlmb_v10_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_dlmb_v10_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_vertex_attrib_switch_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertex_attrib_switch_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_memory_dma_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_memory_dma_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_vertexfetch_fifo_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_vertexfetch_fifo_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_v_axi4s_vid_out_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_v_axi4s_vid_out_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axi_vdma_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axi_vdma_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_rgb2dvi_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_rgb2dvi_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_microblaze_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_microblaze_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axis_data_fifo_rx_udp_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axis_data_fifo_rx_udp_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_ilmb_v10_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_ilmb_v10_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_dlmb_v10_0_synth_1"/>
+	</Run>
+	<Run Id="design_1_axis_data_fifo_tx_udp_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axis_data_fifo_tx_udp_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axis_rx_tagger_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axis_rx_tagger_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axis_tx_tagger_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axis_tx_tagger_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_axi_uartlite_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axi_uartlite_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_mdm_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_mdm_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_blk_mem_gen_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_blk_mem_gen_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_dlmb_bram_if_cntrl_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_dlmb_bram_if_cntrl_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_proc_sys_reset_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_proc_sys_reset_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_v_tc_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_v_tc_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_attrib_000_fifo_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_attrib_000_fifo_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_attrib_010_fifo_0_synth_1"/>
+	</Run>
+	<Run Id="design_1_sgp_renderOutput_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_sgp_renderOutput_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_attrib_001_fifo_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_attrib_001_fifo_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_attrib_010_fifo_0_synth_1"/>
+	</Run>
+	<Run Id="design_1_memory_intercon_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_memory_intercon_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_auto_pc_3_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_3_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_auto_pc_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_1_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_1_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_2_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_2_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_9_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_9_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_system_dma_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_system_dma_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_memory_dma_0_synth_1"/>
+	</Run>
+	<Run Id="design_1_axi_dynclk_0_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_axi_dynclk_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_auto_pc_7_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_7_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_8_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_8_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_4_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_4_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_6_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_6_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_5_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_5_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+	</Run>
+	<Run Id="design_1_auto_pc_10_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_auto_pc_10_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="design_1_xbar_0_synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/design_1_xbar_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="design_1_attrib_010_fifo_0_synth_1"/>
+		<Parent Id="design_1_attrib_011_fifo_0_synth_1"/>
+		<Parent Id="design_1_mem_interface_0_synth_1"/>
+		<Parent Id="design_1_sgp_viewPort_0_synth_1"/>
+		<Parent Id="design_1_axi_mm2s_mapper_0_0_synth_1"/>
+		<Parent Id="design_1_vertexFetch_core_0_0_synth_1"/>
+		<Parent Id="design_1_ilmb_bram_if_cntrl_0_0_synth_1"/>
+		<Parent Id="design_1_axis_udp_ethernet_0_0_synth_1"/>
+		<Parent Id="design_1_system_ila_0_0_synth_1"/>
+		<Parent Id="design_1_viewport_fifo_0_synth_1"/>
+		<Parent Id="design_1_vertex_buffer_FIFO_0_synth_1"/>
+		<Parent Id="design_1_dlmb_v10_0_synth_1"/>
+		<Parent Id="design_1_vertex_attrib_switch_0_synth_1"/>
+		<Parent Id="design_1_memory_dma_0_synth_1"/>
+		<Parent Id="design_1_vertexfetch_fifo_0_synth_1"/>
+		<Parent Id="design_1_v_axi4s_vid_out_0_0_synth_1"/>
+		<Parent Id="design_1_axi_vdma_0_0_synth_1"/>
+		<Parent Id="design_1_rgb2dvi_0_0_synth_1"/>
+		<Parent Id="design_1_microblaze_0_0_synth_1"/>
+		<Parent Id="design_1_axis_data_fifo_rx_udp_0_synth_1"/>
+		<Parent Id="design_1_ilmb_v10_0_synth_1"/>
+		<Parent Id="design_1_axis_data_fifo_tx_udp_0_synth_1"/>
+		<Parent Id="design_1_axis_rx_tagger_0_0_synth_1"/>
+		<Parent Id="design_1_axis_tx_tagger_0_0_synth_1"/>
+		<Parent Id="design_1_axi_uartlite_0_0_synth_1"/>
+		<Parent Id="design_1_mdm_0_0_synth_1"/>
+		<Parent Id="design_1_blk_mem_gen_0_0_synth_1"/>
+		<Parent Id="design_1_dlmb_bram_if_cntrl_0_0_synth_1"/>
+		<Parent Id="design_1_proc_sys_reset_0_0_synth_1"/>
+		<Parent Id="design_1_v_tc_0_0_synth_1"/>
+		<Parent Id="design_1_attrib_000_fifo_0_synth_1"/>
+		<Parent Id="design_1_sgp_renderOutput_0_synth_1"/>
+		<Parent Id="design_1_attrib_001_fifo_0_synth_1"/>
+		<Parent Id="design_1_memory_intercon_0_synth_1"/>
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+		<Parent Id="design_1_auto_pc_0_synth_1"/>
+		<Parent Id="design_1_auto_pc_1_synth_1"/>
+		<Parent Id="design_1_auto_pc_2_synth_1"/>
+		<Parent Id="design_1_auto_pc_9_synth_1"/>
+		<Parent Id="design_1_system_dma_0_synth_1"/>
+		<Parent Id="design_1_axi_dynclk_0_0_synth_1"/>
+		<Parent Id="design_1_auto_pc_7_synth_1"/>
+		<Parent Id="design_1_auto_pc_8_synth_1"/>
+		<Parent Id="design_1_auto_pc_4_synth_1"/>
+		<Parent Id="design_1_auto_pc_6_synth_1"/>
+		<Parent Id="design_1_auto_pc_5_synth_1"/>
+		<Parent Id="design_1_auto_pc_10_synth_1"/>
+		<Parent Id="design_1_xbar_0_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="U:/cpre480/MP-1/hw/proj/sgp_system.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="design_1_attrib_010_fifo_0_synth_1"/>
+		<Parent Id="design_1_attrib_011_fifo_0_synth_1"/>
+		<Parent Id="design_1_mem_interface_0_synth_1"/>
+		<Parent Id="design_1_sgp_viewPort_0_synth_1"/>
+		<Parent Id="design_1_axi_mm2s_mapper_0_0_synth_1"/>
+		<Parent Id="design_1_vertexFetch_core_0_0_synth_1"/>
+		<Parent Id="design_1_ilmb_bram_if_cntrl_0_0_synth_1"/>
+		<Parent Id="design_1_axis_udp_ethernet_0_0_synth_1"/>
+		<Parent Id="design_1_system_ila_0_0_synth_1"/>
+		<Parent Id="design_1_viewport_fifo_0_synth_1"/>
+		<Parent Id="design_1_vertex_buffer_FIFO_0_synth_1"/>
+		<Parent Id="design_1_dlmb_v10_0_synth_1"/>
+		<Parent Id="design_1_vertex_attrib_switch_0_synth_1"/>
+		<Parent Id="design_1_memory_dma_0_synth_1"/>
+		<Parent Id="design_1_vertexfetch_fifo_0_synth_1"/>
+		<Parent Id="design_1_v_axi4s_vid_out_0_0_synth_1"/>
+		<Parent Id="design_1_axi_vdma_0_0_synth_1"/>
+		<Parent Id="design_1_rgb2dvi_0_0_synth_1"/>
+		<Parent Id="design_1_microblaze_0_0_synth_1"/>
+		<Parent Id="design_1_axis_data_fifo_rx_udp_0_synth_1"/>
+		<Parent Id="design_1_ilmb_v10_0_synth_1"/>
+		<Parent Id="design_1_axis_data_fifo_tx_udp_0_synth_1"/>
+		<Parent Id="design_1_axis_rx_tagger_0_0_synth_1"/>
+		<Parent Id="design_1_axis_tx_tagger_0_0_synth_1"/>
+		<Parent Id="design_1_axi_uartlite_0_0_synth_1"/>
+		<Parent Id="design_1_mdm_0_0_synth_1"/>
+		<Parent Id="design_1_blk_mem_gen_0_0_synth_1"/>
+		<Parent Id="design_1_dlmb_bram_if_cntrl_0_0_synth_1"/>
+		<Parent Id="design_1_proc_sys_reset_0_0_synth_1"/>
+		<Parent Id="design_1_v_tc_0_0_synth_1"/>
+		<Parent Id="design_1_attrib_000_fifo_0_synth_1"/>
+		<Parent Id="design_1_sgp_renderOutput_0_synth_1"/>
+		<Parent Id="design_1_attrib_001_fifo_0_synth_1"/>
+		<Parent Id="design_1_memory_intercon_0_synth_1"/>
+		<Parent Id="design_1_auto_pc_3_synth_1"/>
+		<Parent Id="design_1_auto_pc_0_synth_1"/>
+		<Parent Id="design_1_auto_pc_1_synth_1"/>
+		<Parent Id="design_1_auto_pc_2_synth_1"/>
+		<Parent Id="design_1_auto_pc_9_synth_1"/>
+		<Parent Id="design_1_system_dma_0_synth_1"/>
+		<Parent Id="design_1_axi_dynclk_0_0_synth_1"/>
+		<Parent Id="design_1_auto_pc_7_synth_1"/>
+		<Parent Id="design_1_auto_pc_8_synth_1"/>
+		<Parent Id="design_1_auto_pc_4_synth_1"/>
+		<Parent Id="design_1_auto_pc_6_synth_1"/>
+		<Parent Id="design_1_auto_pc_5_synth_1"/>
+		<Parent Id="design_1_auto_pc_10_synth_1"/>
+		<Parent Id="design_1_xbar_0_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+		<Parameter Name="runs.enableClusterConf" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+
