@@ -1,8 +1,8 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Mon Mar  8 16:33:51 2021
-// Host        : CO2050-10 running 64-bit major release  (build 9200)
+// Date        : Sun Mar 21 22:30:06 2021
+// Host        : CO2050-09 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_dlmb_bram_if_cntrl_0_0/design_1_dlmb_bram_if_cntrl_0_0_stub.v
 // Design      : design_1_dlmb_bram_if_cntrl_0_0

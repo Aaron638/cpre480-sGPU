@@ -47,7 +47,7 @@ entity bd_f60c_wrapper is
     SLOT_0_AXI_wready : in STD_LOGIC;
     SLOT_0_AXI_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
     SLOT_0_AXI_wvalid : in STD_LOGIC;
-    SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 511 downto 0 );
+    SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     SLOT_1_AXIS_tlast : in STD_LOGIC;
     SLOT_1_AXIS_tready : in STD_LOGIC;
     SLOT_1_AXIS_tvalid : in STD_LOGIC;
@@ -102,7 +102,7 @@ architecture STRUCTURE of bd_f60c_wrapper is
     SLOT_0_AXI_wready : in STD_LOGIC;
     SLOT_0_AXI_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
     SLOT_0_AXI_wvalid : in STD_LOGIC;
-    SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 511 downto 0 );
+    SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     SLOT_1_AXIS_tlast : in STD_LOGIC;
     SLOT_1_AXIS_tready : in STD_LOGIC;
     SLOT_1_AXIS_tvalid : in STD_LOGIC;
@@ -152,7 +152,7 @@ bd_f60c_i: component bd_f60c
       SLOT_0_AXI_wready => SLOT_0_AXI_wready,
       SLOT_0_AXI_wstrb(3 downto 0) => SLOT_0_AXI_wstrb(3 downto 0),
       SLOT_0_AXI_wvalid => SLOT_0_AXI_wvalid,
-      SLOT_1_AXIS_tdata(511 downto 0) => SLOT_1_AXIS_tdata(511 downto 0),
+      SLOT_1_AXIS_tdata(31 downto 0) => SLOT_1_AXIS_tdata(31 downto 0),
       SLOT_1_AXIS_tlast => SLOT_1_AXIS_tlast,
       SLOT_1_AXIS_tready => SLOT_1_AXIS_tready,
       SLOT_1_AXIS_tvalid => SLOT_1_AXIS_tvalid,

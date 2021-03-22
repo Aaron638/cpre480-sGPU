@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="design_1" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1615330054"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1615330054"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1615330054"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1615330054"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1616385959"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1616385959"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1616385959"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1616385959"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip\design_1_axi_uartlite_0_0\design_1_axi_uartlite_0_0.xci" Type="IP">
         <Instance HierarchyPath="debug_subsystem/axi_uartlite_0"/>
@@ -310,33 +310,7 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="synth\design_1.vhd" Type="VHDL">
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-      </File>
-      <File Name="sim\design_1.vhd" Type="VHDL">
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip\design_1_sgp_rasterizer_0_0\design_1_sgp_rasterizer_0_0.xci" Type="IP">
-        <Instance HierarchyPath="graphics_subsystem/sgp_rasterizer"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip\design_1_viewport_fifo_2\design_1_viewport_fifo_2.xci" Type="IP">
-        <Instance HierarchyPath="graphics_subsystem/rasterizer_fifo"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip\design_1_auto_pc_11\design_1_auto_pc_11.xci" Type="IP">
+      <File Name="ip\design_1_auto_pc_10\design_1_auto_pc_10.xci" Type="IP">
         <Instance HierarchyPath="system_intercon/periph_intercon/s00_couplers/auto_pc"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -424,12 +398,14 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip\design_1_auto_pc_10\design_1_auto_pc_10.xci" Type="IP">
-        <Instance HierarchyPath="system_intercon/periph_intercon/m12_couplers/auto_pc"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+      <File Name="synth\design_1.vhd" Type="VHDL">
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
+      </File>
+      <File Name="sim\design_1.vhd" Type="VHDL">
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="design_1.bmm" Type="BMM">

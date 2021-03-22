@@ -47,7 +47,7 @@ entity bd_f60c is
     SLOT_0_AXI_wready : in STD_LOGIC;
     SLOT_0_AXI_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
     SLOT_0_AXI_wvalid : in STD_LOGIC;
-    SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 511 downto 0 );
+    SLOT_1_AXIS_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     SLOT_1_AXIS_tlast : in STD_LOGIC;
     SLOT_1_AXIS_tready : in STD_LOGIC;
     SLOT_1_AXIS_tvalid : in STD_LOGIC;
@@ -102,7 +102,7 @@ architecture STRUCTURE of bd_f60c is
     probe31 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     probe32 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     probe33 : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    probe34 : in STD_LOGIC_VECTOR ( 511 downto 0 );
+    probe34 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe35 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe36 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe37 : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -157,7 +157,7 @@ architecture STRUCTURE of bd_f60c is
     slot_0_axi_rready : in STD_LOGIC;
     slot_1_axis_tvalid : in STD_LOGIC;
     slot_1_axis_tready : in STD_LOGIC;
-    slot_1_axis_tdata : in STD_LOGIC_VECTOR ( 511 downto 0 );
+    slot_1_axis_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     slot_1_axis_tlast : in STD_LOGIC;
     slot_2_axis_tvalid : in STD_LOGIC;
     slot_2_axis_tready : in STD_LOGIC;
@@ -200,7 +200,7 @@ architecture STRUCTURE of bd_f60c is
     m_slot_0_axi_rready : out STD_LOGIC;
     m_slot_1_axis_tvalid : out STD_LOGIC;
     m_slot_1_axis_tready : out STD_LOGIC;
-    m_slot_1_axis_tdata : out STD_LOGIC_VECTOR ( 511 downto 0 );
+    m_slot_1_axis_tdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
     m_slot_1_axis_tlast : out STD_LOGIC;
     m_slot_2_axis_tvalid : out STD_LOGIC;
     m_slot_2_axis_tready : out STD_LOGIC;
@@ -249,7 +249,7 @@ architecture STRUCTURE of bd_f60c is
     dout : out STD_LOGIC_VECTOR ( 2 downto 0 )
   );
   end component bd_f60c_slot_0_r_0;
-  signal Conn1_TDATA : STD_LOGIC_VECTOR ( 511 downto 0 );
+  signal Conn1_TDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal Conn1_TLAST : STD_LOGIC;
   signal Conn1_TREADY : STD_LOGIC;
   signal Conn1_TVALID : STD_LOGIC;
@@ -341,7 +341,7 @@ architecture STRUCTURE of bd_f60c is
   signal net_slot_0_axi_wready : STD_LOGIC;
   signal net_slot_0_axi_wstrb : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal net_slot_0_axi_wvalid : STD_LOGIC;
-  signal net_slot_1_axis_tdata : STD_LOGIC_VECTOR ( 511 downto 0 );
+  signal net_slot_1_axis_tdata : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal net_slot_1_axis_tlast : STD_LOGIC;
   signal net_slot_1_axis_tready : STD_LOGIC;
   signal net_slot_1_axis_tvalid : STD_LOGIC;
@@ -401,11 +401,11 @@ architecture STRUCTURE of bd_f60c is
   attribute X_INTERFACE_INFO of SLOT_0_AXI_wdata : signal is "xilinx.com:interface:aximm:1.0 SLOT_0_AXI WDATA";
   attribute X_INTERFACE_INFO of SLOT_0_AXI_wstrb : signal is "xilinx.com:interface:aximm:1.0 SLOT_0_AXI WSTRB";
   attribute X_INTERFACE_INFO of SLOT_1_AXIS_tdata : signal is "xilinx.com:interface:axis:1.0 SLOT_1_AXIS TDATA";
-  attribute X_INTERFACE_PARAMETER of SLOT_1_AXIS_tdata : signal is "XIL_INTERFACENAME SLOT_1_AXIS, CLK_DOMAIN design_1_mem_interface_0_ui_clk, FREQ_HZ 100000000, HAS_TKEEP 0, HAS_TLAST 1, HAS_TREADY 1, HAS_TSTRB 0, INSERT_VIP 0, LAYERED_METADATA undef, PHASE 0, TDATA_NUM_BYTES 64, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0";
+  attribute X_INTERFACE_PARAMETER of SLOT_1_AXIS_tdata : signal is "XIL_INTERFACENAME SLOT_1_AXIS, CLK_DOMAIN design_1_mem_interface_0_ui_clk, FREQ_HZ 100000000, HAS_TKEEP 0, HAS_TLAST 0, HAS_TREADY 1, HAS_TSTRB 0, INSERT_VIP 0, LAYERED_METADATA undef, PHASE 0, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0";
   attribute X_INTERFACE_INFO of SLOT_2_AXIS_tdata : signal is "xilinx.com:interface:axis:1.0 SLOT_2_AXIS TDATA";
   attribute X_INTERFACE_PARAMETER of SLOT_2_AXIS_tdata : signal is "XIL_INTERFACENAME SLOT_2_AXIS, CLK_DOMAIN design_1_mem_interface_0_ui_clk, FREQ_HZ 100000000, HAS_TKEEP 0, HAS_TLAST 1, HAS_TREADY 1, HAS_TSTRB 0, INSERT_VIP 0, LAYERED_METADATA undef, PHASE 0, TDATA_NUM_BYTES 64, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0";
 begin
-  Conn1_TDATA(511 downto 0) <= SLOT_1_AXIS_tdata(511 downto 0);
+  Conn1_TDATA(31 downto 0) <= SLOT_1_AXIS_tdata(31 downto 0);
   Conn1_TLAST <= SLOT_1_AXIS_tlast;
   Conn1_TREADY <= SLOT_1_AXIS_tready;
   Conn1_TVALID <= SLOT_1_AXIS_tvalid;
@@ -497,7 +497,7 @@ g_inst: component bd_f60c_g_inst_0
       m_slot_0_axi_wready => net_slot_0_axi_wready,
       m_slot_0_axi_wstrb(3 downto 0) => net_slot_0_axi_wstrb(3 downto 0),
       m_slot_0_axi_wvalid => net_slot_0_axi_wvalid,
-      m_slot_1_axis_tdata(511 downto 0) => net_slot_1_axis_tdata(511 downto 0),
+      m_slot_1_axis_tdata(31 downto 0) => net_slot_1_axis_tdata(31 downto 0),
       m_slot_1_axis_tlast => net_slot_1_axis_tlast,
       m_slot_1_axis_tready => net_slot_1_axis_tready,
       m_slot_1_axis_tvalid => net_slot_1_axis_tvalid,
@@ -542,7 +542,7 @@ g_inst: component bd_f60c_g_inst_0
       slot_0_axi_wready => Conn_WREADY,
       slot_0_axi_wstrb(3 downto 0) => Conn_WSTRB(3 downto 0),
       slot_0_axi_wvalid => Conn_WVALID,
-      slot_1_axis_tdata(511 downto 0) => Conn1_TDATA(511 downto 0),
+      slot_1_axis_tdata(31 downto 0) => Conn1_TDATA(31 downto 0),
       slot_1_axis_tlast => Conn1_TLAST,
       slot_1_axis_tready => Conn1_TREADY,
       slot_1_axis_tvalid => Conn1_TVALID,
@@ -582,7 +582,7 @@ ila_lib: component bd_f60c_ila_lib_0
       probe31(1 downto 0) => net_slot_0_axi_b_ctrl(1 downto 0),
       probe32(1 downto 0) => net_slot_0_axi_ar_ctrl(1 downto 0),
       probe33(2 downto 0) => net_slot_0_axi_r_ctrl(2 downto 0),
-      probe34(511 downto 0) => net_slot_1_axis_tdata(511 downto 0),
+      probe34(31 downto 0) => net_slot_1_axis_tdata(31 downto 0),
       probe35(0) => net_slot_1_axis_tvalid,
       probe36(0) => net_slot_1_axis_tready,
       probe37(0) => net_slot_1_axis_tlast,

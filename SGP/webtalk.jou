@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Mon Mar 22 00:48:13 2021
+# Process ID: 15100
+# Current directory: U:/cpre480/SGP
+# Command line: wbtcv.exe -mode batch -source U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.hw/webtalk/labtool_webtalk.tcl -notrace
+# Log file: U:/cpre480/SGP/webtalk.log
+# Journal file: U:/cpre480/SGP\webtalk.jou
+#-----------------------------------------------------------
+source U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.hw/webtalk/labtool_webtalk.tcl -notrace

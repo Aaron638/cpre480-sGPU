@@ -1,8 +1,8 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Mon Mar  8 16:34:28 2021
-// Host        : CO2050-10 running 64-bit major release  (build 9200)
+// Date        : Sun Mar 21 23:08:53 2021
+// Host        : CO2050-09 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_sgp_renderOutput_0/design_1_sgp_renderOutput_0_sim_netlist.v
 // Design      : design_1_sgp_renderOutput_0
@@ -78,9 +78,9 @@ module design_1_sgp_renderOutput_0
     m_axi_rlast,
     m_axi_rvalid,
     m_axi_rready);
-  (* sigis = "Clk" *) (* x_interface_info = "xilinx.com:signal:clock:1.0 ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME ACLK, ASSOCIATED_BUSIF S_AXIS:m_axi:s_axi_lite, ASSOCIATED_RESET ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0, CLK_DOMAIN design_1_mem_interface_0_ui_clk, INSERT_VIP 0" *) input ACLK;
+  (* sigis = "Clk" *) (* x_interface_info = "xilinx.com:signal:clock:1.0 ACLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME ACLK, ASSOCIATED_BUSIF S_AXIS:m_axi:s_axi_lite, ASSOCIATED_RESET ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0" *) input ACLK;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 ARESETN RST" *) (* x_interface_parameter = "XIL_INTERFACENAME ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input ARESETN;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi_lite, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 100000000, ID_WIDTH 0, ADDR_WIDTH 10, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0, CLK_DOMAIN design_1_mem_interface_0_ui_clk, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [9:0]s_axi_lite_awaddr;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi_lite, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 100000000, ID_WIDTH 0, ADDR_WIDTH 10, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [9:0]s_axi_lite_awaddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite AWPROT" *) input [2:0]s_axi_lite_awprot;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite AWVALID" *) input s_axi_lite_awvalid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite AWREADY" *) output s_axi_lite_awready;
@@ -99,11 +99,11 @@ module design_1_sgp_renderOutput_0
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite RRESP" *) output [1:0]s_axi_lite_rresp;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite RVALID" *) output s_axi_lite_rvalid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi_lite RREADY" *) input s_axi_lite_rready;
-  (* x_interface_info = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXIS, TDATA_NUM_BYTES 64, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0, CLK_DOMAIN design_1_mem_interface_0_ui_clk, LAYERED_METADATA undef, INSERT_VIP 0" *) output S_AXIS_TREADY;
+  (* x_interface_info = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *) (* x_interface_parameter = "XIL_INTERFACENAME S_AXIS, TDATA_NUM_BYTES 64, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, LAYERED_METADATA undef, INSERT_VIP 0" *) output S_AXIS_TREADY;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 S_AXIS TDATA" *) input [511:0]S_AXIS_TDATA;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 S_AXIS TLAST" *) input S_AXIS_TLAST;
   (* x_interface_info = "xilinx.com:interface:axis:1.0 S_AXIS TVALID" *) input S_AXIS_TVALID;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi AWID" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi, DATA_WIDTH 32, PROTOCOL AXI4, FREQ_HZ 100000000, ID_WIDTH 4, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 256, PHASE 0, CLK_DOMAIN design_1_mem_interface_0_ui_clk, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [3:0]m_axi_awid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi AWID" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi, DATA_WIDTH 32, PROTOCOL AXI4, FREQ_HZ 100000000, ID_WIDTH 4, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 256, PHASE 0.000, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [3:0]m_axi_awid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi AWADDR" *) output [31:0]m_axi_awaddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi AWLEN" *) output [7:0]m_axi_awlen;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi AWSIZE" *) output [2:0]m_axi_awsize;
@@ -260,7 +260,7 @@ module design_1_sgp_renderOutput_0
        (.ACLK(ACLK),
         .ARESETN(ARESETN),
         .D({m_axi_wlast,\^m_axi_arburst }),
-        .S_AXIS_TDATA({S_AXIS_TDATA[247:240],S_AXIS_TDATA[215:208],S_AXIS_TDATA[183:176],S_AXIS_TDATA[151:144],S_AXIS_TDATA[63:47],S_AXIS_TDATA[31:15]}),
+        .S_AXIS_TDATA({S_AXIS_TDATA[255:128],S_AXIS_TDATA[63:47],S_AXIS_TDATA[31:15]}),
         .S_AXIS_TREADY(S_AXIS_TREADY),
         .S_AXIS_TVALID(S_AXIS_TVALID),
         .S_AXI_ARREADY(s_axi_lite_arready),
@@ -349,9 +349,7 @@ module design_1_sgp_renderOutput_0_dcache
     m_axi_wstrb,
     m_axi_wdata,
     m_axi_araddr,
-    S_AXIS_TVALID_0,
     \FSM_sequential_state_reg[1] ,
-    \FSM_sequential_state_reg[1]_0 ,
     ACLK,
     SR,
     in8,
@@ -370,7 +368,7 @@ module design_1_sgp_renderOutput_0_dcache
     awvalid_q_reg,
     wvalid_q_reg,
     valid_q_reg_inv_0,
-    state,
+    \mem_wr_reg[0] ,
     flushing_q_reg_1,
     m_axi_rvalid,
     m_axi_bvalid,
@@ -381,13 +379,12 @@ module design_1_sgp_renderOutput_0_dcache
     ARESETN,
     \ram_q_reg[1][31] ,
     \FSM_sequential_state_q_reg[3] ,
-    \mem_wr_reg[0] ,
+    \mem_wr_reg[0]_0 ,
     \FSM_sequential_state_q_reg[2]_0 ,
     D,
     m_axi_rdata,
     m_axi_awready,
     m_axi_wready,
-    S_AXIS_TVALID,
     \pending_q_reg[0] );
   output dropped_q;
   output select_q;
@@ -440,9 +437,7 @@ module design_1_sgp_renderOutput_0_dcache
   output [0:0]m_axi_wstrb;
   output [31:0]m_axi_wdata;
   output [29:0]m_axi_araddr;
-  output S_AXIS_TVALID_0;
   output \FSM_sequential_state_reg[1] ;
-  output \FSM_sequential_state_reg[1]_0 ;
   input ACLK;
   input [0:0]SR;
   input in8;
@@ -461,7 +456,7 @@ module design_1_sgp_renderOutput_0_dcache
   input awvalid_q_reg;
   input wvalid_q_reg;
   input valid_q_reg_inv_0;
-  input [1:0]state;
+  input [1:0]\mem_wr_reg[0] ;
   input [3:0]flushing_q_reg_1;
   input m_axi_rvalid;
   input m_axi_bvalid;
@@ -472,13 +467,12 @@ module design_1_sgp_renderOutput_0_dcache
   input ARESETN;
   input [29:0]\ram_q_reg[1][31] ;
   input \FSM_sequential_state_q_reg[3] ;
-  input \mem_wr_reg[0] ;
+  input \mem_wr_reg[0]_0 ;
   input \FSM_sequential_state_q_reg[2]_0 ;
   input [32:0]D;
   input [31:0]m_axi_rdata;
   input m_axi_awready;
   input m_axi_wready;
-  input S_AXIS_TVALID;
   input [0:0]\pending_q_reg[0] ;
 
   wire ACLK;
@@ -494,11 +488,8 @@ module design_1_sgp_renderOutput_0_dcache
   wire \FSM_sequential_state_q_reg[2]_0 ;
   wire \FSM_sequential_state_q_reg[3] ;
   wire \FSM_sequential_state_reg[1] ;
-  wire \FSM_sequential_state_reg[1]_0 ;
   wire [1:0]Q;
   wire [0:0]SR;
-  wire S_AXIS_TVALID;
-  wire S_AXIS_TVALID_0;
   wire awvalid_q;
   wire awvalid_q_reg;
   wire [1:0]\buf_q_reg[83] ;
@@ -541,7 +532,8 @@ module design_1_sgp_renderOutput_0_dcache
   wire mem_ack_o;
   wire [0:0]mem_uncached_wr_w;
   wire \mem_wr_m_q_reg[2] ;
-  wire \mem_wr_reg[0] ;
+  wire [1:0]\mem_wr_reg[0] ;
+  wire \mem_wr_reg[0]_0 ;
   wire [0:0]\pending_q_reg[0] ;
   wire \pending_q_reg[3] ;
   wire [4:2]pmem_addr_q;
@@ -571,7 +563,6 @@ module design_1_sgp_renderOutput_0_dcache
   wire \slv_reg2_reg[0] ;
   wire \slv_reg2_reg[0]_0 ;
   wire \slv_reg2_reg[2] ;
-  wire [1:0]state;
   wire u_axi_n_10;
   wire u_axi_n_8;
   wire u_axi_n_84;
@@ -656,9 +647,6 @@ module design_1_sgp_renderOutput_0_dcache
         .\FSM_sequential_state_q_reg[2]_1 (\FSM_sequential_state_q_reg[2]_0 ),
         .\FSM_sequential_state_q_reg[3]_0 (u_axi_n_8),
         .\FSM_sequential_state_q_reg[3]_1 (\FSM_sequential_state_q_reg[3] ),
-        .\FSM_sequential_state_reg[1] (\FSM_sequential_state_reg[1] ),
-        .\FSM_sequential_state_reg[1]_0 (select_q),
-        .\FSM_sequential_state_reg[1]_1 (cache_access_q),
         .Q(pmem_addr_q),
         .SR(SR),
         .dropped_q(dropped_q),
@@ -677,8 +665,10 @@ module design_1_sgp_renderOutput_0_dcache
         .m_axi_rvalid(m_axi_rvalid),
         .mem_ack_o(mem_ack_o),
         .\mem_wr_m_q_reg[2]_0 (\mem_wr_m_q_reg[2] ),
-        .\mem_wr_m_q_reg[2]_1 (\mem_wr_reg[0] ),
+        .\mem_wr_m_q_reg[2]_1 (\mem_wr_reg[0]_0 ),
         .mem_writeback_m_q_reg_0(u_mux_n_5),
+        .\pending_q_reg[0] (select_q),
+        .\pending_q_reg[0]_0 (cache_access_q),
         .\pmem_addr_q_reg[31]_0 (pmem_cache_addr_w),
         .\pmem_addr_q_reg[31]_1 (count_q[0]),
         .\pmem_addr_q_reg[31]_2 (count_q[1]),
@@ -702,8 +692,7 @@ module design_1_sgp_renderOutput_0_dcache
         .\replace_way_q_reg[0]_0 (in41),
         .\replace_way_q_reg[0]_1 (\replace_way_q_reg[0] ),
         .\slv_reg2_reg[2] (data_write_addr_q119_out),
-        .\slv_reg2_reg[2]_0 (\slv_reg2_reg[2] ),
-        .state(state));
+        .\slv_reg2_reg[2]_0 (\slv_reg2_reg[2] ));
   design_1_sgp_renderOutput_0_dcache_mux u_mux
        (.ACLK(ACLK),
         .D(mem_uncached_wr_w),
@@ -715,7 +704,7 @@ module design_1_sgp_renderOutput_0_dcache
         .\pending_q_reg[3]_0 (\pending_q_reg[3] ),
         .pmem_select_w(pmem_select_w),
         .\ram_q_reg[0][64] (flushing_q_reg_1[0]),
-        .\ram_q_reg[0][64]_0 (\mem_wr_reg[0] ),
+        .\ram_q_reg[0][64]_0 (\mem_wr_reg[0]_0 ),
         .\ram_q_reg[1][68] (pmem_rd_q_reg),
         .\ram_q_reg[1][71] (u_core_n_42),
         .\slv_reg2_reg[0] ({u_mux_n_1,u_mux_n_2}),
@@ -737,11 +726,9 @@ module design_1_sgp_renderOutput_0_dcache
         .ARESETN(ARESETN),
         .D({D[32],mem_uncached_wr_w,D[31:0],\ram_q_reg[1][31] }),
         .E(E),
-        .\FSM_sequential_state_reg[1] (\FSM_sequential_state_reg[1]_0 ),
+        .\FSM_sequential_state_reg[1] (\FSM_sequential_state_reg[1] ),
         .Q(pmem_addr_q),
         .SR(SR),
-        .S_AXIS_TVALID(S_AXIS_TVALID),
-        .S_AXIS_TVALID_0(S_AXIS_TVALID_0),
         .count_q(count_q),
         .\count_q_reg[0] (\count_q_reg[0] ),
         .\count_q_reg[1] (\count_q_reg[1] ),
@@ -749,10 +736,10 @@ module design_1_sgp_renderOutput_0_dcache
         .dropped_q(dropped_q),
         .m_axi_bvalid(m_axi_bvalid),
         .m_axi_rvalid(m_axi_rvalid),
-        .mem_ack_o(mem_ack_o),
-        .\mem_wr_reg[0] (\slv_reg2_reg[0]_0 ),
-        .\mem_wr_reg[0]_0 (\FSM_sequential_state_q_reg[0]_0 ),
-        .\mem_wr_reg[0]_1 (\mem_wr_reg[0] ),
+        .\mem_wr_reg[0] (\mem_wr_reg[0] ),
+        .\mem_wr_reg[0]_0 (\slv_reg2_reg[0]_0 ),
+        .\mem_wr_reg[0]_1 (\FSM_sequential_state_q_reg[0]_0 ),
+        .\mem_wr_reg[0]_2 (\mem_wr_reg[0]_0 ),
         .\ram_q_reg[0][2] (u_core_n_42),
         .\ram_q_reg[0][31] (pmem_cache_addr_w),
         .\ram_q_reg[0][3] (\slv_reg2_reg[0] ),
@@ -766,7 +753,6 @@ module design_1_sgp_renderOutput_0_dcache
         .request_pending_q(request_pending_q),
         .request_pending_q_reg_0(request_pending_q_reg),
         .select_q(select_q),
-        .state(state),
         .wr_ptr_q(wr_ptr_q),
         .\wr_ptr_q_reg[0] (\wr_ptr_q_reg[0] ));
 endmodule
@@ -5470,7 +5456,6 @@ module design_1_sgp_renderOutput_0_dcache_core
     \pmem_wr_q_reg[3]_0 ,
     \FSM_sequential_state_q_reg[0]_3 ,
     \pmem_write_data_q_reg[31]_0 ,
-    \FSM_sequential_state_reg[1] ,
     ACLK,
     SR,
     in8,
@@ -5488,7 +5473,7 @@ module design_1_sgp_renderOutput_0_dcache_core
     mem_writeback_m_q_reg_0,
     m_axi_rvalid,
     m_axi_bvalid,
-    \FSM_sequential_state_reg[1]_0 ,
+    \pending_q_reg[0] ,
     ram_reg_1,
     \pmem_write_data_q_reg[31]_1 ,
     D,
@@ -5498,10 +5483,9 @@ module design_1_sgp_renderOutput_0_dcache_core
     \FSM_sequential_state_q_reg[2]_1 ,
     ram_reg_0_63_0_2_i_21,
     ram_reg_1_0,
-    \FSM_sequential_state_reg[1]_1 ,
+    \pending_q_reg[0]_0 ,
     dropped_q,
     m_axi_rdata,
-    state,
     E);
   output [0:0]CO;
   output [2:0]Q;
@@ -5531,7 +5515,6 @@ module design_1_sgp_renderOutput_0_dcache_core
   output \pmem_wr_q_reg[3]_0 ;
   output \FSM_sequential_state_q_reg[0]_3 ;
   output [31:0]\pmem_write_data_q_reg[31]_0 ;
-  output \FSM_sequential_state_reg[1] ;
   input ACLK;
   input [0:0]SR;
   input in8;
@@ -5549,7 +5532,7 @@ module design_1_sgp_renderOutput_0_dcache_core
   input mem_writeback_m_q_reg_0;
   input m_axi_rvalid;
   input m_axi_bvalid;
-  input \FSM_sequential_state_reg[1]_0 ;
+  input \pending_q_reg[0] ;
   input ram_reg_1;
   input \pmem_write_data_q_reg[31]_1 ;
   input [61:0]D;
@@ -5559,10 +5542,9 @@ module design_1_sgp_renderOutput_0_dcache_core
   input \FSM_sequential_state_q_reg[2]_1 ;
   input ram_reg_0_63_0_2_i_21;
   input ram_reg_1_0;
-  input \FSM_sequential_state_reg[1]_1 ;
+  input \pending_q_reg[0]_0 ;
   input dropped_q;
   input [31:0]m_axi_rdata;
-  input [1:0]state;
   input [0:0]E;
 
   wire ACLK;
@@ -5587,9 +5569,6 @@ module design_1_sgp_renderOutput_0_dcache_core
   wire \FSM_sequential_state_q_reg[2]_1 ;
   wire \FSM_sequential_state_q_reg[3]_0 ;
   wire \FSM_sequential_state_q_reg[3]_1 ;
-  wire \FSM_sequential_state_reg[1] ;
-  wire \FSM_sequential_state_reg[1]_0 ;
-  wire \FSM_sequential_state_reg[1]_1 ;
   wire [2:0]Q;
   wire [0:0]SR;
   wire [7:0]addr0_i;
@@ -5645,6 +5624,8 @@ module design_1_sgp_renderOutput_0_dcache_core
   wire [7:0]p_3_in;
   wire p_3_in1_in;
   wire [8:3]p_4_in;
+  wire \pending_q_reg[0] ;
+  wire \pending_q_reg[0]_0 ;
   wire [31:1]pmem_addr_q;
   wire [31:1]pmem_addr_q0;
   wire [31:1]pmem_addr_q00_in;
@@ -5746,7 +5727,6 @@ module design_1_sgp_renderOutput_0_dcache_core
   wire \replace_way_q_reg[0]_1 ;
   wire \slv_reg2_reg[2] ;
   wire \slv_reg2_reg[2]_0 ;
-  wire [1:0]state;
   wire [3:0]state_q;
   wire [19:19]tag0_data_out_m_w;
   wire tag0_hit_m_w0_carry__0_n_2;
@@ -6070,7 +6050,7 @@ module design_1_sgp_renderOutput_0_dcache_core
     \FSM_sequential_state_q[1]_i_4 
        (.I0(m_axi_rvalid),
         .I1(m_axi_bvalid),
-        .I2(\FSM_sequential_state_reg[1]_0 ),
+        .I2(\pending_q_reg[0] ),
         .I3(mem_writeback_m_q),
         .I4(flushing_q_reg_0),
         .I5(state_q[0]),
@@ -6081,7 +6061,7 @@ module design_1_sgp_renderOutput_0_dcache_core
        (.I0(\FSM_sequential_state_q_reg[1]_0 ),
         .I1(state_q[0]),
         .I2(state_q[2]),
-        .I3(\FSM_sequential_state_reg[1]_0 ),
+        .I3(\pending_q_reg[0] ),
         .I4(m_axi_bvalid),
         .I5(m_axi_rvalid),
         .O(\FSM_sequential_state_q[1]_i_5_n_0 ));
@@ -7354,7 +7334,7 @@ module design_1_sgp_renderOutput_0_dcache_core
     ram_reg_0_63_0_2_i_30
        (.I0(flushing_q_reg_0),
         .I1(mem_writeback_m_q),
-        .I2(\FSM_sequential_state_reg[1]_0 ),
+        .I2(\pending_q_reg[0] ),
         .I3(m_axi_bvalid),
         .I4(m_axi_rvalid),
         .O(ram_reg_0_63_0_2_i_30_n_0));
@@ -7465,7 +7445,7 @@ module design_1_sgp_renderOutput_0_dcache_core
         .ram_reg_0_63_0_2_i_24_0(\pmem_write_data_q_reg[31]_1 ),
         .ram_reg_0_63_0_2_i_24_1(ram_reg_1),
         .ram_reg_0_63_0_2_i_36_0(flushing_q_reg_0),
-        .ram_reg_0_63_0_2_i_36_1(\FSM_sequential_state_reg[1]_0 ),
+        .ram_reg_0_63_0_2_i_36_1(\pending_q_reg[0] ),
         .ram_reg_0_63_0_2_i_36_2(flush_last_q_reg_0),
         .ram_reg_1_0({\flush_addr_q_reg[7]_0 ,p_4_in}),
         .ram_reg_1_1(p_2_in__0),
@@ -7639,9 +7619,6 @@ module design_1_sgp_renderOutput_0_dcache_core
         .\FSM_sequential_state_q_reg[3]_0 (u_tag1_n_43),
         .\FSM_sequential_state_q_reg[3]_1 (u_tag1_n_83),
         .\FSM_sequential_state_q_reg[3]_2 (u_tag1_n_96),
-        .\FSM_sequential_state_reg[1] (\FSM_sequential_state_reg[1] ),
-        .\FSM_sequential_state_reg[1]_0 (\FSM_sequential_state_reg[1]_0 ),
-        .\FSM_sequential_state_reg[1]_1 (\FSM_sequential_state_reg[1]_1 ),
         .Q({\flush_addr_q_reg[7]_0 ,p_4_in}),
         .S({u_tag1_n_46,u_tag1_n_47,u_tag1_n_48}),
         .addr0_i(addr0_i),
@@ -7688,6 +7665,8 @@ module design_1_sgp_renderOutput_0_dcache_core
         .mem_wr_m_q(mem_wr_m_q),
         .mem_writeback_m_q(mem_writeback_m_q),
         .p_3_in(data1_write_m_r),
+        .\pending_q_reg[0] (\pending_q_reg[0] ),
+        .\pending_q_reg[0]_0 (\pending_q_reg[0]_0 ),
         .pmem_addr_q0(pmem_addr_q0),
         .pmem_addr_q00_in(pmem_addr_q00_in),
         .\pmem_addr_q[31]_i_4_0 (\FSM_sequential_state_q_reg[3]_0 ),
@@ -7750,7 +7729,6 @@ module design_1_sgp_renderOutput_0_dcache_core
         .\replace_way_q_reg[0]_0 (u_tag0_n_3),
         .\replace_way_q_reg[0]_1 (\replace_way_q[0]_i_5_n_0 ),
         .\slv_reg2_reg[2] (\slv_reg2_reg[2]_0 ),
-        .state(state),
         .tag_data_in_m_r(tag_data_in_m_r));
 endmodule
 
@@ -13139,7 +13117,6 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
     \ram_read0_q_reg[11]_1 ,
     \pmem_addr_q_reg[8] ,
     \pmem_addr_q_reg[12]_0 ,
-    \FSM_sequential_state_reg[1] ,
     ram_read0_q2__0,
     ACLK,
     addr0_i,
@@ -13152,7 +13129,7 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
     \FSM_sequential_state_q[3]_i_2_0 ,
     m_axi_rvalid,
     m_axi_bvalid,
-    \FSM_sequential_state_reg[1]_0 ,
+    \pending_q_reg[0] ,
     mem_inval_m_q_reg,
     mem_wr_m_q,
     mem_inval_m_q,
@@ -13208,13 +13185,12 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
     \ram_read0_q[20]_i_2__0_0 ,
     ram_reg_1_1,
     ram_reg_1_2,
-    \FSM_sequential_state_reg[1]_1 ,
+    \pending_q_reg[0]_0 ,
     dropped_q,
     ram_reg_0_63_0_2_i_24,
     mem_inval_m_q_reg_1,
     pmem_wr_q,
     CO,
-    state,
     \ram_read0_q_reg[20]_3 );
   output [20:0]tag_data_in_m_r;
   output [6:0]addr1_i;
@@ -13270,7 +13246,6 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   output [3:0]\ram_read0_q_reg[11]_1 ;
   output [3:0]\pmem_addr_q_reg[8] ;
   output [3:0]\pmem_addr_q_reg[12]_0 ;
-  output \FSM_sequential_state_reg[1] ;
   output [20:0]ram_read0_q2__0;
   input ACLK;
   input [7:0]addr0_i;
@@ -13283,7 +13258,7 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   input \FSM_sequential_state_q[3]_i_2_0 ;
   input m_axi_rvalid;
   input m_axi_bvalid;
-  input \FSM_sequential_state_reg[1]_0 ;
+  input \pending_q_reg[0] ;
   input mem_inval_m_q_reg;
   input [0:0]mem_wr_m_q;
   input mem_inval_m_q;
@@ -13339,13 +13314,12 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   input \ram_read0_q[20]_i_2__0_0 ;
   input ram_reg_1_1;
   input ram_reg_1_2;
-  input \FSM_sequential_state_reg[1]_1 ;
+  input \pending_q_reg[0]_0 ;
   input dropped_q;
   input ram_reg_0_63_0_2_i_24;
   input mem_inval_m_q_reg_1;
   input [0:0]pmem_wr_q;
   input [0:0]CO;
-  input [1:0]state;
   input [20:0]\ram_read0_q_reg[20]_3 ;
 
   wire ACLK;
@@ -13368,9 +13342,6 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   wire \FSM_sequential_state_q_reg[3]_0 ;
   wire \FSM_sequential_state_q_reg[3]_1 ;
   wire \FSM_sequential_state_q_reg[3]_2 ;
-  wire \FSM_sequential_state_reg[1] ;
-  wire \FSM_sequential_state_reg[1]_0 ;
-  wire \FSM_sequential_state_reg[1]_1 ;
   wire [7:0]Q;
   wire [2:0]S;
   wire [7:0]addr0_i;
@@ -13422,6 +13393,8 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   wire [0:0]mem_wr_m_q;
   wire mem_writeback_m_q;
   wire [0:0]p_3_in;
+  wire \pending_q_reg[0] ;
+  wire \pending_q_reg[0]_0 ;
   wire [30:0]pmem_addr_q0;
   wire [30:0]pmem_addr_q00_in;
   wire \pmem_addr_q[31]_i_4_0 ;
@@ -13603,7 +13576,6 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   wire \replace_way_q_reg[0]_0 ;
   wire \replace_way_q_reg[0]_1 ;
   wire \slv_reg2_reg[2] ;
-  wire [1:0]state;
   wire [20:0]tag_data_in_m_r;
   wire NLW_ram_reg_0_63_0_2_DOD_UNCONNECTED;
   wire NLW_ram_reg_0_63_12_14_DOD_UNCONNECTED;
@@ -13634,13 +13606,6 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
   wire NLW_ram_reg_64_127_6_8_DOD_UNCONNECTED;
   wire NLW_ram_reg_64_127_9_11_DOD_UNCONNECTED;
 
-  LUT3 #(
-    .INIT(8'h6E)) 
-    \FSM_sequential_state[1]_i_1 
-       (.I0(state[1]),
-        .I1(state[0]),
-        .I2(mem_ack_o),
-        .O(\FSM_sequential_state_reg[1] ));
   LUT5 #(
     .INIT(32'hAAAA2A20)) 
     \FSM_sequential_state_q[0]_i_3 
@@ -13714,7 +13679,7 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
         .I2(\FSM_sequential_state_q[3]_i_2 [1]),
         .I3(m_axi_rvalid),
         .I4(m_axi_bvalid),
-        .I5(\FSM_sequential_state_reg[1]_0 ),
+        .I5(\pending_q_reg[0] ),
         .O(\pmem_len_q_reg[6] ));
   LUT6 #(
     .INIT(64'h00000000FFEF0000)) 
@@ -14193,16 +14158,6 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
         .I2(\FSM_sequential_state_q_reg[2]_2 [20]),
         .I3(CO),
         .O(\mem_addr_m_q[31]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hB8B8B8B8BBBBBBB8)) 
-    \pending_q[4]_i_3 
-       (.I0(\mem_addr_m_q[31]_i_3_n_0 ),
-        .I1(\FSM_sequential_state_reg[1]_1 ),
-        .I2(dropped_q),
-        .I3(m_axi_rvalid),
-        .I4(m_axi_bvalid),
-        .I5(\FSM_sequential_state_reg[1]_0 ),
-        .O(mem_ack_o));
   LUT6 #(
     .INIT(64'hFFFF0051FFAE0000)) 
     \pmem_addr_q[10]_i_1 
@@ -16006,6 +15961,16 @@ module design_1_sgp_renderOutput_0_dcache_core_tag_ram_1
         .I4(\replace_way_q_reg[0] [3]),
         .I5(\replace_way_q_reg[0]_1 ),
         .O(\FSM_sequential_state_q_reg[2] ));
+  LUT6 #(
+    .INIT(64'hB8B8B8B8BBBBBBB8)) 
+    state_i_2
+       (.I0(\mem_addr_m_q[31]_i_3_n_0 ),
+        .I1(\pending_q_reg[0]_0 ),
+        .I2(dropped_q),
+        .I3(m_axi_rvalid),
+        .I4(m_axi_bvalid),
+        .I5(\pending_q_reg[0] ),
+        .O(mem_ack_o));
   LUT2 #(
     .INIT(4'h9)) 
     tag1_hit_m_w0_carry__0_i_1
@@ -16086,18 +16051,17 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
     \ram_q_reg[0][64] ,
     \ram_q_reg[0][64]_0 ,
     req_pop_w,
-    S_AXIS_TVALID_0,
     \FSM_sequential_state_reg[1] ,
     ACLK,
     SR,
     \wr_ptr_q_reg[0] ,
     \rd_ptr_q_reg[0]_0 ,
     request_pending_q_reg_0,
-    state,
+    \mem_wr_reg[0] ,
     \count_q_reg[1]_0 ,
     ARESETN,
-    \mem_wr_reg[0] ,
     \mem_wr_reg[0]_0 ,
+    \mem_wr_reg[0]_1 ,
     \ram_q_reg[0][3] ,
     Q,
     \ram_q_reg[0][2] ,
@@ -16108,9 +16072,7 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
     m_axi_rvalid,
     m_axi_bvalid,
     select_q,
-    S_AXIS_TVALID,
-    mem_ack_o,
-    \mem_wr_reg[0]_1 ,
+    \mem_wr_reg[0]_2 ,
     D);
   output dropped_q;
   output wr_ptr_q;
@@ -16122,18 +16084,17 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
   output [62:0]\ram_q_reg[0][64] ;
   output \ram_q_reg[0][64]_0 ;
   output req_pop_w;
-  output S_AXIS_TVALID_0;
   output \FSM_sequential_state_reg[1] ;
   input ACLK;
   input [0:0]SR;
   input \wr_ptr_q_reg[0] ;
   input \rd_ptr_q_reg[0]_0 ;
   input request_pending_q_reg_0;
-  input [1:0]state;
+  input [1:0]\mem_wr_reg[0] ;
   input \count_q_reg[1]_0 ;
   input ARESETN;
-  input \mem_wr_reg[0] ;
   input \mem_wr_reg[0]_0 ;
+  input \mem_wr_reg[0]_1 ;
   input \ram_q_reg[0][3] ;
   input [2:0]Q;
   input \ram_q_reg[0][2] ;
@@ -16144,9 +16105,7 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
   input m_axi_rvalid;
   input m_axi_bvalid;
   input select_q;
-  input S_AXIS_TVALID;
-  input mem_ack_o;
-  input \mem_wr_reg[0]_1 ;
+  input \mem_wr_reg[0]_2 ;
   input [63:0]D;
 
   wire ACLK;
@@ -16156,8 +16115,6 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
   wire \FSM_sequential_state_reg[1] ;
   wire [2:0]Q;
   wire [0:0]SR;
-  wire S_AXIS_TVALID;
-  wire S_AXIS_TVALID_0;
   wire [1:0]count_q;
   wire \count_q_reg[0] ;
   wire \count_q_reg[1] ;
@@ -16165,10 +16122,10 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
   wire dropped_q;
   wire m_axi_bvalid;
   wire m_axi_rvalid;
-  wire mem_ack_o;
-  wire \mem_wr_reg[0] ;
+  wire [1:0]\mem_wr_reg[0] ;
   wire \mem_wr_reg[0]_0 ;
   wire \mem_wr_reg[0]_1 ;
+  wire \mem_wr_reg[0]_2 ;
   wire \ram_q_reg[0][2] ;
   wire [26:0]\ram_q_reg[0][31] ;
   wire \ram_q_reg[0][3] ;
@@ -16183,7 +16140,6 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
   wire request_pending_q;
   wire request_pending_q_reg_0;
   wire select_q;
-  wire [1:0]state;
   wire u_req_n_4;
   wire u_req_n_5;
   wire u_resp_n_1;
@@ -16212,20 +16168,18 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
         .\FSM_sequential_state_reg[1] (\FSM_sequential_state_reg[1] ),
         .Q(Q),
         .SR(SR),
-        .S_AXIS_TVALID(S_AXIS_TVALID),
-        .S_AXIS_TVALID_0(S_AXIS_TVALID_0),
         .count_q(count_q),
         .\count_q_reg[0]_0 (\count_q_reg[0] ),
         .\count_q_reg[0]_1 (u_req_n_4),
         .\count_q_reg[1]_0 (u_req_n_5),
         .\count_q_reg[1]_1 (\count_q_reg[1]_0 ),
         .dropped_q_reg(u_resp_n_3),
-        .mem_ack_o(mem_ack_o),
-        .\mem_wr_reg[0] (u_resp_n_2),
-        .\mem_wr_reg[0]_0 (u_resp_n_1),
-        .\mem_wr_reg[0]_1 (\mem_wr_reg[0] ),
+        .\mem_wr_reg[0] (\mem_wr_reg[0] ),
+        .\mem_wr_reg[0]_0 (u_resp_n_2),
+        .\mem_wr_reg[0]_1 (u_resp_n_1),
         .\mem_wr_reg[0]_2 (\mem_wr_reg[0]_0 ),
         .\mem_wr_reg[0]_3 (\mem_wr_reg[0]_1 ),
+        .\mem_wr_reg[0]_4 (\mem_wr_reg[0]_2 ),
         .\ram_q_reg[0][2]_0 (\ram_q_reg[0][2] ),
         .\ram_q_reg[0][31]_0 (\ram_q_reg[0][31] ),
         .\ram_q_reg[0][3]_0 (\ram_q_reg[0][3] ),
@@ -16238,13 +16192,12 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem
         .req_is_drop_w(req_is_drop_w),
         .req_pop_w(req_pop_w),
         .request_pending_q(request_pending_q),
-        .state(state),
         .wr_ptr_q(wr_ptr_q),
         .\wr_ptr_q_reg[0]_0 (\wr_ptr_q_reg[0] ));
   design_1_sgp_renderOutput_0_dcache_if_pmem_fifo__parameterized0 u_resp
        (.ACLK(ACLK),
         .SR(SR),
-        .\count_q[1]_i_2__1 (\mem_wr_reg[0] ),
+        .\count_q[1]_i_2__1 (\mem_wr_reg[0]_0 ),
         .\count_q[1]_i_2__1_0 (u_req_n_5),
         .\count_q[1]_i_2__1_1 (u_req_n_4),
         .\count_q_reg[0]_0 (u_resp_n_2),
@@ -16270,19 +16223,18 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
     \ram_q_reg[0][64]_1 ,
     req_pop_w,
     req_is_drop_w,
-    S_AXIS_TVALID_0,
     \FSM_sequential_state_reg[1] ,
     \wr_ptr_q_reg[0]_0 ,
     ACLK,
     SR,
     \rd_ptr_q_reg[0]_1 ,
-    state,
+    \mem_wr_reg[0] ,
     \count_q_reg[1]_1 ,
     ARESETN,
-    \mem_wr_reg[0] ,
     \mem_wr_reg[0]_0 ,
     \mem_wr_reg[0]_1 ,
     \mem_wr_reg[0]_2 ,
+    \mem_wr_reg[0]_3 ,
     \ram_q_reg[0][3]_0 ,
     Q,
     \ram_q_reg[0][2]_0 ,
@@ -16292,9 +16244,7 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
     count_q,
     dropped_q_reg,
     request_pending_q,
-    S_AXIS_TVALID,
-    mem_ack_o,
-    \mem_wr_reg[0]_3 ,
+    \mem_wr_reg[0]_4 ,
     D);
   output wr_ptr_q;
   output \rd_ptr_q_reg[0]_0 ;
@@ -16306,19 +16256,18 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
   output \ram_q_reg[0][64]_1 ;
   output req_pop_w;
   output req_is_drop_w;
-  output S_AXIS_TVALID_0;
   output \FSM_sequential_state_reg[1] ;
   input \wr_ptr_q_reg[0]_0 ;
   input ACLK;
   input [0:0]SR;
   input \rd_ptr_q_reg[0]_1 ;
-  input [1:0]state;
+  input [1:0]\mem_wr_reg[0] ;
   input \count_q_reg[1]_1 ;
   input ARESETN;
-  input \mem_wr_reg[0] ;
   input \mem_wr_reg[0]_0 ;
   input \mem_wr_reg[0]_1 ;
   input \mem_wr_reg[0]_2 ;
+  input \mem_wr_reg[0]_3 ;
   input \ram_q_reg[0][3]_0 ;
   input [2:0]Q;
   input \ram_q_reg[0][2]_0 ;
@@ -16328,9 +16277,7 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
   input [1:0]count_q;
   input dropped_q_reg;
   input request_pending_q;
-  input S_AXIS_TVALID;
-  input mem_ack_o;
-  input \mem_wr_reg[0]_3 ;
+  input \mem_wr_reg[0]_4 ;
   input [63:0]D;
 
   wire ACLK;
@@ -16340,8 +16287,6 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
   wire \FSM_sequential_state_reg[1] ;
   wire [2:0]Q;
   wire [0:0]SR;
-  wire S_AXIS_TVALID;
-  wire S_AXIS_TVALID_0;
   wire [1:0]count_q;
   wire \count_q[0]_i_1_n_0 ;
   wire \count_q[1]_i_1_n_0 ;
@@ -16352,12 +16297,12 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
   wire \count_q_reg[1]_1 ;
   wire dropped_q_i_2_n_0;
   wire dropped_q_reg;
-  wire mem_ack_o;
-  wire \mem_wr_reg[0] ;
+  wire [1:0]\mem_wr_reg[0] ;
   wire \mem_wr_reg[0]_0 ;
   wire \mem_wr_reg[0]_1 ;
   wire \mem_wr_reg[0]_2 ;
   wire \mem_wr_reg[0]_3 ;
+  wire \mem_wr_reg[0]_4 ;
   wire \ram_q[0][69]_i_1_n_0 ;
   wire \ram_q[1][69]_i_1_n_0 ;
   wire \ram_q_reg[0][2]_0 ;
@@ -16374,20 +16319,9 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
   wire req_is_drop_w;
   wire req_pop_w;
   wire request_pending_q;
-  wire [1:0]state;
   wire wr_ptr_q;
   wire \wr_ptr_q_reg[0]_0 ;
 
-  (* SOFT_HLUTNM = "soft_lutpair157" *) 
-  LUT5 #(
-    .INIT(32'h003AF03A)) 
-    \FSM_sequential_state[0]_i_1 
-       (.I0(S_AXIS_TVALID),
-        .I1(\count_q_reg[0]_0 ),
-        .I2(state[1]),
-        .I3(state[0]),
-        .I4(mem_ack_o),
-        .O(S_AXIS_TVALID_0));
   (* SOFT_HLUTNM = "soft_lutpair158" *) 
   LUT3 #(
     .INIT(8'h96)) 
@@ -16455,27 +16389,18 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
     .INIT(8'h04)) 
     \mem_addr[31]_i_1 
        (.I0(\count_q_reg[0]_0 ),
-        .I1(state[1]),
-        .I2(state[0]),
+        .I1(\mem_wr_reg[0] [1]),
+        .I2(\mem_wr_reg[0] [0]),
         .O(E));
+  (* SOFT_HLUTNM = "soft_lutpair157" *) 
   LUT4 #(
     .INIT(16'h5F02)) 
     \mem_wr[0]_i_1 
-       (.I0(state[1]),
+       (.I0(\mem_wr_reg[0] [1]),
         .I1(\count_q_reg[0]_0 ),
-        .I2(state[0]),
-        .I3(\mem_wr_reg[0]_3 ),
+        .I2(\mem_wr_reg[0] [0]),
+        .I3(\mem_wr_reg[0]_4 ),
         .O(\FSM_sequential_state_reg[1] ));
-  LUT6 #(
-    .INIT(64'h4F44FFFF00000000)) 
-    \pending_q[4]_i_4 
-       (.I0(\count_q_reg[0]_1 ),
-        .I1(\count_q_reg[1]_0 ),
-        .I2(\mem_wr_reg[0] ),
-        .I3(\mem_wr_reg[0]_0 ),
-        .I4(\mem_wr_reg[0]_1 ),
-        .I5(\mem_wr_reg[0]_2 ),
-        .O(\count_q_reg[0]_0 ));
   LUT3 #(
     .INIT(8'h40)) 
     \ram_q[0][69]_i_1 
@@ -17840,6 +17765,16 @@ module design_1_sgp_renderOutput_0_dcache_if_pmem_fifo
         .CLR(SR),
         .D(\rd_ptr_q_reg[0]_1 ),
         .Q(\rd_ptr_q_reg[0]_0 ));
+  LUT6 #(
+    .INIT(64'h4F44FFFF00000000)) 
+    state_i_1
+       (.I0(\count_q_reg[0]_1 ),
+        .I1(\count_q_reg[1]_0 ),
+        .I2(\mem_wr_reg[0]_0 ),
+        .I3(\mem_wr_reg[0]_1 ),
+        .I4(\mem_wr_reg[0]_2 ),
+        .I5(\mem_wr_reg[0]_3 ),
+        .O(\count_q_reg[0]_0 ));
   FDCE \wr_ptr_q_reg[0] 
        (.C(ACLK),
         .CE(1'b1),
@@ -18245,8 +18180,8 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
     m_axi_rdata,
     m_axi_awready,
     m_axi_wready,
-    S_AXIS_TVALID,
-    S_AXIS_TDATA);
+    S_AXIS_TDATA,
+    S_AXIS_TVALID);
   output S_AXI_AWREADY;
   output S_AXI_WREADY;
   output S_AXI_ARREADY;
@@ -18280,56 +18215,380 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   input [31:0]m_axi_rdata;
   input m_axi_awready;
   input m_axi_wready;
+  input [161:0]S_AXIS_TDATA;
   input S_AXIS_TVALID;
-  input [65:0]S_AXIS_TDATA;
 
-  wire [15:0]A;
+  wire [15:1]A;
   wire ACLK;
   wire ARESETN;
   wire [1:0]D;
+  wire \FSM_sequential_state[0]_i_1_n_0 ;
+  wire \FSM_sequential_state[1]_i_1_n_0 ;
   wire [31:16]L;
-  wire [65:0]S_AXIS_TDATA;
+  wire [161:0]S_AXIS_TDATA;
   wire S_AXIS_TREADY;
   wire S_AXIS_TVALID;
   wire S_AXI_ARREADY;
   wire S_AXI_AWREADY;
   wire S_AXI_WREADY;
-  wire [7:0]a_color_reg;
+  wire a_color_reg64_n_100;
+  wire a_color_reg64_n_101;
+  wire a_color_reg64_n_102;
+  wire a_color_reg64_n_103;
+  wire a_color_reg64_n_104;
+  wire a_color_reg64_n_105;
+  wire a_color_reg64_n_106;
+  wire a_color_reg64_n_107;
+  wire a_color_reg64_n_108;
+  wire a_color_reg64_n_109;
+  wire a_color_reg64_n_110;
+  wire a_color_reg64_n_111;
+  wire a_color_reg64_n_112;
+  wire a_color_reg64_n_113;
+  wire a_color_reg64_n_114;
+  wire a_color_reg64_n_115;
+  wire a_color_reg64_n_116;
+  wire a_color_reg64_n_117;
+  wire a_color_reg64_n_118;
+  wire a_color_reg64_n_119;
+  wire a_color_reg64_n_120;
+  wire a_color_reg64_n_121;
+  wire a_color_reg64_n_122;
+  wire a_color_reg64_n_123;
+  wire a_color_reg64_n_124;
+  wire a_color_reg64_n_125;
+  wire a_color_reg64_n_126;
+  wire a_color_reg64_n_127;
+  wire a_color_reg64_n_128;
+  wire a_color_reg64_n_129;
+  wire a_color_reg64_n_130;
+  wire a_color_reg64_n_131;
+  wire a_color_reg64_n_132;
+  wire a_color_reg64_n_133;
+  wire a_color_reg64_n_134;
+  wire a_color_reg64_n_135;
+  wire a_color_reg64_n_136;
+  wire a_color_reg64_n_137;
+  wire a_color_reg64_n_138;
+  wire a_color_reg64_n_139;
+  wire a_color_reg64_n_140;
+  wire a_color_reg64_n_141;
+  wire a_color_reg64_n_142;
+  wire a_color_reg64_n_143;
+  wire a_color_reg64_n_144;
+  wire a_color_reg64_n_145;
+  wire a_color_reg64_n_146;
+  wire a_color_reg64_n_147;
+  wire a_color_reg64_n_148;
+  wire a_color_reg64_n_149;
+  wire a_color_reg64_n_150;
+  wire a_color_reg64_n_151;
+  wire a_color_reg64_n_152;
+  wire a_color_reg64_n_153;
+  wire a_color_reg64_n_24;
+  wire a_color_reg64_n_25;
+  wire a_color_reg64_n_26;
+  wire a_color_reg64_n_27;
+  wire a_color_reg64_n_28;
+  wire a_color_reg64_n_29;
+  wire a_color_reg64_n_30;
+  wire a_color_reg64_n_31;
+  wire a_color_reg64_n_32;
+  wire a_color_reg64_n_33;
+  wire a_color_reg64_n_34;
+  wire a_color_reg64_n_35;
+  wire a_color_reg64_n_36;
+  wire a_color_reg64_n_37;
+  wire a_color_reg64_n_38;
+  wire a_color_reg64_n_39;
+  wire a_color_reg64_n_40;
+  wire a_color_reg64_n_41;
+  wire a_color_reg64_n_42;
+  wire a_color_reg64_n_43;
+  wire a_color_reg64_n_44;
+  wire a_color_reg64_n_45;
+  wire a_color_reg64_n_46;
+  wire a_color_reg64_n_47;
+  wire a_color_reg64_n_48;
+  wire a_color_reg64_n_49;
+  wire a_color_reg64_n_50;
+  wire a_color_reg64_n_51;
+  wire a_color_reg64_n_52;
+  wire a_color_reg64_n_53;
+  wire a_color_reg64_n_58;
+  wire a_color_reg64_n_59;
+  wire a_color_reg64_n_60;
+  wire a_color_reg64_n_61;
+  wire a_color_reg64_n_62;
+  wire a_color_reg64_n_63;
+  wire a_color_reg64_n_64;
+  wire a_color_reg64_n_65;
+  wire a_color_reg64_n_66;
+  wire a_color_reg64_n_67;
+  wire a_color_reg64_n_68;
+  wire a_color_reg64_n_69;
+  wire a_color_reg64_n_70;
+  wire a_color_reg64_n_71;
+  wire a_color_reg64_n_72;
+  wire a_color_reg64_n_73;
+  wire a_color_reg64_n_74;
+  wire a_color_reg64_n_75;
+  wire a_color_reg64_n_76;
+  wire a_color_reg64_n_77;
+  wire a_color_reg64_n_78;
+  wire a_color_reg64_n_79;
+  wire a_color_reg64_n_80;
+  wire a_color_reg64_n_81;
+  wire a_color_reg64_n_82;
+  wire a_color_reg64_n_83;
+  wire a_color_reg64_n_84;
+  wire a_color_reg64_n_85;
+  wire a_color_reg64_n_86;
+  wire a_color_reg64_n_87;
+  wire a_color_reg64_n_88;
+  wire a_color_reg64_n_89;
+  wire a_color_reg64_n_90;
+  wire a_color_reg64_n_91;
+  wire a_color_reg64_n_92;
+  wire a_color_reg64_n_93;
+  wire a_color_reg64_n_94;
+  wire a_color_reg64_n_95;
+  wire a_color_reg64_n_96;
+  wire a_color_reg64_n_97;
+  wire a_color_reg64_n_98;
+  wire a_color_reg64_n_99;
+  wire [39:32]a_color_reg_reg__0;
+  wire a_color_reg_reg_n_100;
+  wire a_color_reg_reg_n_101;
+  wire a_color_reg_reg_n_102;
+  wire a_color_reg_reg_n_103;
+  wire a_color_reg_reg_n_104;
+  wire a_color_reg_reg_n_105;
+  wire a_color_reg_reg_n_58;
+  wire a_color_reg_reg_n_59;
+  wire a_color_reg_reg_n_60;
+  wire a_color_reg_reg_n_61;
+  wire a_color_reg_reg_n_62;
+  wire a_color_reg_reg_n_63;
+  wire a_color_reg_reg_n_64;
+  wire a_color_reg_reg_n_65;
+  wire a_color_reg_reg_n_66;
+  wire a_color_reg_reg_n_67;
+  wire a_color_reg_reg_n_68;
+  wire a_color_reg_reg_n_69;
+  wire a_color_reg_reg_n_70;
+  wire a_color_reg_reg_n_71;
+  wire a_color_reg_reg_n_72;
+  wire a_color_reg_reg_n_73;
+  wire a_color_reg_reg_n_74;
+  wire a_color_reg_reg_n_75;
+  wire a_color_reg_reg_n_76;
+  wire a_color_reg_reg_n_77;
+  wire a_color_reg_reg_n_78;
+  wire a_color_reg_reg_n_79;
+  wire a_color_reg_reg_n_80;
+  wire a_color_reg_reg_n_81;
+  wire a_color_reg_reg_n_82;
+  wire a_color_reg_reg_n_91;
+  wire a_color_reg_reg_n_92;
+  wire a_color_reg_reg_n_93;
+  wire a_color_reg_reg_n_94;
+  wire a_color_reg_reg_n_95;
+  wire a_color_reg_reg_n_96;
+  wire a_color_reg_reg_n_97;
+  wire a_color_reg_reg_n_98;
+  wire a_color_reg_reg_n_99;
   wire aw_en_i_1_n_0;
   wire awvalid_q_i_1_n_0;
   wire axi_bvalid_i_1_n_0;
   wire axi_rvalid_i_1_n_0;
-  wire [7:0]b_color_reg;
+  wire b_color_reg64_n_100;
+  wire b_color_reg64_n_101;
+  wire b_color_reg64_n_102;
+  wire b_color_reg64_n_103;
+  wire b_color_reg64_n_104;
+  wire b_color_reg64_n_105;
+  wire b_color_reg64_n_106;
+  wire b_color_reg64_n_107;
+  wire b_color_reg64_n_108;
+  wire b_color_reg64_n_109;
+  wire b_color_reg64_n_110;
+  wire b_color_reg64_n_111;
+  wire b_color_reg64_n_112;
+  wire b_color_reg64_n_113;
+  wire b_color_reg64_n_114;
+  wire b_color_reg64_n_115;
+  wire b_color_reg64_n_116;
+  wire b_color_reg64_n_117;
+  wire b_color_reg64_n_118;
+  wire b_color_reg64_n_119;
+  wire b_color_reg64_n_120;
+  wire b_color_reg64_n_121;
+  wire b_color_reg64_n_122;
+  wire b_color_reg64_n_123;
+  wire b_color_reg64_n_124;
+  wire b_color_reg64_n_125;
+  wire b_color_reg64_n_126;
+  wire b_color_reg64_n_127;
+  wire b_color_reg64_n_128;
+  wire b_color_reg64_n_129;
+  wire b_color_reg64_n_130;
+  wire b_color_reg64_n_131;
+  wire b_color_reg64_n_132;
+  wire b_color_reg64_n_133;
+  wire b_color_reg64_n_134;
+  wire b_color_reg64_n_135;
+  wire b_color_reg64_n_136;
+  wire b_color_reg64_n_137;
+  wire b_color_reg64_n_138;
+  wire b_color_reg64_n_139;
+  wire b_color_reg64_n_140;
+  wire b_color_reg64_n_141;
+  wire b_color_reg64_n_142;
+  wire b_color_reg64_n_143;
+  wire b_color_reg64_n_144;
+  wire b_color_reg64_n_145;
+  wire b_color_reg64_n_146;
+  wire b_color_reg64_n_147;
+  wire b_color_reg64_n_148;
+  wire b_color_reg64_n_149;
+  wire b_color_reg64_n_150;
+  wire b_color_reg64_n_151;
+  wire b_color_reg64_n_152;
+  wire b_color_reg64_n_153;
+  wire b_color_reg64_n_24;
+  wire b_color_reg64_n_25;
+  wire b_color_reg64_n_26;
+  wire b_color_reg64_n_27;
+  wire b_color_reg64_n_28;
+  wire b_color_reg64_n_29;
+  wire b_color_reg64_n_30;
+  wire b_color_reg64_n_31;
+  wire b_color_reg64_n_32;
+  wire b_color_reg64_n_33;
+  wire b_color_reg64_n_34;
+  wire b_color_reg64_n_35;
+  wire b_color_reg64_n_36;
+  wire b_color_reg64_n_37;
+  wire b_color_reg64_n_38;
+  wire b_color_reg64_n_39;
+  wire b_color_reg64_n_40;
+  wire b_color_reg64_n_41;
+  wire b_color_reg64_n_42;
+  wire b_color_reg64_n_43;
+  wire b_color_reg64_n_44;
+  wire b_color_reg64_n_45;
+  wire b_color_reg64_n_46;
+  wire b_color_reg64_n_47;
+  wire b_color_reg64_n_48;
+  wire b_color_reg64_n_49;
+  wire b_color_reg64_n_50;
+  wire b_color_reg64_n_51;
+  wire b_color_reg64_n_52;
+  wire b_color_reg64_n_53;
+  wire b_color_reg64_n_58;
+  wire b_color_reg64_n_59;
+  wire b_color_reg64_n_60;
+  wire b_color_reg64_n_61;
+  wire b_color_reg64_n_62;
+  wire b_color_reg64_n_63;
+  wire b_color_reg64_n_64;
+  wire b_color_reg64_n_65;
+  wire b_color_reg64_n_66;
+  wire b_color_reg64_n_67;
+  wire b_color_reg64_n_68;
+  wire b_color_reg64_n_69;
+  wire b_color_reg64_n_70;
+  wire b_color_reg64_n_71;
+  wire b_color_reg64_n_72;
+  wire b_color_reg64_n_73;
+  wire b_color_reg64_n_74;
+  wire b_color_reg64_n_75;
+  wire b_color_reg64_n_76;
+  wire b_color_reg64_n_77;
+  wire b_color_reg64_n_78;
+  wire b_color_reg64_n_79;
+  wire b_color_reg64_n_80;
+  wire b_color_reg64_n_81;
+  wire b_color_reg64_n_82;
+  wire b_color_reg64_n_83;
+  wire b_color_reg64_n_84;
+  wire b_color_reg64_n_85;
+  wire b_color_reg64_n_86;
+  wire b_color_reg64_n_87;
+  wire b_color_reg64_n_88;
+  wire b_color_reg64_n_89;
+  wire b_color_reg64_n_90;
+  wire b_color_reg64_n_91;
+  wire b_color_reg64_n_92;
+  wire b_color_reg64_n_93;
+  wire b_color_reg64_n_94;
+  wire b_color_reg64_n_95;
+  wire b_color_reg64_n_96;
+  wire b_color_reg64_n_97;
+  wire b_color_reg64_n_98;
+  wire b_color_reg64_n_99;
+  wire [39:32]b_color_reg_reg__0;
+  wire b_color_reg_reg_n_100;
+  wire b_color_reg_reg_n_101;
+  wire b_color_reg_reg_n_102;
+  wire b_color_reg_reg_n_103;
+  wire b_color_reg_reg_n_104;
+  wire b_color_reg_reg_n_105;
+  wire b_color_reg_reg_n_58;
+  wire b_color_reg_reg_n_59;
+  wire b_color_reg_reg_n_60;
+  wire b_color_reg_reg_n_61;
+  wire b_color_reg_reg_n_62;
+  wire b_color_reg_reg_n_63;
+  wire b_color_reg_reg_n_64;
+  wire b_color_reg_reg_n_65;
+  wire b_color_reg_reg_n_66;
+  wire b_color_reg_reg_n_67;
+  wire b_color_reg_reg_n_68;
+  wire b_color_reg_reg_n_69;
+  wire b_color_reg_reg_n_70;
+  wire b_color_reg_reg_n_71;
+  wire b_color_reg_reg_n_72;
+  wire b_color_reg_reg_n_73;
+  wire b_color_reg_reg_n_74;
+  wire b_color_reg_reg_n_75;
+  wire b_color_reg_reg_n_76;
+  wire b_color_reg_reg_n_77;
+  wire b_color_reg_reg_n_78;
+  wire b_color_reg_reg_n_79;
+  wire b_color_reg_reg_n_80;
+  wire b_color_reg_reg_n_81;
+  wire b_color_reg_reg_n_82;
+  wire b_color_reg_reg_n_91;
+  wire b_color_reg_reg_n_92;
+  wire b_color_reg_reg_n_93;
+  wire b_color_reg_reg_n_94;
+  wire b_color_reg_reg_n_95;
+  wire b_color_reg_reg_n_96;
+  wire b_color_reg_reg_n_97;
+  wire b_color_reg_reg_n_98;
+  wire b_color_reg_reg_n_99;
   wire cache_access_q_i_1_n_0;
   wire flush_last_q_i_1_n_0;
   wire flushing_q_i_1_n_0;
+  wire frag_address;
   wire [31:2]frag_address0__0;
-  wire frag_address0_i_10_n_0;
-  wire frag_address0_i_11_n_0;
+  wire frag_address0_i_1_n_2;
+  wire frag_address0_i_1_n_3;
+  wire frag_address0_i_25_n_0;
+  wire frag_address0_i_2_n_0;
   wire frag_address0_i_2_n_1;
   wire frag_address0_i_2_n_2;
   wire frag_address0_i_2_n_3;
-  wire frag_address0_i_2_n_4;
-  wire frag_address0_i_2_n_5;
-  wire frag_address0_i_2_n_6;
-  wire frag_address0_i_2_n_7;
   wire frag_address0_i_3_n_0;
   wire frag_address0_i_3_n_1;
   wire frag_address0_i_3_n_2;
   wire frag_address0_i_3_n_3;
-  wire frag_address0_i_3_n_4;
-  wire frag_address0_i_3_n_5;
-  wire frag_address0_i_3_n_6;
-  wire frag_address0_i_3_n_7;
   wire frag_address0_i_4_n_0;
   wire frag_address0_i_4_n_1;
   wire frag_address0_i_4_n_2;
   wire frag_address0_i_4_n_3;
-  wire frag_address0_i_4_n_4;
-  wire frag_address0_i_4_n_5;
-  wire frag_address0_i_4_n_6;
-  wire frag_address0_i_4_n_7;
-  wire frag_address0_i_5_n_0;
   wire frag_address0_i_5_n_1;
   wire frag_address0_i_5_n_2;
   wire frag_address0_i_5_n_3;
@@ -18337,21 +18596,30 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire frag_address0_i_5_n_5;
   wire frag_address0_i_5_n_6;
   wire frag_address0_i_5_n_7;
+  wire frag_address0_i_6_n_0;
   wire frag_address0_i_6_n_1;
   wire frag_address0_i_6_n_2;
   wire frag_address0_i_6_n_3;
+  wire frag_address0_i_6_n_4;
+  wire frag_address0_i_6_n_5;
+  wire frag_address0_i_6_n_6;
+  wire frag_address0_i_6_n_7;
   wire frag_address0_i_7_n_0;
   wire frag_address0_i_7_n_1;
   wire frag_address0_i_7_n_2;
   wire frag_address0_i_7_n_3;
+  wire frag_address0_i_7_n_4;
+  wire frag_address0_i_7_n_5;
+  wire frag_address0_i_7_n_6;
+  wire frag_address0_i_7_n_7;
   wire frag_address0_i_8_n_0;
   wire frag_address0_i_8_n_1;
   wire frag_address0_i_8_n_2;
   wire frag_address0_i_8_n_3;
-  wire frag_address0_i_9_n_0;
-  wire frag_address0_i_9_n_1;
-  wire frag_address0_i_9_n_2;
-  wire frag_address0_i_9_n_3;
+  wire frag_address0_i_8_n_4;
+  wire frag_address0_i_8_n_5;
+  wire frag_address0_i_8_n_6;
+  wire frag_address0_i_8_n_7;
   wire frag_address0_n_100;
   wire frag_address0_n_101;
   wire frag_address0_n_102;
@@ -18404,10 +18672,10 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire \frag_address[27]_i_3_n_0 ;
   wire \frag_address[27]_i_4_n_0 ;
   wire \frag_address[27]_i_5_n_0 ;
-  wire \frag_address[31]_i_2_n_0 ;
   wire \frag_address[31]_i_3_n_0 ;
   wire \frag_address[31]_i_4_n_0 ;
   wire \frag_address[31]_i_5_n_0 ;
+  wire \frag_address[31]_i_6_n_0 ;
   wire \frag_address[3]_i_2_n_0 ;
   wire \frag_address[3]_i_3_n_0 ;
   wire \frag_address[3]_i_4_n_0 ;
@@ -18437,9 +18705,9 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire \frag_address_reg[27]_i_1_n_1 ;
   wire \frag_address_reg[27]_i_1_n_2 ;
   wire \frag_address_reg[27]_i_1_n_3 ;
-  wire \frag_address_reg[31]_i_1_n_1 ;
-  wire \frag_address_reg[31]_i_1_n_2 ;
-  wire \frag_address_reg[31]_i_1_n_3 ;
+  wire \frag_address_reg[31]_i_2_n_1 ;
+  wire \frag_address_reg[31]_i_2_n_2 ;
+  wire \frag_address_reg[31]_i_2_n_3 ;
   wire \frag_address_reg[3]_i_1_n_0 ;
   wire \frag_address_reg[3]_i_1_n_1 ;
   wire \frag_address_reg[3]_i_1_n_2 ;
@@ -18449,49 +18717,192 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire \frag_address_reg[7]_i_1_n_2 ;
   wire \frag_address_reg[7]_i_1_n_3 ;
   wire [31:0]frag_color;
-  wire [7:0]g_color_reg;
+  wire g_color_reg64_n_100;
+  wire g_color_reg64_n_101;
+  wire g_color_reg64_n_102;
+  wire g_color_reg64_n_103;
+  wire g_color_reg64_n_104;
+  wire g_color_reg64_n_105;
+  wire g_color_reg64_n_106;
+  wire g_color_reg64_n_107;
+  wire g_color_reg64_n_108;
+  wire g_color_reg64_n_109;
+  wire g_color_reg64_n_110;
+  wire g_color_reg64_n_111;
+  wire g_color_reg64_n_112;
+  wire g_color_reg64_n_113;
+  wire g_color_reg64_n_114;
+  wire g_color_reg64_n_115;
+  wire g_color_reg64_n_116;
+  wire g_color_reg64_n_117;
+  wire g_color_reg64_n_118;
+  wire g_color_reg64_n_119;
+  wire g_color_reg64_n_120;
+  wire g_color_reg64_n_121;
+  wire g_color_reg64_n_122;
+  wire g_color_reg64_n_123;
+  wire g_color_reg64_n_124;
+  wire g_color_reg64_n_125;
+  wire g_color_reg64_n_126;
+  wire g_color_reg64_n_127;
+  wire g_color_reg64_n_128;
+  wire g_color_reg64_n_129;
+  wire g_color_reg64_n_130;
+  wire g_color_reg64_n_131;
+  wire g_color_reg64_n_132;
+  wire g_color_reg64_n_133;
+  wire g_color_reg64_n_134;
+  wire g_color_reg64_n_135;
+  wire g_color_reg64_n_136;
+  wire g_color_reg64_n_137;
+  wire g_color_reg64_n_138;
+  wire g_color_reg64_n_139;
+  wire g_color_reg64_n_140;
+  wire g_color_reg64_n_141;
+  wire g_color_reg64_n_142;
+  wire g_color_reg64_n_143;
+  wire g_color_reg64_n_144;
+  wire g_color_reg64_n_145;
+  wire g_color_reg64_n_146;
+  wire g_color_reg64_n_147;
+  wire g_color_reg64_n_148;
+  wire g_color_reg64_n_149;
+  wire g_color_reg64_n_150;
+  wire g_color_reg64_n_151;
+  wire g_color_reg64_n_152;
+  wire g_color_reg64_n_153;
+  wire g_color_reg64_n_24;
+  wire g_color_reg64_n_25;
+  wire g_color_reg64_n_26;
+  wire g_color_reg64_n_27;
+  wire g_color_reg64_n_28;
+  wire g_color_reg64_n_29;
+  wire g_color_reg64_n_30;
+  wire g_color_reg64_n_31;
+  wire g_color_reg64_n_32;
+  wire g_color_reg64_n_33;
+  wire g_color_reg64_n_34;
+  wire g_color_reg64_n_35;
+  wire g_color_reg64_n_36;
+  wire g_color_reg64_n_37;
+  wire g_color_reg64_n_38;
+  wire g_color_reg64_n_39;
+  wire g_color_reg64_n_40;
+  wire g_color_reg64_n_41;
+  wire g_color_reg64_n_42;
+  wire g_color_reg64_n_43;
+  wire g_color_reg64_n_44;
+  wire g_color_reg64_n_45;
+  wire g_color_reg64_n_46;
+  wire g_color_reg64_n_47;
+  wire g_color_reg64_n_48;
+  wire g_color_reg64_n_49;
+  wire g_color_reg64_n_50;
+  wire g_color_reg64_n_51;
+  wire g_color_reg64_n_52;
+  wire g_color_reg64_n_53;
+  wire g_color_reg64_n_58;
+  wire g_color_reg64_n_59;
+  wire g_color_reg64_n_60;
+  wire g_color_reg64_n_61;
+  wire g_color_reg64_n_62;
+  wire g_color_reg64_n_63;
+  wire g_color_reg64_n_64;
+  wire g_color_reg64_n_65;
+  wire g_color_reg64_n_66;
+  wire g_color_reg64_n_67;
+  wire g_color_reg64_n_68;
+  wire g_color_reg64_n_69;
+  wire g_color_reg64_n_70;
+  wire g_color_reg64_n_71;
+  wire g_color_reg64_n_72;
+  wire g_color_reg64_n_73;
+  wire g_color_reg64_n_74;
+  wire g_color_reg64_n_75;
+  wire g_color_reg64_n_76;
+  wire g_color_reg64_n_77;
+  wire g_color_reg64_n_78;
+  wire g_color_reg64_n_79;
+  wire g_color_reg64_n_80;
+  wire g_color_reg64_n_81;
+  wire g_color_reg64_n_82;
+  wire g_color_reg64_n_83;
+  wire g_color_reg64_n_84;
+  wire g_color_reg64_n_85;
+  wire g_color_reg64_n_86;
+  wire g_color_reg64_n_87;
+  wire g_color_reg64_n_88;
+  wire g_color_reg64_n_89;
+  wire g_color_reg64_n_90;
+  wire g_color_reg64_n_91;
+  wire g_color_reg64_n_92;
+  wire g_color_reg64_n_93;
+  wire g_color_reg64_n_94;
+  wire g_color_reg64_n_95;
+  wire g_color_reg64_n_96;
+  wire g_color_reg64_n_97;
+  wire g_color_reg64_n_98;
+  wire g_color_reg64_n_99;
+  wire [39:32]g_color_reg_reg__0;
+  wire g_color_reg_reg_n_100;
+  wire g_color_reg_reg_n_101;
+  wire g_color_reg_reg_n_102;
+  wire g_color_reg_reg_n_103;
+  wire g_color_reg_reg_n_104;
+  wire g_color_reg_reg_n_105;
+  wire g_color_reg_reg_n_58;
+  wire g_color_reg_reg_n_59;
+  wire g_color_reg_reg_n_60;
+  wire g_color_reg_reg_n_61;
+  wire g_color_reg_reg_n_62;
+  wire g_color_reg_reg_n_63;
+  wire g_color_reg_reg_n_64;
+  wire g_color_reg_reg_n_65;
+  wire g_color_reg_reg_n_66;
+  wire g_color_reg_reg_n_67;
+  wire g_color_reg_reg_n_68;
+  wire g_color_reg_reg_n_69;
+  wire g_color_reg_reg_n_70;
+  wire g_color_reg_reg_n_71;
+  wire g_color_reg_reg_n_72;
+  wire g_color_reg_reg_n_73;
+  wire g_color_reg_reg_n_74;
+  wire g_color_reg_reg_n_75;
+  wire g_color_reg_reg_n_76;
+  wire g_color_reg_reg_n_77;
+  wire g_color_reg_reg_n_78;
+  wire g_color_reg_reg_n_79;
+  wire g_color_reg_reg_n_80;
+  wire g_color_reg_reg_n_81;
+  wire g_color_reg_reg_n_82;
+  wire g_color_reg_reg_n_91;
+  wire g_color_reg_reg_n_92;
+  wire g_color_reg_reg_n_93;
+  wire g_color_reg_reg_n_94;
+  wire g_color_reg_reg_n_95;
+  wire g_color_reg_reg_n_96;
+  wire g_color_reg_reg_n_97;
+  wire g_color_reg_reg_n_98;
+  wire g_color_reg_reg_n_99;
   wire input_fragment__0;
   wire \input_fragment_reg_n_0_[15] ;
-  wire \input_fragment_reg_n_0_[16] ;
-  wire \input_fragment_reg_n_0_[176] ;
-  wire \input_fragment_reg_n_0_[177] ;
-  wire \input_fragment_reg_n_0_[178] ;
-  wire \input_fragment_reg_n_0_[179] ;
-  wire \input_fragment_reg_n_0_[17] ;
-  wire \input_fragment_reg_n_0_[180] ;
-  wire \input_fragment_reg_n_0_[181] ;
-  wire \input_fragment_reg_n_0_[182] ;
-  wire \input_fragment_reg_n_0_[183] ;
-  wire \input_fragment_reg_n_0_[18] ;
-  wire \input_fragment_reg_n_0_[19] ;
-  wire \input_fragment_reg_n_0_[208] ;
-  wire \input_fragment_reg_n_0_[209] ;
-  wire \input_fragment_reg_n_0_[20] ;
-  wire \input_fragment_reg_n_0_[210] ;
-  wire \input_fragment_reg_n_0_[211] ;
-  wire \input_fragment_reg_n_0_[212] ;
-  wire \input_fragment_reg_n_0_[213] ;
-  wire \input_fragment_reg_n_0_[214] ;
-  wire \input_fragment_reg_n_0_[215] ;
-  wire \input_fragment_reg_n_0_[21] ;
-  wire \input_fragment_reg_n_0_[22] ;
-  wire \input_fragment_reg_n_0_[23] ;
-  wire \input_fragment_reg_n_0_[240] ;
-  wire \input_fragment_reg_n_0_[241] ;
-  wire \input_fragment_reg_n_0_[242] ;
-  wire \input_fragment_reg_n_0_[243] ;
-  wire \input_fragment_reg_n_0_[244] ;
-  wire \input_fragment_reg_n_0_[245] ;
-  wire \input_fragment_reg_n_0_[246] ;
-  wire \input_fragment_reg_n_0_[247] ;
-  wire \input_fragment_reg_n_0_[24] ;
-  wire \input_fragment_reg_n_0_[25] ;
-  wire \input_fragment_reg_n_0_[26] ;
-  wire \input_fragment_reg_n_0_[27] ;
-  wire \input_fragment_reg_n_0_[28] ;
-  wire \input_fragment_reg_n_0_[29] ;
-  wire \input_fragment_reg_n_0_[30] ;
-  wire \input_fragment_reg_n_0_[31] ;
+  wire \input_fragment_reg_n_0_[47] ;
+  wire \input_fragment_reg_n_0_[48] ;
+  wire \input_fragment_reg_n_0_[49] ;
+  wire \input_fragment_reg_n_0_[50] ;
+  wire \input_fragment_reg_n_0_[51] ;
+  wire \input_fragment_reg_n_0_[52] ;
+  wire \input_fragment_reg_n_0_[53] ;
+  wire \input_fragment_reg_n_0_[54] ;
+  wire \input_fragment_reg_n_0_[55] ;
+  wire \input_fragment_reg_n_0_[56] ;
+  wire \input_fragment_reg_n_0_[57] ;
+  wire \input_fragment_reg_n_0_[58] ;
+  wire \input_fragment_reg_n_0_[59] ;
+  wire \input_fragment_reg_n_0_[60] ;
+  wire \input_fragment_reg_n_0_[61] ;
+  wire \input_fragment_reg_n_0_[62] ;
+  wire \input_fragment_reg_n_0_[63] ;
   wire [29:0]m_axi_araddr;
   wire m_axi_arready;
   wire m_axi_arvalid;
@@ -18539,10 +18950,177 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire \mem_addr_reg_n_0_[9] ;
   wire [31:0]mem_data_wr;
   wire \mem_wr_reg_n_0_[0] ;
-  wire [7:0]p_0_in;
+  wire [15:0]p_0_in;
+  wire [15:0]p_1_in;
   wire pmem_rd_q_i_1_n_0;
   wire pmem_wr0_q_i_1_n_0;
-  wire [7:0]r_color_reg;
+  wire r_color_reg64_n_100;
+  wire r_color_reg64_n_101;
+  wire r_color_reg64_n_102;
+  wire r_color_reg64_n_103;
+  wire r_color_reg64_n_104;
+  wire r_color_reg64_n_105;
+  wire r_color_reg64_n_106;
+  wire r_color_reg64_n_107;
+  wire r_color_reg64_n_108;
+  wire r_color_reg64_n_109;
+  wire r_color_reg64_n_110;
+  wire r_color_reg64_n_111;
+  wire r_color_reg64_n_112;
+  wire r_color_reg64_n_113;
+  wire r_color_reg64_n_114;
+  wire r_color_reg64_n_115;
+  wire r_color_reg64_n_116;
+  wire r_color_reg64_n_117;
+  wire r_color_reg64_n_118;
+  wire r_color_reg64_n_119;
+  wire r_color_reg64_n_120;
+  wire r_color_reg64_n_121;
+  wire r_color_reg64_n_122;
+  wire r_color_reg64_n_123;
+  wire r_color_reg64_n_124;
+  wire r_color_reg64_n_125;
+  wire r_color_reg64_n_126;
+  wire r_color_reg64_n_127;
+  wire r_color_reg64_n_128;
+  wire r_color_reg64_n_129;
+  wire r_color_reg64_n_130;
+  wire r_color_reg64_n_131;
+  wire r_color_reg64_n_132;
+  wire r_color_reg64_n_133;
+  wire r_color_reg64_n_134;
+  wire r_color_reg64_n_135;
+  wire r_color_reg64_n_136;
+  wire r_color_reg64_n_137;
+  wire r_color_reg64_n_138;
+  wire r_color_reg64_n_139;
+  wire r_color_reg64_n_140;
+  wire r_color_reg64_n_141;
+  wire r_color_reg64_n_142;
+  wire r_color_reg64_n_143;
+  wire r_color_reg64_n_144;
+  wire r_color_reg64_n_145;
+  wire r_color_reg64_n_146;
+  wire r_color_reg64_n_147;
+  wire r_color_reg64_n_148;
+  wire r_color_reg64_n_149;
+  wire r_color_reg64_n_150;
+  wire r_color_reg64_n_151;
+  wire r_color_reg64_n_152;
+  wire r_color_reg64_n_153;
+  wire r_color_reg64_n_24;
+  wire r_color_reg64_n_25;
+  wire r_color_reg64_n_26;
+  wire r_color_reg64_n_27;
+  wire r_color_reg64_n_28;
+  wire r_color_reg64_n_29;
+  wire r_color_reg64_n_30;
+  wire r_color_reg64_n_31;
+  wire r_color_reg64_n_32;
+  wire r_color_reg64_n_33;
+  wire r_color_reg64_n_34;
+  wire r_color_reg64_n_35;
+  wire r_color_reg64_n_36;
+  wire r_color_reg64_n_37;
+  wire r_color_reg64_n_38;
+  wire r_color_reg64_n_39;
+  wire r_color_reg64_n_40;
+  wire r_color_reg64_n_41;
+  wire r_color_reg64_n_42;
+  wire r_color_reg64_n_43;
+  wire r_color_reg64_n_44;
+  wire r_color_reg64_n_45;
+  wire r_color_reg64_n_46;
+  wire r_color_reg64_n_47;
+  wire r_color_reg64_n_48;
+  wire r_color_reg64_n_49;
+  wire r_color_reg64_n_50;
+  wire r_color_reg64_n_51;
+  wire r_color_reg64_n_52;
+  wire r_color_reg64_n_53;
+  wire r_color_reg64_n_58;
+  wire r_color_reg64_n_59;
+  wire r_color_reg64_n_60;
+  wire r_color_reg64_n_61;
+  wire r_color_reg64_n_62;
+  wire r_color_reg64_n_63;
+  wire r_color_reg64_n_64;
+  wire r_color_reg64_n_65;
+  wire r_color_reg64_n_66;
+  wire r_color_reg64_n_67;
+  wire r_color_reg64_n_68;
+  wire r_color_reg64_n_69;
+  wire r_color_reg64_n_70;
+  wire r_color_reg64_n_71;
+  wire r_color_reg64_n_72;
+  wire r_color_reg64_n_73;
+  wire r_color_reg64_n_74;
+  wire r_color_reg64_n_75;
+  wire r_color_reg64_n_76;
+  wire r_color_reg64_n_77;
+  wire r_color_reg64_n_78;
+  wire r_color_reg64_n_79;
+  wire r_color_reg64_n_80;
+  wire r_color_reg64_n_81;
+  wire r_color_reg64_n_82;
+  wire r_color_reg64_n_83;
+  wire r_color_reg64_n_84;
+  wire r_color_reg64_n_85;
+  wire r_color_reg64_n_86;
+  wire r_color_reg64_n_87;
+  wire r_color_reg64_n_88;
+  wire r_color_reg64_n_89;
+  wire r_color_reg64_n_90;
+  wire r_color_reg64_n_91;
+  wire r_color_reg64_n_92;
+  wire r_color_reg64_n_93;
+  wire r_color_reg64_n_94;
+  wire r_color_reg64_n_95;
+  wire r_color_reg64_n_96;
+  wire r_color_reg64_n_97;
+  wire r_color_reg64_n_98;
+  wire r_color_reg64_n_99;
+  wire [39:32]r_color_reg_reg__0;
+  wire r_color_reg_reg_n_100;
+  wire r_color_reg_reg_n_101;
+  wire r_color_reg_reg_n_102;
+  wire r_color_reg_reg_n_103;
+  wire r_color_reg_reg_n_104;
+  wire r_color_reg_reg_n_105;
+  wire r_color_reg_reg_n_58;
+  wire r_color_reg_reg_n_59;
+  wire r_color_reg_reg_n_60;
+  wire r_color_reg_reg_n_61;
+  wire r_color_reg_reg_n_62;
+  wire r_color_reg_reg_n_63;
+  wire r_color_reg_reg_n_64;
+  wire r_color_reg_reg_n_65;
+  wire r_color_reg_reg_n_66;
+  wire r_color_reg_reg_n_67;
+  wire r_color_reg_reg_n_68;
+  wire r_color_reg_reg_n_69;
+  wire r_color_reg_reg_n_70;
+  wire r_color_reg_reg_n_71;
+  wire r_color_reg_reg_n_72;
+  wire r_color_reg_reg_n_73;
+  wire r_color_reg_reg_n_74;
+  wire r_color_reg_reg_n_75;
+  wire r_color_reg_reg_n_76;
+  wire r_color_reg_reg_n_77;
+  wire r_color_reg_reg_n_78;
+  wire r_color_reg_reg_n_79;
+  wire r_color_reg_reg_n_80;
+  wire r_color_reg_reg_n_81;
+  wire r_color_reg_reg_n_82;
+  wire r_color_reg_reg_n_91;
+  wire r_color_reg_reg_n_92;
+  wire r_color_reg_reg_n_93;
+  wire r_color_reg_reg_n_94;
+  wire r_color_reg_reg_n_95;
+  wire r_color_reg_reg_n_96;
+  wire r_color_reg_reg_n_97;
+  wire r_color_reg_reg_n_98;
+  wire r_color_reg_reg_n_99;
   wire \rd_ptr_q[0]_i_1__0_n_0 ;
   wire \rd_ptr_q[0]_i_1_n_0 ;
   wire [3:0]renderoutput_cachectrl;
@@ -18570,8 +19148,6 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire sgp_renderOutput_axi_lite_regs_inst_n_4;
   wire sgp_renderOutput_axi_lite_regs_inst_n_6;
   wire sgp_renderOutput_dcache_n_114;
-  wire sgp_renderOutput_dcache_n_115;
-  wire sgp_renderOutput_dcache_n_116;
   wire sgp_renderOutput_dcache_n_19;
   wire sgp_renderOutput_dcache_n_20;
   wire sgp_renderOutput_dcache_n_21;
@@ -18590,8 +19166,12 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire sgp_renderOutput_dcache_n_43;
   wire sgp_renderOutput_dcache_n_46;
   wire sgp_renderOutput_dcache_n_8;
-  wire [1:0]state;
-  wire [31:15]to_vertexRecord_t_att0_y;
+  wire \state[0]_i_1_n_0 ;
+  wire \state[1]_i_1_n_0 ;
+  wire [1:0]state__0;
+  wire state__1;
+  wire \state_reg_n_0_[0] ;
+  wire \state_reg_n_0_[1] ;
   wire [1:0]\u_axi/count_q ;
   wire \u_axi/rd_ptr_q ;
   wire \u_axi/u_axi/awvalid_q ;
@@ -18623,10 +19203,60 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire wlast_q_i_1_n_0;
   wire \wr_ptr_q[0]_i_1__0_n_0 ;
   wire wvalid_q_i_1_n_0;
-  wire x_pos_fixed;
-  wire \x_pos_fixed_reg_n_0_[15] ;
   wire x_pos_short_reg;
-  wire [31:15]y_pos_fixed;
+  wire [15:0]y_pos_short_reg;
+  wire \y_pos_short_reg[3]_i_2_n_0 ;
+  wire \y_pos_short_reg_reg[11]_i_1_n_0 ;
+  wire \y_pos_short_reg_reg[11]_i_1_n_1 ;
+  wire \y_pos_short_reg_reg[11]_i_1_n_2 ;
+  wire \y_pos_short_reg_reg[11]_i_1_n_3 ;
+  wire \y_pos_short_reg_reg[15]_i_2_n_1 ;
+  wire \y_pos_short_reg_reg[15]_i_2_n_2 ;
+  wire \y_pos_short_reg_reg[15]_i_2_n_3 ;
+  wire \y_pos_short_reg_reg[3]_i_1_n_0 ;
+  wire \y_pos_short_reg_reg[3]_i_1_n_1 ;
+  wire \y_pos_short_reg_reg[3]_i_1_n_2 ;
+  wire \y_pos_short_reg_reg[3]_i_1_n_3 ;
+  wire \y_pos_short_reg_reg[7]_i_1_n_0 ;
+  wire \y_pos_short_reg_reg[7]_i_1_n_1 ;
+  wire \y_pos_short_reg_reg[7]_i_1_n_2 ;
+  wire \y_pos_short_reg_reg[7]_i_1_n_3 ;
+  wire NLW_a_color_reg64_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_a_color_reg64_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_a_color_reg64_OVERFLOW_UNCONNECTED;
+  wire NLW_a_color_reg64_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_a_color_reg64_PATTERNDETECT_UNCONNECTED;
+  wire NLW_a_color_reg64_UNDERFLOW_UNCONNECTED;
+  wire [17:0]NLW_a_color_reg64_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_a_color_reg64_CARRYOUT_UNCONNECTED;
+  wire NLW_a_color_reg_reg_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_a_color_reg_reg_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_a_color_reg_reg_OVERFLOW_UNCONNECTED;
+  wire NLW_a_color_reg_reg_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_a_color_reg_reg_PATTERNDETECT_UNCONNECTED;
+  wire NLW_a_color_reg_reg_UNDERFLOW_UNCONNECTED;
+  wire [29:0]NLW_a_color_reg_reg_ACOUT_UNCONNECTED;
+  wire [17:0]NLW_a_color_reg_reg_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_a_color_reg_reg_CARRYOUT_UNCONNECTED;
+  wire [47:0]NLW_a_color_reg_reg_PCOUT_UNCONNECTED;
+  wire NLW_b_color_reg64_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_b_color_reg64_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_b_color_reg64_OVERFLOW_UNCONNECTED;
+  wire NLW_b_color_reg64_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_b_color_reg64_PATTERNDETECT_UNCONNECTED;
+  wire NLW_b_color_reg64_UNDERFLOW_UNCONNECTED;
+  wire [17:0]NLW_b_color_reg64_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_b_color_reg64_CARRYOUT_UNCONNECTED;
+  wire NLW_b_color_reg_reg_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_b_color_reg_reg_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_b_color_reg_reg_OVERFLOW_UNCONNECTED;
+  wire NLW_b_color_reg_reg_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_b_color_reg_reg_PATTERNDETECT_UNCONNECTED;
+  wire NLW_b_color_reg_reg_UNDERFLOW_UNCONNECTED;
+  wire [29:0]NLW_b_color_reg_reg_ACOUT_UNCONNECTED;
+  wire [17:0]NLW_b_color_reg_reg_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_b_color_reg_reg_CARRYOUT_UNCONNECTED;
+  wire [47:0]NLW_b_color_reg_reg_PCOUT_UNCONNECTED;
   wire NLW_frag_address0_CARRYCASCOUT_UNCONNECTED;
   wire NLW_frag_address0_MULTSIGNOUT_UNCONNECTED;
   wire NLW_frag_address0_OVERFLOW_UNCONNECTED;
@@ -18638,79 +19268,236 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   wire [3:0]NLW_frag_address0_CARRYOUT_UNCONNECTED;
   wire [47:32]NLW_frag_address0_P_UNCONNECTED;
   wire [47:0]NLW_frag_address0_PCOUT_UNCONNECTED;
-  wire [3:3]NLW_frag_address0_i_2_CO_UNCONNECTED;
-  wire [3:3]NLW_frag_address0_i_6_CO_UNCONNECTED;
-  wire [3:3]\NLW_frag_address_reg[31]_i_1_CO_UNCONNECTED ;
+  wire [3:2]NLW_frag_address0_i_1_CO_UNCONNECTED;
+  wire [3:3]NLW_frag_address0_i_1_O_UNCONNECTED;
+  wire [3:3]NLW_frag_address0_i_5_CO_UNCONNECTED;
+  wire [3:3]\NLW_frag_address_reg[31]_i_2_CO_UNCONNECTED ;
   wire [1:0]\NLW_frag_address_reg[3]_i_1_O_UNCONNECTED ;
+  wire NLW_g_color_reg64_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_g_color_reg64_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_g_color_reg64_OVERFLOW_UNCONNECTED;
+  wire NLW_g_color_reg64_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_g_color_reg64_PATTERNDETECT_UNCONNECTED;
+  wire NLW_g_color_reg64_UNDERFLOW_UNCONNECTED;
+  wire [17:0]NLW_g_color_reg64_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_g_color_reg64_CARRYOUT_UNCONNECTED;
+  wire NLW_g_color_reg_reg_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_g_color_reg_reg_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_g_color_reg_reg_OVERFLOW_UNCONNECTED;
+  wire NLW_g_color_reg_reg_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_g_color_reg_reg_PATTERNDETECT_UNCONNECTED;
+  wire NLW_g_color_reg_reg_UNDERFLOW_UNCONNECTED;
+  wire [29:0]NLW_g_color_reg_reg_ACOUT_UNCONNECTED;
+  wire [17:0]NLW_g_color_reg_reg_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_g_color_reg_reg_CARRYOUT_UNCONNECTED;
+  wire [47:0]NLW_g_color_reg_reg_PCOUT_UNCONNECTED;
+  wire NLW_r_color_reg64_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_r_color_reg64_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_r_color_reg64_OVERFLOW_UNCONNECTED;
+  wire NLW_r_color_reg64_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_r_color_reg64_PATTERNDETECT_UNCONNECTED;
+  wire NLW_r_color_reg64_UNDERFLOW_UNCONNECTED;
+  wire [17:0]NLW_r_color_reg64_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_r_color_reg64_CARRYOUT_UNCONNECTED;
+  wire NLW_r_color_reg_reg_CARRYCASCOUT_UNCONNECTED;
+  wire NLW_r_color_reg_reg_MULTSIGNOUT_UNCONNECTED;
+  wire NLW_r_color_reg_reg_OVERFLOW_UNCONNECTED;
+  wire NLW_r_color_reg_reg_PATTERNBDETECT_UNCONNECTED;
+  wire NLW_r_color_reg_reg_PATTERNDETECT_UNCONNECTED;
+  wire NLW_r_color_reg_reg_UNDERFLOW_UNCONNECTED;
+  wire [29:0]NLW_r_color_reg_reg_ACOUT_UNCONNECTED;
+  wire [17:0]NLW_r_color_reg_reg_BCOUT_UNCONNECTED;
+  wire [3:0]NLW_r_color_reg_reg_CARRYOUT_UNCONNECTED;
+  wire [47:0]NLW_r_color_reg_reg_PCOUT_UNCONNECTED;
+  wire [3:3]\NLW_y_pos_short_reg_reg[15]_i_2_CO_UNCONNECTED ;
 
-  (* FSM_ENCODED_STATES = "gen_address:01,write_address:10,wait_for_fragment:00,wait_for_response:11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair161" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \FSM_sequential_state[0]_i_1 
+       (.I0(state__0[0]),
+        .O(\FSM_sequential_state[0]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair161" *) 
+  LUT2 #(
+    .INIT(4'h6)) 
+    \FSM_sequential_state[1]_i_1 
+       (.I0(state__0[0]),
+        .I1(state__0[1]),
+        .O(\FSM_sequential_state[1]_i_1_n_0 ));
+  (* FSM_ENCODED_STATES = "iSTATE:00,iSTATE0:01,iSTATE1:10,iSTATE2:11" *) 
   FDRE \FSM_sequential_state_reg[0] 
        (.C(ACLK),
-        .CE(1'b1),
-        .D(sgp_renderOutput_dcache_n_114),
-        .Q(state[0]),
+        .CE(state__1),
+        .D(\FSM_sequential_state[0]_i_1_n_0 ),
+        .Q(state__0[0]),
         .R(rst_i));
-  (* FSM_ENCODED_STATES = "gen_address:01,write_address:10,wait_for_fragment:00,wait_for_response:11" *) 
+  (* FSM_ENCODED_STATES = "iSTATE:00,iSTATE0:01,iSTATE1:10,iSTATE2:11" *) 
   FDRE \FSM_sequential_state_reg[1] 
        (.C(ACLK),
-        .CE(1'b1),
-        .D(sgp_renderOutput_dcache_n_115),
-        .Q(state[1]),
+        .CE(state__1),
+        .D(\FSM_sequential_state[1]_i_1_n_0 ),
+        .Q(state__0[1]),
         .R(rst_i));
+  (* SOFT_HLUTNM = "soft_lutpair162" *) 
   LUT2 #(
     .INIT(4'h1)) 
     S_AXIS_TREADY_INST_0
-       (.I0(state[0]),
-        .I1(state[1]),
+       (.I0(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
         .O(S_AXIS_TREADY));
-  FDRE \a_color_reg_reg[0] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[0]),
-        .Q(a_color_reg[0]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[1] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[1]),
-        .Q(a_color_reg[1]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[2] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[2]),
-        .Q(a_color_reg[2]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[3] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[3]),
-        .Q(a_color_reg[3]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[4] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[4]),
-        .Q(a_color_reg[4]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[5] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[5]),
-        .Q(a_color_reg[5]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[6] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[6]),
-        .Q(a_color_reg[6]),
-        .R(rst_i));
-  FDRE \a_color_reg_reg[7] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(p_0_in[7]),
-        .Q(a_color_reg[7]),
-        .R(rst_i));
+  (* METHODOLOGY_DRC_VIOS = "{SYNTH-11 {cell *THIS*}}" *) 
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("DIRECT"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(0),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    a_color_reg64
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACOUT({a_color_reg64_n_24,a_color_reg64_n_25,a_color_reg64_n_26,a_color_reg64_n_27,a_color_reg64_n_28,a_color_reg64_n_29,a_color_reg64_n_30,a_color_reg64_n_31,a_color_reg64_n_32,a_color_reg64_n_33,a_color_reg64_n_34,a_color_reg64_n_35,a_color_reg64_n_36,a_color_reg64_n_37,a_color_reg64_n_38,a_color_reg64_n_39,a_color_reg64_n_40,a_color_reg64_n_41,a_color_reg64_n_42,a_color_reg64_n_43,a_color_reg64_n_44,a_color_reg64_n_45,a_color_reg64_n_46,a_color_reg64_n_47,a_color_reg64_n_48,a_color_reg64_n_49,a_color_reg64_n_50,a_color_reg64_n_51,a_color_reg64_n_52,a_color_reg64_n_53}),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({1'b0,S_AXIS_TDATA[50:34]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_a_color_reg64_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_a_color_reg64_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_a_color_reg64_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(1'b0),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_a_color_reg64_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_a_color_reg64_OVERFLOW_UNCONNECTED),
+        .P({a_color_reg64_n_58,a_color_reg64_n_59,a_color_reg64_n_60,a_color_reg64_n_61,a_color_reg64_n_62,a_color_reg64_n_63,a_color_reg64_n_64,a_color_reg64_n_65,a_color_reg64_n_66,a_color_reg64_n_67,a_color_reg64_n_68,a_color_reg64_n_69,a_color_reg64_n_70,a_color_reg64_n_71,a_color_reg64_n_72,a_color_reg64_n_73,a_color_reg64_n_74,a_color_reg64_n_75,a_color_reg64_n_76,a_color_reg64_n_77,a_color_reg64_n_78,a_color_reg64_n_79,a_color_reg64_n_80,a_color_reg64_n_81,a_color_reg64_n_82,a_color_reg64_n_83,a_color_reg64_n_84,a_color_reg64_n_85,a_color_reg64_n_86,a_color_reg64_n_87,a_color_reg64_n_88,a_color_reg64_n_89,a_color_reg64_n_90,a_color_reg64_n_91,a_color_reg64_n_92,a_color_reg64_n_93,a_color_reg64_n_94,a_color_reg64_n_95,a_color_reg64_n_96,a_color_reg64_n_97,a_color_reg64_n_98,a_color_reg64_n_99,a_color_reg64_n_100,a_color_reg64_n_101,a_color_reg64_n_102,a_color_reg64_n_103,a_color_reg64_n_104,a_color_reg64_n_105}),
+        .PATTERNBDETECT(NLW_a_color_reg64_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_a_color_reg64_PATTERNDETECT_UNCONNECTED),
+        .PCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .PCOUT({a_color_reg64_n_106,a_color_reg64_n_107,a_color_reg64_n_108,a_color_reg64_n_109,a_color_reg64_n_110,a_color_reg64_n_111,a_color_reg64_n_112,a_color_reg64_n_113,a_color_reg64_n_114,a_color_reg64_n_115,a_color_reg64_n_116,a_color_reg64_n_117,a_color_reg64_n_118,a_color_reg64_n_119,a_color_reg64_n_120,a_color_reg64_n_121,a_color_reg64_n_122,a_color_reg64_n_123,a_color_reg64_n_124,a_color_reg64_n_125,a_color_reg64_n_126,a_color_reg64_n_127,a_color_reg64_n_128,a_color_reg64_n_129,a_color_reg64_n_130,a_color_reg64_n_131,a_color_reg64_n_132,a_color_reg64_n_133,a_color_reg64_n_134,a_color_reg64_n_135,a_color_reg64_n_136,a_color_reg64_n_137,a_color_reg64_n_138,a_color_reg64_n_139,a_color_reg64_n_140,a_color_reg64_n_141,a_color_reg64_n_142,a_color_reg64_n_143,a_color_reg64_n_144,a_color_reg64_n_145,a_color_reg64_n_146,a_color_reg64_n_147,a_color_reg64_n_148,a_color_reg64_n_149,a_color_reg64_n_150,a_color_reg64_n_151,a_color_reg64_n_152,a_color_reg64_n_153}),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(1'b0),
+        .UNDERFLOW(NLW_a_color_reg64_UNDERFLOW_UNCONNECTED));
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("CASCADE"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(1),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    a_color_reg_reg
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({a_color_reg64_n_24,a_color_reg64_n_25,a_color_reg64_n_26,a_color_reg64_n_27,a_color_reg64_n_28,a_color_reg64_n_29,a_color_reg64_n_30,a_color_reg64_n_31,a_color_reg64_n_32,a_color_reg64_n_33,a_color_reg64_n_34,a_color_reg64_n_35,a_color_reg64_n_36,a_color_reg64_n_37,a_color_reg64_n_38,a_color_reg64_n_39,a_color_reg64_n_40,a_color_reg64_n_41,a_color_reg64_n_42,a_color_reg64_n_43,a_color_reg64_n_44,a_color_reg64_n_45,a_color_reg64_n_46,a_color_reg64_n_47,a_color_reg64_n_48,a_color_reg64_n_49,a_color_reg64_n_50,a_color_reg64_n_51,a_color_reg64_n_52,a_color_reg64_n_53}),
+        .ACOUT(NLW_a_color_reg_reg_ACOUT_UNCONNECTED[29:0]),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({S_AXIS_TDATA[65],S_AXIS_TDATA[65],S_AXIS_TDATA[65],S_AXIS_TDATA[65:51]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_a_color_reg_reg_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_a_color_reg_reg_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_a_color_reg_reg_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(x_pos_short_reg),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_a_color_reg_reg_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_a_color_reg_reg_OVERFLOW_UNCONNECTED),
+        .P({a_color_reg_reg_n_58,a_color_reg_reg_n_59,a_color_reg_reg_n_60,a_color_reg_reg_n_61,a_color_reg_reg_n_62,a_color_reg_reg_n_63,a_color_reg_reg_n_64,a_color_reg_reg_n_65,a_color_reg_reg_n_66,a_color_reg_reg_n_67,a_color_reg_reg_n_68,a_color_reg_reg_n_69,a_color_reg_reg_n_70,a_color_reg_reg_n_71,a_color_reg_reg_n_72,a_color_reg_reg_n_73,a_color_reg_reg_n_74,a_color_reg_reg_n_75,a_color_reg_reg_n_76,a_color_reg_reg_n_77,a_color_reg_reg_n_78,a_color_reg_reg_n_79,a_color_reg_reg_n_80,a_color_reg_reg_n_81,a_color_reg_reg_n_82,a_color_reg_reg__0,a_color_reg_reg_n_91,a_color_reg_reg_n_92,a_color_reg_reg_n_93,a_color_reg_reg_n_94,a_color_reg_reg_n_95,a_color_reg_reg_n_96,a_color_reg_reg_n_97,a_color_reg_reg_n_98,a_color_reg_reg_n_99,a_color_reg_reg_n_100,a_color_reg_reg_n_101,a_color_reg_reg_n_102,a_color_reg_reg_n_103,a_color_reg_reg_n_104,a_color_reg_reg_n_105}),
+        .PATTERNBDETECT(NLW_a_color_reg_reg_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_a_color_reg_reg_PATTERNDETECT_UNCONNECTED),
+        .PCIN({a_color_reg64_n_106,a_color_reg64_n_107,a_color_reg64_n_108,a_color_reg64_n_109,a_color_reg64_n_110,a_color_reg64_n_111,a_color_reg64_n_112,a_color_reg64_n_113,a_color_reg64_n_114,a_color_reg64_n_115,a_color_reg64_n_116,a_color_reg64_n_117,a_color_reg64_n_118,a_color_reg64_n_119,a_color_reg64_n_120,a_color_reg64_n_121,a_color_reg64_n_122,a_color_reg64_n_123,a_color_reg64_n_124,a_color_reg64_n_125,a_color_reg64_n_126,a_color_reg64_n_127,a_color_reg64_n_128,a_color_reg64_n_129,a_color_reg64_n_130,a_color_reg64_n_131,a_color_reg64_n_132,a_color_reg64_n_133,a_color_reg64_n_134,a_color_reg64_n_135,a_color_reg64_n_136,a_color_reg64_n_137,a_color_reg64_n_138,a_color_reg64_n_139,a_color_reg64_n_140,a_color_reg64_n_141,a_color_reg64_n_142,a_color_reg64_n_143,a_color_reg64_n_144,a_color_reg64_n_145,a_color_reg64_n_146,a_color_reg64_n_147,a_color_reg64_n_148,a_color_reg64_n_149,a_color_reg64_n_150,a_color_reg64_n_151,a_color_reg64_n_152,a_color_reg64_n_153}),
+        .PCOUT(NLW_a_color_reg_reg_PCOUT_UNCONNECTED[47:0]),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(rst_i),
+        .UNDERFLOW(NLW_a_color_reg_reg_UNDERFLOW_UNCONNECTED));
   LUT6 #(
     .INIT(64'hBFFFBF00BF00BF00)) 
     aw_en_i_1
@@ -18754,54 +19541,159 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .I2(s_axi_lite_rvalid),
         .I3(s_axi_lite_rready),
         .O(axi_rvalid_i_1_n_0));
-  FDRE \b_color_reg_reg[0] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[208] ),
-        .Q(b_color_reg[0]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[1] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[209] ),
-        .Q(b_color_reg[1]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[2] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[210] ),
-        .Q(b_color_reg[2]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[3] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[211] ),
-        .Q(b_color_reg[3]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[4] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[212] ),
-        .Q(b_color_reg[4]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[5] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[213] ),
-        .Q(b_color_reg[5]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[6] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[214] ),
-        .Q(b_color_reg[6]),
-        .R(rst_i));
-  FDRE \b_color_reg_reg[7] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[215] ),
-        .Q(b_color_reg[7]),
-        .R(rst_i));
+  (* METHODOLOGY_DRC_VIOS = "{SYNTH-11 {cell *THIS*}}" *) 
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("DIRECT"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(0),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    b_color_reg64
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACOUT({b_color_reg64_n_24,b_color_reg64_n_25,b_color_reg64_n_26,b_color_reg64_n_27,b_color_reg64_n_28,b_color_reg64_n_29,b_color_reg64_n_30,b_color_reg64_n_31,b_color_reg64_n_32,b_color_reg64_n_33,b_color_reg64_n_34,b_color_reg64_n_35,b_color_reg64_n_36,b_color_reg64_n_37,b_color_reg64_n_38,b_color_reg64_n_39,b_color_reg64_n_40,b_color_reg64_n_41,b_color_reg64_n_42,b_color_reg64_n_43,b_color_reg64_n_44,b_color_reg64_n_45,b_color_reg64_n_46,b_color_reg64_n_47,b_color_reg64_n_48,b_color_reg64_n_49,b_color_reg64_n_50,b_color_reg64_n_51,b_color_reg64_n_52,b_color_reg64_n_53}),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({1'b0,S_AXIS_TDATA[114:98]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_b_color_reg64_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_b_color_reg64_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_b_color_reg64_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(1'b0),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_b_color_reg64_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_b_color_reg64_OVERFLOW_UNCONNECTED),
+        .P({b_color_reg64_n_58,b_color_reg64_n_59,b_color_reg64_n_60,b_color_reg64_n_61,b_color_reg64_n_62,b_color_reg64_n_63,b_color_reg64_n_64,b_color_reg64_n_65,b_color_reg64_n_66,b_color_reg64_n_67,b_color_reg64_n_68,b_color_reg64_n_69,b_color_reg64_n_70,b_color_reg64_n_71,b_color_reg64_n_72,b_color_reg64_n_73,b_color_reg64_n_74,b_color_reg64_n_75,b_color_reg64_n_76,b_color_reg64_n_77,b_color_reg64_n_78,b_color_reg64_n_79,b_color_reg64_n_80,b_color_reg64_n_81,b_color_reg64_n_82,b_color_reg64_n_83,b_color_reg64_n_84,b_color_reg64_n_85,b_color_reg64_n_86,b_color_reg64_n_87,b_color_reg64_n_88,b_color_reg64_n_89,b_color_reg64_n_90,b_color_reg64_n_91,b_color_reg64_n_92,b_color_reg64_n_93,b_color_reg64_n_94,b_color_reg64_n_95,b_color_reg64_n_96,b_color_reg64_n_97,b_color_reg64_n_98,b_color_reg64_n_99,b_color_reg64_n_100,b_color_reg64_n_101,b_color_reg64_n_102,b_color_reg64_n_103,b_color_reg64_n_104,b_color_reg64_n_105}),
+        .PATTERNBDETECT(NLW_b_color_reg64_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_b_color_reg64_PATTERNDETECT_UNCONNECTED),
+        .PCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .PCOUT({b_color_reg64_n_106,b_color_reg64_n_107,b_color_reg64_n_108,b_color_reg64_n_109,b_color_reg64_n_110,b_color_reg64_n_111,b_color_reg64_n_112,b_color_reg64_n_113,b_color_reg64_n_114,b_color_reg64_n_115,b_color_reg64_n_116,b_color_reg64_n_117,b_color_reg64_n_118,b_color_reg64_n_119,b_color_reg64_n_120,b_color_reg64_n_121,b_color_reg64_n_122,b_color_reg64_n_123,b_color_reg64_n_124,b_color_reg64_n_125,b_color_reg64_n_126,b_color_reg64_n_127,b_color_reg64_n_128,b_color_reg64_n_129,b_color_reg64_n_130,b_color_reg64_n_131,b_color_reg64_n_132,b_color_reg64_n_133,b_color_reg64_n_134,b_color_reg64_n_135,b_color_reg64_n_136,b_color_reg64_n_137,b_color_reg64_n_138,b_color_reg64_n_139,b_color_reg64_n_140,b_color_reg64_n_141,b_color_reg64_n_142,b_color_reg64_n_143,b_color_reg64_n_144,b_color_reg64_n_145,b_color_reg64_n_146,b_color_reg64_n_147,b_color_reg64_n_148,b_color_reg64_n_149,b_color_reg64_n_150,b_color_reg64_n_151,b_color_reg64_n_152,b_color_reg64_n_153}),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(1'b0),
+        .UNDERFLOW(NLW_b_color_reg64_UNDERFLOW_UNCONNECTED));
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("CASCADE"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(1),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    b_color_reg_reg
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({b_color_reg64_n_24,b_color_reg64_n_25,b_color_reg64_n_26,b_color_reg64_n_27,b_color_reg64_n_28,b_color_reg64_n_29,b_color_reg64_n_30,b_color_reg64_n_31,b_color_reg64_n_32,b_color_reg64_n_33,b_color_reg64_n_34,b_color_reg64_n_35,b_color_reg64_n_36,b_color_reg64_n_37,b_color_reg64_n_38,b_color_reg64_n_39,b_color_reg64_n_40,b_color_reg64_n_41,b_color_reg64_n_42,b_color_reg64_n_43,b_color_reg64_n_44,b_color_reg64_n_45,b_color_reg64_n_46,b_color_reg64_n_47,b_color_reg64_n_48,b_color_reg64_n_49,b_color_reg64_n_50,b_color_reg64_n_51,b_color_reg64_n_52,b_color_reg64_n_53}),
+        .ACOUT(NLW_b_color_reg_reg_ACOUT_UNCONNECTED[29:0]),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({S_AXIS_TDATA[129],S_AXIS_TDATA[129],S_AXIS_TDATA[129],S_AXIS_TDATA[129:115]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_b_color_reg_reg_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_b_color_reg_reg_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_b_color_reg_reg_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(x_pos_short_reg),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_b_color_reg_reg_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_b_color_reg_reg_OVERFLOW_UNCONNECTED),
+        .P({b_color_reg_reg_n_58,b_color_reg_reg_n_59,b_color_reg_reg_n_60,b_color_reg_reg_n_61,b_color_reg_reg_n_62,b_color_reg_reg_n_63,b_color_reg_reg_n_64,b_color_reg_reg_n_65,b_color_reg_reg_n_66,b_color_reg_reg_n_67,b_color_reg_reg_n_68,b_color_reg_reg_n_69,b_color_reg_reg_n_70,b_color_reg_reg_n_71,b_color_reg_reg_n_72,b_color_reg_reg_n_73,b_color_reg_reg_n_74,b_color_reg_reg_n_75,b_color_reg_reg_n_76,b_color_reg_reg_n_77,b_color_reg_reg_n_78,b_color_reg_reg_n_79,b_color_reg_reg_n_80,b_color_reg_reg_n_81,b_color_reg_reg_n_82,b_color_reg_reg__0,b_color_reg_reg_n_91,b_color_reg_reg_n_92,b_color_reg_reg_n_93,b_color_reg_reg_n_94,b_color_reg_reg_n_95,b_color_reg_reg_n_96,b_color_reg_reg_n_97,b_color_reg_reg_n_98,b_color_reg_reg_n_99,b_color_reg_reg_n_100,b_color_reg_reg_n_101,b_color_reg_reg_n_102,b_color_reg_reg_n_103,b_color_reg_reg_n_104,b_color_reg_reg_n_105}),
+        .PATTERNBDETECT(NLW_b_color_reg_reg_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_b_color_reg_reg_PATTERNDETECT_UNCONNECTED),
+        .PCIN({b_color_reg64_n_106,b_color_reg64_n_107,b_color_reg64_n_108,b_color_reg64_n_109,b_color_reg64_n_110,b_color_reg64_n_111,b_color_reg64_n_112,b_color_reg64_n_113,b_color_reg64_n_114,b_color_reg64_n_115,b_color_reg64_n_116,b_color_reg64_n_117,b_color_reg64_n_118,b_color_reg64_n_119,b_color_reg64_n_120,b_color_reg64_n_121,b_color_reg64_n_122,b_color_reg64_n_123,b_color_reg64_n_124,b_color_reg64_n_125,b_color_reg64_n_126,b_color_reg64_n_127,b_color_reg64_n_128,b_color_reg64_n_129,b_color_reg64_n_130,b_color_reg64_n_131,b_color_reg64_n_132,b_color_reg64_n_133,b_color_reg64_n_134,b_color_reg64_n_135,b_color_reg64_n_136,b_color_reg64_n_137,b_color_reg64_n_138,b_color_reg64_n_139,b_color_reg64_n_140,b_color_reg64_n_141,b_color_reg64_n_142,b_color_reg64_n_143,b_color_reg64_n_144,b_color_reg64_n_145,b_color_reg64_n_146,b_color_reg64_n_147,b_color_reg64_n_148,b_color_reg64_n_149,b_color_reg64_n_150,b_color_reg64_n_151,b_color_reg64_n_152,b_color_reg64_n_153}),
+        .PCOUT(NLW_b_color_reg_reg_PCOUT_UNCONNECTED[47:0]),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(rst_i),
+        .UNDERFLOW(NLW_b_color_reg_reg_UNDERFLOW_UNCONNECTED));
   LUT3 #(
     .INIT(8'hB8)) 
     cache_access_q_i_1
@@ -18829,10 +19721,10 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .O(flushing_q_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-11 {cell *THIS*}}" *) 
   DSP48E1 #(
-    .ACASCREG(1),
+    .ACASCREG(0),
     .ADREG(1),
     .ALUMODEREG(0),
-    .AREG(1),
+    .AREG(0),
     .AUTORESET_PATDET("NO_RESET"),
     .A_INPUT("DIRECT"),
     .BCASCREG(0),
@@ -18855,21 +19747,21 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
     .USE_PATTERN_DETECT("NO_PATDET"),
     .USE_SIMD("ONE48")) 
     frag_address0
-       (.A({frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_4,frag_address0_i_2_n_5,frag_address0_i_2_n_6,frag_address0_i_2_n_7,frag_address0_i_3_n_4,frag_address0_i_3_n_5,frag_address0_i_3_n_6,frag_address0_i_3_n_7,frag_address0_i_4_n_4,frag_address0_i_4_n_5,frag_address0_i_4_n_6,frag_address0_i_4_n_7,frag_address0_i_5_n_4,frag_address0_i_5_n_5,frag_address0_i_5_n_6,frag_address0_i_5_n_7}),
+       (.A({A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A,y_pos_short_reg[0]}),
         .ACIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .ACOUT(NLW_frag_address0_ACOUT_UNCONNECTED[29:0]),
         .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
         .B({1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .BCOUT(NLW_frag_address0_BCOUT_UNCONNECTED[17:0]),
-        .C({A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A[15],A,1'b0,1'b0}),
+        .C({frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_4,frag_address0_i_5_n_5,frag_address0_i_5_n_6,frag_address0_i_5_n_7,frag_address0_i_6_n_4,frag_address0_i_6_n_5,frag_address0_i_6_n_6,frag_address0_i_6_n_7,frag_address0_i_7_n_4,frag_address0_i_7_n_5,frag_address0_i_7_n_6,frag_address0_i_7_n_7,frag_address0_i_8_n_4,frag_address0_i_8_n_5,frag_address0_i_8_n_6,frag_address0_i_8_n_7,1'b0,1'b0}),
         .CARRYCASCIN(1'b0),
         .CARRYCASCOUT(NLW_frag_address0_CARRYCASCOUT_UNCONNECTED),
         .CARRYIN(1'b0),
         .CARRYINSEL({1'b0,1'b0,1'b0}),
         .CARRYOUT(NLW_frag_address0_CARRYOUT_UNCONNECTED[3:0]),
         .CEA1(1'b0),
-        .CEA2(x_pos_short_reg),
+        .CEA2(1'b0),
         .CEAD(1'b0),
         .CEALUMODE(1'b0),
         .CEB1(1'b0),
@@ -18893,7 +19785,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .PATTERNDETECT(NLW_frag_address0_PATTERNDETECT_UNCONNECTED),
         .PCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .PCOUT(NLW_frag_address0_PCOUT_UNCONNECTED[47:0]),
-        .RSTA(rst_i),
+        .RSTA(1'b0),
         .RSTALLCARRYIN(1'b0),
         .RSTALUMODE(1'b0),
         .RSTB(1'b0),
@@ -18904,88 +19796,156 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .RSTM(1'b0),
         .RSTP(1'b0),
         .UNDERFLOW(NLW_frag_address0_UNDERFLOW_UNCONNECTED));
-  LUT2 #(
-    .INIT(4'h2)) 
-    frag_address0_i_1
-       (.I0(state[0]),
-        .I1(state[1]),
-        .O(x_pos_short_reg));
-  LUT2 #(
-    .INIT(4'h6)) 
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 frag_address0_i_1
+       (.CI(frag_address0_i_2_n_0),
+        .CO({NLW_frag_address0_i_1_CO_UNCONNECTED[3:2],frag_address0_i_1_n_2,frag_address0_i_1_n_3}),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O({NLW_frag_address0_i_1_O_UNCONNECTED[3],A[15:13]}),
+        .S({1'b0,p_0_in[15:13]}));
+  LUT1 #(
+    .INIT(2'h1)) 
     frag_address0_i_10
-       (.I0(y_pos_fixed[16]),
-        .I1(y_pos_fixed[15]),
-        .O(frag_address0_i_10_n_0));
-  LUT2 #(
-    .INIT(4'h6)) 
+       (.I0(y_pos_short_reg[14]),
+        .O(p_0_in[14]));
+  LUT1 #(
+    .INIT(2'h1)) 
     frag_address0_i_11
-       (.I0(L[16]),
-        .I1(\x_pos_fixed_reg_n_0_[15] ),
-        .O(frag_address0_i_11_n_0));
+       (.I0(y_pos_short_reg[13]),
+        .O(p_0_in[13]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_12
+       (.I0(y_pos_short_reg[10]),
+        .O(p_0_in[10]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_13
+       (.I0(y_pos_short_reg[12]),
+        .O(p_0_in[12]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_14
+       (.I0(y_pos_short_reg[11]),
+        .O(p_0_in[11]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_15
+       (.I0(y_pos_short_reg[9]),
+        .O(p_0_in[9]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_16
+       (.I0(y_pos_short_reg[5]),
+        .O(p_0_in[5]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_17
+       (.I0(y_pos_short_reg[8]),
+        .O(p_0_in[8]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_18
+       (.I0(y_pos_short_reg[7]),
+        .O(p_0_in[7]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_19
+       (.I0(y_pos_short_reg[6]),
+        .O(p_0_in[6]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 frag_address0_i_2
        (.CI(frag_address0_i_3_n_0),
-        .CO({NLW_frag_address0_i_2_CO_UNCONNECTED[3],frag_address0_i_2_n_1,frag_address0_i_2_n_2,frag_address0_i_2_n_3}),
+        .CO({frag_address0_i_2_n_0,frag_address0_i_2_n_1,frag_address0_i_2_n_2,frag_address0_i_2_n_3}),
         .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({frag_address0_i_2_n_4,frag_address0_i_2_n_5,frag_address0_i_2_n_6,frag_address0_i_2_n_7}),
-        .S(y_pos_fixed[31:28]));
+        .DI({1'b0,1'b0,p_0_in[10],1'b0}),
+        .O(A[12:9]),
+        .S({p_0_in[12:11],y_pos_short_reg[10],p_0_in[9]}));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_20
+       (.I0(y_pos_short_reg[0]),
+        .O(p_0_in[0]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_21
+       (.I0(y_pos_short_reg[4]),
+        .O(p_0_in[4]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_22
+       (.I0(y_pos_short_reg[3]),
+        .O(p_0_in[3]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_23
+       (.I0(y_pos_short_reg[2]),
+        .O(p_0_in[2]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_24
+       (.I0(y_pos_short_reg[1]),
+        .O(p_0_in[1]));
+  LUT2 #(
+    .INIT(4'h6)) 
+    frag_address0_i_25
+       (.I0(L[16]),
+        .I1(\input_fragment_reg_n_0_[15] ),
+        .O(frag_address0_i_25_n_0));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 frag_address0_i_3
        (.CI(frag_address0_i_4_n_0),
         .CO({frag_address0_i_3_n_0,frag_address0_i_3_n_1,frag_address0_i_3_n_2,frag_address0_i_3_n_3}),
         .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({frag_address0_i_3_n_4,frag_address0_i_3_n_5,frag_address0_i_3_n_6,frag_address0_i_3_n_7}),
-        .S(y_pos_fixed[27:24]));
+        .DI({1'b0,1'b0,1'b0,p_0_in[5]}),
+        .O(A[8:5]),
+        .S({p_0_in[8:6],y_pos_short_reg[5]}));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 frag_address0_i_4
-       (.CI(frag_address0_i_5_n_0),
+       (.CI(1'b0),
         .CO({frag_address0_i_4_n_0,frag_address0_i_4_n_1,frag_address0_i_4_n_2,frag_address0_i_4_n_3}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({frag_address0_i_4_n_4,frag_address0_i_4_n_5,frag_address0_i_4_n_6,frag_address0_i_4_n_7}),
-        .S(y_pos_fixed[23:20]));
+        .CYINIT(p_0_in[0]),
+        .DI({p_0_in[4:3],1'b0,1'b0}),
+        .O(A[4:1]),
+        .S({y_pos_short_reg[4:3],p_0_in[2:1]}));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 frag_address0_i_5
-       (.CI(1'b0),
-        .CO({frag_address0_i_5_n_0,frag_address0_i_5_n_1,frag_address0_i_5_n_2,frag_address0_i_5_n_3}),
+       (.CI(frag_address0_i_6_n_0),
+        .CO({NLW_frag_address0_i_5_CO_UNCONNECTED[3],frag_address0_i_5_n_1,frag_address0_i_5_n_2,frag_address0_i_5_n_3}),
         .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,y_pos_fixed[16]}),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({frag_address0_i_5_n_4,frag_address0_i_5_n_5,frag_address0_i_5_n_6,frag_address0_i_5_n_7}),
-        .S({y_pos_fixed[19:17],frag_address0_i_10_n_0}));
+        .S(L[31:28]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 frag_address0_i_6
        (.CI(frag_address0_i_7_n_0),
-        .CO({NLW_frag_address0_i_6_CO_UNCONNECTED[3],frag_address0_i_6_n_1,frag_address0_i_6_n_2,frag_address0_i_6_n_3}),
+        .CO({frag_address0_i_6_n_0,frag_address0_i_6_n_1,frag_address0_i_6_n_2,frag_address0_i_6_n_3}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(A[15:12]),
-        .S(L[31:28]));
+        .O({frag_address0_i_6_n_4,frag_address0_i_6_n_5,frag_address0_i_6_n_6,frag_address0_i_6_n_7}),
+        .S(L[27:24]));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 frag_address0_i_7
        (.CI(frag_address0_i_8_n_0),
         .CO({frag_address0_i_7_n_0,frag_address0_i_7_n_1,frag_address0_i_7_n_2,frag_address0_i_7_n_3}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(A[11:8]),
-        .S(L[27:24]));
-  (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 frag_address0_i_8
-       (.CI(frag_address0_i_9_n_0),
-        .CO({frag_address0_i_8_n_0,frag_address0_i_8_n_1,frag_address0_i_8_n_2,frag_address0_i_8_n_3}),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(A[7:4]),
+        .O({frag_address0_i_7_n_4,frag_address0_i_7_n_5,frag_address0_i_7_n_6,frag_address0_i_7_n_7}),
         .S(L[23:20]));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 frag_address0_i_9
+  CARRY4 frag_address0_i_8
        (.CI(1'b0),
-        .CO({frag_address0_i_9_n_0,frag_address0_i_9_n_1,frag_address0_i_9_n_2,frag_address0_i_9_n_3}),
+        .CO({frag_address0_i_8_n_0,frag_address0_i_8_n_1,frag_address0_i_8_n_2,frag_address0_i_8_n_3}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,L[16]}),
-        .O(A[3:0]),
-        .S({L[19:17],frag_address0_i_11_n_0}));
+        .O({frag_address0_i_8_n_4,frag_address0_i_8_n_5,frag_address0_i_8_n_6,frag_address0_i_8_n_7}),
+        .S({L[19:17],frag_address0_i_25_n_0}));
+  LUT1 #(
+    .INIT(2'h1)) 
+    frag_address0_i_9
+       (.I0(y_pos_short_reg[15]),
+        .O(p_0_in[15]));
   LUT2 #(
     .INIT(4'h6)) 
     \frag_address[11]_i_2 
@@ -19106,30 +20066,37 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
        (.I0(renderoutput_colorbuffer[24]),
         .I1(frag_address0_n_81),
         .O(\frag_address[27]_i_5_n_0 ));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \frag_address[31]_i_2 
-       (.I0(renderoutput_colorbuffer[31]),
-        .I1(frag_address0_n_74),
-        .O(\frag_address[31]_i_2_n_0 ));
+  LUT3 #(
+    .INIT(8'h20)) 
+    \frag_address[31]_i_1 
+       (.I0(ARESETN),
+        .I1(state__0[1]),
+        .I2(state__0[0]),
+        .O(frag_address));
   LUT2 #(
     .INIT(4'h6)) 
     \frag_address[31]_i_3 
-       (.I0(renderoutput_colorbuffer[30]),
-        .I1(frag_address0_n_75),
+       (.I0(renderoutput_colorbuffer[31]),
+        .I1(frag_address0_n_74),
         .O(\frag_address[31]_i_3_n_0 ));
   LUT2 #(
     .INIT(4'h6)) 
     \frag_address[31]_i_4 
-       (.I0(renderoutput_colorbuffer[29]),
-        .I1(frag_address0_n_76),
+       (.I0(renderoutput_colorbuffer[30]),
+        .I1(frag_address0_n_75),
         .O(\frag_address[31]_i_4_n_0 ));
   LUT2 #(
     .INIT(4'h6)) 
     \frag_address[31]_i_5 
+       (.I0(renderoutput_colorbuffer[29]),
+        .I1(frag_address0_n_76),
+        .O(\frag_address[31]_i_5_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \frag_address[31]_i_6 
        (.I0(renderoutput_colorbuffer[28]),
         .I1(frag_address0_n_77),
-        .O(\frag_address[31]_i_5_n_0 ));
+        .O(\frag_address[31]_i_6_n_0 ));
   LUT2 #(
     .INIT(4'h6)) 
     \frag_address[3]_i_2 
@@ -19180,13 +20147,13 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .O(\frag_address[7]_i_5_n_0 ));
   FDRE \frag_address_reg[10] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[10]),
         .Q(frag_address_reg[10]),
         .R(1'b0));
   FDRE \frag_address_reg[11] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[11]),
         .Q(frag_address_reg[11]),
         .R(1'b0));
@@ -19200,25 +20167,25 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[11]_i_2_n_0 ,\frag_address[11]_i_3_n_0 ,\frag_address[11]_i_4_n_0 ,\frag_address[11]_i_5_n_0 }));
   FDRE \frag_address_reg[12] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[12]),
         .Q(frag_address_reg[12]),
         .R(1'b0));
   FDRE \frag_address_reg[13] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[13]),
         .Q(frag_address_reg[13]),
         .R(1'b0));
   FDRE \frag_address_reg[14] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[14]),
         .Q(frag_address_reg[14]),
         .R(1'b0));
   FDRE \frag_address_reg[15] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[15]),
         .Q(frag_address_reg[15]),
         .R(1'b0));
@@ -19232,25 +20199,25 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[15]_i_2_n_0 ,\frag_address[15]_i_3_n_0 ,\frag_address[15]_i_4_n_0 ,\frag_address[15]_i_5_n_0 }));
   FDRE \frag_address_reg[16] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[16]),
         .Q(frag_address_reg[16]),
         .R(1'b0));
   FDRE \frag_address_reg[17] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[17]),
         .Q(frag_address_reg[17]),
         .R(1'b0));
   FDRE \frag_address_reg[18] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[18]),
         .Q(frag_address_reg[18]),
         .R(1'b0));
   FDRE \frag_address_reg[19] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[19]),
         .Q(frag_address_reg[19]),
         .R(1'b0));
@@ -19264,25 +20231,25 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[19]_i_2_n_0 ,\frag_address[19]_i_3_n_0 ,\frag_address[19]_i_4_n_0 ,\frag_address[19]_i_5_n_0 }));
   FDRE \frag_address_reg[20] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[20]),
         .Q(frag_address_reg[20]),
         .R(1'b0));
   FDRE \frag_address_reg[21] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[21]),
         .Q(frag_address_reg[21]),
         .R(1'b0));
   FDRE \frag_address_reg[22] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[22]),
         .Q(frag_address_reg[22]),
         .R(1'b0));
   FDRE \frag_address_reg[23] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[23]),
         .Q(frag_address_reg[23]),
         .R(1'b0));
@@ -19296,25 +20263,25 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[23]_i_2_n_0 ,\frag_address[23]_i_3_n_0 ,\frag_address[23]_i_4_n_0 ,\frag_address[23]_i_5_n_0 }));
   FDRE \frag_address_reg[24] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[24]),
         .Q(frag_address_reg[24]),
         .R(1'b0));
   FDRE \frag_address_reg[25] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[25]),
         .Q(frag_address_reg[25]),
         .R(1'b0));
   FDRE \frag_address_reg[26] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[26]),
         .Q(frag_address_reg[26]),
         .R(1'b0));
   FDRE \frag_address_reg[27] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[27]),
         .Q(frag_address_reg[27]),
         .R(1'b0));
@@ -19328,45 +20295,45 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[27]_i_2_n_0 ,\frag_address[27]_i_3_n_0 ,\frag_address[27]_i_4_n_0 ,\frag_address[27]_i_5_n_0 }));
   FDRE \frag_address_reg[28] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[28]),
         .Q(frag_address_reg[28]),
         .R(1'b0));
   FDRE \frag_address_reg[29] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[29]),
         .Q(frag_address_reg[29]),
         .R(1'b0));
   FDRE \frag_address_reg[2] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[2]),
         .Q(frag_address_reg[2]),
         .R(1'b0));
   FDRE \frag_address_reg[30] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[30]),
         .Q(frag_address_reg[30]),
         .R(1'b0));
   FDRE \frag_address_reg[31] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[31]),
         .Q(frag_address_reg[31]),
         .R(1'b0));
   (* ADDER_THRESHOLD = "35" *) 
-  CARRY4 \frag_address_reg[31]_i_1 
+  CARRY4 \frag_address_reg[31]_i_2 
        (.CI(\frag_address_reg[27]_i_1_n_0 ),
-        .CO({\NLW_frag_address_reg[31]_i_1_CO_UNCONNECTED [3],\frag_address_reg[31]_i_1_n_1 ,\frag_address_reg[31]_i_1_n_2 ,\frag_address_reg[31]_i_1_n_3 }),
+        .CO({\NLW_frag_address_reg[31]_i_2_CO_UNCONNECTED [3],\frag_address_reg[31]_i_2_n_1 ,\frag_address_reg[31]_i_2_n_2 ,\frag_address_reg[31]_i_2_n_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,renderoutput_colorbuffer[30:28]}),
         .O(frag_address0__0[31:28]),
-        .S({\frag_address[31]_i_2_n_0 ,\frag_address[31]_i_3_n_0 ,\frag_address[31]_i_4_n_0 ,\frag_address[31]_i_5_n_0 }));
+        .S({\frag_address[31]_i_3_n_0 ,\frag_address[31]_i_4_n_0 ,\frag_address[31]_i_5_n_0 ,\frag_address[31]_i_6_n_0 }));
   FDRE \frag_address_reg[3] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[3]),
         .Q(frag_address_reg[3]),
         .R(1'b0));
@@ -19380,25 +20347,25 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[3]_i_2_n_0 ,\frag_address[3]_i_3_n_0 ,\frag_address[3]_i_4_n_0 ,\frag_address[3]_i_5_n_0 }));
   FDRE \frag_address_reg[4] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[4]),
         .Q(frag_address_reg[4]),
         .R(1'b0));
   FDRE \frag_address_reg[5] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[5]),
         .Q(frag_address_reg[5]),
         .R(1'b0));
   FDRE \frag_address_reg[6] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[6]),
         .Q(frag_address_reg[6]),
         .R(1'b0));
   FDRE \frag_address_reg[7] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[7]),
         .Q(frag_address_reg[7]),
         .R(1'b0));
@@ -19412,311 +20379,368 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .S({\frag_address[7]_i_2_n_0 ,\frag_address[7]_i_3_n_0 ,\frag_address[7]_i_4_n_0 ,\frag_address[7]_i_5_n_0 }));
   FDRE \frag_address_reg[8] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[8]),
         .Q(frag_address_reg[8]),
         .R(1'b0));
   FDRE \frag_address_reg[9] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
+        .CE(frag_address),
         .D(frag_address0__0[9]),
         .Q(frag_address_reg[9]),
         .R(1'b0));
   FDRE \frag_color_reg[0] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[0]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[32]),
         .Q(frag_color[0]),
         .R(1'b0));
   FDRE \frag_color_reg[10] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[2]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[34]),
         .Q(frag_color[10]),
         .R(1'b0));
   FDRE \frag_color_reg[11] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[3]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[35]),
         .Q(frag_color[11]),
         .R(1'b0));
   FDRE \frag_color_reg[12] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[4]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[36]),
         .Q(frag_color[12]),
         .R(1'b0));
   FDRE \frag_color_reg[13] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[5]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[37]),
         .Q(frag_color[13]),
         .R(1'b0));
   FDRE \frag_color_reg[14] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[6]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[38]),
         .Q(frag_color[14]),
         .R(1'b0));
   FDRE \frag_color_reg[15] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[7]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[39]),
         .Q(frag_color[15]),
         .R(1'b0));
   FDRE \frag_color_reg[16] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[0]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[32]),
         .Q(frag_color[16]),
         .R(1'b0));
   FDRE \frag_color_reg[17] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[1]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[33]),
         .Q(frag_color[17]),
         .R(1'b0));
   FDRE \frag_color_reg[18] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[2]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[34]),
         .Q(frag_color[18]),
         .R(1'b0));
   FDRE \frag_color_reg[19] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[3]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[35]),
         .Q(frag_color[19]),
         .R(1'b0));
   FDRE \frag_color_reg[1] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[1]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[33]),
         .Q(frag_color[1]),
         .R(1'b0));
   FDRE \frag_color_reg[20] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[4]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[36]),
         .Q(frag_color[20]),
         .R(1'b0));
   FDRE \frag_color_reg[21] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[5]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[37]),
         .Q(frag_color[21]),
         .R(1'b0));
   FDRE \frag_color_reg[22] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[6]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[38]),
         .Q(frag_color[22]),
         .R(1'b0));
   FDRE \frag_color_reg[23] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(g_color_reg[7]),
+        .CE(frag_address),
+        .D(r_color_reg_reg__0[39]),
         .Q(frag_color[23]),
         .R(1'b0));
   FDRE \frag_color_reg[24] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[0]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[32]),
         .Q(frag_color[24]),
         .R(1'b0));
   FDRE \frag_color_reg[25] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[1]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[33]),
         .Q(frag_color[25]),
         .R(1'b0));
   FDRE \frag_color_reg[26] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[2]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[34]),
         .Q(frag_color[26]),
         .R(1'b0));
   FDRE \frag_color_reg[27] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[3]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[35]),
         .Q(frag_color[27]),
         .R(1'b0));
   FDRE \frag_color_reg[28] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[4]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[36]),
         .Q(frag_color[28]),
         .R(1'b0));
   FDRE \frag_color_reg[29] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[5]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[37]),
         .Q(frag_color[29]),
         .R(1'b0));
   FDRE \frag_color_reg[2] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[2]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[34]),
         .Q(frag_color[2]),
         .R(1'b0));
   FDRE \frag_color_reg[30] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[6]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[38]),
         .Q(frag_color[30]),
         .R(1'b0));
   FDRE \frag_color_reg[31] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(r_color_reg[7]),
+        .CE(frag_address),
+        .D(a_color_reg_reg__0[39]),
         .Q(frag_color[31]),
         .R(1'b0));
   FDRE \frag_color_reg[3] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[3]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[35]),
         .Q(frag_color[3]),
         .R(1'b0));
   FDRE \frag_color_reg[4] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[4]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[36]),
         .Q(frag_color[4]),
         .R(1'b0));
   FDRE \frag_color_reg[5] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[5]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[37]),
         .Q(frag_color[5]),
         .R(1'b0));
   FDRE \frag_color_reg[6] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[6]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[38]),
         .Q(frag_color[6]),
         .R(1'b0));
   FDRE \frag_color_reg[7] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(a_color_reg[7]),
+        .CE(frag_address),
+        .D(g_color_reg_reg__0[39]),
         .Q(frag_color[7]),
         .R(1'b0));
   FDRE \frag_color_reg[8] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[0]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[32]),
         .Q(frag_color[8]),
         .R(1'b0));
   FDRE \frag_color_reg[9] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(b_color_reg[1]),
+        .CE(frag_address),
+        .D(b_color_reg_reg__0[33]),
         .Q(frag_color[9]),
         .R(1'b0));
-  FDRE \g_color_reg_reg[0] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[240] ),
-        .Q(g_color_reg[0]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[1] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[241] ),
-        .Q(g_color_reg[1]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[2] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[242] ),
-        .Q(g_color_reg[2]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[3] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[243] ),
-        .Q(g_color_reg[3]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[4] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[244] ),
-        .Q(g_color_reg[4]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[5] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[245] ),
-        .Q(g_color_reg[5]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[6] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[246] ),
-        .Q(g_color_reg[6]),
-        .R(rst_i));
-  FDRE \g_color_reg_reg[7] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[247] ),
-        .Q(g_color_reg[7]),
-        .R(rst_i));
+  (* METHODOLOGY_DRC_VIOS = "{SYNTH-11 {cell *THIS*}}" *) 
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("DIRECT"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(0),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    g_color_reg64
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACOUT({g_color_reg64_n_24,g_color_reg64_n_25,g_color_reg64_n_26,g_color_reg64_n_27,g_color_reg64_n_28,g_color_reg64_n_29,g_color_reg64_n_30,g_color_reg64_n_31,g_color_reg64_n_32,g_color_reg64_n_33,g_color_reg64_n_34,g_color_reg64_n_35,g_color_reg64_n_36,g_color_reg64_n_37,g_color_reg64_n_38,g_color_reg64_n_39,g_color_reg64_n_40,g_color_reg64_n_41,g_color_reg64_n_42,g_color_reg64_n_43,g_color_reg64_n_44,g_color_reg64_n_45,g_color_reg64_n_46,g_color_reg64_n_47,g_color_reg64_n_48,g_color_reg64_n_49,g_color_reg64_n_50,g_color_reg64_n_51,g_color_reg64_n_52,g_color_reg64_n_53}),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({1'b0,S_AXIS_TDATA[146:130]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_g_color_reg64_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_g_color_reg64_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_g_color_reg64_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(1'b0),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_g_color_reg64_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_g_color_reg64_OVERFLOW_UNCONNECTED),
+        .P({g_color_reg64_n_58,g_color_reg64_n_59,g_color_reg64_n_60,g_color_reg64_n_61,g_color_reg64_n_62,g_color_reg64_n_63,g_color_reg64_n_64,g_color_reg64_n_65,g_color_reg64_n_66,g_color_reg64_n_67,g_color_reg64_n_68,g_color_reg64_n_69,g_color_reg64_n_70,g_color_reg64_n_71,g_color_reg64_n_72,g_color_reg64_n_73,g_color_reg64_n_74,g_color_reg64_n_75,g_color_reg64_n_76,g_color_reg64_n_77,g_color_reg64_n_78,g_color_reg64_n_79,g_color_reg64_n_80,g_color_reg64_n_81,g_color_reg64_n_82,g_color_reg64_n_83,g_color_reg64_n_84,g_color_reg64_n_85,g_color_reg64_n_86,g_color_reg64_n_87,g_color_reg64_n_88,g_color_reg64_n_89,g_color_reg64_n_90,g_color_reg64_n_91,g_color_reg64_n_92,g_color_reg64_n_93,g_color_reg64_n_94,g_color_reg64_n_95,g_color_reg64_n_96,g_color_reg64_n_97,g_color_reg64_n_98,g_color_reg64_n_99,g_color_reg64_n_100,g_color_reg64_n_101,g_color_reg64_n_102,g_color_reg64_n_103,g_color_reg64_n_104,g_color_reg64_n_105}),
+        .PATTERNBDETECT(NLW_g_color_reg64_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_g_color_reg64_PATTERNDETECT_UNCONNECTED),
+        .PCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .PCOUT({g_color_reg64_n_106,g_color_reg64_n_107,g_color_reg64_n_108,g_color_reg64_n_109,g_color_reg64_n_110,g_color_reg64_n_111,g_color_reg64_n_112,g_color_reg64_n_113,g_color_reg64_n_114,g_color_reg64_n_115,g_color_reg64_n_116,g_color_reg64_n_117,g_color_reg64_n_118,g_color_reg64_n_119,g_color_reg64_n_120,g_color_reg64_n_121,g_color_reg64_n_122,g_color_reg64_n_123,g_color_reg64_n_124,g_color_reg64_n_125,g_color_reg64_n_126,g_color_reg64_n_127,g_color_reg64_n_128,g_color_reg64_n_129,g_color_reg64_n_130,g_color_reg64_n_131,g_color_reg64_n_132,g_color_reg64_n_133,g_color_reg64_n_134,g_color_reg64_n_135,g_color_reg64_n_136,g_color_reg64_n_137,g_color_reg64_n_138,g_color_reg64_n_139,g_color_reg64_n_140,g_color_reg64_n_141,g_color_reg64_n_142,g_color_reg64_n_143,g_color_reg64_n_144,g_color_reg64_n_145,g_color_reg64_n_146,g_color_reg64_n_147,g_color_reg64_n_148,g_color_reg64_n_149,g_color_reg64_n_150,g_color_reg64_n_151,g_color_reg64_n_152,g_color_reg64_n_153}),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(1'b0),
+        .UNDERFLOW(NLW_g_color_reg64_UNDERFLOW_UNCONNECTED));
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("CASCADE"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(1),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    g_color_reg_reg
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({g_color_reg64_n_24,g_color_reg64_n_25,g_color_reg64_n_26,g_color_reg64_n_27,g_color_reg64_n_28,g_color_reg64_n_29,g_color_reg64_n_30,g_color_reg64_n_31,g_color_reg64_n_32,g_color_reg64_n_33,g_color_reg64_n_34,g_color_reg64_n_35,g_color_reg64_n_36,g_color_reg64_n_37,g_color_reg64_n_38,g_color_reg64_n_39,g_color_reg64_n_40,g_color_reg64_n_41,g_color_reg64_n_42,g_color_reg64_n_43,g_color_reg64_n_44,g_color_reg64_n_45,g_color_reg64_n_46,g_color_reg64_n_47,g_color_reg64_n_48,g_color_reg64_n_49,g_color_reg64_n_50,g_color_reg64_n_51,g_color_reg64_n_52,g_color_reg64_n_53}),
+        .ACOUT(NLW_g_color_reg_reg_ACOUT_UNCONNECTED[29:0]),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({S_AXIS_TDATA[161],S_AXIS_TDATA[161],S_AXIS_TDATA[161],S_AXIS_TDATA[161:147]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_g_color_reg_reg_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_g_color_reg_reg_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_g_color_reg_reg_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(x_pos_short_reg),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_g_color_reg_reg_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_g_color_reg_reg_OVERFLOW_UNCONNECTED),
+        .P({g_color_reg_reg_n_58,g_color_reg_reg_n_59,g_color_reg_reg_n_60,g_color_reg_reg_n_61,g_color_reg_reg_n_62,g_color_reg_reg_n_63,g_color_reg_reg_n_64,g_color_reg_reg_n_65,g_color_reg_reg_n_66,g_color_reg_reg_n_67,g_color_reg_reg_n_68,g_color_reg_reg_n_69,g_color_reg_reg_n_70,g_color_reg_reg_n_71,g_color_reg_reg_n_72,g_color_reg_reg_n_73,g_color_reg_reg_n_74,g_color_reg_reg_n_75,g_color_reg_reg_n_76,g_color_reg_reg_n_77,g_color_reg_reg_n_78,g_color_reg_reg_n_79,g_color_reg_reg_n_80,g_color_reg_reg_n_81,g_color_reg_reg_n_82,g_color_reg_reg__0,g_color_reg_reg_n_91,g_color_reg_reg_n_92,g_color_reg_reg_n_93,g_color_reg_reg_n_94,g_color_reg_reg_n_95,g_color_reg_reg_n_96,g_color_reg_reg_n_97,g_color_reg_reg_n_98,g_color_reg_reg_n_99,g_color_reg_reg_n_100,g_color_reg_reg_n_101,g_color_reg_reg_n_102,g_color_reg_reg_n_103,g_color_reg_reg_n_104,g_color_reg_reg_n_105}),
+        .PATTERNBDETECT(NLW_g_color_reg_reg_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_g_color_reg_reg_PATTERNDETECT_UNCONNECTED),
+        .PCIN({g_color_reg64_n_106,g_color_reg64_n_107,g_color_reg64_n_108,g_color_reg64_n_109,g_color_reg64_n_110,g_color_reg64_n_111,g_color_reg64_n_112,g_color_reg64_n_113,g_color_reg64_n_114,g_color_reg64_n_115,g_color_reg64_n_116,g_color_reg64_n_117,g_color_reg64_n_118,g_color_reg64_n_119,g_color_reg64_n_120,g_color_reg64_n_121,g_color_reg64_n_122,g_color_reg64_n_123,g_color_reg64_n_124,g_color_reg64_n_125,g_color_reg64_n_126,g_color_reg64_n_127,g_color_reg64_n_128,g_color_reg64_n_129,g_color_reg64_n_130,g_color_reg64_n_131,g_color_reg64_n_132,g_color_reg64_n_133,g_color_reg64_n_134,g_color_reg64_n_135,g_color_reg64_n_136,g_color_reg64_n_137,g_color_reg64_n_138,g_color_reg64_n_139,g_color_reg64_n_140,g_color_reg64_n_141,g_color_reg64_n_142,g_color_reg64_n_143,g_color_reg64_n_144,g_color_reg64_n_145,g_color_reg64_n_146,g_color_reg64_n_147,g_color_reg64_n_148,g_color_reg64_n_149,g_color_reg64_n_150,g_color_reg64_n_151,g_color_reg64_n_152,g_color_reg64_n_153}),
+        .PCOUT(NLW_g_color_reg_reg_PCOUT_UNCONNECTED[47:0]),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(rst_i),
+        .UNDERFLOW(NLW_g_color_reg_reg_UNDERFLOW_UNCONNECTED));
   LUT3 #(
     .INIT(8'h02)) 
     input_fragment
        (.I0(S_AXIS_TVALID),
-        .I1(state[0]),
-        .I2(state[1]),
+        .I1(state__0[0]),
+        .I2(state__0[1]),
         .O(input_fragment__0));
-  FDRE \input_fragment_reg[144] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[34]),
-        .Q(p_0_in[0]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[145] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[35]),
-        .Q(p_0_in[1]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[146] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[36]),
-        .Q(p_0_in[2]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[147] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[37]),
-        .Q(p_0_in[3]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[148] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[38]),
-        .Q(p_0_in[4]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[149] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[39]),
-        .Q(p_0_in[5]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[150] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[40]),
-        .Q(p_0_in[6]),
-        .R(rst_i));
-  FDRE \input_fragment_reg[151] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[41]),
-        .Q(p_0_in[7]),
-        .R(rst_i));
   FDRE \input_fragment_reg[15] 
        (.C(ACLK),
         .CE(input_fragment__0),
@@ -19727,343 +20751,199 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[1]),
-        .Q(\input_fragment_reg_n_0_[16] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[176] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[42]),
-        .Q(\input_fragment_reg_n_0_[176] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[177] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[43]),
-        .Q(\input_fragment_reg_n_0_[177] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[178] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[44]),
-        .Q(\input_fragment_reg_n_0_[178] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[179] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[45]),
-        .Q(\input_fragment_reg_n_0_[179] ),
+        .Q(L[16]),
         .R(rst_i));
   FDRE \input_fragment_reg[17] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[2]),
-        .Q(\input_fragment_reg_n_0_[17] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[180] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[46]),
-        .Q(\input_fragment_reg_n_0_[180] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[181] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[47]),
-        .Q(\input_fragment_reg_n_0_[181] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[182] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[48]),
-        .Q(\input_fragment_reg_n_0_[182] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[183] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[49]),
-        .Q(\input_fragment_reg_n_0_[183] ),
+        .Q(L[17]),
         .R(rst_i));
   FDRE \input_fragment_reg[18] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[3]),
-        .Q(\input_fragment_reg_n_0_[18] ),
+        .Q(L[18]),
         .R(rst_i));
   FDRE \input_fragment_reg[19] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[4]),
-        .Q(\input_fragment_reg_n_0_[19] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[208] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[50]),
-        .Q(\input_fragment_reg_n_0_[208] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[209] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[51]),
-        .Q(\input_fragment_reg_n_0_[209] ),
+        .Q(L[19]),
         .R(rst_i));
   FDRE \input_fragment_reg[20] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[5]),
-        .Q(\input_fragment_reg_n_0_[20] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[210] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[52]),
-        .Q(\input_fragment_reg_n_0_[210] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[211] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[53]),
-        .Q(\input_fragment_reg_n_0_[211] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[212] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[54]),
-        .Q(\input_fragment_reg_n_0_[212] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[213] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[55]),
-        .Q(\input_fragment_reg_n_0_[213] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[214] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[56]),
-        .Q(\input_fragment_reg_n_0_[214] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[215] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[57]),
-        .Q(\input_fragment_reg_n_0_[215] ),
+        .Q(L[20]),
         .R(rst_i));
   FDRE \input_fragment_reg[21] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[6]),
-        .Q(\input_fragment_reg_n_0_[21] ),
+        .Q(L[21]),
         .R(rst_i));
   FDRE \input_fragment_reg[22] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[7]),
-        .Q(\input_fragment_reg_n_0_[22] ),
+        .Q(L[22]),
         .R(rst_i));
   FDRE \input_fragment_reg[23] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[8]),
-        .Q(\input_fragment_reg_n_0_[23] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[240] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[58]),
-        .Q(\input_fragment_reg_n_0_[240] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[241] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[59]),
-        .Q(\input_fragment_reg_n_0_[241] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[242] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[60]),
-        .Q(\input_fragment_reg_n_0_[242] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[243] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[61]),
-        .Q(\input_fragment_reg_n_0_[243] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[244] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[62]),
-        .Q(\input_fragment_reg_n_0_[244] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[245] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[63]),
-        .Q(\input_fragment_reg_n_0_[245] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[246] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[64]),
-        .Q(\input_fragment_reg_n_0_[246] ),
-        .R(rst_i));
-  FDRE \input_fragment_reg[247] 
-       (.C(ACLK),
-        .CE(input_fragment__0),
-        .D(S_AXIS_TDATA[65]),
-        .Q(\input_fragment_reg_n_0_[247] ),
+        .Q(L[23]),
         .R(rst_i));
   FDRE \input_fragment_reg[24] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[9]),
-        .Q(\input_fragment_reg_n_0_[24] ),
+        .Q(L[24]),
         .R(rst_i));
   FDRE \input_fragment_reg[25] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[10]),
-        .Q(\input_fragment_reg_n_0_[25] ),
+        .Q(L[25]),
         .R(rst_i));
   FDRE \input_fragment_reg[26] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[11]),
-        .Q(\input_fragment_reg_n_0_[26] ),
+        .Q(L[26]),
         .R(rst_i));
   FDRE \input_fragment_reg[27] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[12]),
-        .Q(\input_fragment_reg_n_0_[27] ),
+        .Q(L[27]),
         .R(rst_i));
   FDRE \input_fragment_reg[28] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[13]),
-        .Q(\input_fragment_reg_n_0_[28] ),
+        .Q(L[28]),
         .R(rst_i));
   FDRE \input_fragment_reg[29] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[14]),
-        .Q(\input_fragment_reg_n_0_[29] ),
+        .Q(L[29]),
         .R(rst_i));
   FDRE \input_fragment_reg[30] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[15]),
-        .Q(\input_fragment_reg_n_0_[30] ),
+        .Q(L[30]),
         .R(rst_i));
   FDRE \input_fragment_reg[31] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[16]),
-        .Q(\input_fragment_reg_n_0_[31] ),
+        .Q(L[31]),
         .R(rst_i));
   FDRE \input_fragment_reg[47] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[17]),
-        .Q(to_vertexRecord_t_att0_y[15]),
+        .Q(\input_fragment_reg_n_0_[47] ),
         .R(rst_i));
   FDRE \input_fragment_reg[48] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[18]),
-        .Q(to_vertexRecord_t_att0_y[16]),
+        .Q(\input_fragment_reg_n_0_[48] ),
         .R(rst_i));
   FDRE \input_fragment_reg[49] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[19]),
-        .Q(to_vertexRecord_t_att0_y[17]),
+        .Q(\input_fragment_reg_n_0_[49] ),
         .R(rst_i));
   FDRE \input_fragment_reg[50] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[20]),
-        .Q(to_vertexRecord_t_att0_y[18]),
+        .Q(\input_fragment_reg_n_0_[50] ),
         .R(rst_i));
   FDRE \input_fragment_reg[51] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[21]),
-        .Q(to_vertexRecord_t_att0_y[19]),
+        .Q(\input_fragment_reg_n_0_[51] ),
         .R(rst_i));
   FDRE \input_fragment_reg[52] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[22]),
-        .Q(to_vertexRecord_t_att0_y[20]),
+        .Q(\input_fragment_reg_n_0_[52] ),
         .R(rst_i));
   FDRE \input_fragment_reg[53] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[23]),
-        .Q(to_vertexRecord_t_att0_y[21]),
+        .Q(\input_fragment_reg_n_0_[53] ),
         .R(rst_i));
   FDRE \input_fragment_reg[54] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[24]),
-        .Q(to_vertexRecord_t_att0_y[22]),
+        .Q(\input_fragment_reg_n_0_[54] ),
         .R(rst_i));
   FDRE \input_fragment_reg[55] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[25]),
-        .Q(to_vertexRecord_t_att0_y[23]),
+        .Q(\input_fragment_reg_n_0_[55] ),
         .R(rst_i));
   FDRE \input_fragment_reg[56] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[26]),
-        .Q(to_vertexRecord_t_att0_y[24]),
+        .Q(\input_fragment_reg_n_0_[56] ),
         .R(rst_i));
   FDRE \input_fragment_reg[57] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[27]),
-        .Q(to_vertexRecord_t_att0_y[25]),
+        .Q(\input_fragment_reg_n_0_[57] ),
         .R(rst_i));
   FDRE \input_fragment_reg[58] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[28]),
-        .Q(to_vertexRecord_t_att0_y[26]),
+        .Q(\input_fragment_reg_n_0_[58] ),
         .R(rst_i));
   FDRE \input_fragment_reg[59] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[29]),
-        .Q(to_vertexRecord_t_att0_y[27]),
+        .Q(\input_fragment_reg_n_0_[59] ),
         .R(rst_i));
   FDRE \input_fragment_reg[60] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[30]),
-        .Q(to_vertexRecord_t_att0_y[28]),
+        .Q(\input_fragment_reg_n_0_[60] ),
         .R(rst_i));
   FDRE \input_fragment_reg[61] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[31]),
-        .Q(to_vertexRecord_t_att0_y[29]),
+        .Q(\input_fragment_reg_n_0_[61] ),
         .R(rst_i));
   FDRE \input_fragment_reg[62] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[32]),
-        .Q(to_vertexRecord_t_att0_y[30]),
+        .Q(\input_fragment_reg_n_0_[62] ),
         .R(rst_i));
   FDRE \input_fragment_reg[63] 
        (.C(ACLK),
         .CE(input_fragment__0),
         .D(S_AXIS_TDATA[33]),
-        .Q(to_vertexRecord_t_att0_y[31]),
+        .Q(\input_fragment_reg_n_0_[63] ),
         .R(rst_i));
   FDRE \mem_addr_reg[10] 
        (.C(ACLK),
@@ -20440,7 +21320,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
   FDRE \mem_wr_reg[0] 
        (.C(ACLK),
         .CE(1'b1),
-        .D(sgp_renderOutput_dcache_n_116),
+        .D(sgp_renderOutput_dcache_n_114),
         .Q(\mem_wr_reg_n_0_[0] ),
         .R(rst_i));
   LUT5 #(
@@ -20461,54 +21341,159 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .I3(\u_axi/count_q [0]),
         .I4(\u_core/pmem_wr0_q ),
         .O(pmem_wr0_q_i_1_n_0));
-  FDRE \r_color_reg_reg[0] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[176] ),
-        .Q(r_color_reg[0]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[1] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[177] ),
-        .Q(r_color_reg[1]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[2] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[178] ),
-        .Q(r_color_reg[2]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[3] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[179] ),
-        .Q(r_color_reg[3]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[4] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[180] ),
-        .Q(r_color_reg[4]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[5] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[181] ),
-        .Q(r_color_reg[5]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[6] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[182] ),
-        .Q(r_color_reg[6]),
-        .R(rst_i));
-  FDRE \r_color_reg_reg[7] 
-       (.C(ACLK),
-        .CE(x_pos_short_reg),
-        .D(\input_fragment_reg_n_0_[183] ),
-        .Q(r_color_reg[7]),
-        .R(rst_i));
+  (* METHODOLOGY_DRC_VIOS = "{SYNTH-11 {cell *THIS*}}" *) 
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("DIRECT"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(0),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    r_color_reg64
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACOUT({r_color_reg64_n_24,r_color_reg64_n_25,r_color_reg64_n_26,r_color_reg64_n_27,r_color_reg64_n_28,r_color_reg64_n_29,r_color_reg64_n_30,r_color_reg64_n_31,r_color_reg64_n_32,r_color_reg64_n_33,r_color_reg64_n_34,r_color_reg64_n_35,r_color_reg64_n_36,r_color_reg64_n_37,r_color_reg64_n_38,r_color_reg64_n_39,r_color_reg64_n_40,r_color_reg64_n_41,r_color_reg64_n_42,r_color_reg64_n_43,r_color_reg64_n_44,r_color_reg64_n_45,r_color_reg64_n_46,r_color_reg64_n_47,r_color_reg64_n_48,r_color_reg64_n_49,r_color_reg64_n_50,r_color_reg64_n_51,r_color_reg64_n_52,r_color_reg64_n_53}),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({1'b0,S_AXIS_TDATA[82:66]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_r_color_reg64_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_r_color_reg64_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_r_color_reg64_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(1'b0),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_r_color_reg64_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_r_color_reg64_OVERFLOW_UNCONNECTED),
+        .P({r_color_reg64_n_58,r_color_reg64_n_59,r_color_reg64_n_60,r_color_reg64_n_61,r_color_reg64_n_62,r_color_reg64_n_63,r_color_reg64_n_64,r_color_reg64_n_65,r_color_reg64_n_66,r_color_reg64_n_67,r_color_reg64_n_68,r_color_reg64_n_69,r_color_reg64_n_70,r_color_reg64_n_71,r_color_reg64_n_72,r_color_reg64_n_73,r_color_reg64_n_74,r_color_reg64_n_75,r_color_reg64_n_76,r_color_reg64_n_77,r_color_reg64_n_78,r_color_reg64_n_79,r_color_reg64_n_80,r_color_reg64_n_81,r_color_reg64_n_82,r_color_reg64_n_83,r_color_reg64_n_84,r_color_reg64_n_85,r_color_reg64_n_86,r_color_reg64_n_87,r_color_reg64_n_88,r_color_reg64_n_89,r_color_reg64_n_90,r_color_reg64_n_91,r_color_reg64_n_92,r_color_reg64_n_93,r_color_reg64_n_94,r_color_reg64_n_95,r_color_reg64_n_96,r_color_reg64_n_97,r_color_reg64_n_98,r_color_reg64_n_99,r_color_reg64_n_100,r_color_reg64_n_101,r_color_reg64_n_102,r_color_reg64_n_103,r_color_reg64_n_104,r_color_reg64_n_105}),
+        .PATTERNBDETECT(NLW_r_color_reg64_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_r_color_reg64_PATTERNDETECT_UNCONNECTED),
+        .PCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .PCOUT({r_color_reg64_n_106,r_color_reg64_n_107,r_color_reg64_n_108,r_color_reg64_n_109,r_color_reg64_n_110,r_color_reg64_n_111,r_color_reg64_n_112,r_color_reg64_n_113,r_color_reg64_n_114,r_color_reg64_n_115,r_color_reg64_n_116,r_color_reg64_n_117,r_color_reg64_n_118,r_color_reg64_n_119,r_color_reg64_n_120,r_color_reg64_n_121,r_color_reg64_n_122,r_color_reg64_n_123,r_color_reg64_n_124,r_color_reg64_n_125,r_color_reg64_n_126,r_color_reg64_n_127,r_color_reg64_n_128,r_color_reg64_n_129,r_color_reg64_n_130,r_color_reg64_n_131,r_color_reg64_n_132,r_color_reg64_n_133,r_color_reg64_n_134,r_color_reg64_n_135,r_color_reg64_n_136,r_color_reg64_n_137,r_color_reg64_n_138,r_color_reg64_n_139,r_color_reg64_n_140,r_color_reg64_n_141,r_color_reg64_n_142,r_color_reg64_n_143,r_color_reg64_n_144,r_color_reg64_n_145,r_color_reg64_n_146,r_color_reg64_n_147,r_color_reg64_n_148,r_color_reg64_n_149,r_color_reg64_n_150,r_color_reg64_n_151,r_color_reg64_n_152,r_color_reg64_n_153}),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(1'b0),
+        .UNDERFLOW(NLW_r_color_reg64_UNDERFLOW_UNCONNECTED));
+  DSP48E1 #(
+    .ACASCREG(0),
+    .ADREG(1),
+    .ALUMODEREG(0),
+    .AREG(0),
+    .AUTORESET_PATDET("NO_RESET"),
+    .A_INPUT("CASCADE"),
+    .BCASCREG(1),
+    .BREG(1),
+    .B_INPUT("DIRECT"),
+    .CARRYINREG(0),
+    .CARRYINSELREG(0),
+    .CREG(1),
+    .DREG(1),
+    .INMODEREG(0),
+    .MASK(48'h3FFFFFFFFFFF),
+    .MREG(0),
+    .OPMODEREG(0),
+    .PATTERN(48'h000000000000),
+    .PREG(1),
+    .SEL_MASK("MASK"),
+    .SEL_PATTERN("PATTERN"),
+    .USE_DPORT("FALSE"),
+    .USE_MULT("MULTIPLY"),
+    .USE_PATTERN_DETECT("NO_PATDET"),
+    .USE_SIMD("ONE48")) 
+    r_color_reg_reg
+       (.A({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ACIN({r_color_reg64_n_24,r_color_reg64_n_25,r_color_reg64_n_26,r_color_reg64_n_27,r_color_reg64_n_28,r_color_reg64_n_29,r_color_reg64_n_30,r_color_reg64_n_31,r_color_reg64_n_32,r_color_reg64_n_33,r_color_reg64_n_34,r_color_reg64_n_35,r_color_reg64_n_36,r_color_reg64_n_37,r_color_reg64_n_38,r_color_reg64_n_39,r_color_reg64_n_40,r_color_reg64_n_41,r_color_reg64_n_42,r_color_reg64_n_43,r_color_reg64_n_44,r_color_reg64_n_45,r_color_reg64_n_46,r_color_reg64_n_47,r_color_reg64_n_48,r_color_reg64_n_49,r_color_reg64_n_50,r_color_reg64_n_51,r_color_reg64_n_52,r_color_reg64_n_53}),
+        .ACOUT(NLW_r_color_reg_reg_ACOUT_UNCONNECTED[29:0]),
+        .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
+        .B({S_AXIS_TDATA[97],S_AXIS_TDATA[97],S_AXIS_TDATA[97],S_AXIS_TDATA[97:83]}),
+        .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .BCOUT(NLW_r_color_reg_reg_BCOUT_UNCONNECTED[17:0]),
+        .C({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CARRYCASCIN(1'b0),
+        .CARRYCASCOUT(NLW_r_color_reg_reg_CARRYCASCOUT_UNCONNECTED),
+        .CARRYIN(1'b0),
+        .CARRYINSEL({1'b0,1'b0,1'b0}),
+        .CARRYOUT(NLW_r_color_reg_reg_CARRYOUT_UNCONNECTED[3:0]),
+        .CEA1(1'b0),
+        .CEA2(1'b0),
+        .CEAD(1'b0),
+        .CEALUMODE(1'b0),
+        .CEB1(1'b0),
+        .CEB2(input_fragment__0),
+        .CEC(1'b0),
+        .CECARRYIN(1'b0),
+        .CECTRL(1'b0),
+        .CED(1'b0),
+        .CEINMODE(1'b0),
+        .CEM(1'b0),
+        .CEP(x_pos_short_reg),
+        .CLK(ACLK),
+        .D({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .MULTSIGNIN(1'b0),
+        .MULTSIGNOUT(NLW_r_color_reg_reg_MULTSIGNOUT_UNCONNECTED),
+        .OPMODE({1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1}),
+        .OVERFLOW(NLW_r_color_reg_reg_OVERFLOW_UNCONNECTED),
+        .P({r_color_reg_reg_n_58,r_color_reg_reg_n_59,r_color_reg_reg_n_60,r_color_reg_reg_n_61,r_color_reg_reg_n_62,r_color_reg_reg_n_63,r_color_reg_reg_n_64,r_color_reg_reg_n_65,r_color_reg_reg_n_66,r_color_reg_reg_n_67,r_color_reg_reg_n_68,r_color_reg_reg_n_69,r_color_reg_reg_n_70,r_color_reg_reg_n_71,r_color_reg_reg_n_72,r_color_reg_reg_n_73,r_color_reg_reg_n_74,r_color_reg_reg_n_75,r_color_reg_reg_n_76,r_color_reg_reg_n_77,r_color_reg_reg_n_78,r_color_reg_reg_n_79,r_color_reg_reg_n_80,r_color_reg_reg_n_81,r_color_reg_reg_n_82,r_color_reg_reg__0,r_color_reg_reg_n_91,r_color_reg_reg_n_92,r_color_reg_reg_n_93,r_color_reg_reg_n_94,r_color_reg_reg_n_95,r_color_reg_reg_n_96,r_color_reg_reg_n_97,r_color_reg_reg_n_98,r_color_reg_reg_n_99,r_color_reg_reg_n_100,r_color_reg_reg_n_101,r_color_reg_reg_n_102,r_color_reg_reg_n_103,r_color_reg_reg_n_104,r_color_reg_reg_n_105}),
+        .PATTERNBDETECT(NLW_r_color_reg_reg_PATTERNBDETECT_UNCONNECTED),
+        .PATTERNDETECT(NLW_r_color_reg_reg_PATTERNDETECT_UNCONNECTED),
+        .PCIN({r_color_reg64_n_106,r_color_reg64_n_107,r_color_reg64_n_108,r_color_reg64_n_109,r_color_reg64_n_110,r_color_reg64_n_111,r_color_reg64_n_112,r_color_reg64_n_113,r_color_reg64_n_114,r_color_reg64_n_115,r_color_reg64_n_116,r_color_reg64_n_117,r_color_reg64_n_118,r_color_reg64_n_119,r_color_reg64_n_120,r_color_reg64_n_121,r_color_reg64_n_122,r_color_reg64_n_123,r_color_reg64_n_124,r_color_reg64_n_125,r_color_reg64_n_126,r_color_reg64_n_127,r_color_reg64_n_128,r_color_reg64_n_129,r_color_reg64_n_130,r_color_reg64_n_131,r_color_reg64_n_132,r_color_reg64_n_133,r_color_reg64_n_134,r_color_reg64_n_135,r_color_reg64_n_136,r_color_reg64_n_137,r_color_reg64_n_138,r_color_reg64_n_139,r_color_reg64_n_140,r_color_reg64_n_141,r_color_reg64_n_142,r_color_reg64_n_143,r_color_reg64_n_144,r_color_reg64_n_145,r_color_reg64_n_146,r_color_reg64_n_147,r_color_reg64_n_148,r_color_reg64_n_149,r_color_reg64_n_150,r_color_reg64_n_151,r_color_reg64_n_152,r_color_reg64_n_153}),
+        .PCOUT(NLW_r_color_reg_reg_PCOUT_UNCONNECTED[47:0]),
+        .RSTA(1'b0),
+        .RSTALLCARRYIN(1'b0),
+        .RSTALUMODE(1'b0),
+        .RSTB(rst_i),
+        .RSTC(1'b0),
+        .RSTCTRL(1'b0),
+        .RSTD(1'b0),
+        .RSTINMODE(1'b0),
+        .RSTM(1'b0),
+        .RSTP(rst_i),
+        .UNDERFLOW(NLW_r_color_reg_reg_UNDERFLOW_UNCONNECTED));
   LUT2 #(
     .INIT(4'h6)) 
     \rd_ptr_q[0]_i_1 
@@ -20594,12 +21579,9 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .\FSM_sequential_state_q_reg[2] (sgp_renderOutput_dcache_n_35),
         .\FSM_sequential_state_q_reg[2]_0 (sgp_renderOutput_axi_lite_regs_inst_n_18),
         .\FSM_sequential_state_q_reg[3] (sgp_renderOutput_axi_lite_regs_inst_n_14),
-        .\FSM_sequential_state_reg[1] (sgp_renderOutput_dcache_n_115),
-        .\FSM_sequential_state_reg[1]_0 (sgp_renderOutput_dcache_n_116),
+        .\FSM_sequential_state_reg[1] (sgp_renderOutput_dcache_n_114),
         .Q(\u_core/p_4_in ),
         .SR(rst_i),
-        .S_AXIS_TVALID(S_AXIS_TVALID),
-        .S_AXIS_TVALID_0(sgp_renderOutput_dcache_n_114),
         .awvalid_q(\u_axi/u_axi/awvalid_q ),
         .awvalid_q_reg(awvalid_q_i_1_n_0),
         .\buf_q_reg[83] (D),
@@ -20641,7 +21623,8 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .m_axi_wvalid(m_axi_wvalid),
         .mem_ack_o(mem_ack_o),
         .\mem_wr_m_q_reg[2] (sgp_renderOutput_dcache_n_27),
-        .\mem_wr_reg[0] (\mem_wr_reg_n_0_[0] ),
+        .\mem_wr_reg[0] (state__0),
+        .\mem_wr_reg[0]_0 (\mem_wr_reg_n_0_[0] ),
         .\pending_q_reg[0] (sgp_renderOutput_axi_lite_regs_inst_n_13),
         .\pending_q_reg[3] (sgp_renderOutput_axi_lite_regs_inst_n_12),
         .pmem_rd_q(\u_core/pmem_rd_q ),
@@ -20663,7 +21646,6 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .\slv_reg2_reg[0] (sgp_renderOutput_dcache_n_21),
         .\slv_reg2_reg[0]_0 (sgp_renderOutput_dcache_n_28),
         .\slv_reg2_reg[2] (sgp_renderOutput_dcache_n_36),
-        .state(state),
         .valid_q(\u_axi/u_axi/valid_q ),
         .valid_q_reg_inv(sgp_renderOutput_dcache_n_31),
         .valid_q_reg_inv_0(valid_q_inv_i_1_n_0),
@@ -20673,6 +21655,39 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .\wr_ptr_q_reg[0] (\wr_ptr_q[0]_i_1__0_n_0 ),
         .wvalid_q(\u_axi/u_axi/wvalid_q ),
         .wvalid_q_reg(wvalid_q_i_1_n_0));
+  LUT5 #(
+    .INIT(32'hFF3A0F3A)) 
+    state
+       (.I0(S_AXIS_TVALID),
+        .I1(sgp_renderOutput_dcache_n_20),
+        .I2(state__0[1]),
+        .I3(state__0[0]),
+        .I4(mem_ack_o),
+        .O(state__1));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \state[0]_i_1 
+       (.I0(\state_reg_n_0_[0] ),
+        .O(\state[0]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair162" *) 
+  LUT2 #(
+    .INIT(4'h6)) 
+    \state[1]_i_1 
+       (.I0(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
+        .O(\state[1]_i_1_n_0 ));
+  FDRE \state_reg[0] 
+       (.C(ACLK),
+        .CE(state__1),
+        .D(\state[0]_i_1_n_0 ),
+        .Q(\state_reg_n_0_[0] ),
+        .R(rst_i));
+  FDRE \state_reg[1] 
+       (.C(ACLK),
+        .CE(state__1),
+        .D(\state[1]_i_1_n_0 ),
+        .Q(\state_reg_n_0_[1] ),
+        .R(rst_i));
   (* SOFT_HLUTNM = "soft_lutpair160" *) 
   LUT3 #(
     .INIT(8'hDC)) 
@@ -20703,217 +21718,146 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput
         .I3(m_axi_awready),
         .I4(\u_axi/u_axi/awvalid_q ),
         .O(wvalid_q_i_1_n_0));
-  LUT3 #(
-    .INIT(8'h20)) 
-    \x_pos_fixed[31]_i_1 
-       (.I0(ARESETN),
-        .I1(state[1]),
-        .I2(state[0]),
-        .O(x_pos_fixed));
-  FDRE \x_pos_fixed_reg[15] 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \y_pos_short_reg[15]_i_1 
+       (.I0(state__0[0]),
+        .I1(state__0[1]),
+        .O(x_pos_short_reg));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \y_pos_short_reg[3]_i_2 
+       (.I0(\input_fragment_reg_n_0_[47] ),
+        .I1(\input_fragment_reg_n_0_[48] ),
+        .O(\y_pos_short_reg[3]_i_2_n_0 ));
+  FDRE \y_pos_short_reg_reg[0] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[15] ),
-        .Q(\x_pos_fixed_reg_n_0_[15] ),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[16] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[0]),
+        .Q(y_pos_short_reg[0]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[10] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[16] ),
-        .Q(L[16]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[17] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[10]),
+        .Q(y_pos_short_reg[10]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[11] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[17] ),
-        .Q(L[17]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[18] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[11]),
+        .Q(y_pos_short_reg[11]),
+        .R(rst_i));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \y_pos_short_reg_reg[11]_i_1 
+       (.CI(\y_pos_short_reg_reg[7]_i_1_n_0 ),
+        .CO({\y_pos_short_reg_reg[11]_i_1_n_0 ,\y_pos_short_reg_reg[11]_i_1_n_1 ,\y_pos_short_reg_reg[11]_i_1_n_2 ,\y_pos_short_reg_reg[11]_i_1_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(p_1_in[11:8]),
+        .S({\input_fragment_reg_n_0_[59] ,\input_fragment_reg_n_0_[58] ,\input_fragment_reg_n_0_[57] ,\input_fragment_reg_n_0_[56] }));
+  FDRE \y_pos_short_reg_reg[12] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[18] ),
-        .Q(L[18]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[19] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[12]),
+        .Q(y_pos_short_reg[12]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[13] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[19] ),
-        .Q(L[19]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[20] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[13]),
+        .Q(y_pos_short_reg[13]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[14] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[20] ),
-        .Q(L[20]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[21] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[14]),
+        .Q(y_pos_short_reg[14]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[15] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[21] ),
-        .Q(L[21]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[22] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[15]),
+        .Q(y_pos_short_reg[15]),
+        .R(rst_i));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \y_pos_short_reg_reg[15]_i_2 
+       (.CI(\y_pos_short_reg_reg[11]_i_1_n_0 ),
+        .CO({\NLW_y_pos_short_reg_reg[15]_i_2_CO_UNCONNECTED [3],\y_pos_short_reg_reg[15]_i_2_n_1 ,\y_pos_short_reg_reg[15]_i_2_n_2 ,\y_pos_short_reg_reg[15]_i_2_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(p_1_in[15:12]),
+        .S({\input_fragment_reg_n_0_[63] ,\input_fragment_reg_n_0_[62] ,\input_fragment_reg_n_0_[61] ,\input_fragment_reg_n_0_[60] }));
+  FDRE \y_pos_short_reg_reg[1] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[22] ),
-        .Q(L[22]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[23] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[1]),
+        .Q(y_pos_short_reg[1]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[2] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[23] ),
-        .Q(L[23]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[24] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[2]),
+        .Q(y_pos_short_reg[2]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[3] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[24] ),
-        .Q(L[24]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[25] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[3]),
+        .Q(y_pos_short_reg[3]),
+        .R(rst_i));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \y_pos_short_reg_reg[3]_i_1 
+       (.CI(1'b0),
+        .CO({\y_pos_short_reg_reg[3]_i_1_n_0 ,\y_pos_short_reg_reg[3]_i_1_n_1 ,\y_pos_short_reg_reg[3]_i_1_n_2 ,\y_pos_short_reg_reg[3]_i_1_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,\input_fragment_reg_n_0_[47] }),
+        .O(p_1_in[3:0]),
+        .S({\input_fragment_reg_n_0_[51] ,\input_fragment_reg_n_0_[50] ,\input_fragment_reg_n_0_[49] ,\y_pos_short_reg[3]_i_2_n_0 }));
+  FDRE \y_pos_short_reg_reg[4] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[25] ),
-        .Q(L[25]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[26] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[4]),
+        .Q(y_pos_short_reg[4]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[5] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[26] ),
-        .Q(L[26]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[27] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[5]),
+        .Q(y_pos_short_reg[5]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[6] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[27] ),
-        .Q(L[27]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[28] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[6]),
+        .Q(y_pos_short_reg[6]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[7] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[28] ),
-        .Q(L[28]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[29] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[7]),
+        .Q(y_pos_short_reg[7]),
+        .R(rst_i));
+  (* ADDER_THRESHOLD = "35" *) 
+  CARRY4 \y_pos_short_reg_reg[7]_i_1 
+       (.CI(\y_pos_short_reg_reg[3]_i_1_n_0 ),
+        .CO({\y_pos_short_reg_reg[7]_i_1_n_0 ,\y_pos_short_reg_reg[7]_i_1_n_1 ,\y_pos_short_reg_reg[7]_i_1_n_2 ,\y_pos_short_reg_reg[7]_i_1_n_3 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O(p_1_in[7:4]),
+        .S({\input_fragment_reg_n_0_[55] ,\input_fragment_reg_n_0_[54] ,\input_fragment_reg_n_0_[53] ,\input_fragment_reg_n_0_[52] }));
+  FDRE \y_pos_short_reg_reg[8] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[29] ),
-        .Q(L[29]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[30] 
+        .CE(x_pos_short_reg),
+        .D(p_1_in[8]),
+        .Q(y_pos_short_reg[8]),
+        .R(rst_i));
+  FDRE \y_pos_short_reg_reg[9] 
        (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[30] ),
-        .Q(L[30]),
-        .R(1'b0));
-  FDRE \x_pos_fixed_reg[31] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(\input_fragment_reg_n_0_[31] ),
-        .Q(L[31]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[15] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[15]),
-        .Q(y_pos_fixed[15]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[16] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[16]),
-        .Q(y_pos_fixed[16]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[17] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[17]),
-        .Q(y_pos_fixed[17]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[18] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[18]),
-        .Q(y_pos_fixed[18]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[19] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[19]),
-        .Q(y_pos_fixed[19]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[20] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[20]),
-        .Q(y_pos_fixed[20]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[21] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[21]),
-        .Q(y_pos_fixed[21]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[22] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[22]),
-        .Q(y_pos_fixed[22]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[23] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[23]),
-        .Q(y_pos_fixed[23]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[24] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[24]),
-        .Q(y_pos_fixed[24]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[25] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[25]),
-        .Q(y_pos_fixed[25]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[26] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[26]),
-        .Q(y_pos_fixed[26]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[27] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[27]),
-        .Q(y_pos_fixed[27]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[28] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[28]),
-        .Q(y_pos_fixed[28]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[29] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[29]),
-        .Q(y_pos_fixed[29]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[30] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[30]),
-        .Q(y_pos_fixed[30]),
-        .R(1'b0));
-  FDRE \y_pos_fixed_reg[31] 
-       (.C(ACLK),
-        .CE(x_pos_fixed),
-        .D(to_vertexRecord_t_att0_y[31]),
-        .Q(y_pos_fixed[31]),
-        .R(1'b0));
+        .CE(x_pos_short_reg),
+        .D(p_1_in[9]),
+        .Q(y_pos_short_reg[9]),
+        .R(rst_i));
 endmodule
 
 (* ORIG_REF_NAME = "sgp_renderOutput_axi_lite_regs" *) 
@@ -21616,7 +22560,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput_axi_lite_regs
         .I5(slv_reg8[0]),
         .O(\axi_rdata[0]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'h30BB3088)) 
+    .INIT(32'hFCBBFC88)) 
     \axi_rdata[0]_i_4 
        (.I0(slv_reg14[0]),
         .I1(sel0[1]),
@@ -22155,7 +23099,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput_axi_lite_regs
         .I5(slv_reg8[1]),
         .O(\axi_rdata[1]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'hFCBBFC88)) 
+    .INIT(32'h30BB3088)) 
     \axi_rdata[1]_i_4 
        (.I0(slv_reg14[1]),
         .I1(sel0[1]),
@@ -22694,7 +23638,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput_axi_lite_regs
         .I5(slv_reg8[2]),
         .O(\axi_rdata[2]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'hFCBBFC88)) 
+    .INIT(32'h30BB3088)) 
     \axi_rdata[2]_i_4 
        (.I0(slv_reg14[2]),
         .I1(sel0[1]),
@@ -22856,7 +23800,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput_axi_lite_regs
         .I5(slv_reg8[3]),
         .O(\axi_rdata[3]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'h30BB3088)) 
+    .INIT(32'hFCBBFC88)) 
     \axi_rdata[3]_i_4 
        (.I0(slv_reg14[3]),
         .I1(sel0[1]),
@@ -23594,7 +24538,7 @@ module design_1_sgp_renderOutput_0_sgp_renderOutput_axi_lite_regs
         .O(E));
   LUT6 #(
     .INIT(64'h0000000055555554)) 
-    \pending_q[4]_i_5 
+    \pending_q[4]_i_3 
        (.I0(\pending_q_reg[0]_0 ),
         .I1(\pending_q_reg[0] ),
         .I2(Q[1]),

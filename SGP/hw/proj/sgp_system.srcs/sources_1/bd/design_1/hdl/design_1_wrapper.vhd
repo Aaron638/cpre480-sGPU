@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Tue Mar  9 16:46:50 2021
---Host        : CO2050-06 running 64-bit major release  (build 9200)
+--Date        : Sun Mar 21 23:05:15 2021
+--Host        : CO2050-09 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
 --Purpose     : IP block netlist
@@ -54,6 +54,15 @@ architecture STRUCTURE of design_1_wrapper is
     sys_clk_i : in STD_LOGIC;
     usb_uart_rxd : in STD_LOGIC;
     usb_uart_txd : out STD_LOGIC;
+    RGMII_eth_phy_rx_clk : in STD_LOGIC;
+    RGMII_eth_phy_rxd : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    RGMII_eth_phy_rx_ctl : in STD_LOGIC;
+    RGMII_eth_phy_tx_clk : out STD_LOGIC;
+    RGMII_eth_phy_txd : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    RGMII_eth_phy_tx_ctl : out STD_LOGIC;
+    RGMII_eth_phy_reset_n : out STD_LOGIC;
+    RGMII_eth_phy_int_n : in STD_LOGIC;
+    RGMII_eth_phy_pme_n : in STD_LOGIC;
     DDR3_dq : inout STD_LOGIC_VECTOR ( 15 downto 0 );
     DDR3_dqs_p : inout STD_LOGIC_VECTOR ( 1 downto 0 );
     DDR3_dqs_n : inout STD_LOGIC_VECTOR ( 1 downto 0 );
@@ -71,16 +80,7 @@ architecture STRUCTURE of design_1_wrapper is
     TMDS_OUT_clk_p : out STD_LOGIC;
     TMDS_OUT_clk_n : out STD_LOGIC;
     TMDS_OUT_data_p : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    TMDS_OUT_data_n : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    RGMII_eth_phy_rx_clk : in STD_LOGIC;
-    RGMII_eth_phy_rxd : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    RGMII_eth_phy_rx_ctl : in STD_LOGIC;
-    RGMII_eth_phy_tx_clk : out STD_LOGIC;
-    RGMII_eth_phy_txd : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    RGMII_eth_phy_tx_ctl : out STD_LOGIC;
-    RGMII_eth_phy_reset_n : out STD_LOGIC;
-    RGMII_eth_phy_int_n : in STD_LOGIC;
-    RGMII_eth_phy_pme_n : in STD_LOGIC
+    TMDS_OUT_data_n : out STD_LOGIC_VECTOR ( 2 downto 0 )
   );
   end component design_1;
 begin

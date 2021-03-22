@@ -1,11 +1,11 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Mon Mar  8 16:35:37 2021
--- Host        : CO2050-10 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_system_dma_0/design_1_system_dma_0_stub.vhdl
--- Design      : design_1_system_dma_0
+-- Date        : Sun Mar 21 22:27:09 2021
+-- Host        : CO2050-09 running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode synth_stub -rename_top design_1_system_dma_0 -prefix
+--               design_1_system_dma_0_ design_1_memory_dma_0_stub.vhdl
+-- Design      : design_1_memory_dma_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a200tsbg484-1
 -- --------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Mon Mar  8 16:37:55 2021
--- Host        : CO2050-10 running 64-bit major release  (build 9200)
+-- Date        : Sun Mar 21 22:32:08 2021
+-- Host        : CO2050-09 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
 --               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ design_1_v_tc_0_0_sim_netlist.vhdl
 -- Design      : design_1_v_tc_0_0
