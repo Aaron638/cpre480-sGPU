@@ -195,7 +195,7 @@ architecture behavioral of sgp_renderOutput is
             axi_arburst_o    : out std_logic_vector(1 downto 0);
             axi_rready_o     : out std_logic);
     end component dcache;
-    type STATE_TYPE is (WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE);
+    type STATE_TYPE is (WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE, CLEAR_CACHE);
     signal state : STATE_TYPE;
     -- User register values
     signal renderoutput_colorbuffer : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
@@ -240,6 +240,12 @@ architecture behavioral of sgp_renderOutput is
     signal r_color_reg     : std_logic_vector(7 downto 0);
     signal g_color_reg     : std_logic_vector(7 downto 0);
     signal b_color_reg     : std_logic_vector(7 downto 0);
+    
+    signal a_color_reg64 : std_logic_vector(63 downto 0);
+    signal r_color_reg64 : std_logic_vector(63 downto 0);
+    signal g_color_reg64 : std_logic_vector(63 downto 0);
+    signal b_color_reg64 : std_logic_vector(63 downto 0);
+
     
     signal t0              : vertexRecord_t;
     signal t1              : attributeRecord_t;
@@ -366,12 +372,23 @@ begin
     
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
-    renderoutput_debug <= x"00000006";
+    renderoutput_debug <= x"00000009";
+    
+    x_pos_fixed <= input_fragment_array(0)(0);
+    y_pos_fixed <= input_fragment_array(0)(1);
     
     a_color <= input_fragment_array(1)(0);
     r_color <= input_fragment_array(1)(1);
     b_color <= input_fragment_array(1)(2);
     g_color <= input_fragment_array(1)(3);
+    
+    -- Want the first 8 integer bits of the integer result
+    r_color_reg64 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
+    g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
+    b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
+    a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+    
+
 
     -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
     -- and generate an AXI Write request based on that data.
@@ -393,6 +410,10 @@ begin
                 r_color_reg     <= (others => '0');
                 b_color_reg     <= (others => '0');
                 g_color_reg     <= (others => '0');
+--                r_color_reg64   <= (others => '0');
+--                g_color_reg64   <= (others => '0');
+--                b_color_reg64   <= (others => '0');
+--                a_color_reg64   <= (others => '0');
 
             else
                 case state is
@@ -432,15 +453,10 @@ begin
                         -- Truncate color to a fixed_t
                         -- 32 bits * 32 bits => 64 bit result
                         -- Currently x_color is a 64 bit value.
-
-                        x_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.x;
-                        y_pos_fixed <= to_vertexRecord_t(input_fragment_array).att0.y;
-                        
-                        -- Want the first 8 integer bits of the integer result
-                        r_color_reg <= std_logic_vector(signed(r_color(23 downto 16)));
-                        g_color_reg <= std_logic_vector(signed(g_color(23 downto 16)));
-                        b_color_reg <= std_logic_vector(signed(b_color(23 downto 16)));
-                        a_color_reg <= std_logic_vector(signed(a_color(23 downto 16)));
+                        r_color_reg <= r_color_reg64(39 downto 32);
+                        g_color_reg <= g_color_reg64(39 downto 32);
+                        b_color_reg <= b_color_reg64(39 downto 32);
+                        a_color_reg <= a_color_reg64(39 downto 32);
 
                         -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
                         -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
@@ -450,8 +466,8 @@ begin
                         -- COLORBUFFER is a 1D array, so the conversion from vp coords to memory address is:
                         -- baseaddr + (1920 * 4 * yvp) + (4 * x)
 
-                        frag_address <= signed(renderoutput_colorbuffer) + (1920 * 4 * y_pos_short_reg) + (x_pos_short_reg * 4);
-                        frag_color   <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg);
+                        frag_address <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
+                        frag_color   <= std_logic_vector(a_color_reg & r_color_reg & b_color_reg & g_color_reg);
 
                         state <= WRITE_ADDRESS;
 
@@ -477,7 +493,7 @@ begin
                         if (mem_ack = '1') then
                             state <= WAIT_FOR_FRAGMENT;
                         end if;
-
+                        
                     when others =>
                         state <= WAIT_FOR_FRAGMENT;
                 end case;
