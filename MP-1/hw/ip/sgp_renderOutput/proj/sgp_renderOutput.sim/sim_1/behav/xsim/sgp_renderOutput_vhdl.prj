@@ -1,8 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../../../sgp_types.vhd" \
-"../../../../../src/sgp_renderOutput_axi_lite_regs.vhd" \
-"../../../../../src/sgp_renderOutput.vhd" \
-
-# Do not sort compile order
-nosort
