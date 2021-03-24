@@ -332,10 +332,18 @@ begin
 						end if;
 	
 						if (INTERLEAVELO) then
+                            v(rd)(31 downto 0)  <= v(ra)(31 downto 0);
+							v(rd)(63 downto 32) <= v(rb)(31 downto 0);
+							v(rd)(95 downto 64) <= v(ra)(63 downto 32);
+							v(rd)(127 downto 65) <= v(rb)(63 downto 32);
 							
 						end if;
 
 						if (INTERLEAVEHI) then
+                            v(rd)(31 downto 0)  <= v(ra)(95 downto 64);
+							v(rd)(63 downto 32) <= v(rb)(95 downto 64);
+							v(rd)(95 downto 64) <= v(ra)(127 downto 65);
+							v(rd)(127 downto 65) <= v(rb)(127 downto 65);
 							
 						end if;
 
