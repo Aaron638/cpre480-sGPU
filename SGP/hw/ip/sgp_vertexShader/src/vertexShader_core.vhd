@@ -108,6 +108,24 @@ architecture behavioral of vertexShader_core is
     constant AAND       : unsigned(7 downto 0) := "00011000";
     constant OOR        : unsigned(7 downto 0) := "00011001";
     constant XXOR       : unsigned(7 downto 0) := "00011010";
+	
+	constant SHR		: unsigned(7 downto 0) := "00011101";
+	constant SAR		: unsigned(7 downto 0) := "00011110";
+	constant FADD		: unsigned(7 downto 0) := "00100000";
+	constant FSUB		: unsigned(7 downto 0) := "00100001";
+	constant SHL		: unsigned(7 downto 0) := "00011100";
+	constant FMUL		: unsigned(7 downto 0) := "00100010";
+	constant FMAX		: unsigned(7 downto 0) := "00100110";
+	constant FDIV		: unsigned(7 downto 0) := "00100011";
+	constant FNEG		: unsigned(7 downto 0) := "00100100";
+	constant FSQRT		: unsigned(7 downto 0) := "00100101";
+	constant FPOW		: unsigned(7 downto 0) := "00101000";
+	
+	constant INTERLEAVELO		: unsigned(7 downto 0) := "00001100";
+	constant INTERLEAVEHI		: unsigned(7 downto 0) := "00001101";
+	constant INTERLEAVELOPAIRS	: unsigned(7 downto 0) := "00001110";
+	constant INTERLEAVEHIPAIRS	: unsigned(7 downto 0) := "00001111";
+	
 
     constant DONE       : unsigned(7 downto 0) := "11111111";
 
@@ -253,6 +271,67 @@ begin
 							v(rd) <= v(ra) ^ v(rb);
 							state <= FETCH;
 						end if;
+						
+						if (SHR) then
+							
+						end if;
+
+						if (SAR) then
+							
+						end if;
+
+						if (FADD) then
+							
+						end if;
+
+						if (FSUB) then
+							
+						end if;
+
+						if (SHL) then
+							
+						end if;
+
+						if (FMUL) then
+							
+						end if;
+
+						if (FMAX) then
+							
+						end if;
+
+						if (FDIV) then
+							
+						end if;
+
+						if (FNEG) then
+							
+						end if;
+
+						if (FSQRT) then
+							
+						end if;
+
+						if (FPOW) then
+							
+						end if;
+	
+						if (INTERLEAVELO) then
+							
+						end if;
+
+						if (INTERLEAVEHI) then
+							
+						end if;
+
+						if (INTERLEAVELOPAIRS) then
+							
+						end if;
+
+						if (INTERLEAVEHIPAIRS) then
+							
+						end if;
+
 
 						if (op = DONE) then	
 							state <= WAIT_TO_START;
