@@ -81,6 +81,7 @@ architecture behavioral of vertexShader_core is
     signal ww_int : integer;
     signal ra_int : integer range 0 to 255;
     signal rd_int : integer range 0 to 255;
+    signal rb_int : integer range 0 to 255;
 
     -- don't subscript aliases unless you know what you are doing!  I don't.
     alias a3 is a(127 downto 96); alias a2 is a( 95 downto 64); alias a1 is a( 63 downto 32); alias a0 is a( 31 downto  0);
@@ -153,6 +154,7 @@ begin
     zz_int <= to_integer(unsigned(zz));
     ww_int <= to_integer(unsigned(ww));
     ra_int <= to_integer(unsigned(ra));
+    rb_int <= to_integer(unsigned(rb));
     rd_int <= to_integer(unsigned(rd));
 
 
@@ -240,16 +242,20 @@ begin
 						end if;
 
 						if (op = INSERT0) then
-						
+                            v(rd_int) <= v(rb_int)(127 downto 96) & v(ra_int)(95 downto 64) &
+                                        v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
 						end if;
 						if (op = INSERT1) then
-						
+						    v(rd_int) <= v(ra_int)(127 downto 96) & v(rb_int)(95 downto 64) &
+                                        v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
 						end if;
 						if (op = INSERT2) then
-						
+                            v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
+                                        v(rb_int)(63 downto 32) & v(ra_int)(31 downto 0);
 						end if;
 						if (op = INSERT3) then
-						
+                            v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
+                                        v(ra_int)(63 downto 32) & v(rb_int)(31 downto 0);
 						end if;
 
 						if (op = ADD) then
