@@ -75,6 +75,13 @@ architecture behavioral of vertexShader_core is
     signal vY : unsigned(31 downto 0);
     signal vZ : unsigned(31 downto 0);
 
+    signal xx_int : integer;
+    signal yy_int : integer;
+    signal zz_int : integer;
+    signal ww_int : integer;
+    signal ra_int : integer range 0 to 255;
+    signal rd_int : integer range 0 to 255;
+
     -- don't subscript aliases unless you know what you are doing!  I don't.
     alias a3 is a(127 downto 96); alias a2 is a( 95 downto 64); alias a1 is a( 63 downto 32); alias a0 is a( 31 downto  0);
     alias b3 is b(127 downto 96); alias b2 is b( 95 downto 64); alias b1 is b( 63 downto 32); alias b0 is b( 31 downto  0);
@@ -122,6 +129,13 @@ begin
     imem_addr <= std_logic_vector(pc);
     dmem_addr <= std_logic_vector(c0);
     dmem_wdata <= std_logic_vector(b0); 
+
+    xx_int <= to_integer(unsigned(xx));
+    yy_int <= to_integer(unsigned(yy));
+    zz_int <= to_integer(unsigned(zz));
+    ww_int <= to_integer(unsigned(ww));
+    ra_int <= to_integer(unsigned(ra));
+    rd_int <= to_integer(unsigned(rd));
 
 
     -- Set output to input for passthrough mode. Remove this. 
@@ -174,8 +188,8 @@ begin
 							--Do Nothing
 						end if;
 						if (op = SWIZZLE) then
-                            v(rd) <= v(ra)(31 + 32 * to_integer(xx) downto 32 * to_integer(xx)) & v(ra)(31 + 32 * to_integer(yy) downto 32 * to_integer(yy)) &
-                                     v(ra)(31 + 32 * to_integer(zz) downto 32 * to_integer(zz)) & v(ra)(31 + 32 * to_integer(ww) downto 32 * to_integer(ww));
+                            v(rd_int) <= v(ra_int)(31 + 32 * xx_int downto 32 * xx_int) & v(ra_int)(31 + 32 * yy_int downto 32 * yy_int) &
+                                    v(ra_int)(31 + 32 * zz_int downto 32 * zz_int) & v(ra_int)(31 + 32 * ww_int downto 32 * ww_int);
 						end if;
 						if (op = LDILO) then
 							v(rd)(31 downto 0) <= x"0000" & ra & rb;
