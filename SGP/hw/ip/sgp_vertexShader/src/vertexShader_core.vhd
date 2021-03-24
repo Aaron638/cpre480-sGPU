@@ -71,10 +71,6 @@ architecture behavioral of vertexShader_core is
     signal yy : unsigned(1 downto 0);
     signal xx : unsigned(1 downto 0);
 
-    signal vX : unsigned(31 downto 0);
-    signal vY : unsigned(31 downto 0);
-    signal vZ : unsigned(31 downto 0);
-
     signal xx_int : integer;
     signal yy_int : integer;
     signal zz_int : integer;
@@ -141,10 +137,6 @@ begin
     yy <= rb(3 downto 2);
     xx <= rb(1 downto 0);
 
-    vX <= v(ra)(31 downto 0);
-    vY <= v(ra)(63 downto 32);
-    vZ <= v(ra)(95 downto 64);
-
     imem_addr <= std_logic_vector(pc);
     dmem_addr <= std_logic_vector(c0);
     dmem_wdata <= std_logic_vector(b0); 
@@ -192,7 +184,7 @@ begin
 					--read from the imem cache
 					when FETCH2 =>
 						if (imem_req_done = '1') then
-							ir <= imem_rdata;
+							ir <= unsigned(imem_rdata);
 							state <= DECODE;
 							pc <= pc + 4;
 						end if;
@@ -229,7 +221,7 @@ begin
 						
 						if (op = LD) then
 							state <= LD2;
-							dmem_addr <= v(ra)(31 downto 0) + rb;
+							dmem_addr <= v(ra_int)(31 downto 0) + rb;
 						end if;
 						if (op = ST) then
 							state <= ST2;
@@ -237,12 +229,12 @@ begin
 							--set data? or already in dataflow?
 						end if;
 						if (op = INFIFO) then
-                            v(rd_int)(31 downto 0) <= inputVertex(rb_int);
+                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4))
                             state <= FETCH;
 						end if;
 
 						if (op = OUTFIFO) then
-                            outputVertex(rd_int) <= v(rb_int)(31 downto 0);
+                            outputVertex(rd_int/4)(rb_int mod 4) <= signed(v(rb_int)(31 downto 0));
                             state <= FETCH;
 						end if;
 
@@ -332,18 +324,18 @@ begin
 						end if;
 	
 						if (op = INTERLEAVELO) then
-                            v(rd)(31 downto 0)  <= v(ra)(31 downto 0);
-							v(rd)(63 downto 32) <= v(rb)(31 downto 0);
-							v(rd)(95 downto 64) <= v(ra)(63 downto 32);
-							v(rd)(127 downto 65) <= v(rb)(63 downto 32);
+                            v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <= v(rb_int)(31 downto 0);
+							v(rd_int)(95 downto 64) <= v(ra_int)(63 downto 32);
+							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
 							
 						end if;
 
 						if (op = INTERLEAVEHI) then
-                            v(rd)(31 downto 0)  <= v(ra)(95 downto 64);
-							v(rd)(63 downto 32) <= v(rb)(95 downto 64);
-							v(rd)(95 downto 64) <= v(ra)(127 downto 65);
-							v(rd)(127 downto 65) <= v(rb)(127 downto 65);
+                            v(rd_int)(31 downto 0)  <= v(ra_int)(95 downto 64);
+							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
+							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 65);
+							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
 							
 						end if;
 
@@ -368,7 +360,7 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd_int) <= dmem_rdata;
+							v(rd_int) <= unsigned(dmem_rdata);
 							state <= FETCH;
 						end if;
 						
