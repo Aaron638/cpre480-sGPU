@@ -125,7 +125,7 @@ begin
 
 
     -- Set output to input for passthrough mode. Remove this. 
-    outputVertex <= inputVertex;
+    --outputVertex <= inputVertex;
 
     process(ACLK)
     begin
@@ -147,83 +147,122 @@ begin
                             state <= FETCH;
                         end if;
 
-                    -- Update to implement fetch / decode / execute logic
-                    -----------------------------------------------------
-
-                    -- Make read request to iMem cache
-                    when FETCH =>          
-                        while (imem_rdy = '0') loop  -- Wait for iMem to become ready
-                        end loop;              
-
-                        imem_rd_req <= '1'; -- Make request
-                        state <= FETCH2;
-
-                    -- Read from iMem cache
-                    when FETCH2 => 
-                        while (imem_req_done = '0') loop  -- Wait for request to complete
-                        end loop;
-
-                        ir <= imem_rdata;
-                        
-                        state <= DECODE;
-
-                    -- Convert the instruction to the needed signals (which does happen above)
-                    when DECODE =>
-                        -- I'm not sure what we actually have to do here, I think basically everything else could be done in the execute stage. 
-                        -- There is a chance that we could skip some steps, but that is probably not needed (since this is a single cycle) and could add
-                        -- complexity.
-                        state <= EXECUTE;
-
-                    when EXECUTE =>
-                        state <= LD2;
-                        -- TODO assign writeback signal
-                        -- TODO hook up each alu component
-
-                        if (op = SWIZZLE) then
+                    -- make read request to the imem cache
+                    when FETCH =>
+						if (imem_rdy = '1') then
+							vertexDone <= '1';
+							imem_rd_req <= '1';
+							state <= FETCH2;
+						end if;
+						
+					--read from the imem cache
+					when FETCH2 =>
+						if (imem_req_done = '1') then
+							ir <= imem_rdata;
+							state <= DECODE;
+							pc <= pc + 4;
+						end if;
+					
+					--decode the instruction in one clock cycle, this is done through dataflow logic, but it just needs a cycle to propagate
+					when DECODE =>
+						state <= EXECUTE;
+						--add in a,b,c from the ir so that the execute stage can use them
+					
+					
+					when EXECUTE =>
+						if (op = NOP) then
+							--Do Nothing
+						end if;
+						if (op = SWIZZLE) then
                             v(rd) <= v(ra)(31 + 32 * to_integer(xx) downto 32 * to_integer(xx)) & v(ra)(31 + 32 * to_integer(yy) downto 32 * to_integer(yy)) &
                                      v(ra)(31 + 32 * to_integer(zz) downto 32 * to_integer(zz)) & v(ra)(31 + 32 * to_integer(ww) downto 32 * to_integer(ww));
-                        end if;
+						end if;
+						if (op = LDILO) then
+							v(rd)(31 downto 0) <= x"0000" & ra & rb;
+							v(rd)(63 downto 32) <= x"0000" & ra & rb;
+							v(rd)(95 downto 64) <= x"0000" & ra & rb;
+							v(rd)(127 downto 65) <= x"0000" & ra & rb;
+							state <= FETCH;
+						end if;
+						if (op = LDIHI) then
+							v(rd)(31 downto 0) <= (ra & rb) sll 16;
+							v(rd)(63 downto 32) <= (ra & rb) sll 16;
+							v(rd)(95 downto 64) <= (ra & rb) sll 16;
+							v(rd)(127 downto 65) <= (ra & rb) sll 16;
+						end if;
+						
+						if (op = LD) then
+							state <= LD2;
+							dmem_addr <= v(ra)(31 downto 0) + rb;
+						end if;
+						if (op = ST) then
+							state <= ST2;
+							dmem_wr_req <= '1';
+							--set data? or already in dataflow?
+						end if;
+						if (op = INFIFO) then
+						
+						end if;
+						if (op = OUTFIFO) then
+						
+						end if;
 
-                    when LD2 =>
-                        -- If we are reading, then set the read request signal high
-                        -- Check if ready
-                        if (op = LD) then
-                            dmem_rd_req <= '1';
-                        end if;
-                        state <= LD3;
+						if (op = INSERT0) then
+						
+						end if;
+						if (op = INSERT1) then
+						
+						end if;
+						if (op = INSERT2) then
+						
+						end if;
+						if (op = INSERT3) then
+						
+						end if;
 
-                    when LD3 =>
-                        -- This stage became a hybrid of sorts. It handles loads and writeback.
-                        -- I chose to implement them together like this because the load could writeback immediately, so the load immediates could to.
-                        -- We might have to add a touch of logic to include the writeback from the other operations here.
-                        -- That might just be another if based on the writeback signal.
+						if (op = ADD) then
+							
+						end if;
+						if (op = SUB) then
+							
+						end if;
 
-                        if (op = LD) then
-                            -- If we are reading, wait for ready req done signal
-                            while (dmem_req_done = '0') loop  -- Wait for request to complete
-                            end loop;
+						if (op = AAND) then
+							v(rd) <= v(ra) && v(rb);
+							state <= FETCH;
+						end if;
+						if (op = OOR) then
+							v(rd) <= v(ra) || v(rb);
+							state <= FETCH;
+						end if;
+						if (op = XXOR) then
+							v(rd) <= v(ra) ^ v(rb);
+							state <= FETCH;
+						end if;
 
-                            v(rd) <= dmem_rdata;
-
-                        elsif (op = LDILO) then
-                            v(rd) <= ra & rb;
-
-                        elsif (op = LDIHI) then
-                            v(rd) <= (ra & rb) sll 16;
-                        end if;
-
-                        state <= ST2;
-                    
-                    when ST2 =>
-                        -- Okay, so there will only be one state for the write. Not sure why it is labeled ST2 (probably because of the constant ST), but that's how it rolls.
-                        if (op = ST) then
-                            dmem_wr_req <= '1';
-                        end if;
-
-                        while (dmem_req_done = '0') loop  -- Wait for write request to complete
-                        end loop;
-
-                        vertexDone <= '1';
+						if (op = DONE) then	
+							state <= WAIT_TO_START;
+						end if;
+						
+					--make read request to the dmem cache, this is for the ld in the ISA
+					when LD2 =>
+						dmem_rd_req <= '1';
+						state <= LD3;
+						
+					--read from dmem cache
+					when LD3 =>
+						if (dmem_req_done = '1') then
+							v(rd) <= dmem_rdata;
+							state <= FETCH;
+						end if;
+						
+					--make write to dmem cache, this is for the st in the ISA
+					when ST2 => 
+						if (dmem_wr_req = '1') then
+							--do something
+							state <= FETCH;
+						end if;
+						
                     when others =>
                         state <= WAIT_TO_START;
                 end case;
