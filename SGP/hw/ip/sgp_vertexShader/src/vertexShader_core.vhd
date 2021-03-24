@@ -275,75 +275,75 @@ begin
 						end if;
 
 						if (op = AAND) then
-							v(rd_int) <= v(ra_int) && v(rb_int);
+							v(rd_int) <= v(ra_int) and v(rb_int);
 							state <= FETCH;
 						end if;
 						if (op = OOR) then
-							v(rd_int) <= v(ra_int) || v(rb_int);
+							v(rd_int) <= v(ra_int) or v(rb_int);
 							state <= FETCH;
 						end if;
 						if (op = XXOR) then
-							v(rd_int) <= v(ra_int) ^ v(rb_int);
+							v(rd_int) <= v(ra_int) xor v(rb_int);
 							state <= FETCH;
 						end if;
 						
-						if (SHR) then
+						if (op = SHR) then
 							
 						end if;
 
-						if (SAR) then
+						if (op = SAR) then
 							
 						end if;
 
-						if (FADD) then
+						if (op = FADD) then
 							
 						end if;
 
-						if (FSUB) then
+						if (op = FSUB) then
 							
 						end if;
 
-						if (SHL) then
+						if (op = SHL) then
 							
 						end if;
 
-						if (FMUL) then
+						if (op = FMUL) then
 							
 						end if;
 
-						if (FMAX) then
+						if (op = FMAX) then
 							
 						end if;
 
-						if (FDIV) then
+						if (op = FDIV) then
 							
 						end if;
 
-						if (FNEG) then
+						if (op = FNEG) then
 							
 						end if;
 
-						if (FSQRT) then
+						if (op = FSQRT) then
 							
 						end if;
 
-						if (FPOW) then
+						if (op = FPOW) then
 							
 						end if;
 	
-						if (INTERLEAVELO) then
+						if (op = INTERLEAVELO) then
 							
 						end if;
 
-						if (INTERLEAVEHI) then
+						if (op = INTERLEAVEHI) then
 							
 						end if;
 
-						if (INTERLEAVELOPAIRS) then
+						if (op = INTERLEAVELOPAIRS) then
 							
 						end if;
 
-						if (INTERLEAVEHIPAIRS) then
+						if (op = INTERLEAVEHIPAIRS) then
 							
 						end if;
 
@@ -360,13 +360,13 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd) <= dmem_rdata;
+							v(rd_int) <= dmem_rdata;
 							state <= FETCH;
 						end if;
 						
 					--make write to dmem cache, this is for the st in the ISA
 					when ST2 => 
-						if (dmem_wr_req = '1') then
+						if (dmem_rdy = '1') then
 							--do something
 							state <= FETCH;
 						end if;
