@@ -71,6 +71,10 @@ architecture behavioral of vertexShader_core is
     signal yy : unsigned(1 downto 0);
     signal xx : unsigned(1 downto 0);
 
+    signal vX : unsigned(31 downto 0);
+    signal vY : unsigned(31 downto 0);
+    signal vZ : unsigned(31 downto 0);
+
     -- don't subscript aliases unless you know what you are doing!  I don't.
     alias a3 is a(127 downto 96); alias a2 is a( 95 downto 64); alias a1 is a( 63 downto 32); alias a0 is a( 31 downto  0);
     alias b3 is b(127 downto 96); alias b2 is b( 95 downto 64); alias b1 is b( 63 downto 32); alias b0 is b( 31 downto  0);
@@ -129,6 +133,10 @@ begin
     yy <= rb(3 downto 2);
     xx <= rb(1 downto 0);
 
+    vX <= v(ra)(31 downto 0);
+    vY <= v(ra)(63 downto 32);
+    vZ <= v(ra)(95 downto 64);
+
     imem_addr <= std_logic_vector(pc);
     dmem_addr <= std_logic_vector(c0);
     dmem_wdata <= std_logic_vector(b0); 
@@ -170,7 +178,7 @@ begin
 						if (imem_req_done = '1') then
 							ir <= imem_rdata;
 							state <= DECODE;
-							pc = pc + 4;
+							pc <= pc + 4;
 						end if;
 					
 					--decode the instruction in one clock cycle, this is done through dataflow logic, but it just needs a cycle to propagate
@@ -184,10 +192,8 @@ begin
 							--Do Nothing
 						end if;
 						if (op = SWIZZLE) then
-							v(rd)(31 downto 0) <= 
-							v(rd)(63 downto 32) <= 
-							v(rd)(95 downto 64) <= 
-							v(rd)(127 downto 65) <= 
+                            v(rd) <= v(ra)(31 + 32 * to_integer(xx) downto 32 * to_integer(xx)) & v(ra)(31 + 32 * to_integer(yy) downto 32 * to_integer(yy)) &
+                                     v(ra)(31 + 32 * to_integer(zz) downto 32 * to_integer(zz)) & v(ra)(31 + 32 * to_integer(ww) downto 32 * to_integer(ww));
 						end if;
 						if (op = LDILO) then
 							v(rd)(31 downto 0) <= x"0000" & ra & rb;
