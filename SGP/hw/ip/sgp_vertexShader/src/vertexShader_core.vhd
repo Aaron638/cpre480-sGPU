@@ -280,18 +280,19 @@ begin
 						end if;
 						
 						if (op = SHR) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) srl to_integer(v(rb_int)(31 downto 0));
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) srl to_integer(v(rb_int)(63 downto 32));
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) srl to_integer(v(rb_int)(95 downto 64));
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) srl to_integer(v(rb_int)(127 downto 65));
+							-- Shift by an integer amount
+							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   srl to_integer(v(rb_int)(31 downto 16));
+							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  srl to_integer(v(rb_int)(63 downto 48));
+							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  srl to_integer(v(rb_int)(95 downto 80));
+							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) srl to_integer(v(rb_int)(127 downto 112));
 							state <= FETCH;
 						end if;
 
 						if (op = SAR) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sra to_integer(v(rb_int)(31 downto 0));
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sra to_integer(v(rb_int)(63 downto 32));
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sra to_integer(v(rb_int)(95 downto 64));
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sra to_integer(v(rb_int)(127 downto 65));
+							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   sra to_integer(v(rb_int)(31 downto 16));
+							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  sra to_integer(v(rb_int)(63 downto 48));
+							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sra to_integer(v(rb_int)(95 downto 80));
+							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sra to_integer(v(rb_int)(127 downto 112));
 							state <= FETCH;
 						end if;
 
@@ -304,10 +305,10 @@ begin
 						end if;
 
 						if (op = SHL) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sll to_integer(v(rb_int)(31 downto 0));
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sll to_integer(v(rb_int)(63 downto 32));
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sll to_integer(v(rb_int)(95 downto 64));
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sll to_integer(v(rb_int)(127 downto 65));
+							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   sll to_integer(v(rb_int)(31 downto 16));
+							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  sll to_integer(v(rb_int)(63 downto 48));
+							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sll to_integer(v(rb_int)(95 downto 80));
+							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sll to_integer(v(rb_int)(127 downto 112));
 							state <= FETCH;
 						end if;
 
