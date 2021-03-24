@@ -229,7 +229,7 @@ begin
 							--set data? or already in dataflow?
 						end if;
 						if (op = INFIFO) then
-                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4))
+                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
                             state <= FETCH;
 						end if;
 
@@ -280,18 +280,18 @@ begin
 						end if;
 						
 						if (op = SHR) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) srl unsigned(v(rb_int)(31 downto 0));
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) srl unsigned(v(rb_int)(63 downto 32));
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) srl unsigned(v(rb_int)(95 downto 64));
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) srl unsigned(v(rb_int)(127 downto 65));
+							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) srl to_integer(v(rb_int)(31 downto 0));
+							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) srl to_integer(v(rb_int)(63 downto 32));
+							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) srl to_integer(v(rb_int)(95 downto 64));
+							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) srl to_integer(v(rb_int)(127 downto 65));
 							state <= FETCH;
 						end if;
 
 						if (op = SAR) then
-							v(rd_int)(31 downto 0) <= unsigned(v(ra_int)(31 downto 0) sra v(rb_int)(31 downto 0));
-							v(rd_int)(63 downto 32) <= unsigned(v(ra_int)(63 downto 32) sra v(rb_int)(63 downto 32));
-							v(rd_int)(95 downto 64) <= unsigned(v(ra_int)(95 downto 64) sra v(rb_int)(95 downto 64));
-							v(rd_int)(127 downto 65) <= unsigned(v(ra_int)(127 downto 65) sra v(rb_int)(127 downto 65));
+							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sra to_integer(v(rb_int)(31 downto 0));
+							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sra to_integer(v(rb_int)(63 downto 32));
+							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sra to_integer(v(rb_int)(95 downto 64));
+							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sra to_integer(v(rb_int)(127 downto 65));
 							state <= FETCH;
 						end if;
 
@@ -304,10 +304,10 @@ begin
 						end if;
 
 						if (op = SHL) then
-							v(rd_int)(31 downto 0) <= unsigned(v(ra_int)(31 downto 0) sll v(rb_int)(31 downto 0));
-							v(rd_int)(63 downto 32) <= unsigned(v(ra_int)(63 downto 32) sll v(rb_int)(63 downto 32));
-							v(rd_int)(95 downto 64) <= unsigned(v(ra_int)(95 downto 64) sll v(rb_int)(95 downto 64));
-							v(rd_int)(127 downto 65) <= unsigned(v(ra_int)(127 downto 65) sll v(rb_int)(127 downto 65));
+							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sll to_integer(v(rb_int)(31 downto 0));
+							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sll to_integer(v(rb_int)(63 downto 32));
+							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sll to_integer(v(rb_int)(95 downto 64));
+							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sll to_integer(v(rb_int)(127 downto 65));
 							state <= FETCH;
 						end if;
 
