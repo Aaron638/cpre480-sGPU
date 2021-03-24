@@ -340,11 +340,7 @@ begin
 							v(rd_int)(63 downto 32) <= v(rb_int)(31 downto 0);
 							v(rd_int)(95 downto 64) <= v(ra_int)(63 downto 32);
 							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
-<<<<<<< HEAD
-							
-=======
 							state <= FETCH;
->>>>>>> 533ad9fffd8fd0de746a7a87fa0e49783c867b4b
 						end if;
 
 						if (op = INTERLEAVEHI) then
@@ -352,11 +348,7 @@ begin
 							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
 							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 65);
 							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
-<<<<<<< HEAD
-							
-=======
 							state <= FETCH;
->>>>>>> 533ad9fffd8fd0de746a7a87fa0e49783c867b4b
 						end if;
 
 						if (op = INTERLEAVELOPAIRS) then
