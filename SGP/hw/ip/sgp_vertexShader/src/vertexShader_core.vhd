@@ -279,19 +279,19 @@ begin
 							state <= FETCH;
 						end if;
 						
-						if (SHR) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) srl v(rb_int)(31 downto 0);
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) srl v(rb_int)(63 downto 32);
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) srl v(rb_int)(95 downto 64);
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) srl v(rb_int)(127 downto 65);
+						if (op = SHR) then
+							v(rd_int)(31 downto 0) <= unsigned(v(ra_int)(31 downto 0) srl v(rb_int)(31 downto 0));
+							v(rd_int)(63 downto 32) <= unsigned(v(ra_int)(63 downto 32) srl v(rb_int)(63 downto 32));
+							v(rd_int)(95 downto 64) <= unsigned(v(ra_int)(95 downto 64) srl v(rb_int)(95 downto 64));
+							v(rd_int)(127 downto 65) <= unsigned(v(ra_int)(127 downto 65) srl v(rb_int)(127 downto 65));
 							state <= FETCH;
 						end if;
 
-						if (SAR) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sra v(rb_int)(31 downto 0);
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sra v(rb_int)(63 downto 32);
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sra v(rb_int)(95 downto 64);
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sra v(rb_int)(127 downto 65);
+						if (op = SAR) then
+							v(rd_int)(31 downto 0) <= unsigned(v(ra_int)(31 downto 0) sra v(rb_int)(31 downto 0));
+							v(rd_int)(63 downto 32) <= unsigned(v(ra_int)(63 downto 32) sra v(rb_int)(63 downto 32));
+							v(rd_int)(95 downto 64) <= unsigned(v(ra_int)(95 downto 64) sra v(rb_int)(95 downto 64));
+							v(rd_int)(127 downto 65) <= unsigned(v(ra_int)(127 downto 65) sra v(rb_int)(127 downto 65));
 							state <= FETCH;
 						end if;
 
@@ -303,11 +303,11 @@ begin
 							
 						end if;
 
-						if (SHL) then
-							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sll v(rb_int)(31 downto 0);
-							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sll v(rb_int)(63 downto 32);
-							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sll v(rb_int)(95 downto 64);
-							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sll v(rb_int)(127 downto 65);
+						if (op = SHL) then
+							v(rd_int)(31 downto 0) <= unsigned(v(ra_int)(31 downto 0) sll v(rb_int)(31 downto 0));
+							v(rd_int)(63 downto 32) <= unsigned(v(ra_int)(63 downto 32) sll v(rb_int)(63 downto 32));
+							v(rd_int)(95 downto 64) <= unsigned(v(ra_int)(95 downto 64) sll v(rb_int)(95 downto 64));
+							v(rd_int)(127 downto 65) <= unsigned(v(ra_int)(127 downto 65) sll v(rb_int)(127 downto 65));
 							state <= FETCH;
 						end if;
 
