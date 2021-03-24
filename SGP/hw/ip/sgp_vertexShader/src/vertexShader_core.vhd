@@ -213,17 +213,17 @@ begin
                             state <= FETCH;
 						end if;
 						if (op = LDILO) then
-							v(rd)(31 downto 0) <= x"0000" & ra & rb;
-							v(rd)(63 downto 32) <= x"0000" & ra & rb;
-							v(rd)(95 downto 64) <= x"0000" & ra & rb;
-							v(rd)(127 downto 65) <= x"0000" & ra & rb;
+							v(rd_int)(31 downto 0) <= x"0000" & ra & rb;
+							v(rd_int)(63 downto 32) <= x"0000" & ra & rb;
+							v(rd_int)(95 downto 64) <= x"0000" & ra & rb;
+							v(rd_int)(127 downto 65) <= x"0000" & ra & rb;
 							state <= FETCH;
 						end if;
 						if (op = LDIHI) then
-							v(rd)(31 downto 0) <= (ra & rb) sll 16;
-							v(rd)(63 downto 32) <= (ra & rb) sll 16;
-							v(rd)(95 downto 64) <= (ra & rb) sll 16;
-							v(rd)(127 downto 65) <= (ra & rb) sll 16;
+							v(rd_int)(31 downto 0) <= (ra & rb) sll 16;
+							v(rd_int)(63 downto 32) <= (ra & rb) sll 16;
+							v(rd_int)(95 downto 64) <= (ra & rb) sll 16;
+							v(rd_int)(127 downto 65) <= (ra & rb) sll 16;
                             state <= FETCH;
 						end if;
 						
@@ -275,15 +275,15 @@ begin
 						end if;
 
 						if (op = AAND) then
-							v(rd) <= v(ra) && v(rb);
+							v(rd_int) <= v(ra_int) && v(rb_int);
 							state <= FETCH;
 						end if;
 						if (op = OOR) then
-							v(rd) <= v(ra) || v(rb);
+							v(rd_int) <= v(ra_int) || v(rb_int);
 							state <= FETCH;
 						end if;
 						if (op = XXOR) then
-							v(rd) <= v(ra) ^ v(rb);
+							v(rd_int) <= v(ra_int) ^ v(rb_int);
 							state <= FETCH;
 						end if;
 						
