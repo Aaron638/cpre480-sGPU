@@ -71,6 +71,10 @@ architecture behavioral of vertexShader_core is
     signal yy : unsigned(1 downto 0);
     signal xx : unsigned(1 downto 0);
 
+    signal vX : unsigned(31 downto 0);
+    signal vY : unsigned(31 downto 0);
+    signal vZ : unsigned(31 downto 0);
+
     -- don't subscript aliases unless you know what you are doing!  I don't.
     alias a3 is a(127 downto 96); alias a2 is a( 95 downto 64); alias a1 is a( 63 downto 32); alias a0 is a( 31 downto  0);
     alias b3 is b(127 downto 96); alias b2 is b( 95 downto 64); alias b1 is b( 63 downto 32); alias b0 is b( 31 downto  0);
@@ -110,6 +114,10 @@ begin
     zz <= rb(5 downto 4);
     yy <= rb(3 downto 2);
     xx <= rb(1 downto 0);
+
+    vX <= v(ra)(31 downto 0);
+    vY <= v(ra)(63 downto 32);
+    vZ <= v(ra)(95 downto 64);
 
     imem_addr <= std_logic_vector(pc);
     dmem_addr <= std_logic_vector(c0);
@@ -171,9 +179,15 @@ begin
                         -- TODO assign writeback signal
                         -- TODO hook up each alu component
 
+                        if (op = SWIZZLE) then
+                            v(rd) <= v(ra)(31 + 32 * to_integer(xx) downto 32 * to_integer(xx)) & v(ra)(31 + 32 * to_integer(yy) downto 32 * to_integer(yy)) &
+                                     v(ra)(31 + 32 * to_integer(zz) downto 32 * to_integer(zz)) & v(ra)(31 + 32 * to_integer(ww) downto 32 * to_integer(ww));
+                        end if;
+
                     when LD2 =>
                         -- If we are reading, then set the read request signal high
-                        if (op = LD) or (op = ldilo) or (op = ldihi) then
+                        -- Check if ready
+                        if (op = LD) then
                             dmem_rd_req <= '1';
                         end if;
                         state <= LD3;
@@ -189,13 +203,13 @@ begin
                             while (dmem_req_done = '0') loop  -- Wait for request to complete
                             end loop;
 
-                            v[rd] <= dmem_rdata;
+                            v(rd) <= dmem_rdata;
 
                         elsif (op = LDILO) then
-                            v[rd] <= ra & rb;
+                            v(rd) <= ra & rb;
 
                         elsif (op = LDIHI) then
-                            v[rd] <= (ra & rb) sll 16;
+                            v(rd) <= (ra & rb) sll 16;
                         end if;
 
                         state <= ST2;
