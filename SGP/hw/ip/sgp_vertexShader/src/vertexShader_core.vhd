@@ -140,9 +140,76 @@ begin
                         end if;
 
                     -- Update to implement fetch / decode / execute logic
-                    when FETCH =>
+                    -----------------------------------------------------
+
+                    -- Make read request to iMem cache
+                    when FETCH =>          
+                        while (imem_rdy = '0') loop  -- Wait for iMem to become ready
+                        end loop;              
+
+                        imem_rd_req <= '1'; -- Make request
+                        state <= FETCH2;
+
+                    -- Read from iMem cache
+                    when FETCH2 => 
+                        while (imem_req_done = '0') loop  -- Wait for request to complete
+                        end loop;
+
+                        ir <= imem_rdata;
+                        
+                        state <= DECODE;
+
+                    -- Convert the instruction to the needed signals (which does happen above)
+                    when DECODE =>
+                        -- I'm not sure what we actually have to do here, I think basically everything else could be done in the execute stage. 
+                        -- There is a chance that we could skip some steps, but that is probably not needed (since this is a single cycle) and could add
+                        -- complexity.
+                        state <= EXECUTE;
+
+                    when EXECUTE =>
+                        state <= LD2;
+                        -- TODO assign writeback signal
+                        -- TODO hook up each alu component
+
+                    when LD2 =>
+                        -- If we are reading, then set the read request signal high
+                        if (op = LD) or (op = ldilo) or (op = ldihi) then
+                            dmem_rd_req <= '1';
+                        end if;
+                        state <= LD3;
+
+                    when LD3 =>
+                        -- This stage became a hybrid of sorts. It handles loads and writeback.
+                        -- I chose to implement them together like this because the load could writeback immediately, so the load immediates could to.
+                        -- We might have to add a touch of logic to include the writeback from the other operations here.
+                        -- That might just be another if based on the writeback signal.
+
+                        if (op = LD) then
+                            -- If we are reading, wait for ready req done signal
+                            while (dmem_req_done = '0') loop  -- Wait for request to complete
+                            end loop;
+
+                            v[rd] <= dmem_rdata;
+
+                        elsif (op = LDILO) then
+                            v[rd] <= ra & rb;
+
+                        elsif (op = LDIHI) then
+                            v[rd] <= (ra & rb) sll 16;
+                        end if;
+
+                        state <= ST2;
+                    
+                    when ST2 =>
+                        -- Okay, so there will only be one state for the write. Not sure why it is labeled ST2 (probably because of the constant ST), but that's how it rolls.
+                        if (op = ST) then
+                            dmem_wr_req <= '1';
+                        end if;
+
+                        while (dmem_req_done = '0') loop  -- Wait for write request to complete
+                        end loop;
+
                         vertexDone <= '1';
-                        state <= WAIT_TO_START;
                     when others =>
                         state <= WAIT_TO_START;
                 end case;
