@@ -257,6 +257,67 @@ begin
 							v(rd) <= v(ra) ^ v(rb);
 							state <= FETCH;
 						end if;
+						
+						if (SHR) then
+							
+						end if;
+
+						if (SAR) then
+							
+						end if;
+
+						if (FADD) then
+							
+						end if;
+
+						if (FSUB) then
+							
+						end if;
+
+						if (SHL) then
+							
+						end if;
+
+						if (FMUL) then
+							
+						end if;
+
+						if (FMAX) then
+							
+						end if;
+
+						if (FDIV) then
+							
+						end if;
+
+						if (FNEG) then
+							
+						end if;
+
+						if (FSQRT) then
+							
+						end if;
+
+						if (FPOW) then
+							
+						end if;
+	
+						if (INTERLEAVELO) then
+							
+						end if;
+
+						if (INTERLEAVEHI) then
+							
+						end if;
+
+						if (INTERLEAVELOPAIRS) then
+							
+						end if;
+
+						if (INTERLEAVEHIPAIRS) then
+							
+						end if;
+
 
 						if (op = DONE) then	
 							state <= WAIT_TO_START;
