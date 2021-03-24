@@ -210,6 +210,7 @@ begin
 						if (op = SWIZZLE) then
                             v(rd_int) <= v(ra_int)(31 + 32 * xx_int downto 32 * xx_int) & v(ra_int)(31 + 32 * yy_int downto 32 * yy_int) &
                                     v(ra_int)(31 + 32 * zz_int downto 32 * zz_int) & v(ra_int)(31 + 32 * ww_int downto 32 * ww_int);
+                            state <= FETCH;
 						end if;
 						if (op = LDILO) then
 							v(rd)(31 downto 0) <= x"0000" & ra & rb;
@@ -223,6 +224,7 @@ begin
 							v(rd)(63 downto 32) <= (ra & rb) sll 16;
 							v(rd)(95 downto 64) <= (ra & rb) sll 16;
 							v(rd)(127 downto 65) <= (ra & rb) sll 16;
+                            state <= FETCH;
 						end if;
 						
 						if (op = LD) then
@@ -235,27 +237,34 @@ begin
 							--set data? or already in dataflow?
 						end if;
 						if (op = INFIFO) then
-						
+                            v(rd_int)(31 downto 0) <= inputVertex(rb_int);
+                            state <= FETCH;
 						end if;
+
 						if (op = OUTFIFO) then
-						
+                            outputVertex(rd_int) <= v(rb_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 
 						if (op = INSERT0) then
                             v(rd_int) <= v(rb_int)(127 downto 96) & v(ra_int)(95 downto 64) &
                                         v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 						if (op = INSERT1) then
 						    v(rd_int) <= v(ra_int)(127 downto 96) & v(rb_int)(95 downto 64) &
                                         v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 						if (op = INSERT2) then
                             v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
                                         v(rb_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;            
 						end if;
 						if (op = INSERT3) then
                             v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
                                         v(ra_int)(63 downto 32) & v(rb_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 
 						if (op = ADD) then
