@@ -279,12 +279,20 @@ begin
 							state <= FETCH;
 						end if;
 						
-						if (op = SHR) then
-							
+						if (SHR) then
+							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) srl v(rb_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) srl v(rb_int)(63 downto 32);
+							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) srl v(rb_int)(95 downto 64);
+							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) srl v(rb_int)(127 downto 65);
+							state <= FETCH;
 						end if;
 
-						if (op = SAR) then
-							
+						if (SAR) then
+							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sra v(rb_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sra v(rb_int)(63 downto 32);
+							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sra v(rb_int)(95 downto 64);
+							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sra v(rb_int)(127 downto 65);
+							state <= FETCH;
 						end if;
 
 						if (op = FADD) then
@@ -295,8 +303,12 @@ begin
 							
 						end if;
 
-						if (op = SHL) then
-							
+						if (SHL) then
+							v(rd_int)(31 downto 0) <= v(ra_int)(31 downto 0) sll v(rb_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <= v(ra_int)(63 downto 32) sll v(rb_int)(63 downto 32);
+							v(rd_int)(95 downto 64) <= v(ra_int)(95 downto 64) sll v(rb_int)(95 downto 64);
+							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sll v(rb_int)(127 downto 65);
+							state <= FETCH;
 						end if;
 
 						if (op = FMUL) then
@@ -328,7 +340,11 @@ begin
 							v(rd_int)(63 downto 32) <= v(rb_int)(31 downto 0);
 							v(rd_int)(95 downto 64) <= v(ra_int)(63 downto 32);
 							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
+<<<<<<< HEAD
 							
+=======
+							state <= FETCH;
+>>>>>>> 533ad9fffd8fd0de746a7a87fa0e49783c867b4b
 						end if;
 
 						if (op = INTERLEAVEHI) then
@@ -336,15 +352,27 @@ begin
 							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
 							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 65);
 							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
+<<<<<<< HEAD
 							
+=======
+							state <= FETCH;
+>>>>>>> 533ad9fffd8fd0de746a7a87fa0e49783c867b4b
 						end if;
 
 						if (op = INTERLEAVELOPAIRS) then
-							
+							v(rd_int)(31 downto 0)  <=  v(ra_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <=  v(ra_int)(63 downto 32);
+							v(rd_int)(95 downto 64) <=  v(rb_int)(31 downto 0);
+							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
+							state <= FETCH;
 						end if;
 
 						if (op = INTERLEAVEHIPAIRS) then
-							
+							v(rd_int)(31 downto 0)  <=  v(ra_int)(95 downto 64);
+							v(rd_int)(63 downto 32) <=  v(ra_int)(127 downto 65);
+							v(rd_int)(95 downto 64) <=  v(rb_int)(95 downto 64);
+							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
+							state <= FETCH;
 						end if;
 
 
