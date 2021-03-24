@@ -210,6 +210,7 @@ begin
 						if (op = SWIZZLE) then
                             v(rd_int) <= v(ra_int)(31 + 32 * xx_int downto 32 * xx_int) & v(ra_int)(31 + 32 * yy_int downto 32 * yy_int) &
                                     v(ra_int)(31 + 32 * zz_int downto 32 * zz_int) & v(ra_int)(31 + 32 * ww_int downto 32 * ww_int);
+                            state <= FETCH;
 						end if;
 						if (op = LDILO) then
 							v(rd_int)(31 downto 0) <= x"0000" & ra & rb;
@@ -223,6 +224,7 @@ begin
 							v(rd_int)(63 downto 32) <= (ra & rb) sll 16;
 							v(rd_int)(95 downto 64) <= (ra & rb) sll 16;
 							v(rd_int)(127 downto 65) <= (ra & rb) sll 16;
+                            state <= FETCH;
 						end if;
 						
 						if (op = LD) then
@@ -235,27 +237,34 @@ begin
 							--set data? or already in dataflow?
 						end if;
 						if (op = INFIFO) then
-						
+                            v(rd_int)(31 downto 0) <= inputVertex(rb_int);
+                            state <= FETCH;
 						end if;
+
 						if (op = OUTFIFO) then
-						
+                            outputVertex(rd_int) <= v(rb_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 
 						if (op = INSERT0) then
                             v(rd_int) <= v(rb_int)(127 downto 96) & v(ra_int)(95 downto 64) &
                                         v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 						if (op = INSERT1) then
 						    v(rd_int) <= v(ra_int)(127 downto 96) & v(rb_int)(95 downto 64) &
                                         v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 						if (op = INSERT2) then
                             v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
                                         v(rb_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;            
 						end if;
 						if (op = INSERT3) then
                             v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
                                         v(ra_int)(63 downto 32) & v(rb_int)(31 downto 0);
+                            state <= FETCH;
 						end if;
 
 						if (op = ADD) then
@@ -266,15 +275,15 @@ begin
 						end if;
 
 						if (op = AAND) then
-							v(rd_int) <= v(ra_int) && v(rb_int);
+							v(rd_int) <= v(ra_int) and v(rb_int);
 							state <= FETCH;
 						end if;
 						if (op = OOR) then
-							v(rd_int) <= v(ra_int) || v(rb_int);
+							v(rd_int) <= v(ra_int) or v(rb_int);
 							state <= FETCH;
 						end if;
 						if (op = XXOR) then
-							v(rd_int) <= v(ra_int) ^ v(rb_int);
+							v(rd_int) <= v(ra_int) xor v(rb_int);
 							state <= FETCH;
 						end if;
 						
@@ -292,11 +301,11 @@ begin
 							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sra v(rb_int)(127 downto 65);
 						end if;
 
-						if (FADD) then
+						if (op = FADD) then
 							
 						end if;
 
-						if (FSUB) then
+						if (op = FSUB) then
 							
 						end if;
 
@@ -307,43 +316,51 @@ begin
 							v(rd_int)(127 downto 65) <= v(ra_int)(127 downto 65) sll v(rb_int)(127 downto 65);
 						end if;
 
-						if (FMUL) then
+						if (op = FMUL) then
 							
 						end if;
 
-						if (FMAX) then
+						if (op = FMAX) then
 							
 						end if;
 
-						if (FDIV) then
+						if (op = FDIV) then
 							
 						end if;
 
-						if (FNEG) then
+						if (op = FNEG) then
 							
 						end if;
 
-						if (FSQRT) then
+						if (op = FSQRT) then
 							
 						end if;
 
-						if (FPOW) then
+						if (op = FPOW) then
 							
 						end if;
 	
-						if (INTERLEAVELO) then
+						if (op = INTERLEAVELO) then
+                            v(rd)(31 downto 0)  <= v(ra)(31 downto 0);
+							v(rd)(63 downto 32) <= v(rb)(31 downto 0);
+							v(rd)(95 downto 64) <= v(ra)(63 downto 32);
+							v(rd)(127 downto 65) <= v(rb)(63 downto 32);
 							
 						end if;
 
-						if (INTERLEAVEHI) then
+						if (op = INTERLEAVEHI) then
+                            v(rd)(31 downto 0)  <= v(ra)(95 downto 64);
+							v(rd)(63 downto 32) <= v(rb)(95 downto 64);
+							v(rd)(95 downto 64) <= v(ra)(127 downto 65);
+							v(rd)(127 downto 65) <= v(rb)(127 downto 65);
 							
 						end if;
 
-						if (INTERLEAVELOPAIRS) then
+						if (op = INTERLEAVELOPAIRS) then
 							
 						end if;
 
-						if (INTERLEAVEHIPAIRS) then
+						if (op = INTERLEAVEHIPAIRS) then
 							
 						end if;
 
@@ -360,13 +377,13 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd) <= dmem_rdata;
+							v(rd_int) <= dmem_rdata;
 							state <= FETCH;
 						end if;
 						
 					--make write to dmem cache, this is for the st in the ISA
 					when ST2 => 
-						if (dmem_wr_req = '1') then
+						if (dmem_rdy = '1') then
 							--do something
 							state <= FETCH;
 						end if;
