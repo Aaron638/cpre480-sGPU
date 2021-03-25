@@ -317,7 +317,31 @@ begin
 						end if;
 
 						if (op = FMAX) then
+							if(to_integer(v(ra_int)(31 downto 0)) > to_integer(v(rb_int)(31 downto 0))) then
+								v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0); 
+							else
+								v(rd_int)(31 downto 0)  <= v(rb_int)(31 downto 0);
+							end if;
+								
+							if(to_integer(v(ra_int)(63 downto 32)) > to_integer(v(rb_int)(63 downto 32))) then
+								v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32); 
+							else
+								v(rd_int)(63 downto 32)  <= v(rb_int)(63 downto 32);
+							end if;
 							
+							if(to_integer(v(ra_int)(95 downto 64)) > to_integer(v(rb_int)(95 downto 64))) then
+								v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64); 
+							else
+								v(rd_int)(95 downto 64)  <= v(rb_int)(95 downto 64);
+							end if;
+							
+							if(to_integer(v(ra_int)(127 downto 96)) > to_integer(v(rb_int)(127 downto 96))) then
+								v(rd_int)(127 downto 96)  <= v(ra_int)(127 downto 96);
+							else
+								v(rd_int)(127 downto 96)  <= v(rb_int)(127 downto 96);
+							end if;
+							
+							state <= FETCH;
 						end if;
 
 						if (op = FDIV) then
