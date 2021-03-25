@@ -198,6 +198,7 @@ begin
 					when EXECUTE =>
 						if (op = NOP) then
 							--Do Nothing
+							state <= FETCH;
 						end if;
 						if (op = SWIZZLE) then
                             v(rd_int) <= v(ra_int)(31 + 32 * xx_int downto 32 * xx_int) & v(ra_int)(31 + 32 * yy_int downto 32 * yy_int) &
@@ -259,10 +260,10 @@ begin
                             state <= FETCH;
 						end if;
 
-						if (op = ADD) then
+						if (op = ADD or op = FADD) then
 							
 						end if;
-						if (op = SUB) then
+						if (op = SUB or op = FSUB) then
 							
 						end if;
 
@@ -294,14 +295,6 @@ begin
 							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sra to_integer(v(rb_int)(95 downto 80));
 							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sra to_integer(v(rb_int)(127 downto 112));
 							state <= FETCH;
-						end if;
-
-						if (op = FADD) then
-							
-						end if;
-
-						if (op = FSUB) then
-							
 						end if;
 
 						if (op = SHL) then
