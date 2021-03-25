@@ -192,7 +192,9 @@ begin
 					--decode the instruction in one clock cycle, this is done through dataflow logic, but it just needs a cycle to propagate
 					when DECODE =>
 						state <= EXECUTE;
-						--add in a,b,c from the ir so that the execute stage can use them
+						a <= unsigned(v(ra_int));
+						b <= unsigned(v(rb_int));
+						--add in a,b,c from the ir so that the execute stage can use them for the add and sub operations
 					
 					
 					when EXECUTE =>
@@ -261,10 +263,19 @@ begin
 						end if;
 
 						if (op = ADD or op = FADD) then
-							
+							v(rd_int)(31 downto 0)   <= std_logic_vector(a0 + b0);
+							v(rd_int)(63 downto 32)  <= std_logic_vector(a1 + b1);
+							v(rd_int)(95 downto 64)  <= std_logic_vector(a2 + a2);
+							v(rd_int)(127 downto 96) <= std_logic_vector(a3 + a3);
+							state <= FETCH;
 						end if;
+						
 						if (op = SUB or op = FSUB) then
-							
+							v(rd_int)(31 downto 0)   <= std_logic_vector(a0 - b0);
+							v(rd_int)(63 downto 32)  <= std_logic_vector(a1 - b1);
+							v(rd_int)(95 downto 64)  <= std_logic_vector(a2 - a2);
+							v(rd_int)(127 downto 96) <= std_logic_vector(a3 - a3);
+							state <= FETCH;
 						end if;
 
 						if (op = AAND) then
