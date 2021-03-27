@@ -211,14 +211,14 @@ begin
 							v(rd_int)(31 downto 0) <= x"0000" & ra & rb;
 							v(rd_int)(63 downto 32) <= x"0000" & ra & rb;
 							v(rd_int)(95 downto 64) <= x"0000" & ra & rb;
-							v(rd_int)(127 downto 65) <= x"0000" & ra & rb;
+							v(rd_int)(127 downto 96) <= x"0000" & ra & rb;
 							state <= FETCH;
 						end if;
 						if (op = LDIHI) then
 							v(rd_int)(31 downto 0) <= (ra & rb) sll 16;
 							v(rd_int)(63 downto 32) <= (ra & rb) sll 16;
 							v(rd_int)(95 downto 64) <= (ra & rb) sll 16;
-							v(rd_int)(127 downto 65) <= (ra & rb) sll 16;
+							v(rd_int)(127 downto 96) <= (ra & rb) sll 16;
                             state <= FETCH;
 						end if;
 						
@@ -372,15 +372,15 @@ begin
                             v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0);
 							v(rd_int)(63 downto 32) <= v(rb_int)(31 downto 0);
 							v(rd_int)(95 downto 64) <= v(ra_int)(63 downto 32);
-							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
+							v(rd_int)(127 downto 96) <= v(rb_int)(63 downto 32);
 							state <= FETCH;
 						end if;
 
 						if (op = INTERLEAVEHI) then
                             v(rd_int)(31 downto 0)  <= v(ra_int)(95 downto 64);
 							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
-							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 65);
-							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
+							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 96);
+							v(rd_int)(127 downto 96) <= v(rb_int)(127 downto 96);
 							state <= FETCH;
 						end if;
 
@@ -388,15 +388,15 @@ begin
 							v(rd_int)(31 downto 0)  <=  v(ra_int)(31 downto 0);
 							v(rd_int)(63 downto 32) <=  v(ra_int)(63 downto 32);
 							v(rd_int)(95 downto 64) <=  v(rb_int)(31 downto 0);
-							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
+							v(rd_int)(127 downto 96) <= v(rb_int)(63 downto 32);
 							state <= FETCH;
 						end if;
 
 						if (op = INTERLEAVEHIPAIRS) then
 							v(rd_int)(31 downto 0)  <=  v(ra_int)(95 downto 64);
-							v(rd_int)(63 downto 32) <=  v(ra_int)(127 downto 65);
+							v(rd_int)(63 downto 32) <=  v(ra_int)(127 downto 96);
 							v(rd_int)(95 downto 64) <=  v(rb_int)(95 downto 64);
-							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
+							v(rd_int)(127 downto 96) <= v(rb_int)(127 downto 96);
 							state <= FETCH;
 						end if;
 
