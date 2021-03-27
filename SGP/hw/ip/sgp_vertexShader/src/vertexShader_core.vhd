@@ -71,6 +71,14 @@ architecture behavioral of vertexShader_core is
     signal yy : unsigned(1 downto 0);
     signal xx : unsigned(1 downto 0);
 
+    signal xx_int : integer;
+    signal yy_int : integer;
+    signal zz_int : integer;
+    signal ww_int : integer;
+    signal ra_int : integer range 0 to 255;
+    signal rd_int : integer range 0 to 255;
+    signal rb_int : integer range 0 to 255;
+
     -- don't subscript aliases unless you know what you are doing!  I don't.
     alias a3 is a(127 downto 96); alias a2 is a( 95 downto 64); alias a1 is a( 63 downto 32); alias a0 is a( 31 downto  0);
     alias b3 is b(127 downto 96); alias b2 is b( 95 downto 64); alias b1 is b( 63 downto 32); alias b0 is b( 31 downto  0);
@@ -97,6 +105,24 @@ architecture behavioral of vertexShader_core is
     constant AAND       : unsigned(7 downto 0) := "00011000";
     constant OOR        : unsigned(7 downto 0) := "00011001";
     constant XXOR       : unsigned(7 downto 0) := "00011010";
+	
+	constant SHR		: unsigned(7 downto 0) := "00011101";
+	constant SAR		: unsigned(7 downto 0) := "00011110";
+	constant FADD		: unsigned(7 downto 0) := "00100000";
+	constant FSUB		: unsigned(7 downto 0) := "00100001";
+	constant SHL		: unsigned(7 downto 0) := "00011100";
+	constant FMUL		: unsigned(7 downto 0) := "00100010";
+	constant FMAX		: unsigned(7 downto 0) := "00100110";
+	constant FDIV		: unsigned(7 downto 0) := "00100011";
+	constant FNEG		: unsigned(7 downto 0) := "00100100";
+	constant FSQRT		: unsigned(7 downto 0) := "00100101";
+	constant FPOW		: unsigned(7 downto 0) := "00101000";
+	
+	constant INTERLEAVELO		: unsigned(7 downto 0) := "00001100";
+	constant INTERLEAVEHI		: unsigned(7 downto 0) := "00001101";
+	constant INTERLEAVELOPAIRS	: unsigned(7 downto 0) := "00001110";
+	constant INTERLEAVEHIPAIRS	: unsigned(7 downto 0) := "00001111";
+	
 
     constant DONE       : unsigned(7 downto 0) := "11111111";
 
@@ -115,9 +141,17 @@ begin
     dmem_addr <= std_logic_vector(c0);
     dmem_wdata <= std_logic_vector(b0); 
 
+    xx_int <= to_integer(unsigned(xx));
+    yy_int <= to_integer(unsigned(yy));
+    zz_int <= to_integer(unsigned(zz));
+    ww_int <= to_integer(unsigned(ww));
+    ra_int <= to_integer(unsigned(ra));
+    rb_int <= to_integer(unsigned(rb));
+    rd_int <= to_integer(unsigned(rd));
+
 
     -- Set output to input for passthrough mode. Remove this. 
-    outputVertex <= inputVertex;
+    --outputVertex <= inputVertex;
 
     process(ACLK)
     begin
@@ -139,10 +173,253 @@ begin
                             state <= FETCH;
                         end if;
 
-                    -- Update to implement fetch / decode / execute logic
+                    -- make read request to the imem cache
                     when FETCH =>
-                        vertexDone <= '1';
-                        state <= WAIT_TO_START;
+						if (imem_rdy = '1') then
+							vertexDone <= '1';
+							imem_rd_req <= '1';
+							state <= FETCH2;
+						end if;
+						
+					--read from the imem cache
+					when FETCH2 =>
+						if (imem_req_done = '1') then
+							ir <= unsigned(imem_rdata);
+							state <= DECODE;
+							pc <= pc + 4;
+						end if;
+					
+					--decode the instruction in one clock cycle, this is done through dataflow logic, but it just needs a cycle to propagate
+					when DECODE =>
+						state <= EXECUTE;
+						a <= unsigned(v(ra_int));
+						b <= unsigned(v(rb_int));
+						--add in a,b,c from the ir so that the execute stage can use them for the add and sub operations
+					
+					
+					when EXECUTE =>
+						if (op = NOP) then
+							--Do Nothing
+							state <= FETCH;
+						end if;
+						if (op = SWIZZLE) then
+                            v(rd_int) <= v(ra_int)(31 + 32 * xx_int downto 32 * xx_int) & v(ra_int)(31 + 32 * yy_int downto 32 * yy_int) &
+                                    v(ra_int)(31 + 32 * zz_int downto 32 * zz_int) & v(ra_int)(31 + 32 * ww_int downto 32 * ww_int);
+                            state <= FETCH;
+						end if;
+						if (op = LDILO) then
+							v(rd_int)(31 downto 0) <= x"0000" & ra & rb;
+							v(rd_int)(63 downto 32) <= x"0000" & ra & rb;
+							v(rd_int)(95 downto 64) <= x"0000" & ra & rb;
+							v(rd_int)(127 downto 65) <= x"0000" & ra & rb;
+							state <= FETCH;
+						end if;
+						if (op = LDIHI) then
+							v(rd_int)(31 downto 0) <= (ra & rb) sll 16;
+							v(rd_int)(63 downto 32) <= (ra & rb) sll 16;
+							v(rd_int)(95 downto 64) <= (ra & rb) sll 16;
+							v(rd_int)(127 downto 65) <= (ra & rb) sll 16;
+                            state <= FETCH;
+						end if;
+						
+						if (op = LD) then
+							state <= LD2;
+							dmem_addr <= v(ra_int)(31 downto 0) + rb;
+						end if;
+						if (op = ST) then
+							state <= ST2;
+							dmem_wr_req <= '1';
+							--set data? or already in dataflow?
+						end if;
+						if (op = INFIFO) then
+                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
+                            state <= FETCH;
+						end if;
+
+						if (op = OUTFIFO) then
+                            outputVertex(rd_int/4)(rb_int mod 4) <= signed(v(rb_int)(31 downto 0));
+                            state <= FETCH;
+						end if;
+
+						if (op = INSERT0) then
+                            v(rd_int) <= v(rb_int)(127 downto 96) & v(ra_int)(95 downto 64) &
+                                        v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;
+						end if;
+						if (op = INSERT1) then
+						    v(rd_int) <= v(ra_int)(127 downto 96) & v(rb_int)(95 downto 64) &
+                                        v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;
+						end if;
+						if (op = INSERT2) then
+                            v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
+                                        v(rb_int)(63 downto 32) & v(ra_int)(31 downto 0);
+                            state <= FETCH;            
+						end if;
+						if (op = INSERT3) then
+                            v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
+                                        v(ra_int)(63 downto 32) & v(rb_int)(31 downto 0);
+                            state <= FETCH;
+						end if;
+
+						if (op = ADD or op = FADD) then
+							v(rd_int)(31 downto 0)   <= std_logic_vector(a0 + b0);
+							v(rd_int)(63 downto 32)  <= std_logic_vector(a1 + b1);
+							v(rd_int)(95 downto 64)  <= std_logic_vector(a2 + a2);
+							v(rd_int)(127 downto 96) <= std_logic_vector(a3 + a3);
+							state <= FETCH;
+						end if;
+						
+						if (op = SUB or op = FSUB) then
+							v(rd_int)(31 downto 0)   <= std_logic_vector(a0 - b0);
+							v(rd_int)(63 downto 32)  <= std_logic_vector(a1 - b1);
+							v(rd_int)(95 downto 64)  <= std_logic_vector(a2 - a2);
+							v(rd_int)(127 downto 96) <= std_logic_vector(a3 - a3);
+							state <= FETCH;
+						end if;
+
+						if (op = AAND) then
+							v(rd_int) <= v(ra_int) and v(rb_int);
+							state <= FETCH;
+						end if;
+						if (op = OOR) then
+							v(rd_int) <= v(ra_int) or v(rb_int);
+							state <= FETCH;
+						end if;
+						if (op = XXOR) then
+							v(rd_int) <= v(ra_int) xor v(rb_int);
+							state <= FETCH;
+						end if;
+						
+						if (op = SHR) then
+							-- Shift by an integer amount
+							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   srl to_integer(v(rb_int)(31 downto 16));
+							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  srl to_integer(v(rb_int)(63 downto 48));
+							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  srl to_integer(v(rb_int)(95 downto 80));
+							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) srl to_integer(v(rb_int)(127 downto 112));
+							state <= FETCH;
+						end if;
+
+						if (op = SAR) then
+							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   sra to_integer(v(rb_int)(31 downto 16));
+							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  sra to_integer(v(rb_int)(63 downto 48));
+							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sra to_integer(v(rb_int)(95 downto 80));
+							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sra to_integer(v(rb_int)(127 downto 112));
+							state <= FETCH;
+						end if;
+
+						if (op = SHL) then
+							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   sll to_integer(v(rb_int)(31 downto 16));
+							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  sll to_integer(v(rb_int)(63 downto 48));
+							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sll to_integer(v(rb_int)(95 downto 80));
+							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sll to_integer(v(rb_int)(127 downto 112));
+							state <= FETCH;
+						end if;
+
+						if (op = FMUL) then
+							
+						end if;
+
+						if (op = FMAX) then
+							if(to_integer(v(ra_int)(31 downto 0)) > to_integer(v(rb_int)(31 downto 0))) then
+								v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0); 
+							else
+								v(rd_int)(31 downto 0)  <= v(rb_int)(31 downto 0);
+							end if;
+								
+							if(to_integer(v(ra_int)(63 downto 32)) > to_integer(v(rb_int)(63 downto 32))) then
+								v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32); 
+							else
+								v(rd_int)(63 downto 32)  <= v(rb_int)(63 downto 32);
+							end if;
+							
+							if(to_integer(v(ra_int)(95 downto 64)) > to_integer(v(rb_int)(95 downto 64))) then
+								v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64); 
+							else
+								v(rd_int)(95 downto 64)  <= v(rb_int)(95 downto 64);
+							end if;
+							
+							if(to_integer(v(ra_int)(127 downto 96)) > to_integer(v(rb_int)(127 downto 96))) then
+								v(rd_int)(127 downto 96)  <= v(ra_int)(127 downto 96);
+							else
+								v(rd_int)(127 downto 96)  <= v(rb_int)(127 downto 96);
+							end if;
+							
+							state <= FETCH;
+						end if;
+
+						if (op = FDIV) then
+							
+						end if;
+
+						if (op = FNEG) then
+							
+						end if;
+
+						if (op = FSQRT) then
+							
+						end if;
+
+						if (op = FPOW) then
+							
+						end if;
+	
+						if (op = INTERLEAVELO) then
+                            v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <= v(rb_int)(31 downto 0);
+							v(rd_int)(95 downto 64) <= v(ra_int)(63 downto 32);
+							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
+							state <= FETCH;
+						end if;
+
+						if (op = INTERLEAVEHI) then
+                            v(rd_int)(31 downto 0)  <= v(ra_int)(95 downto 64);
+							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
+							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 65);
+							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
+							state <= FETCH;
+						end if;
+
+						if (op = INTERLEAVELOPAIRS) then
+							v(rd_int)(31 downto 0)  <=  v(ra_int)(31 downto 0);
+							v(rd_int)(63 downto 32) <=  v(ra_int)(63 downto 32);
+							v(rd_int)(95 downto 64) <=  v(rb_int)(31 downto 0);
+							v(rd_int)(127 downto 65) <= v(rb_int)(63 downto 32);
+							state <= FETCH;
+						end if;
+
+						if (op = INTERLEAVEHIPAIRS) then
+							v(rd_int)(31 downto 0)  <=  v(ra_int)(95 downto 64);
+							v(rd_int)(63 downto 32) <=  v(ra_int)(127 downto 65);
+							v(rd_int)(95 downto 64) <=  v(rb_int)(95 downto 64);
+							v(rd_int)(127 downto 65) <= v(rb_int)(127 downto 65);
+							state <= FETCH;
+						end if;
+
+
+						if (op = DONE) then	
+							state <= WAIT_TO_START;
+						end if;
+						
+					--make read request to the dmem cache, this is for the ld in the ISA
+					when LD2 =>
+						dmem_rd_req <= '1';
+						state <= LD3;
+						
+					--read from dmem cache
+					when LD3 =>
+						if (dmem_req_done = '1') then
+							v(rd_int) <= unsigned(dmem_rdata);
+							state <= FETCH;
+						end if;
+						
+					--make write to dmem cache, this is for the st in the ISA
+					when ST2 => 
+						if (dmem_rdy = '1') then
+							--do something
+							state <= FETCH;
+						end if;
+						
                     when others =>
                         state <= WAIT_TO_START;
                 end case;
