@@ -224,7 +224,7 @@ begin
 						
 						if (op = LD) then
 							state <= LD2;
-							dmem_addr <= v(ra_int)(31 downto 0) + rb;
+							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rb));
 						end if;
 						if (op = ST) then
 							state <= ST2;
@@ -263,18 +263,18 @@ begin
 						end if;
 
 						if (op = ADD or op = FADD) then
-							v(rd_int)(31 downto 0)   <= std_logic_vector(a0 + b0);
-							v(rd_int)(63 downto 32)  <= std_logic_vector(a1 + b1);
-							v(rd_int)(95 downto 64)  <= std_logic_vector(a2 + a2);
-							v(rd_int)(127 downto 96) <= std_logic_vector(a3 + a3);
+							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
+							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + a2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 + a3));
 							state <= FETCH;
 						end if;
 						
 						if (op = SUB or op = FSUB) then
-							v(rd_int)(31 downto 0)   <= std_logic_vector(a0 - b0);
-							v(rd_int)(63 downto 32)  <= std_logic_vector(a1 - b1);
-							v(rd_int)(95 downto 64)  <= std_logic_vector(a2 - a2);
-							v(rd_int)(127 downto 96) <= std_logic_vector(a3 - a3);
+							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
+							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - a2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - a3));
 							state <= FETCH;
 						end if;
 
@@ -293,26 +293,30 @@ begin
 						
 						if (op = SHR) then
 							-- Shift by an integer amount
-							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   srl to_integer(v(rb_int)(31 downto 16));
-							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  srl to_integer(v(rb_int)(63 downto 48));
-							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  srl to_integer(v(rb_int)(95 downto 80));
-							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) srl to_integer(v(rb_int)(127 downto 112));
+							-- https://www.nandland.com/vhdl/examples/example-shifts.html
+							--shift_right() with a unsigned argument has a unsigned result
+							v(rd_int)(31 downto 0)   <= shift_right(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));
+							v(rd_int)(63 downto 32)  <= shift_right(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)));
+							v(rd_int)(95 downto 64)  <= shift_right(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)));
+							v(rd_int)(127 downto 96) <= shift_right(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112)));
 							state <= FETCH;
 						end if;
-
+						  -- shift_right(signed(), amount) to keep sign
+						  -- shift_right() with a signed argument has a signed result
+						  -- Cast back into an unsigned https://github.com/ghdl/ghdl/blob/a05d3cb7bd8eb037c3057c2ef8d066df1489ce2d/libraries/ieee2008/numeric_std.vhdl#L958
 						if (op = SAR) then
-							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   sra to_integer(v(rb_int)(31 downto 16));
-							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  sra to_integer(v(rb_int)(63 downto 48));
-							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sra to_integer(v(rb_int)(95 downto 80));
-							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sra to_integer(v(rb_int)(127 downto 112));
+							v(rd_int)(31 downto 0)   <= unsigned(shift_right(signed( v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16))));  
+							v(rd_int)(63 downto 32)  <= unsigned(shift_right(signed( v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48))));  
+							v(rd_int)(95 downto 64)  <= unsigned(shift_right(signed( v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80))));  
+							v(rd_int)(127 downto 96) <= unsigned(shift_right(signed( v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))));
 							state <= FETCH;
 						end if;
 
 						if (op = SHL) then
-							v(rd_int)(31 downto 0)   <= v(ra_int)(31 downto 0)   sll to_integer(v(rb_int)(31 downto 16));
-							v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32)  sll to_integer(v(rb_int)(63 downto 48));
-							v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64)  sll to_integer(v(rb_int)(95 downto 80));
-							v(rd_int)(127 downto 96) <= v(ra_int)(127 downto 96) sll to_integer(v(rb_int)(127 downto 112));
+							v(rd_int)(31 downto 0)   <= shift_left(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));   
+							v(rd_int)(63 downto 32)  <= shift_left(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)));   
+							v(rd_int)(95 downto 64)  <= shift_left(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)));   
+							v(rd_int)(127 downto 96) <= shift_left(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))); 
 							state <= FETCH;
 						end if;
 
