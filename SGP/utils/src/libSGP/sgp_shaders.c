@@ -535,7 +535,7 @@ void SGP_glUniform1f(GLint location, GLfloat v0) {
 
 // Update the uniform vec4 at location (in the shader). Note that this function does not take uniform cache into consideration
 // count = 1 if value is a single vec4, count > 1 if value is a vec4 array of size count.
-void glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
+void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 
 	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
 	if (sgp_uniform_loc == -1) {
@@ -648,7 +648,7 @@ Result always looks like
 	[00 04 08 12 01 05 09 13 02 06 10 14 03 07 11 15]
 	[00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15]
 */
-void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value) {
+void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value) {
 
 	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
 	if (sgp_uniform_loc == -1) {
