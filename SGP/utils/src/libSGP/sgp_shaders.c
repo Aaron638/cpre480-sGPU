@@ -558,21 +558,15 @@ void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 	// Valid  : count = 3; uniform vec4 triangle[3];
 	// Invalid: count = 4; uniform vec4 value;
 
-	int8_t is_array = 0;
-	if (count > 1) {
-		is_array = 1;
-	}
-
 	int32_t arr_size = sizeof(value)/sizeof(value[0]);
 
-	if (is_array && arr_size == 1) {
+	if (count > 1 && arr_size == 1) {
 		if (SGPconfig->driverMode & SGP_STDOUT) {
 			printf("SGP_glUniform4fv: called with count > 1 with a non array type\n");
 		}
 		return;
 	} 
 
-	char xyzw[4] = {'x', 'y', 'z', 'w'};
 	// For every vec4 in array of size count:
 	for (int32_t i = 0; i < count*4; i+=4)
 	{
@@ -580,39 +574,18 @@ void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 		for (int32_t j = 0; j < 4; j++)
 		{
 			uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].baseaddr;
+			sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i+j], 16);
 
-			// example[2][2] = example[2].z 
-			if (is_array)
-			{
-				sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i/4][j], 16);
-
-				if (SGPconfig->driverMode & SGP_DEEP) {
-					printf("SGP_glUniform4fv: updating uniform %s[%d].%c at address 0x%08x with value %f = 0x%08x\n", 
-					SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].name,
-					(i/4),
-					xyzw[j],
-					SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].baseaddr,
-					value[i/4][j],
-					value_fixed);
-				}
-
-				SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
-
-			// example[2] = example.z 
-			} else {
-				sglu_fixed_t value_fixed = sglu_float_to_fixed(value[j], 16);
-
-				if (SGPconfig->driverMode & SGP_DEEP) {
-					printf("SGP_glUniform4fv: updating uniform %s.%c at address 0x%08x with value %f = 0x%08x\n", 
-					SGP_shadersstate.uniforms[sgp_uniform_loc+j].name,
-					xyzw[j],
-					SGP_shadersstate.uniforms[sgp_uniform_loc+j].baseaddr,
-					value[j],
-					value_fixed);
-				}
-
-				SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
+			if (SGPconfig->driverMode & SGP_DEEP) {
+				printf("SGP_glUniform4fv: updating uniform %s[%d] at address 0x%08x with value %f = 0x%08x\n", 
+				SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].name,
+				(i+j),
+				SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].baseaddr,
+				value[i+j],
+				value_fixed);
 			}
+
+			SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
 
 		}
 		
@@ -625,8 +598,6 @@ void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 // count = 1 if value is a single vec4, count > 1 if value is a vec4 array of size count.
 // When transpose is true, "value" is in row major order
 // For every vec4 matrix in array of size count:
-
-// TODO: Refactor this to remove duplicate code
 
 /*
 transpose == GL_FALSE
@@ -644,8 +615,6 @@ then input is in row major order:
 	[12 13 14 15]
 
 Result always looks like
-
-	[00 04 08 12 01 05 09 13 02 06 10 14 03 07 11 15]
 	[00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15]
 */
 void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value) {
@@ -658,7 +627,6 @@ void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, 
 		return;
 	}
 
-	
 	if (count < 1) {
 		if (SGPconfig->driverMode & SGP_STDOUT) {
 			printf("SGP_glUniform4fv: called with count < 1\n");
@@ -671,105 +639,50 @@ void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, 
 	// Valid: count = 3; uniform mat4x4[3];
 	// Invalid: count = 4; uniform mat4x4 value;
 
-	int8_t is_array = 0;
-	if (count > 1) {
-		is_array = 1;
-	}
-
 	int32_t arr_size = sizeof(value)/sizeof(value[0]);
 
-	if (is_array && arr_size == 1) {
+	if (count > 1 && arr_size == 1) {
 		if (SGPconfig->driverMode & SGP_STDOUT) {
 			printf("glUniformMatrix4fv: called with count > 1 with a non array type\n");
 		}
 		return;
 	}
 
-	// By default, array is in column major order
+	// By default, column is in column major order
+	int32_t j_inc = 4;
+	int32_t k_inc = 1;
+
+	// Transpose if matrix was supplied in row major order
+	if (transpose == GL_TRUE)
+	{
+		j_inc = 1;
+		k_inc = 4;
+	}
+
+	// For every mat4x4 in array of size count:
 	for (int32_t i = 0; i < count; i+=16)
 	{
-		// For each column of the matrix
-		for (int32_t j = 0; j < 4; j+=4)
+		// transpose == false:
+		// j+k = 0, 4, 8, 12, 1, 5, 9, 13 ...
+		// transpose == true:
+		// j+k = 0, 1, 2, 3, 4, 5, 6, 7 ...
+		for (int32_t j = 0; j < count*j_inc; j+=j_inc)
 		{
-			// For each row of the matrix
-			for (int32_t k = 0; k < 4; k++)
+			for (int32_t k = 0; k < count*k_inc; k+=k_inc)
 			{
 				uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].baseaddr;
 
-				if (is_array)
-				{
+				sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i+j+k], 16);
 
-					// Transpose if matrix was supplied in row major order
-					// https://en.wikipedia.org/wiki/Row-_and_column-major_order#/media/File:Row_and_column_major_order.svg
-					if (transpose == GL_TRUE)
-					{
-						sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i/16][k][j/4], 16);
+				printf("glUniformMatrix4fv: updating uniform %s[%d] at address 0x%08x with value %f = 0x%08x\n", 
+					SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].name,
+					(i+j+k),
+					SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].baseaddr,
+					value[i+j+k],
+					value_fixed);
 
-						printf("glUniformMatrix4fv: updating uniform %s[%d] [%d][%d] at address 0x%08x with value %f = 0x%08x\n", 
-							SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].name,
-							(i/16),
-							k,
-							(j/4),
-							SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].baseaddr,
-							value[i/16][k][j/4],
-							value_fixed);
-
-						SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
-					} 
-
-					// column major order
-					else {
-
-						sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i/16][j/4][k], 16);
-
-						printf("glUniformMatrix4fv: updating uniform %s[%d] [%d][%d] at address 0x%08x with value %f = 0x%08x\n", 
-							SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].name,
-							(i/16),
-							(j/4),
-							k,
-							SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].baseaddr,
-							value[i/16][j/4][k],
-							value_fixed);
-
-						SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
-					}
-
-				// Value is not array
-				} else {
-
-					// Transpose if matrix was supplied in row major order
-					if (transpose == GL_TRUE)
-					{
-						sglu_fixed_t value_fixed = sglu_float_to_fixed(value[k][j/4], 16);
-
-						printf("glUniformMatrix4fv: updating uniform %s[%d][%d] at address 0x%08x with value %f = 0x%08x\n", 
-							SGP_shadersstate.uniforms[sgp_uniform_loc+j+k].name,
-							k,
-							(j/4),
-							SGP_shadersstate.uniforms[sgp_uniform_loc+j+k].baseaddr,
-							value[k][j/4],
-							value_fixed);
-
-						SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
-					} 
-					
-					// column major order
-					else {
-
-						sglu_fixed_t value_fixed = sglu_float_to_fixed(value[j/4][k], 16);
-
-						printf("glUniformMatrix4fv: updating uniform %s[%d][%d] at address 0x%08x with value %f = 0x%08x\n", 
-							SGP_shadersstate.uniforms[sgp_uniform_loc+j+k].name,
-							(j/4),
-							k,
-							SGP_shadersstate.uniforms[sgp_uniform_loc+j+k].baseaddr,
-							value[j/4][k],
-							value_fixed);
-
-						SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
-					}
-
-				}
+				SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
+		
 			}
 		}
 		
