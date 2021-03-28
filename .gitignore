@@ -98,4 +98,11 @@
 # utils directory
 !utils/
 
+# Lua files
+!*.lua
+
+# shader files
+!*.vert
+!*.frag
+
 # End of https://www.toptal.com/developers/gitignore/api/vivado
