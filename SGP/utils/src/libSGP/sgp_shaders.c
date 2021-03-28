@@ -533,6 +533,53 @@ void SGP_glUniform1f(GLint location, GLfloat v0) {
 
 }
 
+// Update the uniform vec4 at location (in the shader). Note that this function does not take uniform cache into consideration
+// count = 1 if value is a single vec4, count > 1 if value is a vec4 array of size count.
+void glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
+
+	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
+	if (sgp_uniform_loc == -1) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP_glUniform4fv: called with location=%d which is not a valid uniform location\n", (int)location);
+		}
+		return;
+	}
+	// If count is greater than 1 and the indicated uniform variable is not an array, 
+	// a GL_INVALID_OPERATION error is generated and the specified uniform variable will remain unchanged.
+	// Valid: count = 1; uniform vec4 value;
+	// Valid: count = 3; uniform vec4 triangle[3];
+	// Invalid: count = 4; uniform vec4 value;
+	int32_t arr_size = sizeof(value)/sizeof(value[0]);
+	if (count > 1 && arr_size == 1) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP_glUniform4fv: called with count > 1 with a non array type\n");
+		}
+		return;
+	}
+
+	for (int32_t i = 0; i < count; i+=4)
+	{
+		for (int32_t j = 0; j < 4; j++)
+		{
+			uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].baseaddr;
+			sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i+j], 16);
+
+			if (SGPconfig->driverMode & SGP_DEEP) {
+				printf("SGP_glUniform4fv: updating uniform %s at address 0x%08x with value %f = 0x%08x\n", 
+				SGP_shadersstate.uniforms[sgp_uniform_loc].name,
+				SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr,
+				value[i+j],
+				value_fixed);
+			}
+
+			SGP_write32(SGPconfig, baseaddr, (uint32_t)value_fixed);
+		}
+		
+	}
+	return;
+
+}
+
 
 // Utility function - lookup which index corresponds to the OpenGL program ID. Returns -1 if no match
 int32_t SGP_lookupProgram(GLuint gl_programID) {
