@@ -51,6 +51,7 @@ end vertexShader_core;
 architecture behavioral of vertexShader_core is
     type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, LD2, LD3, ST2);
     type register_file_t is array (0 to 255) of unsigned(127 downto 0);
+    constant debug : std_logic_vector(3 downto 0) := x"3";
     
     signal state : state_type;
     signal pc : unsigned(31 downto 0);
@@ -65,6 +66,7 @@ architecture behavioral of vertexShader_core is
     signal rd : unsigned(7 downto 0);
     signal ra : unsigned(7 downto 0);
     signal rb : unsigned(7 downto 0);
+    signal immediate : unsigned(15 downto 0);
 
     signal ww : unsigned(1 downto 0);
     signal zz : unsigned(1 downto 0);
@@ -131,6 +133,7 @@ begin
     rd <= ir(23 downto 16);
     ra <= ir(15 downto  8);
     rb <= ir( 7 downto  0);
+    immediate <= ra & rb;
     
     ww <= rb(7 downto 6);
     zz <= rb(5 downto 4);
@@ -214,11 +217,11 @@ begin
 							v(rd_int)(127 downto 96) <= x"0000" & ra & rb;
 							state <= FETCH;
 						end if;
-						if (op = LDIHI) then
-							v(rd_int)(31 downto 0) <= (ra & rb) sll 16;
-							v(rd_int)(63 downto 32) <= (ra & rb) sll 16;
-							v(rd_int)(95 downto 64) <= (ra & rb) sll 16;
-							v(rd_int)(127 downto 96) <= (ra & rb) sll 16;
+						if (op = LDIHI) then                         
+							v(rd_int)(31 downto 0) <= ra & rb & x"0000";
+							v(rd_int)(63 downto 32) <= ra & rb & x"0000";
+							v(rd_int)(95 downto 64) <= ra & rb & x"0000";
+							v(rd_int)(127 downto 96) <= ra & rb & x"0000";
                             state <= FETCH;
 						end if;
 						
@@ -265,16 +268,16 @@ begin
 						if (op = ADD or op = FADD) then
 							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
 							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + a2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 + a3));
 							state <= FETCH;
 						end if;
 						
 						if (op = SUB or op = FSUB) then
 							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
 							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - a2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - a3));
 							state <= FETCH;
 						end if;
 
@@ -323,8 +326,8 @@ begin
 						if (op = FMUL) then
 							v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 16));
                             v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 16));
-                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * b2), 16));
-                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * b3), 16));
+                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * a2), 16));
+                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * a3), 16));
                             state <= FETCH;
 						end if;
 
@@ -365,11 +368,7 @@ begin
 						end if;
 
 						if (op = FNEG) then
-							v(rd_int)(31 downto 0)  <=  not a0;
-							v(rd_int)(63 downto 32) <=  not a1;
-							v(rd_int)(95 downto 64) <=  not a2;
-							v(rd_int)(127 downto 96) <= not a3;
-							state <= FETCH;
+							
 						end if;
 
 						if (op = FSQRT) then
