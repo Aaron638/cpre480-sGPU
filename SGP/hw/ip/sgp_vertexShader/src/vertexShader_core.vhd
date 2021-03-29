@@ -321,7 +321,11 @@ begin
 						end if;
 
 						if (op = FMUL) then
-							
+							v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 16));
+                            v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 16));
+                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * a2), 16));
+                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * a3), 16));
+                            state <= FETCH;
 						end if;
 
 						if (op = FMAX) then
@@ -353,7 +357,11 @@ begin
 						end if;
 
 						if (op = FDIV) then
-							
+					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 16));
+					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 16));
+					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 16));
+					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 16));
+					       state <= FETCH;
 						end if;
 
 						if (op = FNEG) then
@@ -413,7 +421,7 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd_int) <= unsigned(dmem_rdata);
+							v(rd_int) <= x"00000000" & x"00000000" & x"00000000" & unsigned(dmem_rdata);
 							state <= FETCH;
 						end if;
 						
