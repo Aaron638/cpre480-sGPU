@@ -197,6 +197,7 @@ begin
 						state <= EXECUTE;
 						a <= unsigned(v(ra_int));
 						b <= unsigned(v(rb_int));
+						
 						--add in a,b,c from the ir so that the execute stage can use them for the add and sub operations
 					
 					
@@ -227,13 +228,16 @@ begin
 						
 						if (op = LD) then
 							state <= LD2;
-							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rb));
+							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rb_int));
 						end if;
+						
 						if (op = ST) then
 							state <= ST2;
 							dmem_wr_req <= '1';
-							--set data? or already in dataflow?
+							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rd_int));
+							dmem_wdata <= std_logic_vector(v(rb_int)(31 downto 0));
 						end if;
+						
 						if (op = INFIFO) then
                             v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
                             state <= FETCH;
@@ -429,11 +433,16 @@ begin
 						end if;
 						
 					--make write to dmem cache, this is for the st in the ISA
-					when ST2 => 
-						if (dmem_rdy = '1') then
-							--do something
-							state <= FETCH;
-						end if;
+					when ST2 =>
+					   while (dmem_rdy = '0') loop
+					   end loop;
+					   
+					   dmem_wr_req <= '1'; 
+					   
+					   while (dmem_req_done = '0') loop
+					   end loop;
+					   
+                       state <= FETCH;
 						
                     when others =>
                         state <= WAIT_TO_START;
