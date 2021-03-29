@@ -280,8 +280,8 @@ begin
 						if (op = SUB or op = FSUB) then
 							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
 							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - a2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - a3));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
 							state <= FETCH;
 						end if;
 
