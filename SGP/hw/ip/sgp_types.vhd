@@ -85,7 +85,7 @@ package sgp_types is
     function to_attributeArray_t (i_attributeRecord : in attributeRecord_t) return attributeArray_t;
     function to_attributeRecord_t (i_attributeVector : in attributeVector_t) return attributeRecord_t;
     function to_attributeRecord_t (i_attributeArray : in attributeArray_t) return attributeRecord_t;
-    function to_attributeRecord_t (i_std_logic_vector : in std_logic_vector(127 downto 0)) return attributeRecord_t;
+    function to_attributeRecord_t (i_unsigned : in unsigned(127 downto 0)) return attributeRecord_t;
 
 
     subtype vertexVector_t is signed((C_SGP_NUM_VERTEX_ATTRIB*attributeVector_t'length)-1 downto 0);
@@ -240,13 +240,13 @@ package body sgp_types is
         return tmpRecord;
     end;
 
-    function to_attributeRecord_t (i_std_logic_vector : in std_logic_vector(127 downto 0)) return attributeRecord_t is 
+    function to_attributeRecord_t (i_unsigned : in unsigned(127 downto 0)) return attributeRecord_t is 
     variable tmpRecord : attributeRecord_t;
     begin
-        tmpRecord.w := i_std_logic_vector(127 downto 96);
-        tmpRecord.z := i_std_logic_vector( 95 downto 64);
-        tmpRecord.y := i_std_logic_vector( 63 downto 32);
-        tmpRecord.x := i_std_logic_vector( 31 downto  0);
+        tmpRecord.w := i_unsigned(127 downto 96);
+        tmpRecord.z := i_unsigned( 95 downto 64);
+        tmpRecord.y := i_unsigned( 63 downto 32);
+        tmpRecord.x := i_unsigned( 31 downto  0);
         return tmpRecord;
     end;
 
