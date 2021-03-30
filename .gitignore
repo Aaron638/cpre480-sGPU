@@ -107,5 +107,20 @@
 
 # Assembly files
 !*.asm
+# models
+!*.obj
+!*.vbm
+!*.blend
+!*.mtl
+
+#Textures
+!*.dds
+!*.tga
+!*.DDS
+
+#Images
+!*.BMP
+!*.png
+
 
 # End of https://www.toptal.com/developers/gitignore/api/vivado

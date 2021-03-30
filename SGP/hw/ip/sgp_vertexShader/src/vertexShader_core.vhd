@@ -51,6 +51,7 @@ end vertexShader_core;
 architecture behavioral of vertexShader_core is
     type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, LD2, LD3, ST2);
     type register_file_t is array (0 to 255) of unsigned(127 downto 0);
+    constant debug : std_logic_vector(3 downto 0) := x"3";
     
     signal state : state_type;
     signal pc : unsigned(31 downto 0);
@@ -65,6 +66,7 @@ architecture behavioral of vertexShader_core is
     signal rd : unsigned(7 downto 0);
     signal ra : unsigned(7 downto 0);
     signal rb : unsigned(7 downto 0);
+    signal immediate : unsigned(15 downto 0);
 
     signal ww : unsigned(1 downto 0);
     signal zz : unsigned(1 downto 0);
@@ -131,6 +133,7 @@ begin
     rd <= ir(23 downto 16);
     ra <= ir(15 downto  8);
     rb <= ir( 7 downto  0);
+    immediate <= ra & rb;
     
     ww <= rb(7 downto 6);
     zz <= rb(5 downto 4);
@@ -194,6 +197,7 @@ begin
 						state <= EXECUTE;
 						a <= unsigned(v(ra_int));
 						b <= unsigned(v(rb_int));
+						
 						--add in a,b,c from the ir so that the execute stage can use them for the add and sub operations
 					
 					
@@ -214,23 +218,26 @@ begin
 							v(rd_int)(127 downto 96) <= x"0000" & ra & rb;
 							state <= FETCH;
 						end if;
-						if (op = LDIHI) then
-							v(rd_int)(31 downto 0) <= (ra & rb) sll 16;
-							v(rd_int)(63 downto 32) <= (ra & rb) sll 16;
-							v(rd_int)(95 downto 64) <= (ra & rb) sll 16;
-							v(rd_int)(127 downto 96) <= (ra & rb) sll 16;
+						if (op = LDIHI) then                         
+							v(rd_int)(31 downto 0) <= ra & rb & x"0000";
+							v(rd_int)(63 downto 32) <= ra & rb & x"0000";
+							v(rd_int)(95 downto 64) <= ra & rb & x"0000";
+							v(rd_int)(127 downto 96) <= ra & rb & x"0000";
                             state <= FETCH;
 						end if;
 						
 						if (op = LD) then
 							state <= LD2;
-							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rb));
+							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rb_int));
 						end if;
+						
 						if (op = ST) then
 							state <= ST2;
 							dmem_wr_req <= '1';
-							--set data? or already in dataflow?
+							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rd_int));
+							dmem_wdata <= std_logic_vector(v(rb_int)(31 downto 0));
 						end if;
+						
 						if (op = INFIFO) then
                             v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
                             state <= FETCH;
@@ -265,16 +272,16 @@ begin
 						if (op = ADD or op = FADD) then
 							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
 							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + a2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 + a3));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
 							state <= FETCH;
 						end if;
 						
 						if (op = SUB or op = FSUB) then
 							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
 							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - a2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - a3));
+							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
+							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
 							state <= FETCH;
 						end if;
 
@@ -321,7 +328,11 @@ begin
 						end if;
 
 						if (op = FMUL) then
-							
+							v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 16));
+                            v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 16));
+                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * a2), 16));
+                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * a3), 16));
+                            state <= FETCH;
 						end if;
 
 						if (op = FMAX) then
@@ -353,11 +364,18 @@ begin
 						end if;
 
 						if (op = FDIV) then
-							
+					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 16));
+					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 16));
+					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 16));
+					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 16));
+					       state <= FETCH;
 						end if;
 
 						if (op = FNEG) then
-							
+--							v(rd_int)(31 downto 0) <= signed(a0) * -1;
+--							v(rd_int)(63 downto 32) <= signed(a1) * -1;
+--							v(rd_int)(95 downto 64) <= signed(a2) * -1;
+--							v(rd_int)(127 downto 96) <= signed(a3) * -1;
 						end if;
 
 						if (op = FSQRT) then
@@ -369,34 +387,34 @@ begin
 						end if;
 	
 						if (op = INTERLEAVELO) then
-                            v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0);
-							v(rd_int)(63 downto 32) <= v(rb_int)(31 downto 0);
-							v(rd_int)(95 downto 64) <= v(ra_int)(63 downto 32);
-							v(rd_int)(127 downto 96) <= v(rb_int)(63 downto 32);
+                            v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).y);
+							v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
+							v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).x);
+							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).x);
 							state <= FETCH;
 						end if;
 
 						if (op = INTERLEAVEHI) then
-                            v(rd_int)(31 downto 0)  <= v(ra_int)(95 downto 64);
-							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
-							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 96);
-							v(rd_int)(127 downto 96) <= v(rb_int)(127 downto 96);
+                            v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).w);
+							v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
+							v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).z);
+							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).z);
 							state <= FETCH;
 						end if;
 
 						if (op = INTERLEAVELOPAIRS) then
-							v(rd_int)(31 downto 0)  <=  v(ra_int)(31 downto 0);
-							v(rd_int)(63 downto 32) <=  v(ra_int)(63 downto 32);
-							v(rd_int)(95 downto 64) <=  v(rb_int)(31 downto 0);
-							v(rd_int)(127 downto 96) <= v(rb_int)(63 downto 32);
+							v(rd_int)(31 downto 0)  <=  unsigned(to_attributeRecord_t(v(ra_int)).x);
+							v(rd_int)(63 downto 32) <=  unsigned(to_attributeRecord_t(v(ra_int)).y);
+							v(rd_int)(95 downto 64) <=  unsigned(to_attributeRecord_t(v(rb_int)).x);
+							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
 							state <= FETCH;
 						end if;
 
 						if (op = INTERLEAVEHIPAIRS) then
-							v(rd_int)(31 downto 0)  <=  v(ra_int)(95 downto 64);
-							v(rd_int)(63 downto 32) <=  v(ra_int)(127 downto 96);
-							v(rd_int)(95 downto 64) <=  v(rb_int)(95 downto 64);
-							v(rd_int)(127 downto 96) <= v(rb_int)(127 downto 96);
+							v(rd_int)(31 downto 0)  <=  unsigned(to_attributeRecord_t(v(ra_int)).z);
+							v(rd_int)(63 downto 32) <=  unsigned(to_attributeRecord_t(v(ra_int)).w);
+							v(rd_int)(95 downto 64) <=  unsigned(to_attributeRecord_t(v(rb_int)).z);
+							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
 							state <= FETCH;
 						end if;
 
@@ -413,16 +431,21 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd_int) <= unsigned(dmem_rdata);
+							v(rd_int) <= x"00000000" & x"00000000" & x"00000000" & unsigned(dmem_rdata);
 							state <= FETCH;
 						end if;
 						
 					--make write to dmem cache, this is for the st in the ISA
-					when ST2 => 
-						if (dmem_rdy = '1') then
-							--do something
-							state <= FETCH;
-						end if;
+					when ST2 =>
+					   while (dmem_rdy = '0') loop
+					   end loop;
+					   
+					   dmem_wr_req <= '1'; 
+					   
+					   while (dmem_req_done = '0') loop
+					   end loop;
+					   
+                       state <= FETCH;
 						
                     when others =>
                         state <= WAIT_TO_START;
