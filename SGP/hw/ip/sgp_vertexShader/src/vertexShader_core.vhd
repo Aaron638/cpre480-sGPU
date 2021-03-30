@@ -372,7 +372,10 @@ begin
 						end if;
 
 						if (op = FNEG) then
-							
+							v(rd_int)(31 downto 0) <= signed(a0) * -1;
+							v(rd_int)(63 downto 32) <= signed(a1) * -1;
+							v(rd_int)(95 downto 64) <= signed(a2) * -1;
+							v(rd_int)(127 downto 96) <= signed(a3) * -1;
 						end if;
 
 						if (op = FSQRT) then
