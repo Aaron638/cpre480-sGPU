@@ -395,10 +395,10 @@ begin
 						end if;
 
 						if (op = INTERLEAVEHI) then
-                            v(rd_int)(31 downto 0)  <= v(ra_int)(95 downto 64);
-							v(rd_int)(63 downto 32) <= v(rb_int)(95 downto 64);
-							v(rd_int)(95 downto 64) <= v(ra_int)(127 downto 96);
-							v(rd_int)(127 downto 96) <= v(rb_int)(127 downto 96);
+                            v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).w);
+							v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
+							v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).z);
+							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).z);
 							state <= FETCH;
 						end if;
 
