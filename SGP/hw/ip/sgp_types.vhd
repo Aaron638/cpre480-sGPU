@@ -243,10 +243,10 @@ package body sgp_types is
     function to_attributeRecord_t (i_unsigned : in unsigned(127 downto 0)) return attributeRecord_t is 
     variable tmpRecord : attributeRecord_t;
     begin
-        tmpRecord.w := i_unsigned(127 downto 96);
-        tmpRecord.z := i_unsigned( 95 downto 64);
-        tmpRecord.y := i_unsigned( 63 downto 32);
-        tmpRecord.x := i_unsigned( 31 downto  0);
+        tmpRecord.w := fixed_t(i_unsigned(127 downto 96));
+        tmpRecord.z := fixed_t(i_unsigned( 95 downto 64));
+        tmpRecord.y := fixed_t(i_unsigned( 63 downto 32));
+        tmpRecord.x := fixed_t(i_unsigned( 31 downto  0));
         return tmpRecord;
     end;
 

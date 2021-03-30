@@ -372,10 +372,10 @@ begin
 						end if;
 
 						if (op = FNEG) then
-							v(rd_int)(31 downto 0) <= signed(a0) * -1;
-							v(rd_int)(63 downto 32) <= signed(a1) * -1;
-							v(rd_int)(95 downto 64) <= signed(a2) * -1;
-							v(rd_int)(127 downto 96) <= signed(a3) * -1;
+--							v(rd_int)(31 downto 0) <= signed(a0) * -1;
+--							v(rd_int)(63 downto 32) <= signed(a1) * -1;
+--							v(rd_int)(95 downto 64) <= signed(a2) * -1;
+--							v(rd_int)(127 downto 96) <= signed(a3) * -1;
 						end if;
 
 						if (op = FSQRT) then
@@ -387,10 +387,10 @@ begin
 						end if;
 	
 						if (op = INTERLEAVELO) then
-                            v(rd_int)(31 downto 0)  <= to_attributeRecord_t(v(ra_int)).y;
-							v(rd_int)(63 downto 32) <= to_attributeRecord_t(v(rb_int)).y;
-							v(rd_int)(95 downto 64) <= to_attributeRecord_t(v(ra_int)).x;
-							v(rd_int)(127 downto 96) <= to_attributeRecord_t(v(rb_int)).x;
+                            v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).y);
+							v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
+							v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).x);
+							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).x);
 							state <= FETCH;
 						end if;
 
