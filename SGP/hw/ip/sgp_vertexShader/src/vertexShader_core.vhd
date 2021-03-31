@@ -235,7 +235,6 @@ begin
 							state <= ST2;
 							dmem_wr_req <= '1';
 							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rd_int));
-							dmem_wdata <= std_logic_vector(v(rb_int)(31 downto 0));
 						end if;
 						
 						if (op = INFIFO) then
@@ -328,10 +327,10 @@ begin
 						end if;
 
 						if (op = FMUL) then
-							v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 16));
-                            v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 16));
-                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * a2), 16));
-                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * a3), 16));
+							v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 32));
+                            v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 32));
+                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * b2), 32));
+                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * b3), 32));
                             state <= FETCH;
 						end if;
 
@@ -364,10 +363,10 @@ begin
 						end if;
 
 						if (op = FDIV) then
-					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 16));
-					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 16));
-					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 16));
-					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 16));
+					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
+					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
+					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
+					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
 					       state <= FETCH;
 						end if;
 
@@ -436,16 +435,13 @@ begin
 						end if;
 						
 					--make write to dmem cache, this is for the st in the ISA
-					when ST2 =>
-					   while (dmem_rdy = '0') loop
-					   end loop;
-					   
-					   dmem_wr_req <= '1'; 
-					   
-					   while (dmem_req_done = '0') loop
-					   end loop;
-					   
-                       state <= FETCH;
+					when ST2 =>                       
+                       if (dmem_rdy = '0') then
+                            state <= ST2;
+                       else
+					       dmem_wr_req <= '1';
+					       state <= FETCH; 
+					   end if;
 						
                     when others =>
                         state <= WAIT_TO_START;
