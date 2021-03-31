@@ -10,6 +10,7 @@ rm -vrf ./hw/proj/sgp_system.hw/
 rm -vrf ./hw/proj/sgp_system.ip_user_files/
 rm -vrf ./hw/proj/sgp_system.runs/
 rm -vrf ./hw/proj/sgp_system.srcs/
+rm -vrf ./hw/proj/sgp_system.cache/
 
 printf "Deleting sgp_rasterizer project files\n"
 rm -vrf ./hw/ip/sgp_rasterizer/proj/sgp_rasterizer.cache/
