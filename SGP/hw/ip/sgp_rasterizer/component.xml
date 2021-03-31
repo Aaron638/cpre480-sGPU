@@ -957,7 +957,7 @@
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>sgp_rasterizer_v1_0</spirit:description>
+  <spirit:description>sgp_rasterizer_v1_0_MP-2</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>C_S_AXI_DATA_WIDTH</spirit:name>
@@ -1011,8 +1011,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>sgp_rasterizer_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>42</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-03-22T06:52:12Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>43</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-03-31T16:15:51Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f2b5770_ARCHIVE_LOCATION">c:/Users/zambr/Desktop/MP-1/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5162e5e8_ARCHIVE_LOCATION">c:/Users/zambr/Desktop/MP-1/hw/ip/sgp_rasterizer</xilinx:tag>
@@ -1439,6 +1439,13 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@351009c4_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4335f7c9_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3f071211_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@355245c3_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a5edd6e_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e7bd57_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c27c084_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@393da86c_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@439b1bc6_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54f6bcdc_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>

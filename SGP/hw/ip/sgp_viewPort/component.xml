@@ -889,7 +889,7 @@
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>sgp_viewPort_v1_0</spirit:description>
+  <spirit:description>sgp_viewPort_v1_0 MP-2</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>C_S_AXI_DATA_WIDTH</spirit:name>
@@ -943,8 +943,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>sgp_viewPort_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>10</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-03-22T03:15:41Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>11</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-03-31T16:10:08Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@57ee6052_ARCHIVE_LOCATION">c:/users/zambr/desktop/mp-1/hw/ip/sgp_viewport</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3ede8fd1_ARCHIVE_LOCATION">c:/users/zambr/desktop/mp-1/hw/ip/sgp_viewport</xilinx:tag>
@@ -1013,6 +1013,14 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1262bb23_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@20418abe_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@11de9871_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@df5f364_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57d08e68_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b032ef9_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d5a1121_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a56db2c_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15c0f4c6_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52f120ea_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d5a9c6f_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_viewPort</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
