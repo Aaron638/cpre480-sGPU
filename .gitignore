@@ -11,6 +11,7 @@
 *
 !*/
 !.gitignore
+!common/
 ###########################################################################
 ##	VIVADO
 #Source files:
@@ -74,6 +75,7 @@
 
 #Makefiles
 !*Makefile*
+!*.mk
 
 #PDFs
 !*.pdf
@@ -95,5 +97,28 @@
 
 # utils directory
 !utils/
+
+# Lua files
+!*.lua
+
+# shader files
+!*.vert
+!*.frag
+
+# models
+!*.obj
+!*.vbm
+!*.blend
+!*.mtl
+
+#Textures
+!*.dds
+!*.tga
+!*.DDS
+
+#Images
+!*.BMP
+!*.png
+
 
 # End of https://www.toptal.com/developers/gitignore/api/vivado
