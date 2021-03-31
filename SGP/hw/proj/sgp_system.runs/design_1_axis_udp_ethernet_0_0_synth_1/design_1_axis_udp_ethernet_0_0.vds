@@ -1,0 +1,1127 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Wed Mar 31 11:26:50 2021
+# Process ID: 14752
+# Current directory: U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1
+# Command line: vivado.exe -log design_1_axis_udp_ethernet_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_axis_udp_ethernet_0_0.tcl
+# Log file: U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1/design_1_axis_udp_ethernet_0_0.vds
+# Journal file: U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source design_1_axis_udp_ethernet_0_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'u:/cpre480/SGP/hw/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'u:/cpre480/SGP/hw/if'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.1/data/ip'.
+Command: synth_design -top design_1_axis_udp_ethernet_0_0 -part xc7a200tsbg484-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: [Device 21-403] Loading part xc7a200tsbg484-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 8076
+WARNING: [Synth 8-2507] parameter declaration becomes local in arp_eth_rx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_rx.v:87]
+WARNING: [Synth 8-2507] parameter declaration becomes local in arp_eth_rx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_rx.v:89]
+WARNING: [Synth 8-2507] parameter declaration becomes local in arp_eth_rx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_rx.v:91]
+WARNING: [Synth 8-2507] parameter declaration becomes local in arp_eth_tx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_tx.v:83]
+WARNING: [Synth 8-2507] parameter declaration becomes local in arp_eth_tx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_tx.v:85]
+WARNING: [Synth 8-2507] parameter declaration becomes local in arp_eth_tx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_tx.v:87]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:91]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:92]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:95]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:96]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:98]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:100]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:101]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:103]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:104]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:106]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_adapter.v:107]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo.v:120]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:123]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:124]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:127]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:128]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:130]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:132]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_async_fifo_adapter with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:133]
+WARNING: [Synth 8-2507] parameter declaration becomes local in axis_fifo with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_fifo.v:113]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_arb_mux with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_arb_mux.v:88]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_axis_rx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_rx.v:78]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_axis_rx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_rx.v:80]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_axis_rx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_rx.v:82]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_axis_tx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_tx.v:77]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_axis_tx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_tx.v:79]
+WARNING: [Synth 8-2507] parameter declaration becomes local in eth_axis_tx with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_tx.v:81]
+WARNING: [Synth 8-2507] parameter declaration becomes local in ip_arb_mux with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_arb_mux.v:114]
+WARNING: [Synth 8-2507] parameter declaration becomes local in lfsr with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/lfsr.v:366]
+WARNING: [Synth 8-2507] parameter declaration becomes local in priority_encoder with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/priority_encoder.v:46]
+WARNING: [Synth 8-2507] parameter declaration becomes local in priority_encoder with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/priority_encoder.v:47]
+WARNING: [Synth 8-2507] parameter declaration becomes local in udp_checksum_gen with formal parameter declaration list [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_checksum_gen.v:141]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 1091.672 ; gain = 11.391
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'design_1_axis_udp_ethernet_0_0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_axis_udp_ethernet_0_0/synth/design_1_axis_udp_ethernet_0_0.v:58]
+INFO: [Synth 8-6157] synthesizing module 'axis_udp_ethernet' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet.v:32]
+INFO: [Synth 8-6157] synthesizing module 'IBUFG' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:33444]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IBUFG' (1#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:33444]
+INFO: [Synth 8-6157] synthesizing module 'MMCME2_BASE' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:40114]
+	Parameter BANDWIDTH bound to: OPTIMIZED - type: string 
+	Parameter CLKFBOUT_MULT_F bound to: 10.000000 - type: double 
+	Parameter CLKFBOUT_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKIN1_PERIOD bound to: 10.000000 - type: double 
+	Parameter CLKOUT0_DIVIDE_F bound to: 8.000000 - type: double 
+	Parameter CLKOUT0_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT0_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT1_DIVIDE bound to: 8 - type: integer 
+	Parameter CLKOUT1_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT1_PHASE bound to: 90.000000 - type: double 
+	Parameter CLKOUT2_DIVIDE bound to: 5 - type: integer 
+	Parameter CLKOUT2_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT2_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT3_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT3_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT3_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT4_CASCADE bound to: FALSE - type: string 
+	Parameter CLKOUT4_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT4_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT4_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT5_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT5_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT5_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT6_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT6_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT6_PHASE bound to: 0.000000 - type: double 
+	Parameter DIVCLK_DIVIDE bound to: 1 - type: integer 
+	Parameter REF_JITTER1 bound to: 0.010000 - type: double 
+	Parameter STARTUP_WAIT bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'MMCME2_BASE' (2#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:40114]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (3#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6157] synthesizing module 'sync_reset' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/sync_reset.v:33]
+	Parameter N bound to: 4 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'sync_reset' (4#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/sync_reset.v:33]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet.v:266]
+INFO: [Synth 8-6157] synthesizing module 'IDELAYCTRL' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:35056]
+	Parameter SIM_DEVICE bound to: 7SERIES - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IDELAYCTRL' (5#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:35056]
+INFO: [Synth 8-6157] synthesizing module 'IDELAYE2' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:35069]
+	Parameter CINVCTRL_SEL bound to: FALSE - type: string 
+	Parameter DELAY_SRC bound to: IDATAIN - type: string 
+	Parameter HIGH_PERFORMANCE_MODE bound to: FALSE - type: string 
+	Parameter IDELAY_TYPE bound to: FIXED - type: string 
+	Parameter IDELAY_VALUE bound to: 0 - type: integer 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_DATAIN_INVERTED bound to: 1'b0 
+	Parameter IS_IDATAIN_INVERTED bound to: 1'b0 
+	Parameter PIPE_SEL bound to: FALSE - type: string 
+	Parameter REFCLK_FREQUENCY bound to: 200.000000 - type: double 
+	Parameter SIGNAL_PATTERN bound to: DATA - type: string 
+	Parameter SIM_DELAY_D bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'IDELAYE2' (6#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:35069]
+INFO: [Synth 8-6157] synthesizing module 'axis_udp_ethernet_core' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+INFO: [Synth 8-6157] synthesizing module 'eth_mac_1g_rgmii_fifo' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii_fifo.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter CLOCK_INPUT_STYLE bound to: BUFR - type: string 
+	Parameter USE_CLK90 bound to: TRUE - type: string 
+	Parameter AXIS_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter AXIS_KEEP_ENABLE bound to: 1'b0 
+	Parameter AXIS_KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter ENABLE_PADDING bound to: 1 - type: integer 
+	Parameter MIN_FRAME_LENGTH bound to: 64 - type: integer 
+	Parameter TX_FIFO_DEPTH bound to: 4096 - type: integer 
+	Parameter TX_FIFO_PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter TX_FRAME_FIFO bound to: 1 - type: integer 
+	Parameter TX_DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter TX_DROP_WHEN_FULL bound to: 0 - type: integer 
+	Parameter RX_FIFO_DEPTH bound to: 4096 - type: integer 
+	Parameter RX_FIFO_PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter RX_FRAME_FIFO bound to: 1 - type: integer 
+	Parameter RX_DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter RX_DROP_WHEN_FULL bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'eth_mac_1g_rgmii' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter CLOCK_INPUT_STYLE bound to: BUFR - type: string 
+	Parameter USE_CLK90 bound to: TRUE - type: string 
+	Parameter ENABLE_PADDING bound to: 1 - type: integer 
+	Parameter MIN_FRAME_LENGTH bound to: 64 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'rgmii_phy_if' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/rgmii_phy_if.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter CLOCK_INPUT_STYLE bound to: BUFR - type: string 
+	Parameter USE_CLK90 bound to: TRUE - type: string 
+INFO: [Synth 8-6157] synthesizing module 'ssio_ddr_in' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ssio_ddr_in.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter CLOCK_INPUT_STYLE bound to: BUFR - type: string 
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'BUFIO' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1344]
+INFO: [Synth 8-6155] done synthesizing module 'BUFIO' (7#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1344]
+INFO: [Synth 8-6157] synthesizing module 'BUFR' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1410]
+	Parameter BUFR_DIVIDE bound to: BYPASS - type: string 
+	Parameter SIM_DEVICE bound to: 7SERIES - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'BUFR' (8#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:1410]
+INFO: [Synth 8-6157] synthesizing module 'iddr' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/iddr.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'IDDR' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:34934]
+	Parameter DDR_CLK_EDGE bound to: SAME_EDGE_PIPELINED - type: string 
+	Parameter INIT_Q1 bound to: 1'b0 
+	Parameter INIT_Q2 bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter SRTYPE bound to: ASYNC - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IDDR' (9#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:34934]
+INFO: [Synth 8-6155] done synthesizing module 'iddr' (10#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/iddr.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'ssio_ddr_in' (11#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ssio_ddr_in.v:32]
+INFO: [Synth 8-6157] synthesizing module 'oddr' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/oddr.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'ODDR' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:49784]
+	Parameter DDR_CLK_EDGE bound to: SAME_EDGE - type: string 
+	Parameter INIT bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D1_INVERTED bound to: 1'b0 
+	Parameter IS_D2_INVERTED bound to: 1'b0 
+	Parameter SRTYPE bound to: ASYNC - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'ODDR' (12#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:49784]
+INFO: [Synth 8-6155] done synthesizing module 'oddr' (13#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/oddr.v:32]
+INFO: [Synth 8-6157] synthesizing module 'oddr__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/oddr.v:32]
+	Parameter TARGET bound to: XILINX - type: string 
+	Parameter IODDR_STYLE bound to: IODDR - type: string 
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'oddr__parameterized0' (13#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/oddr.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'rgmii_phy_if' (14#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/rgmii_phy_if.v:32]
+INFO: [Synth 8-6157] synthesizing module 'eth_mac_1g' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter ENABLE_PADDING bound to: 1 - type: integer 
+	Parameter MIN_FRAME_LENGTH bound to: 64 - type: integer 
+	Parameter TX_PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter TX_PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter TX_PTP_TAG_ENABLE bound to: 0 - type: integer 
+	Parameter TX_PTP_TAG_WIDTH bound to: 16 - type: integer 
+	Parameter RX_PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter RX_PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter TX_USER_WIDTH bound to: 1 - type: integer 
+	Parameter RX_USER_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_gmii_rx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_gmii_rx.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter ETH_PRE bound to: 8'b01010101 
+	Parameter ETH_SFD bound to: 8'b11010101 
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_PAYLOAD bound to: 3'b001 
+	Parameter STATE_WAIT_LAST bound to: 3'b010 
+INFO: [Synth 8-6157] synthesizing module 'lfsr' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/lfsr.v:32]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+	Parameter STYLE_INT bound to: LOOP - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr' (15#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/lfsr.v:32]
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_gmii_rx.v:184]
+INFO: [Synth 8-6155] done synthesizing module 'axis_gmii_rx' (16#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_gmii_rx.v:32]
+INFO: [Synth 8-6157] synthesizing module 'axis_gmii_tx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_gmii_tx.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter ENABLE_PADDING bound to: 1 - type: integer 
+	Parameter MIN_FRAME_LENGTH bound to: 64 - type: integer 
+	Parameter PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter PTP_TAG_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TAG_WIDTH bound to: 16 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter ETH_PRE bound to: 8'b01010101 
+	Parameter ETH_SFD bound to: 8'b11010101 
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_PREAMBLE bound to: 3'b001 
+	Parameter STATE_PAYLOAD bound to: 3'b010 
+	Parameter STATE_LAST bound to: 3'b011 
+	Parameter STATE_PAD bound to: 3'b100 
+	Parameter STATE_FCS bound to: 3'b101 
+	Parameter STATE_WAIT_END bound to: 3'b110 
+	Parameter STATE_IFG bound to: 3'b111 
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_gmii_tx.v:335]
+INFO: [Synth 8-6155] done synthesizing module 'axis_gmii_tx' (17#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_gmii_tx.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'eth_mac_1g' (18#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g.v:32]
+WARNING: [Synth 8-7071] port 'tx_ptp_ts' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7071] port 'rx_ptp_ts' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7071] port 'tx_axis_ptp_ts' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7071] port 'tx_axis_ptp_ts_tag' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7071] port 'tx_axis_ptp_ts_valid' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7071] port 'tx_start_packet' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7071] port 'rx_start_packet' of module 'eth_mac_1g' is unconnected for instance 'eth_mac_1g_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+WARNING: [Synth 8-7023] instance 'eth_mac_1g_inst' of module 'eth_mac_1g' has 34 connections declared, but only 27 given [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:219]
+INFO: [Synth 8-6155] done synthesizing module 'eth_mac_1g_rgmii' (19#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii.v:32]
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo_adapter' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:32]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter S_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter S_KEEP_ENABLE bound to: 1'b0 
+	Parameter S_KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter M_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter M_KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter M_KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 0 - type: integer 
+	Parameter S_KEEP_WIDTH_INT bound to: 1 - type: integer 
+	Parameter M_KEEP_WIDTH_INT bound to: 1 - type: integer 
+	Parameter S_DATA_WORD_SIZE bound to: 8 - type: integer 
+	Parameter M_DATA_WORD_SIZE bound to: 8 - type: integer 
+	Parameter EXPAND_BUS bound to: 1'b0 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo.v:32]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 0 - type: integer 
+	Parameter ADDR_WIDTH bound to: 12 - type: integer 
+	Parameter KEEP_OFFSET bound to: 8 - type: integer 
+	Parameter LAST_OFFSET bound to: 8 - type: integer 
+	Parameter ID_OFFSET bound to: 9 - type: integer 
+	Parameter DEST_OFFSET bound to: 9 - type: integer 
+	Parameter USER_OFFSET bound to: 9 - type: integer 
+	Parameter WIDTH bound to: 10 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo' (20#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo_adapter' (21#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:32]
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo_adapter__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:32]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter S_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter S_KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter S_KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter M_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter M_KEEP_ENABLE bound to: 1'b0 
+	Parameter M_KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 1 - type: integer 
+	Parameter S_KEEP_WIDTH_INT bound to: 1 - type: integer 
+	Parameter M_KEEP_WIDTH_INT bound to: 1 - type: integer 
+	Parameter S_DATA_WORD_SIZE bound to: 8 - type: integer 
+	Parameter M_DATA_WORD_SIZE bound to: 8 - type: integer 
+	Parameter EXPAND_BUS bound to: 1'b0 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo.v:32]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 1 - type: integer 
+	Parameter ADDR_WIDTH bound to: 12 - type: integer 
+	Parameter KEEP_OFFSET bound to: 8 - type: integer 
+	Parameter LAST_OFFSET bound to: 8 - type: integer 
+	Parameter ID_OFFSET bound to: 9 - type: integer 
+	Parameter DEST_OFFSET bound to: 9 - type: integer 
+	Parameter USER_OFFSET bound to: 9 - type: integer 
+	Parameter WIDTH bound to: 10 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo__parameterized0' (21#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo_adapter__parameterized0' (21#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_async_fifo_adapter.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'eth_mac_1g_rgmii_fifo' (22#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_mac_1g_rgmii_fifo.v:32]
+WARNING: [Synth 8-7071] port 'tx_axis_tkeep' of module 'eth_mac_1g_rgmii_fifo' is unconnected for instance 'eth_mac_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:342]
+WARNING: [Synth 8-7071] port 'rx_axis_tkeep' of module 'eth_mac_1g_rgmii_fifo' is unconnected for instance 'eth_mac_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:342]
+WARNING: [Synth 8-7071] port 'tx_error_underflow' of module 'eth_mac_1g_rgmii_fifo' is unconnected for instance 'eth_mac_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:342]
+WARNING: [Synth 8-7023] instance 'eth_mac_inst' of module 'eth_mac_1g_rgmii_fifo' has 34 connections declared, but only 31 given [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:342]
+INFO: [Synth 8-6157] synthesizing module 'eth_axis_rx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_rx.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1'b0 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter CYCLE_COUNT bound to: 14 - type: integer 
+	Parameter PTR_WIDTH bound to: 4 - type: integer 
+	Parameter OFFSET bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'eth_axis_rx' (23#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_rx.v:32]
+WARNING: [Synth 8-7071] port 's_axis_tkeep' of module 'eth_axis_rx' is unconnected for instance 'eth_axis_rx_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:382]
+WARNING: [Synth 8-7071] port 'm_eth_payload_axis_tkeep' of module 'eth_axis_rx' is unconnected for instance 'eth_axis_rx_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:382]
+WARNING: [Synth 8-7023] instance 'eth_axis_rx_inst' of module 'eth_axis_rx' has 21 connections declared, but only 19 given [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:382]
+INFO: [Synth 8-6157] synthesizing module 'eth_axis_tx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_tx.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1'b0 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter CYCLE_COUNT bound to: 14 - type: integer 
+	Parameter PTR_WIDTH bound to: 4 - type: integer 
+	Parameter OFFSET bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'eth_axis_tx' (24#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_axis_tx.v:32]
+WARNING: [Synth 8-7071] port 's_eth_payload_axis_tkeep' of module 'eth_axis_tx' is unconnected for instance 'eth_axis_tx_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:408]
+WARNING: [Synth 8-7071] port 'm_axis_tkeep' of module 'eth_axis_tx' is unconnected for instance 'eth_axis_tx_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:408]
+WARNING: [Synth 8-7023] instance 'eth_axis_tx_inst' of module 'eth_axis_tx' has 20 connections declared, but only 18 given [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:408]
+INFO: [Synth 8-6157] synthesizing module 'udp_complete' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_complete.v:32]
+	Parameter ARP_CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+	Parameter ARP_REQUEST_RETRY_COUNT bound to: 4 - type: integer 
+	Parameter ARP_REQUEST_RETRY_INTERVAL bound to: 250000000 - type: integer 
+	Parameter ARP_REQUEST_TIMEOUT bound to: -544967296 - type: integer 
+	Parameter UDP_CHECKSUM_GEN_ENABLE bound to: 1 - type: integer 
+	Parameter UDP_CHECKSUM_PAYLOAD_FIFO_DEPTH bound to: 2048 - type: integer 
+	Parameter UDP_CHECKSUM_HEADER_FIFO_DEPTH bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'ip_arb_mux' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_arb_mux.v:32]
+	Parameter S_COUNT bound to: 2 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter ARB_TYPE bound to: PRIORITY - type: string 
+	Parameter LSB_PRIORITY bound to: HIGH - type: string 
+	Parameter CL_S_COUNT bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'arbiter' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arbiter.v:32]
+	Parameter PORTS bound to: 2 - type: integer 
+	Parameter TYPE bound to: PRIORITY - type: string 
+	Parameter BLOCK bound to: ACKNOWLEDGE - type: string 
+	Parameter LSB_PRIORITY bound to: HIGH - type: string 
+INFO: [Synth 8-6157] synthesizing module 'priority_encoder' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/priority_encoder.v:32]
+	Parameter WIDTH bound to: 2 - type: integer 
+	Parameter LSB_PRIORITY bound to: HIGH - type: string 
+	Parameter W1 bound to: 2 - type: integer 
+	Parameter W2 bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'priority_encoder' (25#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/priority_encoder.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'arbiter' (26#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arbiter.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'ip_arb_mux' (27#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_arb_mux.v:32]
+INFO: [Synth 8-6157] synthesizing module 'ip_complete' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_complete.v:32]
+	Parameter ARP_CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+	Parameter ARP_REQUEST_RETRY_COUNT bound to: 4 - type: integer 
+	Parameter ARP_REQUEST_RETRY_INTERVAL bound to: 250000000 - type: integer 
+	Parameter ARP_REQUEST_TIMEOUT bound to: -544967296 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'eth_arb_mux' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_arb_mux.v:32]
+	Parameter S_COUNT bound to: 2 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter ARB_TYPE bound to: PRIORITY - type: string 
+	Parameter LSB_PRIORITY bound to: HIGH - type: string 
+	Parameter CL_S_COUNT bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'eth_arb_mux' (28#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/eth_arb_mux.v:32]
+INFO: [Synth 8-6157] synthesizing module 'ip' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip.v:32]
+	Parameter STATE_IDLE bound to: 2'b00 
+	Parameter STATE_ARP_QUERY bound to: 2'b01 
+	Parameter STATE_WAIT_PACKET bound to: 2'b10 
+INFO: [Synth 8-6157] synthesizing module 'ip_eth_rx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_rx.v:32]
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_READ_HEADER bound to: 3'b001 
+	Parameter STATE_READ_PAYLOAD bound to: 3'b010 
+	Parameter STATE_READ_PAYLOAD_LAST bound to: 3'b011 
+	Parameter STATE_WAIT_LAST bound to: 3'b100 
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_rx.v:309]
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_rx.v:277]
+INFO: [Synth 8-6155] done synthesizing module 'ip_eth_rx' (29#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_rx.v:32]
+INFO: [Synth 8-6157] synthesizing module 'ip_eth_tx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_tx.v:32]
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_WRITE_HEADER bound to: 3'b001 
+	Parameter STATE_WRITE_PAYLOAD bound to: 3'b010 
+	Parameter STATE_WRITE_PAYLOAD_LAST bound to: 3'b011 
+	Parameter STATE_WAIT_LAST bound to: 3'b100 
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_tx.v:235]
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_tx.v:207]
+INFO: [Synth 8-6155] done synthesizing module 'ip_eth_tx' (30#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_eth_tx.v:32]
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip.v:272]
+INFO: [Synth 8-6155] done synthesizing module 'ip' (31#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip.v:32]
+INFO: [Synth 8-6157] synthesizing module 'arp' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1'b0 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+	Parameter REQUEST_RETRY_COUNT bound to: 4 - type: integer 
+	Parameter REQUEST_RETRY_INTERVAL bound to: 250000000 - type: integer 
+	Parameter REQUEST_TIMEOUT bound to: -544967296 - type: integer 
+	Parameter ARP_OPER_ARP_REQUEST bound to: 16'b0000000000000001 
+	Parameter ARP_OPER_ARP_REPLY bound to: 16'b0000000000000010 
+	Parameter ARP_OPER_INARP_REQUEST bound to: 16'b0000000000001000 
+	Parameter ARP_OPER_INARP_REPLY bound to: 16'b0000000000001001 
+INFO: [Synth 8-6157] synthesizing module 'arp_eth_rx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_rx.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1'b0 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter CYCLE_COUNT bound to: 28 - type: integer 
+	Parameter PTR_WIDTH bound to: 5 - type: integer 
+	Parameter OFFSET bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'arp_eth_rx' (32#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_rx.v:32]
+INFO: [Synth 8-6157] synthesizing module 'arp_eth_tx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_tx.v:32]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1'b0 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter CYCLE_COUNT bound to: 28 - type: integer 
+	Parameter PTR_WIDTH bound to: 5 - type: integer 
+	Parameter OFFSET bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'arp_eth_tx' (33#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_eth_tx.v:32]
+INFO: [Synth 8-6157] synthesizing module 'arp_cache' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_cache.v:32]
+	Parameter CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/lfsr.v:32]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+	Parameter STYLE_INT bound to: LOOP - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized0' (33#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/lfsr.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'arp_cache' (34#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp_cache.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'arp' (35#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/arp.v:32]
+WARNING: [Synth 8-7071] port 's_eth_payload_axis_tkeep' of module 'arp' is unconnected for instance 'arp_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_complete.v:399]
+WARNING: [Synth 8-7071] port 'm_eth_payload_axis_tkeep' of module 'arp' is unconnected for instance 'arp_inst' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_complete.v:399]
+WARNING: [Synth 8-7023] instance 'arp_inst' of module 'arp' has 36 connections declared, but only 34 given [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_complete.v:399]
+INFO: [Synth 8-6155] done synthesizing module 'ip_complete' (36#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/ip_complete.v:32]
+INFO: [Synth 8-6157] synthesizing module 'udp' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp.v:32]
+	Parameter CHECKSUM_GEN_ENABLE bound to: 1 - type: integer 
+	Parameter CHECKSUM_PAYLOAD_FIFO_DEPTH bound to: 2048 - type: integer 
+	Parameter CHECKSUM_HEADER_FIFO_DEPTH bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'udp_checksum_gen' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_checksum_gen.v:32]
+	Parameter PAYLOAD_FIFO_DEPTH bound to: 2048 - type: integer 
+	Parameter HEADER_FIFO_DEPTH bound to: 8 - type: integer 
+	Parameter HEADER_FIFO_ADDR_WIDTH bound to: 3 - type: integer 
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_SUM_HEADER_1 bound to: 3'b001 
+	Parameter STATE_SUM_HEADER_2 bound to: 3'b010 
+	Parameter STATE_SUM_HEADER_3 bound to: 3'b011 
+	Parameter STATE_SUM_PAYLOAD bound to: 3'b100 
+	Parameter STATE_FINISH_SUM bound to: 3'b101 
+INFO: [Synth 8-6157] synthesizing module 'axis_fifo' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_fifo.v:32]
+	Parameter DEPTH bound to: 2048 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter KEEP_WIDTH bound to: 1 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter FRAME_FIFO bound to: 0 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_BAD_FRAME bound to: 0 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 0 - type: integer 
+	Parameter ADDR_WIDTH bound to: 11 - type: integer 
+	Parameter KEEP_OFFSET bound to: 8 - type: integer 
+	Parameter LAST_OFFSET bound to: 8 - type: integer 
+	Parameter ID_OFFSET bound to: 9 - type: integer 
+	Parameter DEST_OFFSET bound to: 9 - type: integer 
+	Parameter USER_OFFSET bound to: 9 - type: integer 
+	Parameter WIDTH bound to: 10 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_fifo' (37#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_fifo.v:32]
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_checksum_gen.v:448]
+INFO: [Synth 8-6155] done synthesizing module 'udp_checksum_gen' (38#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_checksum_gen.v:32]
+INFO: [Synth 8-6157] synthesizing module 'udp_ip_rx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_ip_rx.v:32]
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_READ_HEADER bound to: 3'b001 
+	Parameter STATE_READ_PAYLOAD bound to: 3'b010 
+	Parameter STATE_READ_PAYLOAD_LAST bound to: 3'b011 
+	Parameter STATE_WAIT_LAST bound to: 3'b100 
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_ip_rx.v:263]
+INFO: [Synth 8-6155] done synthesizing module 'udp_ip_rx' (39#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_ip_rx.v:32]
+INFO: [Synth 8-6157] synthesizing module 'udp_ip_tx' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_ip_tx.v:32]
+	Parameter STATE_IDLE bound to: 3'b000 
+	Parameter STATE_WRITE_HEADER bound to: 3'b001 
+	Parameter STATE_WRITE_PAYLOAD bound to: 3'b010 
+	Parameter STATE_WRITE_PAYLOAD_LAST bound to: 3'b011 
+	Parameter STATE_WAIT_LAST bound to: 3'b100 
+INFO: [Synth 8-155] case statement is not full and has no default [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_ip_tx.v:239]
+INFO: [Synth 8-6155] done synthesizing module 'udp_ip_tx' (40#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_ip_tx.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'udp' (41#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'udp_complete' (42#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/udp_complete.v:32]
+INFO: [Synth 8-6157] synthesizing module 'axis_fifo__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_fifo.v:32]
+	Parameter DEPTH bound to: 2048 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter KEEP_ENABLE bound to: 0 - type: integer 
+	Parameter KEEP_WIDTH bound to: 4 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter PIPELINE_OUTPUT bound to: 2 - type: integer 
+	Parameter FRAME_FIFO bound to: 0 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_BAD_FRAME bound to: 0 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 0 - type: integer 
+	Parameter ADDR_WIDTH bound to: 11 - type: integer 
+	Parameter KEEP_OFFSET bound to: 32 - type: integer 
+	Parameter LAST_OFFSET bound to: 32 - type: integer 
+	Parameter ID_OFFSET bound to: 33 - type: integer 
+	Parameter DEST_OFFSET bound to: 33 - type: integer 
+	Parameter USER_OFFSET bound to: 33 - type: integer 
+	Parameter WIDTH bound to: 34 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_fifo__parameterized0' (42#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_fifo.v:32]
+WARNING: [Synth 8-689] width (8) of port connection 'm_axis_tdata' does not match port width (32) of module 'axis_fifo__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:596]
+WARNING: [Synth 8-689] width (8) of port connection 'm_axis_tdata' does not match port width (32) of module 'axis_fifo__parameterized0' [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:639]
+INFO: [Synth 8-6155] done synthesizing module 'axis_udp_ethernet_core' (43#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet_core.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'axis_udp_ethernet' (44#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ipshared/034e/src/axis_udp_ethernet.v:32]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_axis_udp_ethernet_0_0' (45#1) [u:/cpre480/SGP/hw/proj/sgp_system.srcs/sources_1/bd/design_1/ip/design_1_axis_udp_ethernet_0_0/synth/design_1_axis_udp_ethernet_0_0.v:58]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:38 ; elapsed = 00:00:53 . Memory (MB): peak = 1307.941 ; gain = 227.660
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:39 ; elapsed = 00:01:01 . Memory (MB): peak = 1307.941 ; gain = 227.660
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:39 ; elapsed = 00:01:01 . Memory (MB): peak = 1307.941 ; gain = 227.660
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.405 . Memory (MB): peak = 1310.738 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 19 Unisim elements for replacement
+WARNING: [Netlist 29-432] The IBUFG primitive 'inst/clk_ibufg_inst' has been retargeted to an IBUF primitive only. No BUFG will be added. If a global buffer is intended, please instantiate an available global clock primitive from the current architecture.
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1409.590 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  IBUFG => IBUF: 1 instance 
+  MMCME2_BASE => MMCME2_ADV: 1 instance 
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.352 . Memory (MB): peak = 1411.520 ; gain = 1.930
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:55 ; elapsed = 00:01:23 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a200tsbg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:55 ; elapsed = 00:01:23 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for inst. (constraint file  U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1/dont_touch.xdc, line 9).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:55 ; elapsed = 00:01:23 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'axis_gmii_rx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'axis_gmii_tx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ip_eth_rx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ip_eth_tx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ip'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'udp_ip_rx'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'udp_ip_tx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              001 |                              000
+           STATE_PAYLOAD |                              010 |                              001
+         STATE_WAIT_LAST |                              100 |                              010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'one-hot' in module 'axis_gmii_rx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              000 |                              000
+          STATE_PREAMBLE |                              001 |                              001
+           STATE_PAYLOAD |                              010 |                              010
+              STATE_LAST |                              011 |                              011
+               STATE_PAD |                              100 |                              100
+               STATE_FCS |                              101 |                              101
+          STATE_WAIT_END |                              110 |                              110
+               STATE_IFG |                              111 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'axis_gmii_tx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              000 |                              000
+       STATE_READ_HEADER |                              001 |                              001
+         STATE_WAIT_LAST |                              010 |                              100
+      STATE_READ_PAYLOAD |                              011 |                              010
+ STATE_READ_PAYLOAD_LAST |                              100 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'ip_eth_rx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                             0001 |                              000
+      STATE_WRITE_HEADER |                             0010 |                              001
+     STATE_WRITE_PAYLOAD |                             0100 |                              010
+STATE_WRITE_PAYLOAD_LAST |                             1000 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'one-hot' in module 'ip_eth_tx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                               00 |                               00
+         STATE_ARP_QUERY |                               01 |                               01
+       STATE_WAIT_PACKET |                               10 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'ip'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                               00 |                              000
+       STATE_READ_HEADER |                               01 |                              001
+      STATE_READ_PAYLOAD |                               10 |                              010
+ STATE_READ_PAYLOAD_LAST |                               11 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'udp_ip_rx'
+INFO: [Synth 8-6159] Found Keep on FSM register 'state_reg_reg' in module 'udp_ip_tx', re-encoding will not be performed
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+*
+              STATE_IDLE |                              000 |                              000
+      STATE_WRITE_HEADER |                              001 |                              001
+     STATE_WRITE_PAYLOAD |                              010 |                              010
+STATE_WRITE_PAYLOAD_LAST |                              011 |                              011
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:02 ; elapsed = 00:01:37 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   36 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 1     
+	   3 Input   32 Bit       Adders := 3     
+	   2 Input   17 Bit       Adders := 12    
+	   2 Input   16 Bit       Adders := 14    
+	   2 Input   13 Bit       Adders := 4     
+	   2 Input   12 Bit       Adders := 3     
+	   2 Input    9 Bit       Adders := 1     
+	   2 Input    7 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 4     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 4     
+	   2 Input    3 Bit       Adders := 3     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input     13 Bit         XORs := 10    
+	   2 Input     12 Bit         XORs := 3     
+	   2 Input      2 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 147   
+	   3 Input      1 Bit         XORs := 40    
+	   4 Input      1 Bit         XORs := 26    
+	   7 Input      1 Bit         XORs := 26    
+	   6 Input      1 Bit         XORs := 24    
+	   8 Input      1 Bit         XORs := 10    
+	   5 Input      1 Bit         XORs := 14    
+	   9 Input      1 Bit         XORs := 12    
+	  10 Input      1 Bit         XORs := 4     
+	  12 Input      1 Bit         XORs := 8     
+	  11 Input      1 Bit         XORs := 2     
+	  19 Input      1 Bit         XORs := 12    
+	  17 Input      1 Bit         XORs := 4     
+	  16 Input      1 Bit         XORs := 10    
+	  18 Input      1 Bit         XORs := 8     
+	  14 Input      1 Bit         XORs := 6     
+	  15 Input      1 Bit         XORs := 6     
+	  20 Input      1 Bit         XORs := 4     
+	  23 Input      1 Bit         XORs := 2     
+	  22 Input      1 Bit         XORs := 4     
+	  21 Input      1 Bit         XORs := 2     
+	  25 Input      1 Bit         XORs := 2     
+	  13 Input      1 Bit         XORs := 2     
++---Registers : 
+	               48 Bit    Registers := 32    
+	               36 Bit    Registers := 1     
+	               34 Bit    Registers := 4     
+	               32 Bit    Registers := 22    
+	               16 Bit    Registers := 52    
+	               13 Bit    Registers := 22    
+	               10 Bit    Registers := 6     
+	                9 Bit    Registers := 2     
+	                8 Bit    Registers := 44    
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 10    
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 18    
+	                3 Bit    Registers := 11    
+	                2 Bit    Registers := 27    
+	                1 Bit    Registers := 242   
++---RAMs : 
+	              68K Bit	(2048 X 34 bit)          RAMs := 2     
+	              40K Bit	(4096 X 10 bit)          RAMs := 2     
+	              24K Bit	(512 X 48 bit)          RAMs := 1     
+	              20K Bit	(2048 X 10 bit)          RAMs := 1     
+	              16K Bit	(512 X 32 bit)          RAMs := 1     
+	              512 Bit	(512 X 1 bit)          RAMs := 1     
+	              384 Bit	(8 X 48 bit)          RAMs := 2     
+	              256 Bit	(8 X 32 bit)          RAMs := 2     
+	              128 Bit	(8 X 16 bit)          RAMs := 7     
+	              104 Bit	(8 X 13 bit)          RAMs := 1     
+	               64 Bit	(8 X 8 bit)          RAMs := 1     
+	               48 Bit	(8 X 6 bit)          RAMs := 1     
+	               32 Bit	(8 X 4 bit)          RAMs := 2     
+	               24 Bit	(8 X 3 bit)          RAMs := 1     
+	               16 Bit	(8 X 2 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   48 Bit        Muxes := 16    
+	   4 Input   48 Bit        Muxes := 1     
+	   6 Input   36 Bit        Muxes := 1     
+	   3 Input   36 Bit        Muxes := 1     
+	   2 Input   36 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 14    
+	   7 Input   32 Bit        Muxes := 1     
+	   5 Input   28 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 20    
+	   8 Input   16 Bit        Muxes := 1     
+	   5 Input   16 Bit        Muxes := 2     
+	  21 Input   16 Bit        Muxes := 1     
+	   4 Input   16 Bit        Muxes := 2     
+	   7 Input   16 Bit        Muxes := 3     
+	   6 Input   16 Bit        Muxes := 1     
+	   2 Input   13 Bit        Muxes := 25    
+	   2 Input    9 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 78    
+	   3 Input    8 Bit        Muxes := 1     
+	   4 Input    8 Bit        Muxes := 3     
+	   8 Input    8 Bit        Muxes := 2     
+	   5 Input    8 Bit        Muxes := 1     
+	   3 Input    7 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 6     
+	   5 Input    6 Bit        Muxes := 1     
+	   4 Input    6 Bit        Muxes := 1     
+	   6 Input    6 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 4     
+	   2 Input    4 Bit        Muxes := 18    
+	   4 Input    4 Bit        Muxes := 1     
+	  21 Input    4 Bit        Muxes := 1     
+	   3 Input    3 Bit        Muxes := 7     
+	   2 Input    3 Bit        Muxes := 21    
+	   8 Input    3 Bit        Muxes := 1     
+	  21 Input    3 Bit        Muxes := 1     
+	   5 Input    3 Bit        Muxes := 1     
+	  38 Input    3 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 3     
+	   9 Input    3 Bit        Muxes := 1     
+	   6 Input    3 Bit        Muxes := 2     
+	   3 Input    2 Bit        Muxes := 6     
+	   2 Input    2 Bit        Muxes := 47    
+	   4 Input    2 Bit        Muxes := 5     
+	  22 Input    2 Bit        Muxes := 1     
+	  10 Input    2 Bit        Muxes := 1     
+	   8 Input    2 Bit        Muxes := 3     
+	   2 Input    1 Bit        Muxes := 354   
+	   4 Input    1 Bit        Muxes := 33    
+	   3 Input    1 Bit        Muxes := 13    
+	   8 Input    1 Bit        Muxes := 22    
+	  21 Input    1 Bit        Muxes := 25    
+	   5 Input    1 Bit        Muxes := 34    
+	   7 Input    1 Bit        Muxes := 6     
+	   6 Input    1 Bit        Muxes := 10    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 740 (col length:100)
+BRAMs: 730 (col length: RAMB18 100 RAMB36 50)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+INFO: [Synth 8-5784] Optimized 24 bits of RAM "core_inst/udp_rx_payload_fifo/mem_reg" due to constant propagation. Old ram width 34 bits, new ram width 10 bits.
+INFO: [Synth 8-5784] Optimized 24 bits of RAM "core_inst/udp_tx_payload_fifo/mem_reg" due to constant propagation. Old ram width 34 bits, new ram width 10 bits.
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:31 ; elapsed = 00:02:13 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping	Report
++------------+-------------------------------------+---------------+----------------+
+|Module Name | RTL Object                          | Depth x Width | Implemented As | 
++------------+-------------------------------------+---------------+----------------+
+|ip_complete | ip_inst/ip_eth_tx_inst/hdr_sum_next | 32x1          | LUT            | 
++------------+-------------------------------------+---------------+----------------+
+
+
+Block RAM: Preliminary Mapping	Report (see note below)
++------------------------------------------------------------------------------+--------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name                                                                   | RTL Object                                       | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------------------------------------------------------------------------+--------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|inst                                                                          | core_inst/eth_mac_inst/tx_fifo/fifo_inst/mem_reg | 4 K x 10(READ_FIRST)   | W |   | 4 K x 10(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      | 
+|inst                                                                          | core_inst/eth_mac_inst/rx_fifo/fifo_inst/mem_reg | 4 K x 10(NO_CHANGE)    | W |   | 4 K x 10(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      | 
+|inst/\core_inst/udp_complete_inst /ip_complete_inst/\arp_inst/arp_cache_inst  | ip_addr_mem_reg                                  | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      | 
+|inst/\core_inst/udp_complete_inst /ip_complete_inst/\arp_inst/arp_cache_inst  | mac_addr_mem_reg                                 | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/payload_fifo/mem_reg       | 2 K x 10(READ_FIRST)   | W |   | 2 K x 10(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
+|inst                                                                          | core_inst/udp_rx_payload_fifo/mem_reg            | 2 K x 34(READ_FIRST)   | W |   | 2 K x 34(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
+|inst                                                                          | core_inst/udp_tx_payload_fifo/mem_reg            | 2 K x 34(READ_FIRST)   | W |   | 2 K x 34(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
++------------------------------------------------------------------------------+--------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping	Report (see note below)
++------------------------------------------------------------------------------+-----------------------------------------------+-----------+----------------------+----------------+
+|Module Name                                                                   | RTL Object                                    | Inference | Size (Depth x Width) | Primitives     | 
++------------------------------------------------------------------------------+-----------------------------------------------+-----------+----------------------+----------------+
+|inst/\core_inst/udp_complete_inst /ip_complete_inst/\arp_inst/arp_cache_inst  | valid_mem_reg                                 | Implied   | 512 x 1              | RAM128X1D x 4	 | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M x 3	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/ip_ttl_mem_reg          | Implied   | 8 x 8                | RAM32M x 2	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M x 6	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M x 6	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M x 3	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M x 3	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M x 3	    | 
++------------------------------------------------------------------------------+-----------------------------------------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:44 ; elapsed = 00:02:26 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:44 ; elapsed = 00:02:27 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping	Report
++------------------------------------------------------------------------------+--------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name                                                                   | RTL Object                                       | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------------------------------------------------------------------------+--------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|inst                                                                          | core_inst/eth_mac_inst/tx_fifo/fifo_inst/mem_reg | 4 K x 10(READ_FIRST)   | W |   | 4 K x 10(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      | 
+|inst                                                                          | core_inst/eth_mac_inst/rx_fifo/fifo_inst/mem_reg | 4 K x 10(NO_CHANGE)    | W |   | 4 K x 10(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      | 
+|inst/\core_inst/udp_complete_inst /ip_complete_inst/\arp_inst/arp_cache_inst  | ip_addr_mem_reg                                  | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      | 
+|inst/\core_inst/udp_complete_inst /ip_complete_inst/\arp_inst/arp_cache_inst  | mac_addr_mem_reg                                 | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/payload_fifo/mem_reg       | 2 K x 10(READ_FIRST)   | W |   | 2 K x 10(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
+|inst                                                                          | core_inst/udp_rx_payload_fifo/mem_reg            | 2 K x 34(READ_FIRST)   | W |   | 2 K x 34(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
+|inst                                                                          | core_inst/udp_tx_payload_fifo/mem_reg            | 2 K x 34(READ_FIRST)   | W |   | 2 K x 34(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      | 
++------------------------------------------------------------------------------+--------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping	Report
++------------------------------------------------------------------------------+-----------------------------------------------+-----------+----------------------+----------------+
+|Module Name                                                                   | RTL Object                                    | Inference | Size (Depth x Width) | Primitives     | 
++------------------------------------------------------------------------------+-----------------------------------------------+-----------+----------------------+----------------+
+|inst/\core_inst/udp_complete_inst /ip_complete_inst/\arp_inst/arp_cache_inst  | valid_mem_reg                                 | Implied   | 512 x 1              | RAM128X1D x 4	 | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M x 3	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/ip_ttl_mem_reg          | Implied   | 8 x 8                | RAM32M x 2	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M x 6	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M x 6	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M x 3	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M x 3	    | 
+|inst/\core_inst/udp_complete_inst /udp_inst                                   | udp_checksum_gen_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M x 3	    | 
++------------------------------------------------------------------------------+-----------------------------------------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance inst/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/arp_cache_inst/ip_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/arp_cache_inst/mac_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:46 ; elapsed = 00:02:29 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:53 ; elapsed = 00:02:35 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:53 ; elapsed = 00:02:35 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:53 ; elapsed = 00:02:36 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:53 ; elapsed = 00:02:36 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:54 ; elapsed = 00:02:36 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:54 ; elapsed = 00:02:36 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------------+------+
+|      |Cell        |Count |
++------+------------+------+
+|1     |BUFG        |     3|
+|2     |BUFIO       |     1|
+|3     |BUFR        |     1|
+|4     |CARRY4      |   211|
+|5     |IDDR        |     5|
+|6     |IDELAYCTRL  |     1|
+|7     |IDELAYE2    |     5|
+|8     |LUT1        |   182|
+|9     |LUT2        |   293|
+|10    |LUT3        |   368|
+|11    |LUT4        |   250|
+|12    |LUT5        |   328|
+|13    |LUT6        |   684|
+|14    |MMCME2_BASE |     1|
+|15    |MUXF7       |    17|
+|16    |ODDR        |     6|
+|17    |RAM128X1D   |     4|
+|18    |RAM32M      |    21|
+|19    |RAMB18E1    |     3|
+|22    |RAMB36E1    |     6|
+|26    |FDPE        |    21|
+|27    |FDRE        |  2630|
+|28    |FDSE        |   169|
+|29    |IBUFG       |     1|
++------+------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:54 ; elapsed = 00:02:36 . Memory (MB): peak = 1411.520 ; gain = 331.238
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:07 ; elapsed = 00:02:27 . Memory (MB): peak = 1411.520 ; gain = 227.660
+Synthesis Optimization Complete : Time (s): cpu = 00:01:54 ; elapsed = 00:02:36 . Memory (MB): peak = 1411.520 ; gain = 331.238
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.201 . Memory (MB): peak = 1411.520 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 281 Unisim elements for replacement
+WARNING: [Netlist 29-432] The IBUFG primitive 'inst/clk_ibufg_inst' has been retargeted to an IBUF primitive only. No BUFG will be added. If a global buffer is intended, please instantiate an available global clock primitive from the current architecture.
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1411.520 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 27 instances were transformed.
+  IBUFG => IBUF: 1 instance 
+  MMCME2_BASE => MMCME2_ADV: 1 instance 
+  RAM128X1D => RAM128X1D (MUXF7(x2), RAMD64E(x4)): 4 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 21 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+148 Infos, 64 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:02:06 ; elapsed = 00:02:56 . Memory (MB): peak = 1411.520 ; gain = 331.238
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1/design_1_axis_udp_ethernet_0_0.dcp' has been generated.
+WARNING: [Common 17-576] 'use_project_ipc' is deprecated. This option is deprecated and no longer used.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_axis_udp_ethernet_0_0, cache-ID = eaf00d4ce7d2d6c6
+INFO: [Coretcl 2-1174] Renamed 41 cell refs.
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'U:/cpre480/SGP/hw/proj/sgp_system.runs/design_1_axis_udp_ethernet_0_0_synth_1/design_1_axis_udp_ethernet_0_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_axis_udp_ethernet_0_0_utilization_synth.rpt -pb design_1_axis_udp_ethernet_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Mar 31 11:30:25 2021...

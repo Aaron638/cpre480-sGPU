@@ -1,100 +1,122 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.540744",
-   "Default View_TopLeft":"438,-172",
-   "ExpandedHierarchyInLayout":"/debug_subsystem|/graphics_subsystem",
+   "Default View_ScaleFactor":"0.878441",
+   "Default View_TopLeft":"814,-17",
+   "ExpandedHierarchyInLayout":"/debug_subsystem|/graphics_subsystem|/system_intercon",
    "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:9.0 non-TLS
 #  -string -flagsOSRD
-preplace port DDR3 -pg 1 -lvl 4 -x 3160 -y 810 -defaultsOSRD
-preplace port RGMII_eth -pg 1 -lvl 4 -x 3160 -y 630 -defaultsOSRD
-preplace port TMDS_OUT -pg 1 -lvl 4 -x 3160 -y 540 -defaultsOSRD
-preplace port usb_uart -pg 1 -lvl 4 -x 3160 -y 1210 -defaultsOSRD
-preplace port reset -pg 1 -lvl 0 -x 0 -y 880 -defaultsOSRD
-preplace port sys_clk_i -pg 1 -lvl 0 -x 0 -y 900 -defaultsOSRD
-preplace inst debug_subsystem -pg 1 -lvl 2 -x 710 -y 1020 -defaultsOSRD
-preplace inst ethernet_subsystem -pg 1 -lvl 3 -x 2940 -y 620 -defaultsOSRD
-preplace inst graphics_subsystem -pg 1 -lvl 2 -x 710 -y 140 -defaultsOSRD
-preplace inst memory_subsystem -pg 1 -lvl 3 -x 2940 -y 840 -defaultsOSRD
-preplace inst system_intercon -pg 1 -lvl 1 -x 150 -y 700 -defaultsOSRD
-preplace inst video_subsystem -pg 1 -lvl 2 -x 710 -y 630 -defaultsOSRD
-preplace inst debug_subsystem|axi_uartlite_0 -pg 1 -lvl 3 -x 1470 -y 1220 -defaultsOSRD
-preplace inst debug_subsystem|mdm_0 -pg 1 -lvl 1 -x 690 -y 1090 -defaultsOSRD
-preplace inst debug_subsystem|microblaze_0 -pg 1 -lvl 2 -x 1070 -y 1080 -defaultsOSRD
-preplace inst debug_subsystem|microblaze_0_local_memory -pg 1 -lvl 3 -x 1470 -y 1040 -defaultsOSRD
-preplace inst debug_subsystem|proc_sys_reset_0 -pg 1 -lvl 2 -x 1070 -y 1310 -defaultsOSRD
-preplace inst graphics_subsystem|sgp_vertexFetch -pg 1 -lvl 1 -x 710 -y 200 -defaultsOSRD
-preplace inst graphics_subsystem|vertexfetch_fifo -pg 1 -lvl 2 -x 960 -y 220 -defaultsOSRD
-preplace inst graphics_subsystem|rasterizer_fifo -pg 1 -lvl 6 -x 1940 -y 320 -defaultsOSRD
-preplace inst graphics_subsystem|viewport_fifo -pg 1 -lvl 4 -x 1450 -y 270 -defaultsOSRD
-preplace inst graphics_subsystem|system_ila_0 -pg 1 -lvl 8 -x 2400 -y 290 -defaultsOSRD
-preplace inst graphics_subsystem|sgp_rasterizer -pg 1 -lvl 5 -x 1700 -y 300 -defaultsOSRD
-preplace inst graphics_subsystem|sgp_renderOutput -pg 1 -lvl 7 -x 2190 -y 420 -defaultsOSRD
-preplace inst graphics_subsystem|sgp_viewPort -pg 1 -lvl 3 -x 1210 -y 250 -defaultsOSRD
-preplace netloc ARESETN_1 1 0 3 40 860 370 740 2720
-preplace netloc mem_interface_mmcm_locked 1 1 3 370 910 2680J 980 3130
-preplace netloc mem_interface_ui_clk 1 0 4 20 520 360 730 2700 1000 3140
-preplace netloc mem_interface_ui_clk_sync_rst 1 1 3 380 920 2670J 990 3120
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 380 720 2710
-preplace netloc reset_1 1 0 3 NJ 880 NJ 880 2680J
-preplace netloc sys_clk_i_1 1 0 3 NJ 900 NJ 900 2690J
-preplace netloc video_subsystem_VDMA_CLK_O 1 2 1 2740 650n
-preplace netloc S03_AXI_1 1 1 2 310 790 NJ
-preplace netloc S_AXI_LITE_1 1 1 1 N 610
-preplace netloc S_AXI_LITE_2 1 1 2 320 830 NJ
-preplace netloc axi_interconnect_0_M00_AXI 1 1 1 330 590n
+preplace port DDR3 -pg 1 -lvl 4 -x 3770 -y 810 -defaultsOSRD
+preplace port RGMII_eth -pg 1 -lvl 4 -x 3770 -y 630 -defaultsOSRD
+preplace port TMDS_OUT -pg 1 -lvl 4 -x 3770 -y 540 -defaultsOSRD
+preplace port usb_uart -pg 1 -lvl 4 -x 3770 -y 1210 -defaultsOSRD
+preplace port reset -pg 1 -lvl 0 -x -80 -y 880 -defaultsOSRD
+preplace port sys_clk_i -pg 1 -lvl 0 -x -80 -y 900 -defaultsOSRD
+preplace inst debug_subsystem -pg 1 -lvl 2 -x 1320 -y 1020 -defaultsOSRD
+preplace inst ethernet_subsystem -pg 1 -lvl 3 -x 3550 -y 620 -defaultsOSRD
+preplace inst graphics_subsystem -pg 1 -lvl 2 -x 1320 -y 140 -defaultsOSRD
+preplace inst memory_subsystem -pg 1 -lvl 3 -x 3550 -y 840 -defaultsOSRD
+preplace inst system_intercon -pg 1 -lvl 1 -x 150 -y 718 -defaultsOSRD
+preplace inst video_subsystem -pg 1 -lvl 2 -x 1320 -y 630 -defaultsOSRD
+preplace inst debug_subsystem|axi_uartlite_0 -pg 1 -lvl 3 -x 2080 -y 1220 -defaultsOSRD
+preplace inst debug_subsystem|mdm_0 -pg 1 -lvl 1 -x 1300 -y 1090 -defaultsOSRD
+preplace inst debug_subsystem|microblaze_0 -pg 1 -lvl 2 -x 1680 -y 1080 -defaultsOSRD
+preplace inst debug_subsystem|microblaze_0_local_memory -pg 1 -lvl 3 -x 2080 -y 1040 -defaultsOSRD
+preplace inst debug_subsystem|proc_sys_reset_0 -pg 1 -lvl 2 -x 1680 -y 1310 -defaultsOSRD
+preplace inst graphics_subsystem|sgp_vertexFetch -pg 1 -lvl 1 -x 1320 -y 200 -defaultsOSRD
+preplace inst graphics_subsystem|vertexfetch_fifo -pg 1 -lvl 2 -x 1570 -y 220 -defaultsOSRD
+preplace inst graphics_subsystem|rasterizer_fifo -pg 1 -lvl 6 -x 2550 -y 320 -defaultsOSRD
+preplace inst graphics_subsystem|viewport_fifo -pg 1 -lvl 4 -x 2060 -y 270 -defaultsOSRD
+preplace inst graphics_subsystem|system_ila_0 -pg 1 -lvl 8 -x 3010 -y 290 -defaultsOSRD
+preplace inst graphics_subsystem|sgp_rasterizer -pg 1 -lvl 5 -x 2310 -y 300 -defaultsOSRD
+preplace inst graphics_subsystem|sgp_renderOutput -pg 1 -lvl 7 -x 2800 -y 420 -defaultsOSRD
+preplace inst graphics_subsystem|sgp_viewPort -pg 1 -lvl 3 -x 1820 -y 250 -defaultsOSRD
+preplace inst system_intercon|periph_intercon -pg 1 -lvl 2 -x 560 -y 1198 -defaultsOSRD
+preplace inst system_intercon|system_dma -pg 1 -lvl 1 -x 250 -y 688 -defaultsOSRD
+preplace netloc ARESETN_1 1 0 3 -20 1640 950 740 3330
+preplace netloc mem_interface_mmcm_locked 1 1 3 1000 910 3290J 980 3740
+preplace netloc mem_interface_ui_clk 1 0 4 -40 518 960 730 3310 1000 3750
+preplace netloc mem_interface_ui_clk_sync_rst 1 1 3 1010 920 3280J 990 3730
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 1010 720 3320
+preplace netloc reset_1 1 0 3 -50J 1660 970J 880 3290J
+preplace netloc sys_clk_i_1 1 0 3 -60J 1680 990J 900 3300J
+preplace netloc video_subsystem_VDMA_CLK_O 1 2 1 3350 650n
+preplace netloc S03_AXI_1 1 1 2 930 790 NJ
+preplace netloc S_AXI_LITE_1 1 1 1 870 610n
+preplace netloc S_AXI_LITE_2 1 1 2 940 830 NJ
+preplace netloc axi_interconnect_0_M00_AXI 1 1 1 900 1078n
 preplace netloc axi_uartlite_0_UART 1 2 2 NJ 1210 NJ
 preplace netloc axis_udp_ethernet_0_RGMII_eth 1 3 1 NJ 630
-preplace netloc ctrl_1 1 1 1 N 630
-preplace netloc ethernet_subsystem_M00_AXI 1 0 4 40 530 NJ 530 NJ 530 3140
+preplace netloc ctrl_1 1 1 1 890 630n
+preplace netloc ethernet_subsystem_M00_AXI 1 0 4 -20 528 940J 530 NJ 530 3750
 preplace netloc mem_interface_DDR3 1 3 1 NJ 810
-preplace netloc microblaze_0_M_AXI_DC 1 2 1 2730 750n
-preplace netloc microblaze_0_M_AXI_DP 1 0 3 30 890 NJ 890 2660
-preplace netloc renderOutput_dcache_0_M0_AXI 1 2 1 2760 390n
-preplace netloc rgb2dvi_0_TMDS 1 2 2 2660J 540 NJ
-preplace netloc s00_axi_1 1 1 1 340 590n
-preplace netloc system_intercon_M07_AXI 1 1 1 260 70n
-preplace netloc system_intercon_M08_AXI 1 1 1 300 200n
-preplace netloc system_intercon_M09_AXI 1 1 1 290 110n
-preplace netloc system_intercon_M10_AXI 1 1 1 280 90n
-preplace netloc system_intercon_M12_AXI 1 1 1 350 370n
-preplace netloc video_subsystem_M_AXI_MM2S 1 2 1 2750 610n
-preplace netloc system_intercon_M11_AXI 1 1 1 270 410n
+preplace netloc microblaze_0_M_AXI_DC 1 2 1 3340 750n
+preplace netloc microblaze_0_M_AXI_DP 1 0 3 -30 1670 980J 890 3270
+preplace netloc renderOutput_dcache_0_M0_AXI 1 2 1 3370 390n
+preplace netloc rgb2dvi_0_TMDS 1 2 2 3270J 540 NJ
+preplace netloc s00_axi_1 1 1 1 880 590n
+preplace netloc system_intercon_M07_AXI 1 1 1 830 70n
+preplace netloc system_intercon_M08_AXI 1 1 1 860 200n
+preplace netloc system_intercon_M09_AXI 1 1 1 850 110n
+preplace netloc system_intercon_M10_AXI 1 1 1 840 90n
+preplace netloc system_intercon_M12_AXI 1 1 1 910 370n
+preplace netloc video_subsystem_M_AXI_MM2S 1 2 1 3360 610n
+preplace netloc system_intercon_M11_AXI 1 1 1 920 410n
 preplace netloc debug_subsystem|ARESETN_1 1 2 2 NJ 1330 NJ
-preplace netloc debug_subsystem|mdm_0_Debug_SYS_Rst 1 1 1 810 1100n
-preplace netloc debug_subsystem|mem_interface_mmcm_locked 1 0 2 NJ 1270 800
-preplace netloc debug_subsystem|mem_interface_ui_clk 1 0 3 580J 1280 820 980 1340
+preplace netloc debug_subsystem|mdm_0_Debug_SYS_Rst 1 1 1 1420 1100n
+preplace netloc debug_subsystem|mem_interface_mmcm_locked 1 0 2 NJ 1270 1410
+preplace netloc debug_subsystem|mem_interface_ui_clk 1 0 3 1190J 1280 1430 980 1950
 preplace netloc debug_subsystem|mem_interface_ui_clk_sync_rst 1 0 2 NJ 1290 N
-preplace netloc debug_subsystem|proc_sys_reset_0_bus_struct_reset 1 2 1 1350 1070n
-preplace netloc debug_subsystem|proc_sys_reset_0_mb_reset 1 1 2 830 970 1310
-preplace netloc debug_subsystem|proc_sys_reset_0_peripheral_aresetn 1 2 2 1360 1350 NJ
+preplace netloc debug_subsystem|proc_sys_reset_0_bus_struct_reset 1 2 1 1960 1070n
+preplace netloc debug_subsystem|proc_sys_reset_0_mb_reset 1 1 2 1440 970 1920
+preplace netloc debug_subsystem|proc_sys_reset_0_peripheral_aresetn 1 2 2 1970 1350 NJ
 preplace netloc debug_subsystem|axi_interconnect_0_M00_AXI 1 0 3 NJ 1200 NJ 1200 N
 preplace netloc debug_subsystem|axi_uartlite_0_UART 1 3 1 N 1210
 preplace netloc debug_subsystem|mdm_0_MBDEBUG_0 1 1 1 N 1080
-preplace netloc debug_subsystem|microblaze_0_DLMB 1 2 1 1320 1010n
-preplace netloc debug_subsystem|microblaze_0_ILMB 1 2 1 1330 1030n
+preplace netloc debug_subsystem|microblaze_0_DLMB 1 2 1 1930 1010n
+preplace netloc debug_subsystem|microblaze_0_ILMB 1 2 1 1940 1030n
 preplace netloc debug_subsystem|microblaze_0_M_AXI_DC 1 2 2 NJ 1120 NJ
-preplace netloc debug_subsystem|microblaze_0_M_AXI_DP 1 2 2 1320J 1140 NJ
-preplace netloc graphics_subsystem|ARESETN_1 1 0 8 590 100 830 130 1090 160 1320 190 1580 390 1810 420 2080 330 NJ
-preplace netloc graphics_subsystem|mem_interface_ui_clk 1 0 8 560 80 840 140 1080 150 1330 350 1590 400 1820 400 2070 310 NJ
-preplace netloc graphics_subsystem|renderOutput_dcache_0_M0_AXI 1 7 2 2300 390 NJ
-preplace netloc graphics_subsystem|system_intercon_M07_AXI 1 0 1 580 70n
+preplace netloc debug_subsystem|microblaze_0_M_AXI_DP 1 2 2 1930J 1140 NJ
+preplace netloc graphics_subsystem|ARESETN_1 1 0 8 1200 100 1440 130 1700 160 1930 190 2190 390 2420 420 2690 330 NJ
+preplace netloc graphics_subsystem|mem_interface_ui_clk 1 0 8 1170 80 1450 140 1690 150 1940 350 2200 400 2430 400 2680 310 NJ
+preplace netloc graphics_subsystem|renderOutput_dcache_0_M0_AXI 1 7 2 2910 390 NJ
+preplace netloc graphics_subsystem|system_intercon_M07_AXI 1 0 1 1190 70n
 preplace netloc graphics_subsystem|system_intercon_M08_AXI 1 0 1 N 200
-preplace netloc graphics_subsystem|system_intercon_M09_AXI 1 0 3 570J 90 NJ 90 1100
-preplace netloc graphics_subsystem|system_intercon_M10_AXI 1 0 1 550 90n
+preplace netloc graphics_subsystem|system_intercon_M09_AXI 1 0 3 1180J 90 NJ 90 1710
+preplace netloc graphics_subsystem|system_intercon_M10_AXI 1 0 1 1160 90n
 preplace netloc graphics_subsystem|vertexFetch_core_0_M_AXIS 1 1 1 N 200
 preplace netloc graphics_subsystem|vertexfetch_fifo_M_AXIS 1 2 1 N 220
 preplace netloc graphics_subsystem|sgp_viewPort_0_M_AXIS 1 3 1 N 250
 preplace netloc graphics_subsystem|viewport_fifo_M_AXIS 1 4 1 N 270
 preplace netloc graphics_subsystem|sgp_rasterizer_M_AXIS 1 5 1 N 300
-preplace netloc graphics_subsystem|s_axi_lite3_1 1 0 5 NJ 370 NJ 370 NJ 370 NJ 370 1570
+preplace netloc graphics_subsystem|s_axi_lite3_1 1 0 5 NJ 370 NJ 370 NJ 370 NJ 370 2180
 preplace netloc graphics_subsystem|system_intercon_M11_AXI 1 0 7 NJ 410 NJ 410 NJ 410 NJ 410 NJ 410 NJ 410 N
-preplace netloc graphics_subsystem|rasterizer_fifo_M_AXIS 1 6 1 2060 320n
-levelinfo -pg 1 0 150 710 2940 3160
-levelinfo -hier debug_subsystem * 690 1070 1470 *
-levelinfo -hier graphics_subsystem * 710 960 1210 1450 1700 1940 2190 2400 *
-pagesize -pg 1 -db -bbox -sgen -110 0 3290 1430
-pagesize -hier debug_subsystem -db -bbox -sgen 550 950 1610 1410
-pagesize -hier graphics_subsystem -db -bbox -sgen 520 40 2530 510
+preplace netloc graphics_subsystem|rasterizer_fifo_M_AXIS 1 6 1 2670 320n
+preplace netloc system_intercon|ARESETN_1 1 0 2 110 898 380
+preplace netloc system_intercon|mem_interface_ui_clk 1 0 2 100 878 390
+preplace netloc system_intercon|Conn1 1 2 1 N 1218
+preplace netloc system_intercon|Conn2 1 2 1 N 1238
+preplace netloc system_intercon|Conn3 1 2 1 N 1258
+preplace netloc system_intercon|S03_AXI_1 1 2 1 N 1178
+preplace netloc system_intercon|S_AXI_LITE_1 1 2 1 N 1098
+preplace netloc system_intercon|S_AXI_LITE_2 1 2 1 N 1158
+preplace netloc system_intercon|axi_interconnect_0_M00_AXI 1 2 1 N 1078
+preplace netloc system_intercon|ctrl_1 1 2 1 N 1118
+preplace netloc system_intercon|ethernet_subsystem_M00_AXI 1 0 2 NJ 858 N
+preplace netloc system_intercon|microblaze_0_M_AXI_DP 1 0 2 NJ 598 410
+preplace netloc system_intercon|periph_intercon_M06_AXI 1 0 3 120 778 NJ 778 710
+preplace netloc system_intercon|periph_intercon_M10_AXI 1 2 1 N 1278
+preplace netloc system_intercon|periph_intercon_M11_AXI 1 2 1 N 1298
+preplace netloc system_intercon|periph_intercon_M12_AXI 1 2 1 N 1318
+preplace netloc system_intercon|s00_axi_1 1 2 1 N 1138
+preplace netloc system_intercon|system_dma_M_AXI 1 1 1 400 678n
+levelinfo -pg 1 -80 150 1320 3550 3770
+levelinfo -hier debug_subsystem * 1300 1680 2080 *
+levelinfo -hier graphics_subsystem * 1320 1570 1820 2060 2310 2550 2800 3010 *
+levelinfo -hier system_intercon * 250 560 *
+pagesize -pg 1 -db -bbox -sgen -190 0 3900 1690
+pagesize -hier debug_subsystem -db -bbox -sgen 1160 950 2220 1410
+pagesize -hier graphics_subsystem -db -bbox -sgen 1130 40 3140 510
+pagesize -hier system_intercon -db -bbox -sgen 70 578 740 1618
 "
 }
 

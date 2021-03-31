@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a200tsbg484-1" LaunchTime="1617208002">
+  <File Type="PA-TCL" Name="design_1_wrapper.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="design_1_wrapper_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="design_1_wrapper_reports.tcl"/>
+  <File Type="RDS-RDS" Name="design_1_wrapper.vds"/>
+  <File Type="RDS-UTIL" Name="design_1_wrapper_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="design_1_wrapper_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="design_1_wrapper.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="design_1_wrapper_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="design_1_wrapper_timing_summary_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/bd/design_1/design_1.bd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/hdl/design_1_wrapper.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/bd/design_1/hdl/design_1_wrapper.vhd"/>
+        <Attr Name="ImportTime" Val="1617206362"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/bd/design_1/ip/design_1_mem_interface_0/mig_b.prj">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="ScopedToCell" Val="design_1_mem_interface_0"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="design_1_wrapper"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PPRDIR/../constrs/NexysVideo_Master.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../constrs/axis_async_fifo.tcl">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../constrs/eth_mac_1g_rgmii.tcl">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../constrs/eth_mac_fifo.tcl">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../constrs/rgmii_phy_if.tcl">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../constrs/sync_reset.tcl">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../constrs/vdma_timing_workaround.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2020">
+      <Desc>Higher performance designs, resource sharing is turned off, the global fanout guide is set to a lower number, FSM extraction forced to one-hot, LUT combining is disabled, equivalent registers are preserved, SRL are inferred  with a larger threshold</Desc>
+    </StratHandle>
+    <Step Id="synth_design">
+      <Option Id="KeepEquivalentRegisters">1</Option>
+      <Option Id="NoCombineLuts">1</Option>
+      <Option Id="ResourceSharing">2</Option>
+      <Option Id="FsmExtraction">1</Option>
+      <Option Id="ShregMinSize">5</Option>
+      <Option Id="Directive">7</Option>
+    </Step>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_mem_interface_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_attrib_001_fifo_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_vertexFetch_core_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_memory_dma_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axi_uartlite_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_sgp_renderOutput_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_attrib_011_fifo_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_attrib_000_fifo_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_dlmb_bram_if_cntrl_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_attrib_010_fifo_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_memory_intercon_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axis_rx_tagger_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axis_data_fifo_rx_udp_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axis_udp_ethernet_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_ilmb_v10_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_vertex_attrib_switch_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_vertex_buffer_FIFO_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axis_data_fifo_tx_udp_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_3"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axis_tx_tagger_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_xbar_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_blk_mem_gen_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_4"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_v_tc_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_mdm_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_microblaze_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_9"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_ilmb_bram_if_cntrl_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_dlmb_v10_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_rgb2dvi_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_proc_sys_reset_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axi_mm2s_mapper_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_sgp_viewPort_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_system_ila_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_vertexfetch_fifo_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_viewport_fifo_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_system_dma_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axi_vdma_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_2"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axi_dynclk_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_v_axi4s_vid_out_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_8"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_5"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_10"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_7"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_6"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_axis_data_fifo_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_sgp_rasterizer_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_11"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_1_auto_pc_0"/>
+</GenRun>
