@@ -73,6 +73,9 @@
 !*.bmm
 !*.xmp
 
+#Lua-files
+!*.lua
+
 #Makefiles
 !*Makefile*
 !*.mk

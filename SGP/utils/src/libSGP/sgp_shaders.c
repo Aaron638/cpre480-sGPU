@@ -17,6 +17,7 @@
 #include "sgp_graphics.h"
 #include "sgp_system.h"
 #include "sgp_transmit.h"
+#include <math.h>
 
 
 // Global shaders state. 
@@ -533,6 +534,73 @@ void SGP_glUniform1f(GLint location, GLfloat v0) {
 
 }
 
+/*
+	https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glUniform.xhtml
+
+	Update the uniform vector at location. 
+	4fv means the function expects float vector/array of size 4 as the value.
+*/
+void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
+
+	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
+	if (sgp_uniform_loc == -1) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP_glUniform4f: called with location=%d which is not a valid uniform location\n", (int)location);
+		}
+		return;
+	}
+	if (count < 0) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP_glUniform4f: called with count=%d Which is < 0.\n", (int)count);
+		}
+		return;
+	}
+
+	// uint8_t arr_size = SGP_shadersstate.uniforms[sgp_uniform_loc].size;
+	uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr;
+
+	// for (int i = 0; i < fmin(count, arr_size); i++)
+	for (int i = 0; i < count; i++)
+	{
+		sglu_fixed_t v_fixed = sglu_float_to_fixed(value[i], 16);
+		SGP_write32(SGPconfig, baseaddr, (uint32_t)v_fixed);
+	}
+	
+}
+
+/*
+	https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glUniform.xhtml
+
+	Update the uniform matrix or array of matrices at location. 
+	Matrix4fv means the function expects a 4x4 float vector/array as the value.
+*/
+void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value) {
+
+	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
+	if (sgp_uniform_loc == -1) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("glUniformMatrix4fv: called with location=%d which is not a valid uniform location\n", (int)location);
+		}
+		return;
+	}
+	if (count < 0) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("glUniformMatrix4fv: called with count=%d Which is < 0.\n", (int)count);
+		}
+		return;
+	}
+
+	// uint8_t arr_size = SGP_shadersstate.uniforms[sgp_uniform_loc].size;
+	uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr;
+
+	// for (int i = 0; i < fmin(count, arr_size); i++)
+	for (int i = 0; i < count; i++)
+	{
+		sglu_fixed_t v_fixed = sglu_float_to_fixed(value[i], 16);
+		SGP_write32(SGPconfig, baseaddr, (uint32_t)v_fixed);
+	}
+	
+}
 
 // Utility function - lookup which index corresponds to the OpenGL program ID. Returns -1 if no match
 int32_t SGP_lookupProgram(GLuint gl_programID) {

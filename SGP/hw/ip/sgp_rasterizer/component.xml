@@ -325,7 +325,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>2bd50e34</spirit:value>
+            <spirit:value>a990fd40</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -344,7 +344,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>2bd50e34</spirit:value>
+            <spirit:value>a990fd40</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -888,7 +888,7 @@
       <spirit:file>
         <spirit:name>src/triangleTest_core.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_61c268e8</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_0812d92e</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1011,8 +1011,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>sgp_rasterizer_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>39</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-03-08T21:41:48Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>42</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-03-22T06:52:12Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f2b5770_ARCHIVE_LOCATION">c:/Users/zambr/Desktop/MP-1/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5162e5e8_ARCHIVE_LOCATION">c:/Users/zambr/Desktop/MP-1/hw/ip/sgp_rasterizer</xilinx:tag>
@@ -1417,13 +1417,35 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@456cfd9_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@72ece2b5_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@267a5f35_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5024c76a_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@736a6ef0_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b01edb6_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54d65bde_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d4f0067_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48f6673d_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@302618c1_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@279d17d1_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b420f17_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bb4da0b_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a2f70d9_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f237195_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f85a785_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@540ec16e_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b710d63_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e458e3c_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d03891e_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d8a73bb_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a251917_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@351009c4_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4335f7c9_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f071211_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="e52d02b1"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="a869f448"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="22101904"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="48d1e4fd"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="6ff7fe6e"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="54d82e33"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="151474b6"/>
