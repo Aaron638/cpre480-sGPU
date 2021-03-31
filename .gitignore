@@ -105,6 +105,8 @@
 !*.vert
 !*.frag
 
+# Assembly files
+!*.asm
 # models
 !*.obj
 !*.vbm
