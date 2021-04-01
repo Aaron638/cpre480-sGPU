@@ -134,7 +134,7 @@ xilinx.com:user:axis_rx_tagger:1.0\
 xilinx.com:user:axis_tx_tagger:1.0\
 xilinx.com:ip:axis_udp_ethernet:1.0\
 xilinx.com:user:sgp_rasterizer:1.0\
-xilinx.com:user:sgp_renderOutput:1.0\
+xilinx.com:user:sgp_renderOutput:MP2\
 xilinx.com:user:sgp_viewPort:1.0\
 xilinx.com:ip:system_ila:1.1\
 xilinx.com:ip:mig_7series:4.2\
@@ -966,7 +966,7 @@ proc create_hier_cell_graphics_subsystem { parentCell nameHier } {
   set sgp_rasterizer [ create_bd_cell -type ip -vlnv xilinx.com:user:sgp_rasterizer:1.0 sgp_rasterizer ]
 
   # Create instance: sgp_renderOutput, and set properties
-  set sgp_renderOutput [ create_bd_cell -type ip -vlnv xilinx.com:user:sgp_renderOutput:1.0 sgp_renderOutput ]
+  set sgp_renderOutput [ create_bd_cell -type ip -vlnv xilinx.com:user:sgp_renderOutput:MP2 sgp_renderOutput ]
   set_property -dict [ list \
    CONFIG.C_M_AXI_ID_WIDTH {4} \
  ] $sgp_renderOutput
@@ -1374,6 +1374,7 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -1385,6 +1386,4 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
-
-common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
