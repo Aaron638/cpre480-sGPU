@@ -17,7 +17,6 @@
 #include "sgp_graphics.h"
 #include "sgp_system.h"
 #include "sgp_transmit.h"
-#include <unistd.h>
 
 // Manually determined values. Add as needed. Note that the color buffers need to be aligned for VDMA
 // operations to work properly.
@@ -437,8 +436,6 @@ void SGP_glxSwapBuffers(uint32_t flag)
 			}
 		}
 	}
-	// Wait 1 second per frame
-	sleep(1);
 
 	// Backbuffer is now the active buffer
 	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);

@@ -1,0 +1,1 @@
+-wto "4db3d1bbaf9548e8991a48dfb71322c1" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "vertexFetch_core_behav" "xil_defaultlib.vertexFetch_core" -log "elaborate.log" 

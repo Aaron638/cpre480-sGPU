@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Mon Mar  8 15:29:46 2021
+# Process ID: 11884
+# Current directory: U:/cpre480/SGP/hw/ip/sgp_rasterizer/proj/sgp_rasterizer.runs/synth_1
+# Command line: vivado.exe -log sgp_rasterizer.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source sgp_rasterizer.tcl
+# Log file: U:/cpre480/SGP/hw/ip/sgp_rasterizer/proj/sgp_rasterizer.runs/synth_1/sgp_rasterizer.vds
+# Journal file: U:/cpre480/SGP/hw/ip/sgp_rasterizer/proj/sgp_rasterizer.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source sgp_rasterizer.tcl -notrace

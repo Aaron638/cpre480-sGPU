@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../sgp_types.vhd" \
+"../../../../../src/triangleTest_core.vhd" \
+
+# Do not sort compile order
+nosort
