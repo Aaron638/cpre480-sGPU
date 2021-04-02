@@ -11,6 +11,7 @@
 *
 !*/
 !.gitignore
+!.gitattributes
 !common/
 ###########################################################################
 ##	VIVADO
@@ -72,6 +73,9 @@
 !*.elf
 !*.bmm
 !*.xmp
+
+#Lua-files
+!*.lua
 
 #Makefiles
 !*Makefile*

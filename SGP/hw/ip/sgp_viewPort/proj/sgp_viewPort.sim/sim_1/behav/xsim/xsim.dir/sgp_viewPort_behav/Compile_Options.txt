@@ -1,1 +1,0 @@
--wto "2b46729c49db4333b7c2dccc7beb4fb6" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "sgp_viewPort_behav" "xil_defaultlib.sgp_viewPort" -log "elaborate.log" 

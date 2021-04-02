@@ -17,6 +17,7 @@
 #include "sgp_graphics.h"
 #include "sgp_system.h"
 #include "sgp_transmit.h"
+#include <math.h>
 
 
 // Global shaders state. 
@@ -540,14 +541,13 @@ void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 	int32_t sgp_uniform_loc = SGP_lookupUniform(location);
 	if (sgp_uniform_loc == -1) {
 		if (SGPconfig->driverMode & SGP_STDOUT) {
-			printf("SGP_glUniform4fv: called with location=%d which is not a valid uniform location\n", (int)location);
+			printf("SGP_glUniform4f: called with location=%d which is not a valid uniform location\n", (int)location);
 		}
 		return;
 	}
-
-	if (count < 1) {
+	if (count < 0) {
 		if (SGPconfig->driverMode & SGP_STDOUT) {
-			printf("SGP_glUniform4fv: called with count < 1\n");
+			printf("SGP_glUniform4f: called with count=%d Which is < 0.\n", (int)count);
 		}
 		return;
 	}
