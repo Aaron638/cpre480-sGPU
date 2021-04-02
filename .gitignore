@@ -11,6 +11,7 @@
 *
 !*/
 !.gitignore
+!.gitattributes
 !common/
 ###########################################################################
 ##	VIVADO
@@ -73,6 +74,9 @@
 !*.bmm
 !*.xmp
 
+#Lua-files
+!*.lua
+
 #Makefiles
 !*Makefile*
 !*.mk
@@ -105,6 +109,8 @@
 !*.vert
 !*.frag
 
+# Assembly files
+!*.asm
 # models
 !*.obj
 !*.vbm
