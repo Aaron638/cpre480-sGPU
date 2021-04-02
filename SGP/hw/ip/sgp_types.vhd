@@ -85,6 +85,7 @@ package sgp_types is
     function to_attributeArray_t (i_attributeRecord : in attributeRecord_t) return attributeArray_t;
     function to_attributeRecord_t (i_attributeVector : in attributeVector_t) return attributeRecord_t;
     function to_attributeRecord_t (i_attributeArray : in attributeArray_t) return attributeRecord_t;
+    function to_attributeRecord_t (i_unsigned : in unsigned(127 downto 0)) return attributeRecord_t;
 
 
     subtype vertexVector_t is signed((C_SGP_NUM_VERTEX_ATTRIB*attributeVector_t'length)-1 downto 0);
@@ -236,6 +237,16 @@ package body sgp_types is
         tmpRecord.z := i_attributeArray(2);
         tmpRecord.y := i_attributeArray(1);
         tmpRecord.x := i_attributeArray(0);
+        return tmpRecord;
+    end;
+
+    function to_attributeRecord_t (i_unsigned : in unsigned(127 downto 0)) return attributeRecord_t is 
+    variable tmpRecord : attributeRecord_t;
+    begin
+        tmpRecord.x := fixed_t(i_unsigned(127 downto 96));
+        tmpRecord.y := fixed_t(i_unsigned( 95 downto 64));
+        tmpRecord.z := fixed_t(i_unsigned( 63 downto 32));
+        tmpRecord.w := fixed_t(i_unsigned( 31 downto  0));
         return tmpRecord;
     end;
 

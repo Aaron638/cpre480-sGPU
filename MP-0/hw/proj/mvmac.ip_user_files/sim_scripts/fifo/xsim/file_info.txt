@@ -1,2 +1,0 @@
-fifo.v,verilog,xil_defaultlib,../../../../../src/fixed/uart/fifo/sim/fifo.v,
-glbl.v,Verilog,xil_defaultlib,glbl.v
