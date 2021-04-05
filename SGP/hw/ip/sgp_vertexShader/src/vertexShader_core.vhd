@@ -363,10 +363,10 @@ begin
 						end if;
 
 						if (op = FDIV) then
-					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
-					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
-					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
-					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
+--					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
+--					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
+--					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
+--					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
 					       state <= FETCH;
 						end if;
 
@@ -375,14 +375,15 @@ begin
 --							v(rd_int)(63 downto 32) <= signed(a1) * -1;
 --							v(rd_int)(95 downto 64) <= signed(a2) * -1;
 --							v(rd_int)(127 downto 96) <= signed(a3) * -1;
+                            state <= FETCH;
 						end if;
 
 						if (op = FSQRT) then
-							
+							state <= FETCH;
 						end if;
 
 						if (op = FPOW) then
-							
+							state <= FETCH;
 						end if;
 	
 						if (op = INTERLEAVELO) then
