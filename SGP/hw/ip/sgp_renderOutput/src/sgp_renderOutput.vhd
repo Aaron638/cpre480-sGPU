@@ -202,8 +202,11 @@ architecture behavioral of sgp_renderOutput is
   end component dcache;
 
 
-  type STATE_TYPE is (WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE);
+  type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE);
   signal state        : STATE_TYPE;
+
+  type DEPTH_BUFFER is array(1920 downto 0) of array(1080 downto 0) of fixed_t;  -- TODO make sure this a) is the right size, b) synthesizes
+  signal depth_buffer : DEPTH_BUFFER;
    
 
   -- User register values
@@ -243,6 +246,9 @@ architecture behavioral of sgp_renderOutput is
   signal y_pos_fixed                : fixed_t;
   signal y_pos_short                : signed(15 downto 0);
   signal y_pos_short_reg            : signed(15 downto 0);
+  signal z_pos_fixed                : fixed_t;
+  signal z_pos_short                : signed(15 downto 0);
+  signal z_pos_short_reg            : signed(15 downto 0);
   signal frag_address               : signed(31 downto 0);
   signal frag_color                 : std_logic_vector(31 downto 0);
   signal a_color                    : fixed_t;
@@ -384,6 +390,7 @@ begin
     
     x_pos_fixed <= input_fragment_array(0)(0);
     y_pos_fixed <= input_fragment_array(0)(1);
+    z_pos_fixed <= input_fragment_array(0)(2);
     
     a_color <= input_fragment_array(1)(0);
     r_color <= input_fragment_array(1)(1);
@@ -410,10 +417,12 @@ begin
             input_fragment  <= vertexVector_t_zero;
             x_pos_short_reg <= (others => '0');
             y_pos_short_reg <= (others => '0');
+            z_pos_short_reg <= (others => '0');
             a_color_reg     <= (others => '0');
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
+            depth_buffer    <= (others => '0');
 
         else
         case state is
@@ -422,16 +431,25 @@ begin
             when WAIT_FOR_FRAGMENT =>
                 if (S_AXIS_TVALID = '1') then
                     input_fragment <= signed(S_AXIS_TDATA);
-                    state <= GEN_ADDRESS;
+                    state <= CHECK_DEPTH;
                     --if TLAST = '1' then mem_cacheable <= '1'??
                 end if;
                
+            -- This area checks if the fragment is actually visible. 
+            -- If it isn't, then skip to the next fragment
+            -- If it is, proceed to write
+            when CHECK_DEPTH =>
+                if (z_pos_fixed > depth_buffer(x_pos_fixed)(y_pos_fixed)) then
+                    state <= GEN_ADDRESS;
+                else
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
+
             -- To generate the address value, we have to get info from the global framebuffer memory
             -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
             -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
             -- The config will tell us whether COLORBUFFER_1 or 2 is the backbuffer
             -- sgp_graphics.h defines SGP_AXI_RENDEROUTPUT_COLORBUFFER as the renderOutput register 0x0000
-
             when GEN_ADDRESS =>
                 -- xvp and yvp are Q16.16s that need to be converted into signed ints
                 -- Round if fraction >= 0.5
@@ -445,6 +463,12 @@ begin
                     y_pos_short_reg <= y_pos_fixed(31 downto 16) + 1;
                 else
                     y_pos_short_reg <= y_pos_fixed(31 downto 16);
+                end if;
+
+                if (z_pos_fixed(15) = '1') then
+                    z_pos_short_reg <= z_pos_fixed(31 downto 16) + 1;
+                else
+                    z_pos_short_reg <= z_pos_fixed(31 downto 16);
                 end if;
                 
                 -- Convert colors into ungisned ints
