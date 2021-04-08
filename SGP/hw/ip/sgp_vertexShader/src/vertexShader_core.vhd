@@ -66,7 +66,6 @@ architecture behavioral of vertexShader_core is
     signal rd : unsigned(7 downto 0);
     signal ra : unsigned(7 downto 0);
     signal rb : unsigned(7 downto 0);
-    signal immediate : unsigned(15 downto 0);
 
     signal ww : unsigned(1 downto 0);
     signal zz : unsigned(1 downto 0);
@@ -133,7 +132,6 @@ begin
     rd <= ir(23 downto 16);
     ra <= ir(15 downto  8);
     rb <= ir( 7 downto  0);
-    immediate <= ra & rb;
     
     ww <= rb(7 downto 6);
     zz <= rb(5 downto 4);
@@ -238,12 +236,12 @@ begin
 						end if;
 						
 						if (op = INFIFO) then
-                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
+                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int >> 2)(rb_int & 3));
                             state <= FETCH;
 						end if;
 
 						if (op = OUTFIFO) then
-                            outputVertex(rd_int/4)(rb_int mod 4) <= signed(v(rb_int)(31 downto 0));
+                            outputVertex(rd_int >> 2)(rb_int & 3) <= signed(v(rb_int)(31 downto 0));
                             state <= FETCH;
 						end if;
 
@@ -371,10 +369,10 @@ begin
 						end if;
 
 						if (op = FNEG) then
---							v(rd_int)(31 downto 0) <= signed(a0) * -1;
---							v(rd_int)(63 downto 32) <= signed(a1) * -1;
---							v(rd_int)(95 downto 64) <= signed(a2) * -1;
---							v(rd_int)(127 downto 96) <= signed(a3) * -1;
+							v(rd_int)(31 downto 0) <= {(not a0(31), a0(30 downto 0)};
+							v(rd_int)(63 downto 32) <= {(not a1(31), a1(30 downto 0)};
+							v(rd_int)(95 downto 64) <= {(not a2(31), a2(30 downto 0)};
+							v(rd_int)(127 downto 96) <= {(not a3(31), a3(30 downto 0)};
                             state <= FETCH;
 						end if;
 
@@ -431,7 +429,7 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd_int) <= x"00000000" & x"00000000" & x"00000000" & unsigned(dmem_rdata);
+							v(rd_int) <= x"000000000000000000000000" & unsigned(dmem_rdata);
 							state <= FETCH;
 						end if;
 						
