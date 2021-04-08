@@ -236,12 +236,17 @@ begin
 						end if;
 						
 						if (op = INFIFO) then
-                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int >> 2)(rb_int & 3));
+						-- mod is synthesizable as long as 2nd operand is power of 2
+						-- Source: https://forums.xilinx.com/t5/Synthesis/Modulus-synthesizable-or-non-synthesizable/m-p/747509/highlight/true#M20684
+						-- v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
+                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4));
                             state <= FETCH;
+                            
 						end if;
 
 						if (op = OUTFIFO) then
-                            outputVertex(rd_int >> 2)(rb_int & 3) <= signed(v(rb_int)(31 downto 0));
+                        -- outputVertex(rd_int/4)(rb_int mod 4) <= signed(v(rb_int)(31 downto 0));
+                            outputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4) <= signed(v(rb_int)(31 downto 0));
                             state <= FETCH;
 						end if;
 
@@ -369,10 +374,10 @@ begin
 						end if;
 
 						if (op = FNEG) then
-							v(rd_int)(31 downto 0) <= {(not a0(31), a0(30 downto 0)};
-							v(rd_int)(63 downto 32) <= {(not a1(31), a1(30 downto 0)};
-							v(rd_int)(95 downto 64) <= {(not a2(31), a2(30 downto 0)};
-							v(rd_int)(127 downto 96) <= {(not a3(31), a3(30 downto 0)};
+							v(rd_int)(31 downto 0) <= not a0(31)   & a0(30 downto 0);
+							v(rd_int)(63 downto 32) <= not a1(31)  & a1(30 downto 0);
+							v(rd_int)(95 downto 64) <= not a2(31)  & a2(30 downto 0);
+							v(rd_int)(127 downto 96) <= not a3(31) & a3(30 downto 0);
                             state <= FETCH;
 						end if;
 
