@@ -8,9 +8,18 @@ entity alphaBlending is
 	port( 
 		ACLK		: in std_logic;
 		glEnable 	: in std_logic;
-		src_color 	: in std_logic_vector(31 downto 0);--need to change to be attribute record or something else because color will come in as a Q16.16 before it is properly configed in renderOutput
-		dst_color 	: in std_logic_vector(31 downto 0);
-		blend_color : out std_logic_vector(31 downto 0);
+		a_src_color 	: in fixed_t; --needs to come in as the Q16.16 form before it is multiplied by 255
+		r_src_color 	: in fixed_t;
+		b_src_color 	: in fixed_t;
+		g_src_color 	: in fixed_t;
+		a_dst_color 	: in fixed_t;
+		r_dst_color 	: in fixed_t;
+		b_dst_color 	: in fixed_t;
+		g_dst_color 	: in fixed_t;
+		a_blend_color : out fixed_t;
+		r_blend_color : out fixed_t;
+		b_blend_color : out fixed_t;
+		g_blend_color : out fixed_t;
 		src_factor 	: in std_logic_vector(4 downto 0);
 		dest_factor : in std_logic_vector(4 downto 0));
 		
@@ -18,74 +27,142 @@ end alphaBlending;
 
 architecture arc of alphaBlending is
 
-	signal src	: std_logic_vector(31 downto 0);
-	signal dst	: std_logic_vector(31 downto 0);
+	signal a_src	: fixed_t;
+	signal r_src	: fixed_t;
+	signal b_src	: fixed_t;
+	signal g_src	: fixed_t;
+	signal a_dst	: fixed_t;
+	signal r_dst	: fixed_t;
+	signal b_dst	: fixed_t;
+	signal g_dst	: fixed_t;
 	
-	alias s3 is src(31 downto 24); alias s2 is src(23 downto 16); alias s1 is src(15 downto 8); alias s0 is src(7 downto 0);
-	alias d3 is dst(31 downto 24); alias d2 is dst(23 downto 16); alias d1 is dst(15 downto 8); alias d0 is dst(7 downto 0);
 
 	constant GL_ZERO        				: std_logic_vector(3 downto 0) := "0000";
-	constant GL_ONE        					: std_logic_vector(3 downto 0) := "0000";
-	constant GL_SRC_COLOR        			: std_logic_vector(3 downto 0) := "0000";
-	constant GL_ONE_MINUS_SRC_COLOR 		: std_logic_vector(3 downto 0) := "0000";
-	constant GL_DST_COLOR        			: std_logic_vector(3 downto 0) := "0000";
-	constant GL_ONE_MINUS_DST_COLOR 		: std_logic_vector(3 downto 0) := "0000";
-	constant GL_SRC_ALPHA        			: std_logic_vector(3 downto 0) := "0000";
-	constant GL_ONE_MINUS_SRC_ALPHA 		: std_logic_vector(3 downto 0) := "0000";
-	constant GL_DST_ALPHA        			: std_logic_vector(3 downto 0) := "0000";
-	constant GL_ONE_MINUS_DST_ALPHA 		: std_logic_vector(3 downto 0) := "0000";
+	constant GL_ONE        					: std_logic_vector(3 downto 0) := "0001";
+	constant GL_SRC_COLOR        			: std_logic_vector(3 downto 0) := "0010";
+	constant GL_ONE_MINUS_SRC_COLOR 		: std_logic_vector(3 downto 0) := "0011";
+	constant GL_DST_COLOR        			: std_logic_vector(3 downto 0) := "0100";
+	constant GL_ONE_MINUS_DST_COLOR 		: std_logic_vector(3 downto 0) := "0101";
+	constant GL_SRC_ALPHA        			: std_logic_vector(3 downto 0) := "0110";
+	constant GL_ONE_MINUS_SRC_ALPHA 		: std_logic_vector(3 downto 0) := "0111";
+	constant GL_DST_ALPHA        			: std_logic_vector(3 downto 0) := "1000";
+	constant GL_ONE_MINUS_DST_ALPHA 		: std_logic_vector(3 downto 0) := "1001";
+	--not required to implement
 	constant GL_CONSTANT_COLOR      		: std_logic_vector(3 downto 0) := "0000";
 	constant GL_ONE_MINUS_CONSTANT_COLOR    : std_logic_vector(3 downto 0) := "0000";
 	constant GL_CONSTANT_ALPHA        		: std_logic_vector(3 downto 0) := "0000";
 	constant GL_ONE_MINUS_CONSTANT_ALPHA    : std_logic_vector(3 downto 0) := "0000";
+	--this may still be necessary
 	constant GL_SRC_ALPHA_SATURATE        	: std_logic_vector(3 downto 0) := "0000";
 
 begin
 
 	case src_factor is 
-		when GL_ZERO => src <= x"00000000";
-						dst <= x"00000000";
-		when GL_ONE => 	src <= x"00000000";
-						dst <= x"00000000";
-		when GL_SRC_COLOR => 
-		when GL_ONE_MINUS_SRC_COLOR => 
-		when GL_DST_COLOR => 
-		when GL_ONE_MINUS_DST_COLOR => 
-		when GL_SRC_ALPHA => 
-		when GL_ONE_MINUS_SRC_ALPHA => 
-		when GL_DST_ALPHA => 
-		when GL_ONE_MINUS_DST_ALPHA => 
+		when GL_ZERO => a_src <= fixed_t_zero;
+						r_src <= fixed_t_zero;
+						b_src <= fixed_t_zero;
+						g_src <= fixed_t_zero;
+		when GL_ONE => 	a_src <= fixed_t_one;
+						r_src <= fixed_t_one;
+						b_src <= fixed_t_one;
+						g_src <= fixed_t_one;
+		when GL_SRC_COLOR => 	a_src <= a_src_color;
+								r_src <= r_src_color;
+								b_src <= b_src_color;
+								g_src <= g_src_color;
+		when GL_ONE_MINUS_SRC_COLOR => 	a_src <= fixed_t_one - a_src_color;
+										r_src <= fixed_t_one - r_src_color;
+										b_src <= fixed_t_one - b_src_color;
+										g_src <= fixed_t_one - g_src_color;
+		when GL_DST_COLOR => 	a_src <= a_dst_color;
+								r_src <= r_dst_color;
+								b_src <= b_dst_color;
+								g_src <= g_dst_color;
+		when GL_ONE_MINUS_DST_COLOR => 	a_src <= fixed_t_one - a_dst_color;
+										r_src <= fixed_t_one - r_dst_color;
+										b_src <= fixed_t_one - b_dst_color;
+										g_src <= fixed_t_one - g_dst_color;
+		when GL_SRC_ALPHA => 	a_src <= a_src_color;
+								r_src <= a_src_color;
+								b_src <= a_src_color;
+								g_src <= a_src_color;
+		when GL_ONE_MINUS_SRC_ALPHA => 	a_src <= fixed_t_one - a_src_color;
+										r_src <= fixed_t_one - a_src_color;
+										b_src <= fixed_t_one - a_src_color;
+										g_src <= fixed_t_one - a_src_color;
+		when GL_DST_ALPHA => 	a_src <= a_dst_color;
+								r_src <= a_dst_color;
+								b_src <= a_dst_color;
+								g_src <= a_dst_color;
+		when GL_ONE_MINUS_DST_ALPHA => 	a_src <= fixed_t_one - a_dst_color;
+										r_src <= fixed_t_one - a_dst_color;
+										b_src <= fixed_t_one - a_dst_color;
+										g_src <= fixed_t_one - a_dst_color;
+		--not required to implement								
 		when GL_CONSTANT_COLOR => 
 		when GL_ONE_MINUS_CONSTANT_COLOR => 
 		when GL_CONSTANT_ALPHA => 
 		when GL_ONE_MINUS_CONSTANT_ALPHA => 
+		--this may still be necessary
 		when GL_SRC_ALPHA_SATURATE => 
 		when others =>;
 	end case;
 	
+	--
 	case dst_factor is 
-		when GL_ZERO => 
-		when GL_ONE => 
-		when GL_SRC_COLOR => 
-		when GL_ONE_MINUS_SRC_COLOR => 
-		when GL_DST_COLOR => 
-		when GL_ONE_MINUS_DST_COLOR => 
-		when GL_SRC_ALPHA => 
-		when GL_ONE_MINUS_SRC_ALPHA => 
-		when GL_DST_ALPHA => 
-		when GL_ONE_MINUS_DST_ALPHA => 
+		when GL_ZERO => a_dst <= fixed_t_zero;
+						r_dst <= fixed_t_zero;
+						b_dst <= fixed_t_zero;
+						g_dst <= fixed_t_zero;
+		when GL_ONE => 	a_dst <= fixed_t_one;
+						r_dst <= fixed_t_one;
+						b_dst <= fixed_t_one;
+						g_dst <= fixed_t_one;
+		when GL_SRC_COLOR => 	a_dst <= a_src_color;
+								r_dst <= r_src_color;
+								b_dst <= b_src_color;
+								g_dst <= g_src_color;
+		when GL_ONE_MINUS_SRC_COLOR => 	a_dst <= fixed_t_one - a_src_color;
+										r_dst <= fixed_t_one - r_src_color;
+										b_dst <= fixed_t_one - b_src_color;
+										g_dst <= fixed_t_one - g_src_color;
+		when GL_DST_COLOR => 	a_dst <= a_dst_color;
+								r_dst <= r_dst_color;
+								b_dst <= b_dst_color;
+								g_dst <= g_dst_color;
+		when GL_ONE_MINUS_DST_COLOR => 	a_dst <= fixed_t_one - a_dst_color;
+										r_dst <= fixed_t_one - r_dst_color;
+										b_dst <= fixed_t_one - b_dst_color;
+										g_dst <= fixed_t_one - g_dst_color;
+		when GL_SRC_ALPHA => 	a_dst <= a_src_color;
+								r_dst <= a_src_color;
+								b_dst <= a_src_color;
+								g_dst <= a_src_color;
+		when GL_ONE_MINUS_SRC_ALPHA => 	a_dst <= fixed_t_one - a_src_color;
+										r_dst <= fixed_t_one - a_src_color;
+										b_dst <= fixed_t_one - a_src_color;
+										g_dst <= fixed_t_one - a_src_color;
+		when GL_DST_ALPHA => 	a_dst <= a_dst_color;
+								r_dst <= a_dst_color;
+								b_dst <= a_dst_color;
+								g_dst <= a_dst_color;
+		when GL_ONE_MINUS_DST_ALPHA => 	a_dst <= fixed_t_one - a_dst_color;
+										r_dst <= fixed_t_one - a_dst_color;
+										b_dst <= fixed_t_one - a_dst_color;
+										g_dst <= fixed_t_one - a_dst_color;
+		--not required to implement
 		when GL_CONSTANT_COLOR => 
 		when GL_ONE_MINUS_CONSTANT_COLOR => 
 		when GL_CONSTANT_ALPHA => 
 		when GL_ONE_MINUS_CONSTANT_ALPHA => 
+		--this may still be necessary
 		when GL_SRC_ALPHA_SATURATE => 
 		when others =>;
 	end case;
 	
-	
-	
-	
-	
-	
+	a_blend_color <= (a_src * a_src_color + a_dst * a_dst_color)(47 downto 16); --needs to be truncated down to be Q16.16
+	r_blend_color <= (r_src * r_src_color + r_dst * r_dst_color)(47 downto 16);
+	b_blend_color <= (b_src * b_src_color + b_dst * b_dst_color)(47 downto 16);
+	g_blend_color <= (g_src * g_src_color + g_dst * g_dst_color)(47 downto 16);
 	
 end architecture arc;
