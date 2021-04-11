@@ -267,20 +267,34 @@ begin
 											v(ra_int)(63 downto 32) & v(rb_int)(31 downto 0);
 								state <= FETCH;
 	
-							when ADD or op = FADD =>
+							when ADD =>
+								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
+								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
+								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
+								v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
+								state <= FETCH;
+								
+							when FADD =>
 								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
 								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
 								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
 								v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
 								state <= FETCH;
 							
-							when SUB or op = FSUB =>
+							when SUB =>
 								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
 								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
 								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
 								v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
 								state <= FETCH;
-	
+								
+                            when FSUB =>
+								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
+								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
+								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
+								v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
+								state <= FETCH;	
+								
 							when AAND =>
 								v(rd_int) <= v(ra_int) and v(rb_int);
 								state <= FETCH;
