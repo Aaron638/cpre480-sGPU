@@ -34,10 +34,10 @@ architecture arc of alphaBlending is
 	signal r_dst	: fixed_t;
 	signal b_dst	: fixed_t;
 	signal g_dst	: fixed_t;
-	signal a_temp   : signed(64 downto 0);
-	signal r_temp   : signed(64 downto 0);
-	signal b_temp   : signed(64 downto 0);
-	signal g_temp   : signed(64 downto 0);
+	signal a_temp   : signed(63 downto 0);
+	signal r_temp   : signed(63 downto 0);
+	signal b_temp   : signed(63 downto 0);
+	signal g_temp   : signed(63 downto 0);
 	
 
 	constant GL_ZERO        				: std_logic_vector(3 downto 0) := "0000";

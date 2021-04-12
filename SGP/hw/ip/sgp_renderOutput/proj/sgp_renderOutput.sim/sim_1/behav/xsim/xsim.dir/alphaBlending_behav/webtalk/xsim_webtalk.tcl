@@ -1,6 +1,6 @@
 webtalk_init -webtalk_dir U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/
 webtalk_register_client -client project
-webtalk_add_data -client project -key date_generated -value "Mon Apr 12 13:13:45 2021" -context "software_version_and_target_device"
+webtalk_add_data -client project -key date_generated -value "Mon Apr 12 14:45:54 2021" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "XSIM v2020.1 (64-bit)" -context "software_version_and_target_device"
 webtalk_add_data -client project -key build_version -value "2902540" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_platform -value "WIN64" -context "software_version_and_target_device"
@@ -14,7 +14,7 @@ webtalk_add_data -client project -key target_package -value "not_applicable" -co
 webtalk_add_data -client project -key target_speed -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key random_id -value "b82ff038-3ef6-4624-95c9-30cba1a39bb8" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_id -value "95c5f32f302849179b8dc1a0350abe58" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_iteration -value "4" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_iteration -value "8" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "Windows Server 2016 or Windows 10" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "major release  (build 9200)" -context "user_environment"
 webtalk_add_data -client project -key cpu_name -value "Intel(R) Xeon(R) CPU E3-1240 v6 @ 3.70GHz" -context "user_environment"
@@ -36,7 +36,7 @@ webtalk_add_data -client xsim -key Total_Nets -value "0" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Processes -value "10" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Instances -value "6" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Xilinx_HDL_Libraries_Used -value "secureip " -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Time -value "0.92_sec" -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Memory -value "65012_KB" -context "xsim\\usage"
-webtalk_transmit -clientid 1306732261 -regid "174156856_174156857_210694690_929" -xml U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/usage_statistics_ext_xsim.xml -html U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/usage_statistics_ext_xsim.html -wdm U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
+webtalk_add_data -client xsim -key Compiler_Time -value "0.98_sec" -context "xsim\\usage"
+webtalk_add_data -client xsim -key Compiler_Memory -value "63340_KB" -context "xsim\\usage"
+webtalk_transmit -clientid 3863497437 -regid "174156856_174156857_210694690_929" -xml U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/usage_statistics_ext_xsim.xml -html U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/usage_statistics_ext_xsim.html -wdm U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.sim/sim_1/behav/xsim/xsim.dir/alphaBlending_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
 webtalk_terminate
