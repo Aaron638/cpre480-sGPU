@@ -10,14 +10,25 @@ The goal is to build an OpenGL-compliant GPU
 ## WSL2 Dev Environment
 - Install WSL2 and Ubuntu
 - Install these packages
-    - tree
-    - dos2unix
-    - make
-    - g++
-    - libglfw3
-    - libglew-dev
-    - ubuntu-desktop
-    - meas-utils
+    - Generally Useful:
+        - tree
+        - dos2unix
+        - build-essential
+    - C/C++/OpenGL:
+        - make
+        - g++
+        - libglfw3
+        - libglew-dev
+        - ubuntu-desktop
+        - meas-utils
+    - For ShaderC
+        - cmake
+        - python3
+        - lcov
+        - ninja-build
+        - sudo apt-get install gcc-mingw-w64
+        - lua5.3
+        - ![shaderc](https://storage.googleapis.com/shaderc/badges/build_link_linux_clang_release.html)
 - Follow these instructions:
     - https://gist.github.com/RSchneyer/8ae559751f10e92e16399f679acb1097
 > - [1:07 AM] Nathan Bellows: Anyone still having problems with WSL MP-3? I got it working tonight, wasn't super terrible, a couple things:
