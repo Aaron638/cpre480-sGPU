@@ -202,12 +202,8 @@ architecture behavioral of sgp_renderOutput is
   end component dcache;
 
 
-  type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS, WAIT_FOR_RESPONSE);
-  signal state        : STATE_TYPE;
-
-  type DEPTH_BUFFER is array(1920 downto 0) of array(1080 downto 0) of fixed_t;  -- TODO use the buffer in the fancy memory
-  signal depth_buffer : DEPTH_BUFFER;
-   
+  type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
+  signal state        : STATE_TYPE;   
 
   -- User register values
   signal renderoutput_colorbuffer 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -422,7 +418,6 @@ begin
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
-            depth_buffer    <= (others => '0');
 
         else
         case state is
@@ -431,19 +426,8 @@ begin
             when WAIT_FOR_FRAGMENT =>
                 if (S_AXIS_TVALID = '1') then
                     input_fragment <= signed(S_AXIS_TDATA);
-                    state <= CHECK_DEPTH;
-                    --if TLAST = '1' then mem_cacheable <= '1'??
-                end if;
-               
-            -- This area checks if the fragment is actually visible. 
-            -- If it isn't, then skip to the next fragment
-            -- If it is, proceed to write
-            when CHECK_DEPTH =>
-                -- renderoutput_depthbuffer < here is your base address
-                if (z_pos_fixed > depth_buffer(x_pos_fixed)(y_pos_fixed)) then
                     state <= GEN_ADDRESS_DEPTH;
-                else
-                    state <= WAIT_FOR_FRAGMENT;
+                    --if TLAST = '1' then mem_cacheable <= '1'??
                 end if;
 
             when GEN_ADDRESS_DEPTH => 
@@ -471,6 +455,33 @@ begin
                 frag_color      <= std_logic_vector(z_pos_fixed);  -- We can actually store the full 16.16 since we have 32 bits just for this value
             
                 state <= GEN_ADDRESS_COLOR;
+
+
+            when READ_ADDRESS_DEPTH =>
+                if (mem_accept = '1') then
+                    mem_addr        <= std_logic_vector(frag_address);
+                    mem_data_wr     <= frag_color;
+                    mem_rd          <= '1';
+                    mem_wr          <= "1111";  
+                    state <= WAIT_FOR_RESPONSE_DEPTH;
+                end if;
+            
+            when WAIT_FOR_RESPONSE_DEPTH =>
+                mem_wr <= "0000";
+                if (mem_ack = '1') then
+                    state <= GEN_ADDRESS_COLOR;
+                end if;
+
+            -- This area checks if the fragment is actually visible. 
+            -- If it isn't, then skip to the next fragment
+            -- If it is, proceed to write
+            when CHECK_DEPTH =>
+                if (z_pos_fixed > s_axi_lite_rdata) then  -- TODO make sure this works properly
+                    state <= GEN_ADDRESS_DEPTH;
+                else
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
+            
             -- To generate the address value, we have to get info from the global framebuffer memory
             -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
             -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
@@ -526,7 +537,7 @@ begin
                 -- frag_color      <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg); -- results in red=green green=black, blue=blue
                 frag_color      <= std_logic_vector(g_color_reg & a_color_reg & b_color_reg & r_color_reg);
                 
-                state <= WRITE_ADDRESS;
+                state <= WRITE_ADDRESS_COLOR;
                 
             -- Parker Bibus: ... the data cache sets mem_accept high when it is ready to recieve data, 
             -- at which point the write and data signals can be set, and finally the cache will 
@@ -535,17 +546,17 @@ begin
             -- mem_data_wr for the data to write to the address, and mem_wr for the bytes to write 
             -- to at the address which in this case should be "1111" since we are writing 
             -- to all 4 bytes of the data signal.
-            when WRITE_ADDRESS =>
+            when WRITE_ADDRESS_COLOR =>
                 if (mem_accept = '1') then
                     mem_addr        <= std_logic_vector(frag_address);
                     mem_data_wr     <= frag_color;
                     mem_rd          <= '0';
                     mem_wr          <= "1111";  
-                    state <= WAIT_FOR_RESPONSE;
+                    state <= WAIT_FOR_RESPONSE_COLOR;
                 end if;
                 
             -- Once the data has been recieved, we reset
-            when WAIT_FOR_RESPONSE =>
+            when WAIT_FOR_RESPONSE_COLOR =>
                 mem_wr <= "0000";
                 if (mem_ack = '1') then
                     state <= WAIT_FOR_FRAGMENT;
