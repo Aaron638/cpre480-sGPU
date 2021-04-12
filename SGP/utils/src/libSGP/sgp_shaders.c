@@ -725,3 +725,11 @@ int32_t SGP_lookupUniform(GLuint gl_uniformID) {
 	}
 	return -1;
 }
+
+void glEnable(Glenum cap){
+
+}
+
+void glDisable(GLenum cap){
+	
+}
