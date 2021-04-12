@@ -34,6 +34,10 @@ architecture arc of alphaBlending is
 	signal r_dst	: fixed_t;
 	signal b_dst	: fixed_t;
 	signal g_dst	: fixed_t;
+	signal a_temp   : signed(64 downto 0);
+	signal r_temp   : signed(64 downto 0);
+	signal b_temp   : signed(64 downto 0);
+	signal g_temp   : signed(64 downto 0);
 	
 
 	constant GL_ZERO        				: std_logic_vector(3 downto 0) := "0000";
@@ -161,9 +165,15 @@ process (dst_factor) begin
 	end case;
 end process;
 
-	a_blend_color <= (a_src * a_src_color + a_dst * a_dst_color)(47 downto 16); --needs to be truncated down to be Q16.16
-	r_blend_color <= (r_src * r_src_color + r_dst * r_dst_color)(47 downto 16);
-	b_blend_color <= (b_src * b_src_color + b_dst * b_dst_color)(47 downto 16);
-	g_blend_color <= (g_src * g_src_color + g_dst * g_dst_color)(47 downto 16);
+    --needs to be truncated down to be Q16.16
+    a_temp <= a_src * a_src_color + a_dst * a_dst_color;
+    r_temp <= r_src * r_src_color + r_dst * r_dst_color;
+    b_temp <= b_src * b_src_color + b_dst * b_dst_color;
+    g_temp <= g_src * g_src_color + g_dst * g_dst_color;
+    
+	a_blend_color <= a_temp(47 downto 16); 
+	r_blend_color <= r_temp(47 downto 16);
+	b_blend_color <= b_temp(47 downto 16);
+	g_blend_color <= g_temp(47 downto 16);
 	
 end architecture arc;
