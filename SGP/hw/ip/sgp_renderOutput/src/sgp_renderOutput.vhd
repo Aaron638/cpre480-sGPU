@@ -454,13 +454,12 @@ begin
                 frag_address    <= signed(renderoutput_depthbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;    
                 frag_color      <= std_logic_vector(z_pos_fixed);  -- We can actually store the full 16.16 since we have 32 bits just for this value
             
-                state <= GEN_ADDRESS_COLOR;
+                state <= READ_ADDRESS_DEPTH;
 
 
             when READ_ADDRESS_DEPTH =>
                 if (mem_accept = '1') then
                     mem_addr        <= std_logic_vector(frag_address);
-                    mem_data_wr     <= frag_color;
                     mem_rd          <= '1';
                     mem_wr          <= "1111";  
                     state <= WAIT_FOR_RESPONSE_DEPTH;
@@ -469,15 +468,15 @@ begin
             when WAIT_FOR_RESPONSE_DEPTH =>
                 mem_wr <= "0000";
                 if (mem_ack = '1') then
-                    state <= GEN_ADDRESS_COLOR;
+                    state <= CHECK_DEPTH;
                 end if;
 
             -- This area checks if the fragment is actually visible. 
             -- If it isn't, then skip to the next fragment
             -- If it is, proceed to write
             when CHECK_DEPTH =>
-                if (z_pos_fixed > s_axi_lite_rdata) then  -- TODO make sure this works properly
-                    state <= GEN_ADDRESS_DEPTH;
+                if (unsigned(z_pos_fixed) > unsigned(mem_data_wr)) then  -- TODO make sure this works properly
+                    state <= GEN_ADDRESS_COLOR;
                 else
                     state <= WAIT_FOR_FRAGMENT;
                 end if;
