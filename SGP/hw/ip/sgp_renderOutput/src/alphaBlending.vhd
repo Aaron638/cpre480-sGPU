@@ -6,22 +6,21 @@ use WORK.sgp_types.all;
 entity alphaBlending is 
 
 	port( 
-		ACLK		: in std_logic;
-		glEnable 	: in std_logic;
-		a_src_color 	: in fixed_t; --needs to come in as the Q16.16 form before it is multiplied by 255
-		r_src_color 	: in fixed_t;
-		b_src_color 	: in fixed_t;
-		g_src_color 	: in fixed_t;
-		a_dst_color 	: in fixed_t;
-		r_dst_color 	: in fixed_t;
-		b_dst_color 	: in fixed_t;
-		g_dst_color 	: in fixed_t;
-		a_blend_color : out fixed_t;
-		r_blend_color : out fixed_t;
+		glEnable          : in std_logic;
+		a_src_color       : in fixed_t; --needs to come in as the Q16.16 form before it is multiplied by 255
+		r_src_color       : in fixed_t;
+		b_src_color       : in fixed_t;
+		g_src_color       : in fixed_t;
+		a_dst_color       : in fixed_t;
+		r_dst_color       : in fixed_t;
+		b_dst_color       : in fixed_t;
+		g_dst_color       : in fixed_t;
+		a_blend_color     : out fixed_t;
+		r_blend_color     : out fixed_t;
 		b_blend_color : out fixed_t;
 		g_blend_color : out fixed_t;
 		src_factor 	: in std_logic_vector(4 downto 0);
-		dest_factor : in std_logic_vector(4 downto 0));
+		dst_factor  : in std_logic_vector(4 downto 0));
 		
 end alphaBlending;
 
@@ -56,7 +55,7 @@ architecture arc of alphaBlending is
 	constant GL_SRC_ALPHA_SATURATE        	: std_logic_vector(3 downto 0) := "0000";
 
 begin
-
+process(src_factor) begin
 	case src_factor is 
 		when GL_ZERO => a_src <= fixed_t_zero;
 						r_src <= fixed_t_zero;
@@ -105,10 +104,11 @@ begin
 		when GL_ONE_MINUS_CONSTANT_ALPHA => 
 		--this may still be necessary
 		when GL_SRC_ALPHA_SATURATE => 
-		when others =>;
+		when others => 
 	end case;
-	
+end process;
 	--
+process (dst_factor) begin
 	case dst_factor is 
 		when GL_ZERO => a_dst <= fixed_t_zero;
 						r_dst <= fixed_t_zero;
@@ -157,9 +157,10 @@ begin
 		when GL_ONE_MINUS_CONSTANT_ALPHA => 
 		--this may still be necessary
 		when GL_SRC_ALPHA_SATURATE => 
-		when others =>;
+		when others =>
 	end case;
-	
+end process;
+
 	a_blend_color <= (a_src * a_src_color + a_dst * a_dst_color)(47 downto 16); --needs to be truncated down to be Q16.16
 	r_blend_color <= (r_src * r_src_color + r_dst * r_dst_color)(47 downto 16);
 	b_blend_color <= (b_src * b_src_color + b_dst * b_dst_color)(47 downto 16);

@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="49" Path="U:/cpre480/MP-1/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.xpr">
+<Project Version="7" Minor="49" Path="U:/cpre480/SGP/hw/ip/sgp_renderOutput/proj/sgp_renderOutput.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="95c5f32f302849179b8dc1a0350abe58"/>
@@ -153,6 +153,13 @@
       </File>
       <File Path="$PPRDIR/../component.xml">
         <FileInfo SFType="IPXACT"/>
+      </File>
+      <File Path="$PPRDIR/../src/alphaBlending.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
