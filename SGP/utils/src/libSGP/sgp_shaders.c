@@ -726,10 +726,24 @@ int32_t SGP_lookupUniform(GLuint gl_uniformID) {
 	return -1;
 }
 
-void glEnable(Glenum cap){
+// enable or disable server-side GL capabilities
+// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glEnable.xml
+void SGP_glEnable(Glenum cap){
+	if (cap == GL_DEPTH_TEST) {
 
+	}
+	return;
 }
 
-void glDisable(GLenum cap){
-	
+void SGP_glDisable(GLenum cap){
+	if (cap == GL_DEPTH_TEST) {
+
+	}
+	return;
 }
+
+void SGP_glDepthFunc();
+
+void SGP_glBlendFunc();
+
+void SGP_glBlendSeparate();
