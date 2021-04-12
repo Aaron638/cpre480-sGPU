@@ -210,17 +210,18 @@ begin
 								state <= FETCH;
 
 							when LDILO =>
-								v(rd_int)(31 downto 0) <= x"0000" & ra & rb;
-								v(rd_int)(63 downto 32) <= x"0000" & ra & rb;
-								v(rd_int)(95 downto 64) <= x"0000" & ra & rb;
-								v(rd_int)(127 downto 96) <= x"0000" & ra & rb;
+								v(rd_int) <= x"0000" & ra & rb
+										   & x"0000" & ra & rb
+										   & x"0000" & ra & rb
+										   & x"0000" & ra & rb;
+
 								state <= FETCH;
 							
 							when LDIHI =>                         
-								v(rd_int)(31 downto 0) <= ra & rb & x"0000";
-								v(rd_int)(63 downto 32) <= ra & rb & x"0000";
-								v(rd_int)(95 downto 64) <= ra & rb & x"0000";
-								v(rd_int)(127 downto 96) <= ra & rb & x"0000";
+								v(rd_int) <= ra & rb & x"0000"
+										   & ra & rb & x"0000"
+										   & ra & rb & x"0000"
+										   & ra & rb & x"0000";
 								state <= FETCH;
 							
 							
@@ -268,31 +269,35 @@ begin
 								state <= FETCH;
 	
 							when ADD =>
-								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
-								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
-								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
-								v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
+								v(rd_int) <= unsigned(signed(a3 + b3))
+										   & unsigned(signed(a2 + b2))
+										   & unsigned(signed(a1 + b1))
+										   & unsigned(signed(a0 + b0));
+
 								state <= FETCH;
 								
 							when FADD =>
-								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
-								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
-								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
-								v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
+								v(rd_int) <= unsigned(signed(a3 + b3))
+										   & unsigned(signed(a2 + b2))
+										   & unsigned(signed(a1 + b1))
+										   & unsigned(signed(a0 + b0));
+
 								state <= FETCH;
 							
 							when SUB =>
-								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
-								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
-								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
-								v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
+								v(rd_int) <= unsigned(signed(a3 - b3))
+										   & unsigned(signed(a2 - b2))
+										   & unsigned(signed(a1 - b1))
+										   & unsigned(signed(a0 - b0));
+
 								state <= FETCH;
 								
                             when FSUB =>
-								v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
-								v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
-								v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
-								v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
+								v(rd_int) <= unsigned(signed(a3 - b3))
+										   & unsigned(signed(a0 - b0))
+										   & unsigned(signed(a2 - b2))
+										   & unsigned(signed(a1 - b1));
+
 								state <= FETCH;	
 								
 							when AAND =>
@@ -311,34 +316,38 @@ begin
 								-- Shift by an integer amount
 								-- https://www.nandland.com/vhdl/examples/example-shifts.html
 								--shift_right() with a unsigned argument has a unsigned result
-								v(rd_int)(31 downto 0)   <= shift_right(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));
-								v(rd_int)(63 downto 32)  <= shift_right(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)));
-								v(rd_int)(95 downto 64)  <= shift_right(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)));
-								v(rd_int)(127 downto 96) <= shift_right(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112)));
+								v(rd_int) <= shift_right(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112)))
+										   & shift_right(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)))
+										   & shift_right(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)))
+										   & shift_right(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));
+
 								state <= FETCH;
 							
 								-- shift_right(signed(), amount) to keep sign
 								-- shift_right() with a signed argument has a signed result
 								-- Cast back into an unsigned https://github.com/ghdl/ghdl/blob/a05d3cb7bd8eb037c3057c2ef8d066df1489ce2d/libraries/ieee2008/numeric_std.vhdl#L958
 							when SAR =>
-								v(rd_int)(31 downto 0)   <= unsigned(shift_right(signed( v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16))));  
-								v(rd_int)(63 downto 32)  <= unsigned(shift_right(signed( v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48))));  
-								v(rd_int)(95 downto 64)  <= unsigned(shift_right(signed( v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80))));  
-								v(rd_int)(127 downto 96) <= unsigned(shift_right(signed( v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))));
+								v(rd_int) <= unsigned(shift_right(signed( v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))))
+										   & unsigned(shift_right(signed( v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80))))
+										   & unsigned(shift_right(signed( v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48))))
+										   & unsigned(shift_right(signed( v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16))));
+
 								state <= FETCH;
 	
 							when SHL =>
-								v(rd_int)(31 downto 0)   <= shift_left(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));   
-								v(rd_int)(63 downto 32)  <= shift_left(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)));   
-								v(rd_int)(95 downto 64)  <= shift_left(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)));   
-								v(rd_int)(127 downto 96) <= shift_left(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))); 
+								v(rd_int) <= shift_left(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112)))
+										   & shift_left(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)))
+										   & shift_left(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)))
+										   & shift_left(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16))); 
+
 								state <= FETCH;
 	
 							when FMUL =>
-								v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 32));
-								v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 32));
-								v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * b2), 32));
-								v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * b3), 32));
+								v(rd_int) <= unsigned(resize(signed(a3 * b3), 32))
+										   & unsigned(resize(signed(a2 * b2), 32)) 
+										   & unsigned(resize(signed(a1 * b1), 32)) 
+										   & unsigned(resize(signed(a0 * b0), 32));
+
 								state <= FETCH;
 	
 							when FMAX =>
