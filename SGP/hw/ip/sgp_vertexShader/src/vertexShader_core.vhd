@@ -376,10 +376,7 @@ begin
 								state <= FETCH;
 	
 							when FNEG =>
-								v(rd_int)(31 downto 0) <= not a0(31)   & a0(30 downto 0);
-								v(rd_int)(63 downto 32) <= not a1(31)  & a1(30 downto 0);
-								v(rd_int)(95 downto 64) <= not a2(31)  & a2(30 downto 0);
-								v(rd_int)(127 downto 96) <= not a3(31) & a3(30 downto 0);
+								v(rd_int) <= not a3(31) & a3(30 downto 0) & not a2(31) & a2(30 downto 0) & not a1(31) & a1(30 downto 0) & not a0(31) & a0(30 downto 0);
 								state <= FETCH;
 	
 							when FSQRT =>
@@ -389,31 +386,19 @@ begin
 								state <= FETCH;
 		
 							when INTERLEAVELO =>
-								v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).y);
-								v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
-								v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).x);
-								v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).x);
+								v(rd_int) <= unsigned(to_attributeRecord_t(v(rb_int)).x) & unsigned(to_attributeRecord_t(v(ra_int)).x) & unsigned(to_attributeRecord_t(v(rb_int)).y) & unsigned(to_attributeRecord_t(v(ra_int)).y);
 								state <= FETCH;
 	
 							when INTERLEAVEHI =>
-								v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).w);
-								v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
-								v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).z);
-								v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).z);
+								v(rd_int) <= unsigned(to_attributeRecord_t(v(rb_int)).z) & unsigned(to_attributeRecord_t(v(ra_int)).z) & unsigned(to_attributeRecord_t(v(rb_int)).w) & unsigned(to_attributeRecord_t(v(ra_int)).w);
 								state <= FETCH;
 	
 							when INTERLEAVELOPAIRS =>
-								v(rd_int)(31 downto 0)  <=  unsigned(to_attributeRecord_t(v(ra_int)).x);
-								v(rd_int)(63 downto 32) <=  unsigned(to_attributeRecord_t(v(ra_int)).y);
-								v(rd_int)(95 downto 64) <=  unsigned(to_attributeRecord_t(v(rb_int)).x);
-								v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
+								v(rd_int) <=  unsigned(to_attributeRecord_t(v(rb_int)).y) & unsigned(to_attributeRecord_t(v(rb_int)).x) & unsigned(to_attributeRecord_t(v(ra_int)).y) & unsigned(to_attributeRecord_t(v(ra_int)).x);
 								state <= FETCH;
 	
 							when INTERLEAVEHIPAIRS =>
-								v(rd_int)(31 downto 0)  <=  unsigned(to_attributeRecord_t(v(ra_int)).z);
-								v(rd_int)(63 downto 32) <=  unsigned(to_attributeRecord_t(v(ra_int)).w);
-								v(rd_int)(95 downto 64) <=  unsigned(to_attributeRecord_t(v(rb_int)).z);
-								v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
+								v(rd_int) <=  unsigned(to_attributeRecord_t(v(rb_int)).w) & unsigned(to_attributeRecord_t(v(rb_int)).z) & unsigned(to_attributeRecord_t(v(ra_int)).w) & unsigned(to_attributeRecord_t(v(ra_int)).z);
 								state <= FETCH;
 	
 							when DONE =>	
