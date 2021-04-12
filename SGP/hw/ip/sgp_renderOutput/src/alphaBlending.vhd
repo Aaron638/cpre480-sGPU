@@ -70,109 +70,109 @@ begin
 	b_blend_color <= b_temp(47 downto 16);
 	g_blend_color <= g_temp(47 downto 16);
 
-process(src_factor) begin
-	case src_factor is 
-		when GL_ZERO => a_src <= fixed_t_zero;
-						r_src <= fixed_t_zero;
-						b_src <= fixed_t_zero;
-						g_src <= fixed_t_zero;
-		when GL_ONE => 	a_src <= fixed_t_one;
-						r_src <= fixed_t_one;
-						b_src <= fixed_t_one;
-						g_src <= fixed_t_one;
-		when GL_SRC_COLOR => 	a_src <= a_src_color;
-								r_src <= r_src_color;
-								b_src <= b_src_color;
-								g_src <= g_src_color;
-		when GL_ONE_MINUS_SRC_COLOR => 	a_src <= fixed_t_one - a_src_color;
-										r_src <= fixed_t_one - r_src_color;
-										b_src <= fixed_t_one - b_src_color;
-										g_src <= fixed_t_one - g_src_color;
-		when GL_DST_COLOR => 	a_src <= a_dst_color;
-								r_src <= r_dst_color;
-								b_src <= b_dst_color;
-								g_src <= g_dst_color;
-		when GL_ONE_MINUS_DST_COLOR => 	a_src <= fixed_t_one - a_dst_color;
-										r_src <= fixed_t_one - r_dst_color;
-										b_src <= fixed_t_one - b_dst_color;
-										g_src <= fixed_t_one - g_dst_color;
-		when GL_SRC_ALPHA => 	a_src <= a_src_color;
-								r_src <= a_src_color;
-								b_src <= a_src_color;
-								g_src <= a_src_color;
-		when GL_ONE_MINUS_SRC_ALPHA => 	a_src <= fixed_t_one - a_src_color;
-										r_src <= fixed_t_one - a_src_color;
-										b_src <= fixed_t_one - a_src_color;
-										g_src <= fixed_t_one - a_src_color;
-		when GL_DST_ALPHA => 	a_src <= a_dst_color;
-								r_src <= a_dst_color;
-								b_src <= a_dst_color;
-								g_src <= a_dst_color;
-		when GL_ONE_MINUS_DST_ALPHA => 	a_src <= fixed_t_one - a_dst_color;
-										r_src <= fixed_t_one - a_dst_color;
-										b_src <= fixed_t_one - a_dst_color;
-										g_src <= fixed_t_one - a_dst_color;
-		--not required to implement								
-		--when GL_CONSTANT_COLOR => 
-		--when GL_ONE_MINUS_CONSTANT_COLOR => 
-		--when GL_CONSTANT_ALPHA => 
-		--when GL_ONE_MINUS_CONSTANT_ALPHA => 
-		--this may still be necessary
-		--when GL_SRC_ALPHA_SATURATE => 
-		when others => 
-	end case;
-end process;
+	process(src_factor) begin
+		case src_factor is 
+			when GL_ZERO => a_src <= fixed_t_zero;
+							r_src <= fixed_t_zero;
+							b_src <= fixed_t_zero;
+							g_src <= fixed_t_zero;
+			when GL_ONE => 	a_src <= fixed_t_one;
+							r_src <= fixed_t_one;
+							b_src <= fixed_t_one;
+							g_src <= fixed_t_one;
+			when GL_SRC_COLOR => 	a_src <= a_src_color;
+									r_src <= r_src_color;
+									b_src <= b_src_color;
+									g_src <= g_src_color;
+			when GL_ONE_MINUS_SRC_COLOR => 	a_src <= fixed_t_one - a_src_color;
+											r_src <= fixed_t_one - r_src_color;
+											b_src <= fixed_t_one - b_src_color;
+											g_src <= fixed_t_one - g_src_color;
+			when GL_DST_COLOR => 	a_src <= a_dst_color;
+									r_src <= r_dst_color;
+									b_src <= b_dst_color;
+									g_src <= g_dst_color;
+			when GL_ONE_MINUS_DST_COLOR => 	a_src <= fixed_t_one - a_dst_color;
+											r_src <= fixed_t_one - r_dst_color;
+											b_src <= fixed_t_one - b_dst_color;
+											g_src <= fixed_t_one - g_dst_color;
+			when GL_SRC_ALPHA => 	a_src <= a_src_color;
+									r_src <= a_src_color;
+									b_src <= a_src_color;
+									g_src <= a_src_color;
+			when GL_ONE_MINUS_SRC_ALPHA => 	a_src <= fixed_t_one - a_src_color;
+											r_src <= fixed_t_one - a_src_color;
+											b_src <= fixed_t_one - a_src_color;
+											g_src <= fixed_t_one - a_src_color;
+			when GL_DST_ALPHA => 	a_src <= a_dst_color;
+									r_src <= a_dst_color;
+									b_src <= a_dst_color;
+									g_src <= a_dst_color;
+			when GL_ONE_MINUS_DST_ALPHA => 	a_src <= fixed_t_one - a_dst_color;
+											r_src <= fixed_t_one - a_dst_color;
+											b_src <= fixed_t_one - a_dst_color;
+											g_src <= fixed_t_one - a_dst_color;
+			--not required to implement								
+			--when GL_CONSTANT_COLOR => 
+			--when GL_ONE_MINUS_CONSTANT_COLOR => 
+			--when GL_CONSTANT_ALPHA => 
+			--when GL_ONE_MINUS_CONSTANT_ALPHA => 
+			--this may still be necessary
+			--when GL_SRC_ALPHA_SATURATE => 
+			when others => 
+		end case;
+	end process;
 	--
-process (dst_factor) begin
-	case dst_factor is 
-		when GL_ZERO => a_dst <= fixed_t_zero;
-						r_dst <= fixed_t_zero;
-						b_dst <= fixed_t_zero;
-						g_dst <= fixed_t_zero;
-		when GL_ONE => 	a_dst <= fixed_t_one;
-						r_dst <= fixed_t_one;
-						b_dst <= fixed_t_one;
-						g_dst <= fixed_t_one;
-		when GL_SRC_COLOR => 	a_dst <= a_src_color;
-								r_dst <= r_src_color;
-								b_dst <= b_src_color;
-								g_dst <= g_src_color;
-		when GL_ONE_MINUS_SRC_COLOR => 	a_dst <= fixed_t_one - a_src_color;
-										r_dst <= fixed_t_one - r_src_color;
-										b_dst <= fixed_t_one - b_src_color;
-										g_dst <= fixed_t_one - g_src_color;
-		when GL_DST_COLOR => 	a_dst <= a_dst_color;
-								r_dst <= r_dst_color;
-								b_dst <= b_dst_color;
-								g_dst <= g_dst_color;
-		when GL_ONE_MINUS_DST_COLOR => 	a_dst <= fixed_t_one - a_dst_color;
-										r_dst <= fixed_t_one - r_dst_color;
-										b_dst <= fixed_t_one - b_dst_color;
-										g_dst <= fixed_t_one - g_dst_color;
-		when GL_SRC_ALPHA => 	a_dst <= a_src_color;
-								r_dst <= a_src_color;
-								b_dst <= a_src_color;
-								g_dst <= a_src_color;
-		when GL_ONE_MINUS_SRC_ALPHA => 	a_dst <= fixed_t_one - a_src_color;
-										r_dst <= fixed_t_one - a_src_color;
-										b_dst <= fixed_t_one - a_src_color;
-										g_dst <= fixed_t_one - a_src_color;
-		when GL_DST_ALPHA => 	a_dst <= a_dst_color;
-								r_dst <= a_dst_color;
-								b_dst <= a_dst_color;
-								g_dst <= a_dst_color;
-		when GL_ONE_MINUS_DST_ALPHA => 	a_dst <= fixed_t_one - a_dst_color;
-										r_dst <= fixed_t_one - a_dst_color;
-										b_dst <= fixed_t_one - a_dst_color;
-										g_dst <= fixed_t_one - a_dst_color;
-		--not required to implement
-		--when GL_CONSTANT_COLOR => 
-		--when GL_ONE_MINUS_CONSTANT_COLOR => 
-		--when GL_CONSTANT_ALPHA => 
-		--when GL_ONE_MINUS_CONSTANT_ALPHA => 
-		--this may still be necessary
-		--when GL_SRC_ALPHA_SATURATE => 
-		when others =>
-	end case;
-end process;	
+	process (dst_factor) begin
+		case dst_factor is 
+			when GL_ZERO => a_dst <= fixed_t_zero;
+							r_dst <= fixed_t_zero;
+							b_dst <= fixed_t_zero;
+							g_dst <= fixed_t_zero;
+			when GL_ONE => 	a_dst <= fixed_t_one;
+							r_dst <= fixed_t_one;
+							b_dst <= fixed_t_one;
+							g_dst <= fixed_t_one;
+			when GL_SRC_COLOR => 	a_dst <= a_src_color;
+									r_dst <= r_src_color;
+									b_dst <= b_src_color;
+									g_dst <= g_src_color;
+			when GL_ONE_MINUS_SRC_COLOR => 	a_dst <= fixed_t_one - a_src_color;
+											r_dst <= fixed_t_one - r_src_color;
+											b_dst <= fixed_t_one - b_src_color;
+											g_dst <= fixed_t_one - g_src_color;
+			when GL_DST_COLOR => 	a_dst <= a_dst_color;
+									r_dst <= r_dst_color;
+									b_dst <= b_dst_color;
+									g_dst <= g_dst_color;
+			when GL_ONE_MINUS_DST_COLOR => 	a_dst <= fixed_t_one - a_dst_color;
+											r_dst <= fixed_t_one - r_dst_color;
+											b_dst <= fixed_t_one - b_dst_color;
+											g_dst <= fixed_t_one - g_dst_color;
+			when GL_SRC_ALPHA => 	a_dst <= a_src_color;
+									r_dst <= a_src_color;
+									b_dst <= a_src_color;
+									g_dst <= a_src_color;
+			when GL_ONE_MINUS_SRC_ALPHA => 	a_dst <= fixed_t_one - a_src_color;
+											r_dst <= fixed_t_one - a_src_color;
+											b_dst <= fixed_t_one - a_src_color;
+											g_dst <= fixed_t_one - a_src_color;
+			when GL_DST_ALPHA => 	a_dst <= a_dst_color;
+									r_dst <= a_dst_color;
+									b_dst <= a_dst_color;
+									g_dst <= a_dst_color;
+			when GL_ONE_MINUS_DST_ALPHA => 	a_dst <= fixed_t_one - a_dst_color;
+											r_dst <= fixed_t_one - a_dst_color;
+											b_dst <= fixed_t_one - a_dst_color;
+											g_dst <= fixed_t_one - a_dst_color;
+			--not required to implement
+			--when GL_CONSTANT_COLOR => 
+			--when GL_ONE_MINUS_CONSTANT_COLOR => 
+			--when GL_CONSTANT_ALPHA => 
+			--when GL_ONE_MINUS_CONSTANT_ALPHA => 
+			--this may still be necessary
+			--when GL_SRC_ALPHA_SATURATE => 
+			when others =>
+		end case;
+	end process;	
 end architecture arc;
