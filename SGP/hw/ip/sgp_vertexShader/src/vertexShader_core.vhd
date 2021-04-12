@@ -369,10 +369,10 @@ begin
 								state <= FETCH;
 	
 							when FDIV =>
-								v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
-								v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
-								v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
-								v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
+								--v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
+								--v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
+								--v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
+								--v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
 								state <= FETCH;
 	
 							when FNEG =>
