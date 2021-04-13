@@ -115,7 +115,7 @@ begin
 											b_src <= fixed_t_one - a_dst_color;
 											g_src <= fixed_t_one - a_dst_color;
 			when GL_SRC_ALPHA_SATURATE => 	a_src <= fixed_t_one;
-											r_src <= fixed_t_one;
+											r_src <= fixed_t_one; --need to add in the min statements for the r,b,g. Alpha is supposed to be one for this case
 											b_src <= fixed_t_one;
 											g_src <= fixed_t_one;
 			when others => 
