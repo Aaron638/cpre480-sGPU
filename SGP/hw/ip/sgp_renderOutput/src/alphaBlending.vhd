@@ -60,13 +60,13 @@ begin
     b_temp <= b_src * b_src_color + b_dst * b_dst_color;
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
-	a_blend_color <= 	x"00010000" when a_temp(32) = '1' else
+	a_blend_color <= 	fixed_t_one when a_temp(32) = '1' else
 						a_temp(47 downto 16); 
-	r_blend_color <= 	x"00010000" when r_temp(32) = '1' else
+	r_blend_color <= 	fixed_t_one when r_temp(32) = '1' else
 						r_temp(47 downto 16);
-	b_blend_color <= 	x"00010000" when b_temp(32) = '1' else
+	b_blend_color <= 	fixed_t_one when b_temp(32) = '1' else
 						b_temp(47 downto 16);
-	g_blend_color <= 	x"00010000" when g_temp(32) = '1' else
+	g_blend_color <= 	fixed_t_one when g_temp(32) = '1' else
 						g_temp(47 downto 16);
 	
 	src_factor <= dst_src_in(15 downto 0);
@@ -114,7 +114,10 @@ begin
 											r_src <= fixed_t_one - a_dst_color;
 											b_src <= fixed_t_one - a_dst_color;
 											g_src <= fixed_t_one - a_dst_color;
-			--when GL_SRC_ALPHA_SATURATE => 
+			when GL_SRC_ALPHA_SATURATE => 	a_src <= fixed_t_one;
+											r_src <= fixed_t_one;
+											b_src <= fixed_t_one;
+											g_src <= fixed_t_one;
 			when others => 
 		end case;
 	end process;
@@ -161,7 +164,6 @@ begin
 											r_dst <= fixed_t_one - a_dst_color;
 											b_dst <= fixed_t_one - a_dst_color;
 											g_dst <= fixed_t_one - a_dst_color;
-			--when GL_SRC_ALPHA_SATURATE => 
 			when others =>
 		end case;
 	end process;	
