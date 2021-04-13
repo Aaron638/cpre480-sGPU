@@ -21,6 +21,9 @@ entity sgp_renderOutput_axi_lite_regs is
         SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+		SGP_AXI_RENDEROUTPUT_DEPTH        : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_ALPHA		  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
 		-- User ports ends
@@ -145,7 +148,9 @@ begin
     SGP_AXI_RENDEROUTPUT_CACHECTRL   <= slv_reg2;
     SGP_AXI_RENDEROUTPUT_STRIDE      <= slv_reg3;
     SGP_AXI_RENDEROUTPUT_HEIGHT      <= slv_reg4;
-
+	SGP_AXI_RENDEROUTPUT_DEPTH		 <= slv_reg5;
+	SGP_AXI_RENDEROUTPUT_ALPHA		 <= slv_reg6;
+	SGP_AXI_RENDEROUTPUT_RTCOUNTER   <= slv_reg7;
 
     slv_reg15 <= SGP_AXI_RENDEROUTPUT_DEBUG;
 

@@ -148,9 +148,12 @@ architecture behavioral of sgp_renderOutput is
 	    SGP_AXI_RENDEROUTPUT_DEPTHBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+        SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_DEPTH_FUNC   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_BLEND_FUNC   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)	    
-		
+
 		);
 	end component sgp_renderOutput_axi_lite_regs;
 
@@ -211,8 +214,9 @@ architecture behavioral of sgp_renderOutput is
   signal renderoutput_cachectrl 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_stride        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_height        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal renderoutput_depth_alpha   : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal renderoutput_rtcounter     : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-
 
   signal input_fragment	            : vertexVector_t;
   signal input_fragment_array       : vertexArray_t;       
@@ -260,6 +264,8 @@ architecture behavioral of sgp_renderOutput is
   signal r_color_reg64              : std_logic_vector(63 downto 0);
   signal g_color_reg64              : std_logic_vector(63 downto 0);
   signal b_color_reg64              : std_logic_vector(63 downto 0);
+
+  signal depth_alpha_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);  -- Top 16 depth and bottom 16 are for alpha. Why? Bryce said so.
   
 begin
 
@@ -297,7 +303,10 @@ begin
 	    SGP_AXI_RENDEROUTPUT_DEPTHBUFFER  => renderoutput_depthbuffer,
         SGP_AXI_RENDEROUTPUT_CACHECTRL => renderoutput_cachectrl,
         SGP_AXI_RENDEROUTPUT_STRIDE    => renderoutput_stride,	    		
-        SGP_AXI_RENDEROUTPUT_HEIGHT    => renderoutput_height,	    		
+        SGP_AXI_RENDEROUTPUT_HEIGHT    => renderoutput_height,
+        SGP_AXI_RENDEROUTPUT_DEPTH => renderoutput_depth,
+        SGP_AXI_RENDEROUTPUT_ALPHA => renderoutput_alpha,
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER => renderoutput_rtcounter,	    		
         SGP_AXI_RENDEROUTPUT_DEBUG => renderoutput_debug
 	);
 
@@ -418,9 +427,25 @@ begin
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
+            depth_alpha_config <= (others => '0');
 
         else
         case state is
+            when READ_ADDRESS_CONFIG =>
+                if (s_axi_lite_arready = '1') then
+                    s_axi_lite_araddr        <= std_logic_vector(renderoutput_depth_alpha);
+                    s_axi_lite_arvalid <= '1';
+                    state <= WAIT_FOR_RESPONSE_CONFIG;
+                end if;
+        
+            when WAIT_FOR_RESPONSE_CONFIG =>
+                if (s_axi_lite_arready = '1') then
+                    s_axi_lite_arvalid <= '0';
+                    depth_alpha_config <= s_axi_lite_rdata;
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
+
+
             -- Wait here until we receive a fragment
             -- Consider looking at TLAST to determine cache flushability
             when WAIT_FOR_FRAGMENT =>
@@ -461,12 +486,11 @@ begin
                 if (mem_accept = '1') then
                     mem_addr        <= std_logic_vector(frag_address);
                     mem_rd          <= '1';
-                    mem_wr          <= "1111";  
+                    mem_wr          <= "0000";  -- Not writing
                     state <= WAIT_FOR_RESPONSE_DEPTH;
                 end if;
             
             when WAIT_FOR_RESPONSE_DEPTH =>
-                mem_wr <= "0000";
                 if (mem_ack = '1') then
                     state <= CHECK_DEPTH;
                 end if;
@@ -568,3 +592,4 @@ begin
     end if;
    end process;
 end architecture behavioral;
+
