@@ -286,6 +286,23 @@ architecture behavioral of sgp_renderOutput is
   
 begin
 
+  sgp_renderOutput_alphaBlending : alphaBlending
+	port map(
+		a_src_color		=> , 
+		r_src_color		=> ,
+		b_src_color		=> ,
+		g_src_color		=> ,
+		a_dst_color		=> ,
+		r_dst_color		=> ,
+		b_dst_color		=> ,
+		g_dst_color		=> ,
+		a_blend_color	=> ,
+		r_blend_color	=> ,
+		b_blend_color	=> ,
+		g_blend_color	=> ,
+		dst_src_in		=> 
+	);
+
 
   -- Instantiation of Axi Bus Interface S_AXI_LITE
   sgp_renderOutput_axi_lite_regs_inst : sgp_renderOutput_axi_lite_regs
