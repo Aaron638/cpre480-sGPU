@@ -41,17 +41,17 @@ architecture arc of alphaBlending is
 
 	
 
-	constant GL_ZERO        				: std_logic_vector(3 downto 0) := x"0000";
-	constant GL_ONE        					: std_logic_vector(3 downto 0) := x"0001";
-	constant GL_SRC_COLOR        			: std_logic_vector(3 downto 0) := x"0300";
-	constant GL_ONE_MINUS_SRC_COLOR 		: std_logic_vector(3 downto 0) := x"0301";
-	constant GL_DST_COLOR        			: std_logic_vector(3 downto 0) := x"0306";
-	constant GL_ONE_MINUS_DST_COLOR 		: std_logic_vector(3 downto 0) := x"0307";
-	constant GL_SRC_ALPHA        			: std_logic_vector(3 downto 0) := x"0302";
-	constant GL_ONE_MINUS_SRC_ALPHA 		: std_logic_vector(3 downto 0) := x"0303";
-	constant GL_DST_ALPHA        			: std_logic_vector(3 downto 0) := x"0304";
-	constant GL_ONE_MINUS_DST_ALPHA 		: std_logic_vector(3 downto 0) := x"0305";
-	--constant GL_SRC_ALPHA_SATURATE        	: std_logic_vector(3 downto 0) := "0000";
+	constant GL_ZERO        				: std_logic_vector(15 downto 0) := x"0000";
+	constant GL_ONE        					: std_logic_vector(15 downto 0) := x"0001";
+	constant GL_SRC_COLOR        			: std_logic_vector(15 downto 0) := x"0300";
+	constant GL_ONE_MINUS_SRC_COLOR 		: std_logic_vector(15 downto 0) := x"0301";
+	constant GL_DST_COLOR        			: std_logic_vector(15 downto 0) := x"0306";
+	constant GL_ONE_MINUS_DST_COLOR 		: std_logic_vector(15 downto 0) := x"0307";
+	constant GL_SRC_ALPHA        			: std_logic_vector(15 downto 0) := x"0302";
+	constant GL_ONE_MINUS_SRC_ALPHA 		: std_logic_vector(15 downto 0) := x"0303";
+	constant GL_DST_ALPHA        			: std_logic_vector(15 downto 0) := x"0304";
+	constant GL_ONE_MINUS_DST_ALPHA 		: std_logic_vector(15 downto 0) := x"0305";
+	--constant GL_SRC_ALPHA_SATURATE        	: std_logic_vector(15 downto 0) := "0000";
 
 begin
     --needs to be truncated down to be Q16.16
