@@ -6,7 +6,7 @@ use WORK.sgp_types.all;
 entity alphaBlending is 
 
 	port( 
-		a_src_color       : in fixed_t; --needs to come in as the Q16.16 form before it is multiplied by 255
+		a_src_color       : in fixed_t;
 		r_src_color       : in fixed_t;
 		b_src_color       : in fixed_t;
 		g_src_color       : in fixed_t;
@@ -60,10 +60,14 @@ begin
     b_temp <= b_src * b_src_color + b_dst * b_dst_color;
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
-	a_blend_color <= a_temp(47 downto 16); 
-	r_blend_color <= r_temp(47 downto 16);
-	b_blend_color <= b_temp(47 downto 16);
-	g_blend_color <= g_temp(47 downto 16);
+	a_blend_color <= 	x"00010000" when a_temp(32) = '1' else
+						a_temp(47 downto 16); 
+	r_blend_color <= 	x"00010000" when r_temp(32) = '1' else
+						r_temp(47 downto 16);
+	b_blend_color <= 	x"00010000" when b_temp(32) = '1' else
+						b_temp(47 downto 16);
+	g_blend_color <= 	x"00010000" when g_temp(32) = '1' else
+						g_temp(47 downto 16);
 	
 	src_factor <= dst_src_in(15 downto 0);
 	dst_factor <= dst_src_in(31 downto 16);
