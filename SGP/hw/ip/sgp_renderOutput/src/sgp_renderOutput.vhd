@@ -206,6 +206,7 @@ architecture behavioral of sgp_renderOutput is
   
   component alphaBlending is
 	port(
+		gl_Enable		  : in std_logic;
 		a_src_color       : in fixed_t;
 		r_src_color       : in fixed_t;
 		b_src_color       : in fixed_t;
@@ -288,6 +289,7 @@ begin
 
   sgp_renderOutput_alphaBlending : alphaBlending
 	port map(
+		gl_Enable		=> ,
 		a_src_color		=> , 
 		r_src_color		=> ,
 		b_src_color		=> ,

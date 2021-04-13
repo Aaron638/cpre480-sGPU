@@ -6,6 +6,7 @@ use WORK.sgp_types.all;
 entity alphaBlending is 
 
 	port( 
+		gl_Enable		  : in std_logic;
 		a_src_color       : in fixed_t;
 		r_src_color       : in fixed_t;
 		b_src_color       : in fixed_t;
@@ -60,13 +61,17 @@ begin
     b_temp <= b_src * b_src_color + b_dst * b_dst_color;
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
-	a_blend_color <= 	fixed_t_one when a_temp(32) = '1' else
+	a_blend_color <= 	a_src_color when gl_Enable = '0' else
+						fixed_t_one when a_temp(32) = '1' else
 						a_temp(47 downto 16); 
-	r_blend_color <= 	fixed_t_one when r_temp(32) = '1' else
+	r_blend_color <= 	r_src_color when gl_Enable = '0' else
+						fixed_t_one when r_temp(32) = '1' else
 						r_temp(47 downto 16);
-	b_blend_color <= 	fixed_t_one when b_temp(32) = '1' else
+	b_blend_color <= 	b_src_color when gl_Enable = '0' else
+						fixed_t_one when b_temp(32) = '1' else
 						b_temp(47 downto 16);
-	g_blend_color <= 	fixed_t_one when g_temp(32) = '1' else
+	g_blend_color <= 	g_src_color when gl_Enable = '0' else
+						fixed_t_one when g_temp(32) = '1' else
 						g_temp(47 downto 16);
 	
 	src_factor <= dst_src_in(15 downto 0);
