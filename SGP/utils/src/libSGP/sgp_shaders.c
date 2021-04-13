@@ -725,3 +725,88 @@ int32_t SGP_lookupUniform(GLuint gl_uniformID) {
 	}
 	return -1;
 }
+
+// enable or disable server-side GL capabilities
+// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glEnable.xml
+// SGP_AXI_RENDEROUTPUT_MODE = 0 when disabled,
+						// 	 = 1 when depth testing is enabled
+						// 	 = 2 when alpha blending is enabled
+void SGP_glEnable(GLenum cap)
+{
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	uint32_t mode = 0;
+	switch (cap)
+	{
+	case GL_DEPTH_TEST: // 0x0B71
+		mode = 1;
+		break;
+	case GL_BLEND: // 0x0BE2
+		mode = 2;
+		break;
+	default: // Otherwise, do nothing
+		break;
+	}
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_MODE, mode);
+	return;
+}
+
+// As of right now, glDisable() just writes a 0 to the MODE register 
+// to indicate that all features are disabled
+void SGP_glDisable(GLenum cap)
+{
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_MODE, (uint32_t) 0 );
+	return;
+}
+ 
+/* 
+Depth Function enums defined on gl.h line 87, shares w/ AlphaFunction.
+	GL_NEVER    0x0200
+	GL_LESS     0x0201
+	GL_EQUAL    0x0202
+	GL_LEQUAL   0x0203
+	GL_GREATER  0x0204
+	GL_NOTEQUAL 0x0205
+	GL_GEQUAL   0x0206
+	GL_ALWAYS   0x0207
+*/
+void SGP_glDepthFunc(GLenum func)
+{
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_DEPTH_FUNC, func);
+}
+
+void SGP_glDepthRange(GLclampd nearVal, GLclampd farVal)
+{
+	// Convert Glclampd values which are doubles, to floats, then to a Q16.16s
+	uint32_t nearVal_fixed = sglu_float_to_fixed((float)nearVal, 16);
+	uint32_t farVal_fixed = sglu_float_to_fixed((float)farVal, 16);
+	uint32_t baseaddr = SGP_graphicsmap[SGP_VIEWPORT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_NEARVAL_REG, nearVal_fixed);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_FARVAL_REG, farVal_fixed);
+}
+
+/* 
+Destination factor is concatenated with source factor, and placed into ALPHA_FUNC reg
+	Blend Function enums defined on gl.h line 140.
+	As of right now, BlendEquationMode is not defined.
+	Possible Dest factors:
+		GL_ZERO                0
+		GL_ONE                 1
+		GL_SRC_COLOR           0x0300
+		GL_ONE_MINUS_SRC_COLOR 0x0301
+		GL_SRC_ALPHA           0x0302
+		GL_ONE_MINUS_SRC_ALPHA 0x0303
+		GL_DST_ALPHA           0x0304
+		GL_ONE_MINUS_DST_ALPHA 0x0305
+	Possible Src factors:
+		GL_DST_COLOR           0x0306
+		GL_ONE_MINUS_DST_COLOR 0x0307
+		GL_SRC_ALPHA_SATURATE  0x0308
+*/
+void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
+{
+	uint32_t destsrc = (destfactor << 16) | srcfactor;
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA_FUNC, destsrc);
+}

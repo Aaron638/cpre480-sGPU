@@ -70,7 +70,7 @@ int main() {
                 1.0, -1.0, 0.0,
                 0.5, 0.5, 0.0};
         static const GLfloat initial_colors[3] = {
-                0.0, .98, 0.0};
+                0.0, 0.98, 0.0};
 
         int i, j;
         for (i = 0; i < 12; i++) {
