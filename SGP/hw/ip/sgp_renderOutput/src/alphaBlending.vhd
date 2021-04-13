@@ -6,7 +6,6 @@ use WORK.sgp_types.all;
 entity alphaBlending is 
 
 	port( 
-		glEnable          : in std_logic; --not used as of right now
 		a_src_color       : in fixed_t; --needs to come in as the Q16.16 form before it is multiplied by 255
 		r_src_color       : in fixed_t;
 		b_src_color       : in fixed_t;
@@ -19,8 +18,7 @@ entity alphaBlending is
 		r_blend_color     : out fixed_t;
 		b_blend_color : out fixed_t;
 		g_blend_color : out fixed_t;
-		src_factor 	: in std_logic_vector(3 downto 0);
-		dst_factor  : in std_logic_vector(3 downto 0));
+		dst_src_in	: in std_logic_vector(31 downto 0));
 		
 end alphaBlending;
 
@@ -38,6 +36,8 @@ architecture arc of alphaBlending is
 	signal r_temp   : signed(64 downto 0);
 	signal b_temp   : signed(64 downto 0);
 	signal g_temp   : signed(64 downto 0);
+	signal src_factor 	: in std_logic_vector(16 downto 0);
+	signal dst_factor  	: in std_logic_vector(16 downto 0);
 	
 
 	constant GL_ZERO        				: std_logic_vector(3 downto 0) := "0000";
@@ -50,12 +50,6 @@ architecture arc of alphaBlending is
 	constant GL_ONE_MINUS_SRC_ALPHA 		: std_logic_vector(3 downto 0) := "0111";
 	constant GL_DST_ALPHA        			: std_logic_vector(3 downto 0) := "1000";
 	constant GL_ONE_MINUS_DST_ALPHA 		: std_logic_vector(3 downto 0) := "1001";
-	--not required to implement
-	--constant GL_CONSTANT_COLOR      		: std_logic_vector(3 downto 0) := "0000";
-	--constant GL_ONE_MINUS_CONSTANT_COLOR    : std_logic_vector(3 downto 0) := "0000";
-	--constant GL_CONSTANT_ALPHA        		: std_logic_vector(3 downto 0) := "0000";
-	--constant GL_ONE_MINUS_CONSTANT_ALPHA    : std_logic_vector(3 downto 0) := "0000";
-	--this may still be necessary
 	--constant GL_SRC_ALPHA_SATURATE        	: std_logic_vector(3 downto 0) := "0000";
 
 begin
@@ -69,6 +63,9 @@ begin
 	r_blend_color <= r_temp(47 downto 16);
 	b_blend_color <= b_temp(47 downto 16);
 	g_blend_color <= g_temp(47 downto 16);
+	
+	src_factor <= dst_src_in(15 downto 0);
+	dst_factor <= dst_src_in(31 downto 16);
 
 	process(src_factor) begin
 		case src_factor is 
@@ -112,12 +109,6 @@ begin
 											r_src <= fixed_t_one - a_dst_color;
 											b_src <= fixed_t_one - a_dst_color;
 											g_src <= fixed_t_one - a_dst_color;
-			--not required to implement								
-			--when GL_CONSTANT_COLOR => 
-			--when GL_ONE_MINUS_CONSTANT_COLOR => 
-			--when GL_CONSTANT_ALPHA => 
-			--when GL_ONE_MINUS_CONSTANT_ALPHA => 
-			--this may still be necessary
 			--when GL_SRC_ALPHA_SATURATE => 
 			when others => 
 		end case;
@@ -165,12 +156,6 @@ begin
 											r_dst <= fixed_t_one - a_dst_color;
 											b_dst <= fixed_t_one - a_dst_color;
 											g_dst <= fixed_t_one - a_dst_color;
-			--not required to implement
-			--when GL_CONSTANT_COLOR => 
-			--when GL_ONE_MINUS_CONSTANT_COLOR => 
-			--when GL_CONSTANT_ALPHA => 
-			--when GL_ONE_MINUS_CONSTANT_ALPHA => 
-			--this may still be necessary
 			--when GL_SRC_ALPHA_SATURATE => 
 			when others =>
 		end case;
