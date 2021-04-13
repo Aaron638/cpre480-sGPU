@@ -126,7 +126,7 @@ void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, 
 void SGP_glEnable(GLenum cap);
 void SGP_glDisable(GLenum cap);
 void SGP_glDepthFunc(GLenum func);
-void SGP_glDepthRange(GLenum nearVal, GLenum farVal);
+void SGP_glDepthRange(GLclampd nearVal, GLclampd farVal);
 void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor);
 
 // Utility functions for program/shader/uniform ID match
