@@ -289,7 +289,7 @@ begin
 
   sgp_renderOutput_alphaBlending : alphaBlending
 	port map(
-		gl_Enable		=> ,
+		gl_Enable		=> , --if not needed, simply set to '1'
 		a_src_color		=> , 
 		r_src_color		=> ,
 		b_src_color		=> ,
