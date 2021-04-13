@@ -203,6 +203,23 @@ architecture behavioral of sgp_renderOutput is
         axi_arburst_o       : out std_logic_vector(1 downto 0);
         axi_rready_o        : out std_logic);
   end component dcache;
+  
+  component alphaBlending is
+	port(
+		a_src_color       : in fixed_t;
+		r_src_color       : in fixed_t;
+		b_src_color       : in fixed_t;
+		g_src_color       : in fixed_t;
+		a_dst_color       : in fixed_t;
+		r_dst_color       : in fixed_t;
+		b_dst_color       : in fixed_t;
+		g_dst_color       : in fixed_t;
+		a_blend_color     : out fixed_t;
+		r_blend_color     : out fixed_t;
+		b_blend_color : out fixed_t;
+		g_blend_color : out fixed_t;
+		dst_src_in	: in std_logic_vector(31 downto 0));
+	end component alphaBlending;
 
 
   type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
