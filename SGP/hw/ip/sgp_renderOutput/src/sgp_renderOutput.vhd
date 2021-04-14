@@ -284,6 +284,16 @@ architecture behavioral of sgp_renderOutput is
   signal g_color_reg64              : std_logic_vector(63 downto 0);
   signal b_color_reg64              : std_logic_vector(63 downto 0);
 
+  signal g_dest_color               : std_logic_vector(31 downto 0);
+  signal a_dest_color               : std_logic_vector(31 downto 0);
+  signal b_dest_color               : std_logic_vector(31 downto 0);
+  signal r_dest_color               : std_logic_vector(31 downto 0);
+
+  signal g_blend_color              : std_logic_vector(31 downto 0);
+  signal a_blend_color              : std_logic_vector(31 downto 0);
+  signal b_blend_color              : std_logic_vector(31 downto 0);
+  signal r_blend_color              : std_logic_vector(31 downto 0);
+
   signal alpha_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal depth_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
@@ -291,20 +301,20 @@ begin
 
   sgp_renderOutput_alphaBlending : alphaBlending
 	port map(
-		gl_Enable		=> , --if not needed, simply set to '1'
-		a_src_color		=> , 
-		r_src_color		=> ,
-		b_src_color		=> ,
-		g_src_color		=> ,
-		a_dst_color		=> ,
-		r_dst_color		=> ,
-		b_dst_color		=> ,
-		g_dst_color		=> ,
-		a_blend_color	=> ,
-		r_blend_color	=> ,
-		b_blend_color	=> ,
-		g_blend_color	=> ,
-		dst_src_in		=> 
+		gl_Enable		=> '1', --if not needed, simply set to '1'
+		a_src_color		=> a_color, 
+		r_src_color		=> r_color,
+		b_src_color		=> b_color,
+		g_src_color		=> g_color,
+		a_dst_color		=> a_dest_color,
+		r_dst_color		=> r_dest_color,
+		b_dst_color		=> b_dest_color,
+		g_dst_color		=> g_dest_color,
+		a_blend_color	=> a_blend_color,
+		r_blend_color	=> r_blend_color,
+		b_blend_color	=> b_blend_color,
+		g_blend_color	=> g_blend_color,
+		dst_src_in		=> alpha_config
 	);
 
 
@@ -529,7 +539,7 @@ begin
                 if (depth_config != x"00000200") then
                     state <= READ_ADDRESS_DEPTH;
                 else if (alpha_config != x"00000000") then  -- TODO this should be a value
-                    state <= READ_ADDRESS_ALPHA;
+                    state <= READ_COLOR_BUFFER_ALPHA;
                 else
                     state <= GEN_ADDRESS_COLOR;
                 end
@@ -558,6 +568,21 @@ begin
                     state <= WAIT_FOR_FRAGMENT;
                 end if;
             
+            when READ_COLOR_BUFFER_ALPHA => 
+                if (mem_accept = '1') then
+                    mem_addr <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
+                    mem_rd          <= '1';
+                    state <= READ_COLOR_WAIT_FOR_RESPONSE;
+                end if;
+
+            when READ_COLOR_WAIT_FOR_RESPONSE =>
+                if (mem_ack = '1') then
+                    g_dest_color <= mem_data_rd(127 downto 96);
+                    a_dest_color <= mem_data_rd(95 downto 64);
+                    b_dest_color <= mem_data_rd(63 downto 32);
+                    r_dest_color <= mem_data_rd(31 downto 0);
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
             -- To generate the address value, we have to get info from the global framebuffer memory
             -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
             -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
