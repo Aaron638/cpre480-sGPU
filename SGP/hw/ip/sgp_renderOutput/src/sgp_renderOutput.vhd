@@ -223,7 +223,7 @@ architecture behavioral of sgp_renderOutput is
 	end component alphaBlending;
 
 
-  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE);
+  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE, READ_COLOR_BUFFER_ALPHA, READ_COLOR_WAIT_FOR_RESPONSE, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
   signal state        : STATE_TYPE;   
 
   -- User register values
@@ -284,15 +284,15 @@ architecture behavioral of sgp_renderOutput is
   signal g_color_reg64              : std_logic_vector(63 downto 0);
   signal b_color_reg64              : std_logic_vector(63 downto 0);
 
-  signal g_dest_color               : std_logic_vector(31 downto 0);
-  signal a_dest_color               : std_logic_vector(31 downto 0);
-  signal b_dest_color               : std_logic_vector(31 downto 0);
-  signal r_dest_color               : std_logic_vector(31 downto 0);
+  signal g_dest_color               : fixed_t;
+  signal a_dest_color               : fixed_t;
+  signal b_dest_color               : fixed_t;
+  signal r_dest_color               : fixed_t;
 
-  signal g_blend_color              : std_logic_vector(31 downto 0);
-  signal a_blend_color              : std_logic_vector(31 downto 0);
-  signal b_blend_color              : std_logic_vector(31 downto 0);
-  signal r_blend_color              : std_logic_vector(31 downto 0);
+  signal g_blend_color              : fixed_t;
+  signal a_blend_color              : fixed_t;
+  signal b_blend_color              : fixed_t;
+  signal r_blend_color              : fixed_t;
 
   signal alpha_config        		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal depth_config         		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -476,8 +476,9 @@ begin
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
-			gl_Enable 		<= (others => '0');
-            depth_alpha_config <= (others => '0');
+			gl_Enable 		<= '0';
+			alpha_config <= (others => '0');
+            depth_config <= (others => '0');
 
         else
         case state is
@@ -538,14 +539,14 @@ begin
                 frag_address    <= signed(renderoutput_depthbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;    
                 frag_color      <= std_logic_vector(z_pos_fixed);  -- We can actually store the full 16.16 since we have 32 bits just for this value
                 
-                if (depth_config != x"00000200") then
+                if (depth_config /= x"00000200") then
                     state <= READ_ADDRESS_DEPTH;
-                else if (alpha_config != x"00000000") then  -- TODO this should be a value
+                else if (alpha_config /= x"00000000") then  -- TODO this should be a value
                     state <= READ_COLOR_BUFFER_ALPHA;
-					gl_Enable = '1';
+					gl_Enable <= '1';
                 else
                     state <= GEN_ADDRESS_COLOR;
-					gl_Enable = '0';
+					gl_Enable <= '0';
                 end
 
 
