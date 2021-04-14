@@ -292,7 +292,7 @@ begin
 										   & unsigned(signed(a1 - b1))
 										   & unsigned(signed(a0 - b0));
 
-								state <= FETCH;
+								state <= WRITEBACK;
 								
                             when FSUB =>
 								c <= unsigned(signed(a3 - b3))
@@ -304,7 +304,7 @@ begin
 								
 							when AAND =>
 								c <= a and b;
-								state <= WRITEBACK;
+								state state<= WRITEBACK;
 							
 							when OOR =>
 								c <= a or b;
