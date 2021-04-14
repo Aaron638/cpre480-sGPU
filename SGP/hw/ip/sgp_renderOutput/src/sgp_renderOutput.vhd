@@ -223,7 +223,7 @@ architecture behavioral of sgp_renderOutput is
 	end component alphaBlending;
 
 
-  type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
+  type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE);
   signal state        : STATE_TYPE;   
 
   -- User register values
@@ -232,7 +232,8 @@ architecture behavioral of sgp_renderOutput is
   signal renderoutput_cachectrl 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_stride        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_height        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-  signal renderoutput_depth_alpha   : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal renderoutput_depth         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal renderoutput_alpha         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_rtcounter     : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
@@ -283,8 +284,9 @@ architecture behavioral of sgp_renderOutput is
   signal g_color_reg64              : std_logic_vector(63 downto 0);
   signal b_color_reg64              : std_logic_vector(63 downto 0);
 
-  signal depth_alpha_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);  -- Top 16 depth and bottom 16 are for alpha. Why? Bryce said so.
-  
+  signal alpha_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal depth_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+
 begin
 
   sgp_renderOutput_alphaBlending : alphaBlending
@@ -450,7 +452,7 @@ begin
         if ARESETN = '0' then    
 
             -- Start at WAIT_FOR_FRAGMENT and initialize all other registers
-            state           <= WAIT_FOR_FRAGMENT;
+            state           <= DEPTH_READ_CONFIG;  -- TODO change this to wherever we start
             mem_addr        <= (others => '0');
             mem_data_wr     <= (others => '0');
             mem_rd          <= '0';
@@ -467,20 +469,29 @@ begin
 
         else
         case state is
-            when READ_ADDRESS_CONFIG =>
+            when DEPTH_READ_CONFIG =>
                 if (s_axi_lite_arready = '1') then
-                    s_axi_lite_araddr        <= std_logic_vector(renderoutput_depth_alpha);
-                    s_axi_lite_arvalid <= '1';
-                    state <= WAIT_FOR_RESPONSE_CONFIG;
+                    s_axi_lite_araddr <= std_logic_vector(renderoutput_depth);
+                    state <= DEPTH_WAIT_FOR_RESPONSE;
                 end if;
         
-            when WAIT_FOR_RESPONSE_CONFIG =>
-                if (s_axi_lite_arready = '1') then
-                    s_axi_lite_arvalid <= '0';
-                    depth_alpha_config <= s_axi_lite_rdata;
-                    state <= WAIT_FOR_FRAGMENT;
+            when DEPTH_WAIT_FOR_RESPONSE =>
+                if (s_axi_lite_arvalid = '1') then
+                    depth_config <= s_axi_lite_rdata;
+                    state <= ALPHA_READ_CONFIG;
                 end if;
 
+            when ALPHA_READ_CONFIG =>
+                if (s_axi_lite_arready = '1') then
+                    s_axi_lite_araddr <= std_logic_vector(renderoutput_alpha);
+                    state <= ALPHA_WAIT_FOR_RESPONSE;
+                end if;
+        
+            when ALPHA_WAIT_FOR_RESPONSE =>
+                if (s_axi_lite_arvalid = '1') then
+                    alpha_config <= s_axi_lite_rdata;
+                    state <= WAIT_FOR_FRAGMENT;
+                end if;
 
             -- Wait here until we receive a fragment
             -- Consider looking at TLAST to determine cache flushability
@@ -514,8 +525,14 @@ begin
 
                 frag_address    <= signed(renderoutput_depthbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;    
                 frag_color      <= std_logic_vector(z_pos_fixed);  -- We can actually store the full 16.16 since we have 32 bits just for this value
-            
-                state <= READ_ADDRESS_DEPTH;
+                
+                if (depth_config != x"00000200") then
+                    state <= READ_ADDRESS_DEPTH;
+                else if (alpha_config != x"00000000") then  -- TODO this should be a value
+                    state <= READ_ADDRESS_ALPHA;
+                else
+                    state <= GEN_ADDRESS_COLOR;
+                end
 
 
             when READ_ADDRESS_DEPTH =>
@@ -587,7 +604,7 @@ begin
                 -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
                 
                 -- Viewport handles the conversion of coordinates.
-                -- Every 4 bits in COLORBUFFER represents a pixel
+                -- Every 4 bits in COLORBUFFER reto_integer(unsigned(ra))presents a pixel
                 -- COLORBUFFER is a 1D array, so the conversion from vp coords to memory address is:
                 -- baseaddr + (1920 * 4 * yvp) + (4 * x)
                 
