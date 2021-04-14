@@ -49,7 +49,7 @@ entity vertexShader_core is
 end vertexShader_core;
 
 architecture behavioral of vertexShader_core is
-    type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, LD2, LD3, ST2);
+    type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, WB, LD2, LD3, ST2);
     type register_file_t is array (0 to 255) of unsigned(127 downto 0);
     constant debug : std_logic_vector(3 downto 0) := x"3";
     
@@ -209,7 +209,7 @@ begin
 							when SWIZZLE =>
 								c <= a(31 + 32 * xx_int downto 32 * xx_int) & a(31 + 32 * yy_int downto 32 * yy_int) &
 										a(31 + 32 * zz_int downto 32 * zz_int) & a(31 + 32 * ww_int downto 32 * ww_int);
-								state <= WRITEBACK;
+								state <= WB;
 
 							when LDILO =>
 								c <= x"0000" & ra & rb
@@ -217,25 +217,25 @@ begin
 										   & x"0000" & ra & rb
 										   & x"0000" & ra & rb;
 
-                                state <= WRITEBACK;
+                                state <= WB;
 							
 							when LDIHI =>                         
 								c <= ra & rb & x"0000"
 										   & ra & rb & x"0000"
 										   & ra & rb & x"0000"
 										   & ra & rb & x"0000";
-                                state <= WRITEBACK;
+                                state <= WB;
 							
 							
 							when LD =>
 								state <= LD2;
-								dmem_addr <= std_logic_vector(signed(a(31 downto 0) + rb_int));
+								--dmem_addr <= std_logic_vector(signed(a(31 downto 0) + rb_int));
 							
 							
 							when ST =>
 								state <= ST2;
 								dmem_wr_req <= '1';
-								dmem_addr <= std_logic_vector(signed(a(31 downto 0) + rd_int));
+								--dmem_addr <= std_logic_vector(signed(a(31 downto 0) + rd_int));
 							
 							
 							when INFIFO =>
@@ -243,32 +243,32 @@ begin
 							-- Source: https://forums.xilinx.com/t5/Synthesis/Modulus-synthesizable-or-non-synthesizable/m-p/747509/highlight/true#M20684
 							-- c(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
 								c(31 downto 0) <= unsigned(inputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4));
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when OUTFIFO =>
 							-- outputVertex(rd_int/4)(rb_int mod 4) <= signed(b(31 downto 0));
 								outputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4) <= signed(b(31 downto 0));
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when INSERT0 =>
 								c <= b(127 downto 96) & a(95 downto 64) &
 											a(63 downto 32) & a(31 downto 0);
-								state <= WRITEBACK;
+								state <= WB;
 							
 							when INSERT1 =>
 								c <= a(127 downto 96) & b(95 downto 64) &
 											a(63 downto 32) & a(31 downto 0);
-								state <= WRITEBACK;
+								state <= WB;
 							
 							when INSERT2 =>
 								c <= a(127 downto 96) & a(95 downto 64) &
 											b(63 downto 32) & a(31 downto 0);
-								state <= WRITEBACK;            
+								state <= WB;            
 							
 							when INSERT3 =>
 								c <= a(127 downto 96) & a(95 downto 64) &
 											a(63 downto 32) & b(31 downto 0);
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when ADD =>
 								c <= unsigned(signed(a3 + b3))
@@ -276,7 +276,7 @@ begin
 										   & unsigned(signed(a1 + b1))
 										   & unsigned(signed(a0 + b0));
 
-								state <= WRITEBACK;
+								state <= WB;
 								
 							when FADD =>
 								c <= unsigned(signed(a3 + b3))
@@ -284,7 +284,7 @@ begin
 										   & unsigned(signed(a1 + b1))
 										   & unsigned(signed(a0 + b0));
 
-								state <= WRITEBACK;
+								state <= WB;
 							
 							when SUB =>
 								c <= unsigned(signed(a3 - b3))
@@ -292,7 +292,7 @@ begin
 										   & unsigned(signed(a1 - b1))
 										   & unsigned(signed(a0 - b0));
 
-								state <= FETCH;
+								state <= WB;
 								
                             when FSUB =>
 								c <= unsigned(signed(a3 - b3))
@@ -300,19 +300,19 @@ begin
 										   & unsigned(signed(a2 - b2))
 										   & unsigned(signed(a1 - b1));
 
-								state <= WRITEBACK;	
+								state <= WB;	
 								
 							when AAND =>
 								c <= a and b;
-								state <= WRITEBACK;
+								state <= WB;
 							
 							when OOR =>
 								c <= a or b;
-								state <= WRITEBACK;
+								state <= WB;
 							
 							when XXOR =>
 								c <= a xor b;
-								state <= WRITEBACK;
+								state <= WB;
 							
 							when SHR =>
 								-- Shift by an integer amount
@@ -323,7 +323,7 @@ begin
 										   & shift_right(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
 										   & shift_right(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16)));
 
-								state <= WRITEBACK;
+								state <= WB;
 							
 								-- shift_right(signed(), amount) to keep sign
 								-- shift_right() with a signed argument has a signed result
@@ -334,7 +334,7 @@ begin
 										   & unsigned(shift_right(signed( a(63 downto 32) ), to_integer(b(63 downto 48))))
 										   & unsigned(shift_right(signed( a(31 downto 0)  ), to_integer(b(31 downto 16))));
 
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when SHL =>
 								c <= shift_left(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
@@ -342,7 +342,7 @@ begin
 										   & shift_left(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
 										   & shift_left(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16))); 
 
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when FMUL =>
 								c <= unsigned(resize(signed(a3 * b3), 32))
@@ -350,7 +350,7 @@ begin
 										   & unsigned(resize(signed(a1 * b1), 32)) 
 										   & unsigned(resize(signed(a0 * b0), 32));
 
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when FMAX =>
 								if(to_integer(a(31 downto 0)) > to_integer(b(31 downto 0))) then
@@ -378,40 +378,40 @@ begin
 								end if;
 								
 								c <= temp;
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when FDIV =>
 								--c(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
 								--c(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
 								--c(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
 								--c(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when FNEG =>
 								c <= not a3(31) & a3(30 downto 0) & not a2(31) & a2(30 downto 0) & not a1(31) & a1(30 downto 0) & not a0(31) & a0(30 downto 0);
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when FSQRT =>
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when FPOW =>
-								state <= WRITEBACK;
+								state <= WB;
 		
 							when INTERLEAVELO =>
 								c <= unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).x) & unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(a).y);
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when INTERLEAVEHI =>
 								c <= unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).z) & unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(a).w);
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when INTERLEAVELOPAIRS =>
 								c <=  unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).y) & unsigned(to_attributeRecord_t(a).x);
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when INTERLEAVEHIPAIRS =>
 								c <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
-								state <= WRITEBACK;
+								state <= WB;
 	
 							when DONE =>	
 								state <= WAIT_TO_START;
@@ -422,7 +422,7 @@ begin
 						
 						end case;
 
-                    when WRITEBACK =>
+                    when WB =>
                         v(rd_int) <= c;
                         state <= FETCH;
 
