@@ -25,18 +25,18 @@ end alphaBlending;
 
 architecture arc of alphaBlending is
 
-	signal a_src	: unsigned(31 downto 0);
-	signal r_src	: unsigned(63 downto 0);
-	signal b_src	: unsigned(63 downto 0);
-	signal g_src	: unsigned(63 downto 0);
-	signal a_dst	: unsigned(63 downto 0);
-	signal r_dst	: unsigned(63 downto 0);
-	signal b_dst	: unsigned(63 downto 0);
-	signal g_dst	: unsigned(63 downto 0);
-	signal a_temp   : unsigned(63 downto 0);
-	signal r_temp   : unsigned(63 downto 0);
-	signal b_temp   : unsigned(63 downto 0);
-	signal g_temp   : unsigned(63 downto 0);
+	signal a_src	: unsigned(7 downto 0);
+	signal r_src	: unsigned(7 downto 0);
+	signal b_src	: unsigned(7 downto 0);
+	signal g_src	: unsigned(7 downto 0);
+	signal a_dst	: unsigned(7 downto 0);
+	signal r_dst	: unsigned(7 downto 0);
+	signal b_dst	: unsigned(7 downto 0);
+	signal g_dst	: unsigned(7 downto 0);
+	signal a_temp   : unsigned(15 downto 0);
+	signal r_temp   : unsigned(15 downto 0);
+	signal b_temp   : unsigned(15 downto 0);
+	signal g_temp   : unsigned(15 downto 0);
 	signal src_factor 	: std_logic_vector(16 downto 0);
 	signal dst_factor  	: std_logic_vector(16 downto 0);
 
@@ -62,17 +62,17 @@ begin
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
 	a_blend_color <= 	a_src_color when gl_Enable = '0' else
-						x"FF" when a_temp(32) = '1' else  ----------------------need to fix this line and the one below it
-						a_temp(47 downto 16); 
+						x"FF" when a_temp(32) = '1' else  ----------------------need to fix this line so the condition is correct
+						a_temp(15 downto 0); 
 	r_blend_color <= 	r_src_color when gl_Enable = '0' else
 						x"FF" when r_temp(32) = '1' else
-						r_temp(47 downto 16);
+						r_temp(15 downto 0);
 	b_blend_color <= 	b_src_color when gl_Enable = '0' else
 						x"FF" when b_temp(32) = '1' else
-						b_temp(47 downto 16);
+						b_temp(15 downto 0);
 	g_blend_color <= 	g_src_color when gl_Enable = '0' else
 						x"FF" when g_temp(32) = '1' else
-						g_temp(47 downto 16);
+						g_temp(15 downto 0);
 	
 	src_factor <= dst_src_in(15 downto 0);
 	dst_factor <= dst_src_in(31 downto 16);
