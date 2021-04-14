@@ -292,7 +292,11 @@ begin
 										   & unsigned(signed(a1 - b1))
 										   & unsigned(signed(a0 - b0));
 
+<<<<<<< HEAD
 								state <= WB;
+=======
+								state <= WRITEBACK;
+>>>>>>> 0ea94a56948d19c0cfd58e31c70656471a3ce59d
 								
                             when FSUB =>
 								c <= unsigned(signed(a3 - b3))
@@ -304,7 +308,11 @@ begin
 								
 							when AAND =>
 								c <= a and b;
+<<<<<<< HEAD
 								state <= WB;
+=======
+								state state<= WRITEBACK;
+>>>>>>> 0ea94a56948d19c0cfd58e31c70656471a3ce59d
 							
 							when OOR =>
 								c <= a or b;
