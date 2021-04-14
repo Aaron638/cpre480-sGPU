@@ -207,24 +207,24 @@ begin
 								state <= FETCH;
 
 							when SWIZZLE =>
-								v(rd_int) <= a(31 + 32 * xx_int downto 32 * xx_int) & a(31 + 32 * yy_int downto 32 * yy_int) &
+								c <= a(31 + 32 * xx_int downto 32 * xx_int) & a(31 + 32 * yy_int downto 32 * yy_int) &
 										a(31 + 32 * zz_int downto 32 * zz_int) & a(31 + 32 * ww_int downto 32 * ww_int);
-								state <= FETCH;
+								state <= WRITEBACK;
 
 							when LDILO =>
-								v(rd_int) <= x"0000" & ra & rb
+								c <= x"0000" & ra & rb
 										   & x"0000" & ra & rb
 										   & x"0000" & ra & rb
 										   & x"0000" & ra & rb;
 
-								state <= FETCH;
+                                state <= WRITEBACK;
 							
 							when LDIHI =>                         
-								v(rd_int) <= ra & rb & x"0000"
+								c <= ra & rb & x"0000"
 										   & ra & rb & x"0000"
 										   & ra & rb & x"0000"
 										   & ra & rb & x"0000";
-								state <= FETCH;
+                                state <= WRITEBACK;
 							
 							
 							when LD =>
@@ -241,53 +241,53 @@ begin
 							when INFIFO =>
 							-- mod is synthesizable as long as 2nd operand is power of 2
 							-- Source: https://forums.xilinx.com/t5/Synthesis/Modulus-synthesizable-or-non-synthesizable/m-p/747509/highlight/true#M20684
-							-- v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
-								v(rd_int)(31 downto 0) <= unsigned(inputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4));
-								state <= FETCH;
+							-- c(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
+								c(31 downto 0) <= unsigned(inputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4));
+								state <= WRITEBACK;
 	
 							when OUTFIFO =>
 							-- outputVertex(rd_int/4)(rb_int mod 4) <= signed(b(31 downto 0));
 								outputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4) <= signed(b(31 downto 0));
-								state <= FETCH;
+								state <= WRITEBACK;
 	
 							when INSERT0 =>
-								v(rd_int) <= b(127 downto 96) & a(95 downto 64) &
+								c <= b(127 downto 96) & a(95 downto 64) &
 											a(63 downto 32) & a(31 downto 0);
-								state <= FETCH;
+								state <= WRITEBACK;
 							
 							when INSERT1 =>
-								v(rd_int) <= a(127 downto 96) & b(95 downto 64) &
+								c <= a(127 downto 96) & b(95 downto 64) &
 											a(63 downto 32) & a(31 downto 0);
-								state <= FETCH;
+								state <= WRITEBACK;
 							
 							when INSERT2 =>
-								v(rd_int) <= a(127 downto 96) & a(95 downto 64) &
+								c <= a(127 downto 96) & a(95 downto 64) &
 											b(63 downto 32) & a(31 downto 0);
-								state <= FETCH;            
+								state <= WRITEBACK;            
 							
 							when INSERT3 =>
-								v(rd_int) <= a(127 downto 96) & a(95 downto 64) &
+								c <= a(127 downto 96) & a(95 downto 64) &
 											a(63 downto 32) & b(31 downto 0);
-								state <= FETCH;
+								state <= WRITEBACK;
 	
 							when ADD =>
-								v(rd_int) <= unsigned(signed(a3 + b3))
+								c <= unsigned(signed(a3 + b3))
 										   & unsigned(signed(a2 + b2))
 										   & unsigned(signed(a1 + b1))
 										   & unsigned(signed(a0 + b0));
 
-								state <= FETCH;
+								state <= WRITEBACK;
 								
 							when FADD =>
-								v(rd_int) <= unsigned(signed(a3 + b3))
+								c <= unsigned(signed(a3 + b3))
 										   & unsigned(signed(a2 + b2))
 										   & unsigned(signed(a1 + b1))
 										   & unsigned(signed(a0 + b0));
 
-								state <= FETCH;
+								state <= WRITEBACK;
 							
 							when SUB =>
-								v(rd_int) <= unsigned(signed(a3 - b3))
+								c <= unsigned(signed(a3 - b3))
 										   & unsigned(signed(a2 - b2))
 										   & unsigned(signed(a1 - b1))
 										   & unsigned(signed(a0 - b0));
@@ -295,62 +295,62 @@ begin
 								state <= FETCH;
 								
                             when FSUB =>
-								v(rd_int) <= unsigned(signed(a3 - b3))
+								c <= unsigned(signed(a3 - b3))
 										   & unsigned(signed(a0 - b0))
 										   & unsigned(signed(a2 - b2))
 										   & unsigned(signed(a1 - b1));
 
-								state <= FETCH;	
+								state <= WRITEBACK;	
 								
 							when AAND =>
-								v(rd_int) <= a and b;
-								state <= FETCH;
+								c <= a and b;
+								state <= WRITEBACK;
 							
 							when OOR =>
-								v(rd_int) <= a or b;
-								state <= FETCH;
+								c <= a or b;
+								state <= WRITEBACK;
 							
 							when XXOR =>
-								v(rd_int) <= a xor b;
-								state <= FETCH;
+								c <= a xor b;
+								state <= WRITEBACK;
 							
 							when SHR =>
 								-- Shift by an integer amount
 								-- https://www.nandland.com/vhdl/examples/example-shifts.html
 								--shift_right() with a unsigned argument has a unsigned result
-								v(rd_int) <= shift_right(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
+								c <= shift_right(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
 										   & shift_right(unsigned(a(95 downto 64) ), to_integer(b(95 downto 80)))
 										   & shift_right(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
 										   & shift_right(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16)));
 
-								state <= FETCH;
+								state <= WRITEBACK;
 							
 								-- shift_right(signed(), amount) to keep sign
 								-- shift_right() with a signed argument has a signed result
 								-- Cast back into an unsigned https://github.com/ghdl/ghdl/blob/a05d3cb7bd8eb037c3057c2ef8d066df1489ce2d/libraries/ieee2008/numeric_std.vhdl#L958
 							when SAR =>
-								v(rd_int) <= unsigned(shift_right(signed( a(127 downto 96)), to_integer(b(127 downto 112))))
+								c <= unsigned(shift_right(signed( a(127 downto 96)), to_integer(b(127 downto 112))))
 										   & unsigned(shift_right(signed( a(95 downto 64) ), to_integer(b(95 downto 80))))
 										   & unsigned(shift_right(signed( a(63 downto 32) ), to_integer(b(63 downto 48))))
 										   & unsigned(shift_right(signed( a(31 downto 0)  ), to_integer(b(31 downto 16))));
 
-								state <= FETCH;
+								state <= WRITEBACK;
 	
 							when SHL =>
-								v(rd_int) <= shift_left(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
+								c <= shift_left(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
 										   & shift_left(unsigned(a(95 downto 64) ), to_integer(b(95 downto 80)))
 										   & shift_left(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
 										   & shift_left(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16))); 
 
-								state <= FETCH;
+								state <= WRITEBACK;
 	
 							when FMUL =>
-								v(rd_int) <= unsigned(resize(signed(a3 * b3), 32))
+								c <= unsigned(resize(signed(a3 * b3), 32))
 										   & unsigned(resize(signed(a2 * b2), 32)) 
 										   & unsigned(resize(signed(a1 * b1), 32)) 
 										   & unsigned(resize(signed(a0 * b0), 32));
 
-								state <= FETCH;
+								state <= WRITEBACK;
 	
 							when FMAX =>
 								if(to_integer(a(31 downto 0)) > to_integer(b(31 downto 0))) then
@@ -377,41 +377,41 @@ begin
 									temp(127 downto 96)  <= b(127 downto 96);
 								end if;
 								
-								v(rd_int) <= temp;
-								state <= FETCH;
+								c <= temp;
+								state <= WRITEBACK;
 	
 							when FDIV =>
-								--v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
-								--v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
-								--v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
-								--v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
-								state <= FETCH;
+								--c(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
+								--c(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
+								--c(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
+								--c(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
+								state <= WRITEBACK;
 	
 							when FNEG =>
-								v(rd_int) <= not a3(31) & a3(30 downto 0) & not a2(31) & a2(30 downto 0) & not a1(31) & a1(30 downto 0) & not a0(31) & a0(30 downto 0);
-								state <= FETCH;
+								c <= not a3(31) & a3(30 downto 0) & not a2(31) & a2(30 downto 0) & not a1(31) & a1(30 downto 0) & not a0(31) & a0(30 downto 0);
+								state <= WRITEBACK;
 	
 							when FSQRT =>
-								state <= FETCH;
+								state <= WRITEBACK;
 	
 							when FPOW =>
-								state <= FETCH;
+								state <= WRITEBACK;
 		
 							when INTERLEAVELO =>
-								v(rd_int) <= unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).x) & unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(a).y);
-								state <= FETCH;
+								c <= unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).x) & unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(a).y);
+								state <= WRITEBACK;
 	
 							when INTERLEAVEHI =>
-								v(rd_int) <= unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).z) & unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(a).w);
-								state <= FETCH;
+								c <= unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).z) & unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(a).w);
+								state <= WRITEBACK;
 	
 							when INTERLEAVELOPAIRS =>
-								v(rd_int) <=  unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).y) & unsigned(to_attributeRecord_t(a).x);
-								state <= FETCH;
+								c <=  unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).y) & unsigned(to_attributeRecord_t(a).x);
+								state <= WRITEBACK;
 	
 							when INTERLEAVEHIPAIRS =>
-								v(rd_int) <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
-								state <= FETCH;
+								c <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
+								state <= WRITEBACK;
 	
 							when DONE =>	
 								state <= WAIT_TO_START;
@@ -422,7 +422,11 @@ begin
 						
 						end case;
 
-					--make read request to the dmem cache, this is for the ld in the ISA
+                    when WRITEBACK =>
+                        v(rd_int) <= c;
+                        state <= FETCH;
+
+                    --make read request to the dmem cache, this is for the ld in the ISA
 					when LD2 =>
 						dmem_rd_req <= '1';
 						state <= LD3;
