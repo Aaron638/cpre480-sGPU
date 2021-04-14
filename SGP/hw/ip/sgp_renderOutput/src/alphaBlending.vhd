@@ -11,14 +11,14 @@ entity alphaBlending is
 		r_src_color       : in fixed_t;
 		b_src_color       : in fixed_t;
 		g_src_color       : in fixed_t;
-		a_dst_color       : in fixed_t;
-		r_dst_color       : in fixed_t;
-		b_dst_color       : in fixed_t;
-		g_dst_color       : in fixed_t;
-		a_blend_color     : out fixed_t;
-		r_blend_color     : out fixed_t;
-		b_blend_color : out fixed_t;
-		g_blend_color : out fixed_t;
+		a_dst_color       : in std_logic_vector(7 downto 0);
+		r_dst_color       : in std_logic_vector(7 downto 0);
+		b_dst_color       : in std_logic_vector(7 downto 0);
+		g_dst_color       : in std_logic_vector(7 downto 0);
+		a_blend_color     : out std_logic_vector(7 downto 0);
+		r_blend_color     : out std_logic_vector(7 downto 0);
+		b_blend_color	  : out std_logic_vector(7 downto 0);
+		g_blend_color 	  : out std_logic_vector(7 downto 0);
 		dst_src_in	: in std_logic_vector(31 downto 0));
 		
 end alphaBlending;
@@ -37,6 +37,10 @@ architecture arc of alphaBlending is
 	signal r_temp   : signed(63 downto 0);
 	signal b_temp   : signed(63 downto 0);
 	signal g_temp   : signed(63 downto 0);
+	signal a_temp2   : signed(31 downto 0);
+	signal r_temp2   : signed(31 downto 0);
+	signal b_temp2   : signed(31 downto 0);
+	signal g_temp2   : signed(31 downto 0);
 	signal src_factor 	: in std_logic_vector(16 downto 0);
 	signal dst_factor  	: in std_logic_vector(16 downto 0);
 
@@ -56,22 +60,27 @@ architecture arc of alphaBlending is
 
 begin
     --needs to be truncated down to be Q16.16
-    a_temp <= a_src * a_src_color + a_dst * a_dst_color;
-    r_temp <= r_src * r_src_color + r_dst * r_dst_color;
-    b_temp <= b_src * b_src_color + b_dst * b_dst_color;
-    g_temp <= g_src * g_src_color + g_dst * g_dst_color;
+    a_temp2 <= a_src * a_src_color;
+    r_temp2 <= r_src * r_src_color;
+    b_temp2 <= b_src * b_src_color;
+    g_temp2 <= g_src * g_src_color;
+	
+	a_temp <= std_logic_vector(unsigned(fixed_t_twofivefive * a_temp2) + a_dst * unsigned(a_dst_color));
+    r_temp <= std_logic_vector(unsigned(fixed_t_twofivefive * r_temp2) + r_dst * unsigned(r_dst_color));
+    b_temp <= std_logic_vector(unsigned(fixed_t_twofivefive * b_temp2) + b_dst * unsigned(b_dst_color));
+    g_temp <= std_logic_vector(unsigned(fixed_t_twofivefive * g_temp2) + g_dst * unsigned(g_dst_color));
     
 	a_blend_color <= 	a_src_color when gl_Enable = '0' else
-						fixed_t_one when a_temp(32) = '1' else
+						fixed_t_twofivefive when a_temp(32) = '1' else
 						a_temp(47 downto 16); 
 	r_blend_color <= 	r_src_color when gl_Enable = '0' else
-						fixed_t_one when r_temp(32) = '1' else
+						fixed_t_twofivefive when r_temp(32) = '1' else
 						r_temp(47 downto 16);
 	b_blend_color <= 	b_src_color when gl_Enable = '0' else
-						fixed_t_one when b_temp(32) = '1' else
+						fixed_t_twofivefive when b_temp(32) = '1' else
 						b_temp(47 downto 16);
 	g_blend_color <= 	g_src_color when gl_Enable = '0' else
-						fixed_t_one when g_temp(32) = '1' else
+						fixed_t_twofivefive when g_temp(32) = '1' else
 						g_temp(47 downto 16);
 	
 	src_factor <= dst_src_in(15 downto 0);
