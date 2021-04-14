@@ -15,10 +15,10 @@ entity alphaBlending is
 		r_dst_color       : in unsigned(7 downto 0);
 		b_dst_color       : in unsigned(7 downto 0);
 		g_dst_color       : in unsigned(7 downto 0);
-		a_blend_color     : out std_logic_vector(7 downto 0);
-		r_blend_color     : out std_logic_vector(7 downto 0);
-		b_blend_color	  : out std_logic_vector(7 downto 0);
-		g_blend_color 	  : out std_logic_vector(7 downto 0);
+		a_blend_color     : out unsigned(7 downto 0);
+		r_blend_color     : out unsigned(7 downto 0);
+		b_blend_color	  : out unsigned(7 downto 0);
+		g_blend_color 	  : out unsigned(7 downto 0);
 		dst_src_in	: in std_logic_vector(31 downto 0));
 		
 end alphaBlending;
@@ -62,16 +62,16 @@ begin
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
 	a_blend_color <= 	a_src_color when gl_Enable = '0' else
-						fixed_t_twofivefive when a_temp(32) = '1' else
+						x"FF" when a_temp(32) = '1' else  ----------------------need to fix this line and the one below it
 						a_temp(47 downto 16); 
 	r_blend_color <= 	r_src_color when gl_Enable = '0' else
-						fixed_t_twofivefive when r_temp(32) = '1' else
+						x"FF" when r_temp(32) = '1' else
 						r_temp(47 downto 16);
 	b_blend_color <= 	b_src_color when gl_Enable = '0' else
-						fixed_t_twofivefive when b_temp(32) = '1' else
+						x"FF" when b_temp(32) = '1' else
 						b_temp(47 downto 16);
 	g_blend_color <= 	g_src_color when gl_Enable = '0' else
-						fixed_t_twofivefive when g_temp(32) = '1' else
+						x"FF" when g_temp(32) = '1' else
 						g_temp(47 downto 16);
 	
 	src_factor <= dst_src_in(15 downto 0);
