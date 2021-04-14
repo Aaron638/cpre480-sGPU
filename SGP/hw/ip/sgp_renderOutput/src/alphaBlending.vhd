@@ -41,8 +41,8 @@ architecture arc of alphaBlending is
 	signal r_temp2   : signed(31 downto 0);
 	signal b_temp2   : signed(31 downto 0);
 	signal g_temp2   : signed(31 downto 0);
-	signal src_factor 	: in std_logic_vector(16 downto 0);
-	signal dst_factor  	: in std_logic_vector(16 downto 0);
+	signal src_factor 	: std_logic_vector(16 downto 0);
+	signal dst_factor  	: std_logic_vector(16 downto 0);
 
 	
 
