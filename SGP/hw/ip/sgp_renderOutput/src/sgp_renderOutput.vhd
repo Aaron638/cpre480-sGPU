@@ -294,14 +294,15 @@ architecture behavioral of sgp_renderOutput is
   signal b_blend_color              : std_logic_vector(31 downto 0);
   signal r_blend_color              : std_logic_vector(31 downto 0);
 
-  signal alpha_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-  signal depth_config         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal alpha_config        		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal depth_config         		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal gl_Enable					: std_logic;
 
 begin
 
   sgp_renderOutput_alphaBlending : alphaBlending
 	port map(
-		gl_Enable		=> '1', --if not needed, simply set to '1'
+		gl_Enable		=> gl_Enable, --if not needed, simply set to '1'
 		a_src_color		=> a_color, 
 		r_src_color		=> r_color,
 		b_src_color		=> b_color,
@@ -475,6 +476,7 @@ begin
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
+			gl_Enable 		<= (others => '0');
             depth_alpha_config <= (others => '0');
 
         else
@@ -540,8 +542,10 @@ begin
                     state <= READ_ADDRESS_DEPTH;
                 else if (alpha_config != x"00000000") then  -- TODO this should be a value
                     state <= READ_COLOR_BUFFER_ALPHA;
+					gl_Enable = '1';
                 else
                     state <= GEN_ADDRESS_COLOR;
+					gl_Enable = '0';
                 end
 
 
@@ -563,7 +567,7 @@ begin
             -- If it is, proceed to write
             when CHECK_DEPTH =>
                 if (unsigned(z_pos_fixed) > unsigned(mem_data_wr)) then  -- TODO make sure this works properly
-                    state <= GEN_ADDRESS_COLOR;
+                    state <= READ_COLOR_BUFFER_ALPHA;
                 else
                     state <= WAIT_FOR_FRAGMENT;
                 end if;
@@ -581,7 +585,7 @@ begin
                     a_dest_color <= mem_data_rd(95 downto 64);
                     b_dest_color <= mem_data_rd(63 downto 32);
                     r_dest_color <= mem_data_rd(31 downto 0);
-                    state <= WAIT_FOR_FRAGMENT;
+                    state <= GEN_ADDRESS_COLOR;
                 end if;
             -- To generate the address value, we have to get info from the global framebuffer memory
             -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
