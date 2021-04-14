@@ -223,7 +223,7 @@ architecture behavioral of sgp_renderOutput is
 	end component alphaBlending;
 
 
-  type STATE_TYPE is (WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE);
+  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE);
   signal state        : STATE_TYPE;   
 
   -- User register values
@@ -614,10 +614,10 @@ begin
                 -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
                 -- Truncate color to a fixed_t
                 -- 32 bits * 32 bits => 64 bit result
-                r_color_reg64 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
-                g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
-                b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
-                a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+                r_color_reg64 <= std_logic_vector(unsigned(r_blend_color * x"00FF0000"));
+                g_color_reg64 <= std_logic_vector(unsigned(g_blend_color * x"00FF0000"));
+                b_color_reg64 <= std_logic_vector(unsigned(b_blend_color * x"00FF0000"));
+                a_color_reg64 <= std_logic_vector(unsigned(a_blend_color * x"00FF0000"));
                 
                 -- Want the first 8 integer bits of the integer result
                 r_color_reg     <= r_color_reg64(39 downto 32);
