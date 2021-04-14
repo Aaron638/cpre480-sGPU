@@ -582,10 +582,10 @@ begin
 
             when READ_COLOR_WAIT_FOR_RESPONSE =>
                 if (mem_ack = '1') then
-                    g_dest_color <= mem_data_rd(127 downto 96);
-                    a_dest_color <= mem_data_rd(95 downto 64);
-                    b_dest_color <= mem_data_rd(63 downto 32);
-                    r_dest_color <= mem_data_rd(31 downto 0);
+                    g_dest_color <= mem_data_rd(31 downto 24); --need to convert our 8 bit values back into Q16.16
+                    a_dest_color <= mem_data_rd(23 downto 16);
+                    b_dest_color <= mem_data_rd(15 downto 8);
+                    r_dest_color <= mem_data_rd(7 downto 0);
                     state <= GEN_ADDRESS_COLOR;
                 end if;
             -- To generate the address value, we have to get info from the global framebuffer memory
