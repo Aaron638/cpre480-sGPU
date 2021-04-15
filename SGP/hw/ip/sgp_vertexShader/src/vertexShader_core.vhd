@@ -49,7 +49,7 @@ entity vertexShader_core is
 end vertexShader_core;
 
 architecture behavioral of vertexShader_core is
-    type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, LD2, LD3, ST2);
+    type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, WB, LD2, LD3, ST2);
     type register_file_t is array (0 to 255) of unsigned(127 downto 0);
     constant debug : std_logic_vector(3 downto 0) := x"3";
     
@@ -61,12 +61,13 @@ architecture behavioral of vertexShader_core is
     signal a : unsigned(127 downto 0);
     signal b : unsigned(127 downto 0);
     signal c : unsigned(127 downto 0);
+    
+    signal temp : unsigned(127 downto 0);
 
     signal op : unsigned(7 downto 0);
     signal rd : unsigned(7 downto 0);
     signal ra : unsigned(7 downto 0);
     signal rb : unsigned(7 downto 0);
-    signal immediate : unsigned(15 downto 0);
 
     signal ww : unsigned(1 downto 0);
     signal zz : unsigned(1 downto 0);
@@ -133,7 +134,6 @@ begin
     rd <= ir(23 downto 16);
     ra <= ir(15 downto  8);
     rb <= ir( 7 downto  0);
-    immediate <= ra & rb;
     
     ww <= rb(7 downto 6);
     zz <= rb(5 downto 4);
@@ -179,7 +179,7 @@ begin
                     -- make read request to the imem cache
                     when FETCH =>
 						if (imem_rdy = '1') then
-							vertexDone <= '1';
+							
 							imem_rd_req <= '1';
 							state <= FETCH2;
 						end if;
@@ -202,227 +202,232 @@ begin
 					
 					
 					when EXECUTE =>
-						if (op = NOP) then
-							--Do Nothing
-							state <= FETCH;
-						end if;
-						if (op = SWIZZLE) then
-                            v(rd_int) <= v(ra_int)(31 + 32 * xx_int downto 32 * xx_int) & v(ra_int)(31 + 32 * yy_int downto 32 * yy_int) &
-                                    v(ra_int)(31 + 32 * zz_int downto 32 * zz_int) & v(ra_int)(31 + 32 * ww_int downto 32 * ww_int);
-                            state <= FETCH;
-						end if;
-						if (op = LDILO) then
-							v(rd_int)(31 downto 0) <= x"0000" & ra & rb;
-							v(rd_int)(63 downto 32) <= x"0000" & ra & rb;
-							v(rd_int)(95 downto 64) <= x"0000" & ra & rb;
-							v(rd_int)(127 downto 96) <= x"0000" & ra & rb;
-							state <= FETCH;
-						end if;
-						if (op = LDIHI) then                         
-							v(rd_int)(31 downto 0) <= ra & rb & x"0000";
-							v(rd_int)(63 downto 32) <= ra & rb & x"0000";
-							v(rd_int)(95 downto 64) <= ra & rb & x"0000";
-							v(rd_int)(127 downto 96) <= ra & rb & x"0000";
-                            state <= FETCH;
-						end if;
-						
-						if (op = LD) then
-							state <= LD2;
-							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rb_int));
-						end if;
-						
-						if (op = ST) then
-							state <= ST2;
-							dmem_wr_req <= '1';
-							dmem_addr <= std_logic_vector(signed(v(ra_int)(31 downto 0) + rd_int));
-						end if;
-						
-						if (op = INFIFO) then
-                            v(rd_int)(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
-                            state <= FETCH;
-						end if;
+						case op is
+							when NOP =>
+								state <= FETCH;
 
-						if (op = OUTFIFO) then
-                            outputVertex(rd_int/4)(rb_int mod 4) <= signed(v(rb_int)(31 downto 0));
-                            state <= FETCH;
-						end if;
+							when SWIZZLE =>
+								c <= a(31 + 32 * xx_int downto 32 * xx_int) & a(31 + 32 * yy_int downto 32 * yy_int) &
+										a(31 + 32 * zz_int downto 32 * zz_int) & a(31 + 32 * ww_int downto 32 * ww_int);
+								state <= WB;
 
-						if (op = INSERT0) then
-                            v(rd_int) <= v(rb_int)(127 downto 96) & v(ra_int)(95 downto 64) &
-                                        v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
-                            state <= FETCH;
-						end if;
-						if (op = INSERT1) then
-						    v(rd_int) <= v(ra_int)(127 downto 96) & v(rb_int)(95 downto 64) &
-                                        v(ra_int)(63 downto 32) & v(ra_int)(31 downto 0);
-                            state <= FETCH;
-						end if;
-						if (op = INSERT2) then
-                            v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
-                                        v(rb_int)(63 downto 32) & v(ra_int)(31 downto 0);
-                            state <= FETCH;            
-						end if;
-						if (op = INSERT3) then
-                            v(rd_int) <= v(ra_int)(127 downto 96) & v(ra_int)(95 downto 64) &
-                                        v(ra_int)(63 downto 32) & v(rb_int)(31 downto 0);
-                            state <= FETCH;
-						end if;
+							when LDILO =>
+								c <= x"0000" & ra & rb
+										   & x"0000" & ra & rb
+										   & x"0000" & ra & rb
+										   & x"0000" & ra & rb;
 
-						if (op = ADD or op = FADD) then
-							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 + b0));
-							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 + b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 + b2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 + b3));
-							state <= FETCH;
-						end if;
-						
-						if (op = SUB or op = FSUB) then
-							v(rd_int)(31 downto 0)   <= unsigned(signed(a0 - b0));
-							v(rd_int)(63 downto 32)  <= unsigned(signed(a1 - b1));
-							v(rd_int)(95 downto 64)  <= unsigned(signed(a2 - b2));
-							v(rd_int)(127 downto 96) <= unsigned(signed(a3 - b3));
-							state <= FETCH;
-						end if;
-
-						if (op = AAND) then
-							v(rd_int) <= v(ra_int) and v(rb_int);
-							state <= FETCH;
-						end if;
-						if (op = OOR) then
-							v(rd_int) <= v(ra_int) or v(rb_int);
-							state <= FETCH;
-						end if;
-						if (op = XXOR) then
-							v(rd_int) <= v(ra_int) xor v(rb_int);
-							state <= FETCH;
-						end if;
-						
-						if (op = SHR) then
-							-- Shift by an integer amount
-							-- https://www.nandland.com/vhdl/examples/example-shifts.html
-							--shift_right() with a unsigned argument has a unsigned result
-							v(rd_int)(31 downto 0)   <= shift_right(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));
-							v(rd_int)(63 downto 32)  <= shift_right(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)));
-							v(rd_int)(95 downto 64)  <= shift_right(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)));
-							v(rd_int)(127 downto 96) <= shift_right(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112)));
-							state <= FETCH;
-						end if;
-						  -- shift_right(signed(), amount) to keep sign
-						  -- shift_right() with a signed argument has a signed result
-						  -- Cast back into an unsigned https://github.com/ghdl/ghdl/blob/a05d3cb7bd8eb037c3057c2ef8d066df1489ce2d/libraries/ieee2008/numeric_std.vhdl#L958
-						if (op = SAR) then
-							v(rd_int)(31 downto 0)   <= unsigned(shift_right(signed( v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16))));  
-							v(rd_int)(63 downto 32)  <= unsigned(shift_right(signed( v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48))));  
-							v(rd_int)(95 downto 64)  <= unsigned(shift_right(signed( v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80))));  
-							v(rd_int)(127 downto 96) <= unsigned(shift_right(signed( v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))));
-							state <= FETCH;
-						end if;
-
-						if (op = SHL) then
-							v(rd_int)(31 downto 0)   <= shift_left(unsigned(v(ra_int)(31 downto 0)  ), to_integer(v(rb_int)(31 downto 16)));   
-							v(rd_int)(63 downto 32)  <= shift_left(unsigned(v(ra_int)(63 downto 32) ), to_integer(v(rb_int)(63 downto 48)));   
-							v(rd_int)(95 downto 64)  <= shift_left(unsigned(v(ra_int)(95 downto 64) ), to_integer(v(rb_int)(95 downto 80)));   
-							v(rd_int)(127 downto 96) <= shift_left(unsigned(v(ra_int)(127 downto 96)), to_integer(v(rb_int)(127 downto 112))); 
-							state <= FETCH;
-						end if;
-
-						if (op = FMUL) then
-							v(rd_int)(31 downto 0)   <= unsigned(resize(signed(a0 * b0), 32));
-                            v(rd_int)(63 downto 32)  <= unsigned(resize(signed(a1 * b1), 32));
-                            v(rd_int)(95 downto 64)  <= unsigned(resize(signed(a2 * b2), 32));
-                            v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3 * b3), 32));
-                            state <= FETCH;
-						end if;
-
-						if (op = FMAX) then
-							if(to_integer(v(ra_int)(31 downto 0)) > to_integer(v(rb_int)(31 downto 0))) then
-								v(rd_int)(31 downto 0)  <= v(ra_int)(31 downto 0); 
-							else
-								v(rd_int)(31 downto 0)  <= v(rb_int)(31 downto 0);
-							end if;
-								
-							if(to_integer(v(ra_int)(63 downto 32)) > to_integer(v(rb_int)(63 downto 32))) then
-								v(rd_int)(63 downto 32)  <= v(ra_int)(63 downto 32); 
-							else
-								v(rd_int)(63 downto 32)  <= v(rb_int)(63 downto 32);
-							end if;
+                                state <= WB;
 							
-							if(to_integer(v(ra_int)(95 downto 64)) > to_integer(v(rb_int)(95 downto 64))) then
-								v(rd_int)(95 downto 64)  <= v(ra_int)(95 downto 64); 
-							else
-								v(rd_int)(95 downto 64)  <= v(rb_int)(95 downto 64);
-							end if;
+							when LDIHI =>                         
+								c <= ra & rb & x"0000"
+										   & ra & rb & x"0000"
+										   & ra & rb & x"0000"
+										   & ra & rb & x"0000";
+                                state <= WB;
 							
-							if(to_integer(v(ra_int)(127 downto 96)) > to_integer(v(rb_int)(127 downto 96))) then
-								v(rd_int)(127 downto 96)  <= v(ra_int)(127 downto 96);
-							else
-								v(rd_int)(127 downto 96)  <= v(rb_int)(127 downto 96);
-							end if;
 							
-							state <= FETCH;
-						end if;
-
-						if (op = FDIV) then
-					       v(rd_int)(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
-					       v(rd_int)(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
-					       v(rd_int)(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
-					       v(rd_int)(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
-					       state <= FETCH;
-						end if;
-
-						if (op = FNEG) then
---							v(rd_int)(31 downto 0) <= signed(a0) * -1;
---							v(rd_int)(63 downto 32) <= signed(a1) * -1;
---							v(rd_int)(95 downto 64) <= signed(a2) * -1;
---							v(rd_int)(127 downto 96) <= signed(a3) * -1;
-						end if;
-
-						if (op = FSQRT) then
+							when LD =>
+								state <= LD2;
+								--dmem_addr <= std_logic_vector(signed(a(31 downto 0) + rb_int));
 							
-						end if;
-
-						if (op = FPOW) then
 							
-						end if;
+							when ST =>
+								state <= ST2;
+								dmem_wr_req <= '1';
+								--dmem_addr <= std_logic_vector(signed(a(31 downto 0) + rd_int));
+							
+							
+							when INFIFO =>
+							-- mod is synthesizable as long as 2nd operand is power of 2
+							-- Source: https://forums.xilinx.com/t5/Synthesis/Modulus-synthesizable-or-non-synthesizable/m-p/747509/highlight/true#M20684
+							-- c(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
+								c(31 downto 0) <= unsigned(inputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4));
+								state <= WB;
 	
-						if (op = INTERLEAVELO) then
-                            v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).y);
-							v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
-							v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).x);
-							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).x);
-							state <= FETCH;
-						end if;
+							when OUTFIFO =>
+							-- outputVertex(rd_int/4)(rb_int mod 4) <= signed(b(31 downto 0));
+								outputVertex(to_integer(shift_right(rb, 2)))(rb_int mod 4) <= signed(b(31 downto 0));
+								state <= WB;
+	
+							when INSERT0 =>
+								c <= b(127 downto 96) & a(95 downto 64) &
+											a(63 downto 32) & a(31 downto 0);
+								state <= WB;
+							
+							when INSERT1 =>
+								c <= a(127 downto 96) & b(95 downto 64) &
+											a(63 downto 32) & a(31 downto 0);
+								state <= WB;
+							
+							when INSERT2 =>
+								c <= a(127 downto 96) & a(95 downto 64) &
+											b(63 downto 32) & a(31 downto 0);
+								state <= WB;            
+							
+							when INSERT3 =>
+								c <= a(127 downto 96) & a(95 downto 64) &
+											a(63 downto 32) & b(31 downto 0);
+								state <= WB;
+	
+							when ADD =>
+								c <= unsigned(signed(a3 + b3))
+										   & unsigned(signed(a2 + b2))
+										   & unsigned(signed(a1 + b1))
+										   & unsigned(signed(a0 + b0));
 
-						if (op = INTERLEAVEHI) then
-                            v(rd_int)(31 downto 0)  <= unsigned(to_attributeRecord_t(v(ra_int)).w);
-							v(rd_int)(63 downto 32) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
-							v(rd_int)(95 downto 64) <= unsigned(to_attributeRecord_t(v(ra_int)).z);
-							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).z);
-							state <= FETCH;
-						end if;
+								state <= WB;
+								
+							when FADD =>
+								c <= unsigned(signed(a3 + b3))
+										   & unsigned(signed(a2 + b2))
+										   & unsigned(signed(a1 + b1))
+										   & unsigned(signed(a0 + b0));
 
-						if (op = INTERLEAVELOPAIRS) then
-							v(rd_int)(31 downto 0)  <=  unsigned(to_attributeRecord_t(v(ra_int)).x);
-							v(rd_int)(63 downto 32) <=  unsigned(to_attributeRecord_t(v(ra_int)).y);
-							v(rd_int)(95 downto 64) <=  unsigned(to_attributeRecord_t(v(rb_int)).x);
-							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).y);
-							state <= FETCH;
-						end if;
+								state <= WB;
+							
+							when SUB =>
+								c <= unsigned(signed(a3 - b3))
+										   & unsigned(signed(a2 - b2))
+										   & unsigned(signed(a1 - b1))
+										   & unsigned(signed(a0 - b0));
 
-						if (op = INTERLEAVEHIPAIRS) then
-							v(rd_int)(31 downto 0)  <=  unsigned(to_attributeRecord_t(v(ra_int)).z);
-							v(rd_int)(63 downto 32) <=  unsigned(to_attributeRecord_t(v(ra_int)).w);
-							v(rd_int)(95 downto 64) <=  unsigned(to_attributeRecord_t(v(rb_int)).z);
-							v(rd_int)(127 downto 96) <= unsigned(to_attributeRecord_t(v(rb_int)).w);
-							state <= FETCH;
-						end if;
+								state <= WB;
+								
+                            when FSUB =>
+								c <= unsigned(signed(a3 - b3))
+										   & unsigned(signed(a0 - b0))
+										   & unsigned(signed(a2 - b2))
+										   & unsigned(signed(a1 - b1));
 
+								state <= WB;	
+								
+							when AAND =>
+								c <= a and b;
+								state <= WB;
+							
+							when OOR =>
+								c <= a or b;
+								state <= WB;
+							
+							when XXOR =>
+								c <= a xor b;
+								state <= WB;
+							
+							when SHR =>
+								-- Shift by an integer amount
+								-- https://www.nandland.com/vhdl/examples/example-shifts.html
+								--shift_right() with a unsigned argument has a unsigned result
+								c <= shift_right(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
+										   & shift_right(unsigned(a(95 downto 64) ), to_integer(b(95 downto 80)))
+										   & shift_right(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
+										   & shift_right(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16)));
 
-						if (op = DONE) then	
-							state <= WAIT_TO_START;
-						end if;
+								state <= WB;
+							
+								-- shift_right(signed(), amount) to keep sign
+								-- shift_right() with a signed argument has a signed result
+								-- Cast back into an unsigned https://github.com/ghdl/ghdl/blob/a05d3cb7bd8eb037c3057c2ef8d066df1489ce2d/libraries/ieee2008/numeric_std.vhdl#L958
+							when SAR =>
+								c <= unsigned(shift_right(signed( a(127 downto 96)), to_integer(b(127 downto 112))))
+										   & unsigned(shift_right(signed( a(95 downto 64) ), to_integer(b(95 downto 80))))
+										   & unsigned(shift_right(signed( a(63 downto 32) ), to_integer(b(63 downto 48))))
+										   & unsigned(shift_right(signed( a(31 downto 0)  ), to_integer(b(31 downto 16))));
+
+								state <= WB;
+	
+							when SHL =>
+								c <= shift_left(unsigned(a(127 downto 96)), to_integer(b(127 downto 112)))
+										   & shift_left(unsigned(a(95 downto 64) ), to_integer(b(95 downto 80)))
+										   & shift_left(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
+										   & shift_left(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16))); 
+
+								state <= WB;
+	
+							when FMUL =>
+								c <= unsigned(resize(signed(a3 * b3), 32))
+										   & unsigned(resize(signed(a2 * b2), 32)) 
+										   & unsigned(resize(signed(a1 * b1), 32)) 
+										   & unsigned(resize(signed(a0 * b0), 32));
+
+								state <= WB;
+	
+							when FMAX =>
+								if(to_integer(a(31 downto 0)) > to_integer(b(31 downto 0))) then
+									temp(31 downto 0)  <= a(31 downto 0); 
+								else
+									temp(31 downto 0)  <= b(31 downto 0);
+								end if;
+									
+								if(to_integer(a(63 downto 32)) > to_integer(b(63 downto 32))) then
+									temp(63 downto 32)  <= a(63 downto 32); 
+								else
+									temp(63 downto 32)  <= b(63 downto 32);
+								end if;
+								
+								if(to_integer(a(95 downto 64)) > to_integer(b(95 downto 64))) then
+									temp(95 downto 64)  <= a(95 downto 64); 
+								else
+									temp(95 downto 64)  <= b(95 downto 64);
+								end if;
+								
+								if(to_integer(a(127 downto 96)) > to_integer(b(127 downto 96))) then
+									temp(127 downto 96)  <= a(127 downto 96);
+								else
+									temp(127 downto 96)  <= b(127 downto 96);
+								end if;
+								
+								c <= temp;
+								state <= WB;
+	
+							when FDIV =>
+								--c(31 downto 0) <= unsigned(resize(signed(a0/b0), 32));
+								--c(63 downto 32) <= unsigned(resize(signed(a1/b1), 32));
+								--c(95 downto 64) <= unsigned(resize(signed(a2/b2), 32));
+								--c(127 downto 96) <= unsigned(resize(signed(a3/b3), 32));
+								state <= WB;
+	
+							when FNEG =>
+								c <= not a3(31) & a3(30 downto 0) & not a2(31) & a2(30 downto 0) & not a1(31) & a1(30 downto 0) & not a0(31) & a0(30 downto 0);
+								state <= WB;
+	
+							when FSQRT =>
+								state <= WB;
+	
+							when FPOW =>
+								state <= WB;
+		
+							when INTERLEAVELO =>
+								c <= unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).x) & unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(a).y);
+								state <= WB;
+	
+							when INTERLEAVEHI =>
+								c <= unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).z) & unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(a).w);
+								state <= WB;
+	
+							when INTERLEAVELOPAIRS =>
+								c <=  unsigned(to_attributeRecord_t(b).y) & unsigned(to_attributeRecord_t(b).x) & unsigned(to_attributeRecord_t(a).y) & unsigned(to_attributeRecord_t(a).x);
+								state <= WB;
+	
+							when INTERLEAVEHIPAIRS =>
+								c <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
+								state <= WB;
+	
+							when DONE =>
+							    vertexDone <= '1';	
+								state <= WAIT_TO_START;
 						
-					--make read request to the dmem cache, this is for the ld in the ISA
+							when others =>
+								-- Not sure if this is right -Aaron
+								state <= FETCH;
+						
+						end case;
+
+                    when WB =>
+                        v(rd_int) <= c;
+                        state <= FETCH;
+
+                    --make read request to the dmem cache, this is for the ld in the ISA
 					when LD2 =>
 						dmem_rd_req <= '1';
 						state <= LD3;
@@ -430,7 +435,7 @@ begin
 					--read from dmem cache
 					when LD3 =>
 						if (dmem_req_done = '1') then
-							v(rd_int) <= x"00000000" & x"00000000" & x"00000000" & unsigned(dmem_rdata);
+							v(rd_int) <= x"000000000000000000000000" & unsigned(dmem_rdata);
 							state <= FETCH;
 						end if;
 						
