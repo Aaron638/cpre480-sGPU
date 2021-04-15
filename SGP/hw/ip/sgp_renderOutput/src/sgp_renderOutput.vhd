@@ -207,18 +207,18 @@ architecture behavioral of sgp_renderOutput is
   component alphaBlending is
 	port(
 		gl_Enable		  : in std_logic;
-		a_src_color       : in fixed_t;
-		r_src_color       : in fixed_t;
-		b_src_color       : in fixed_t;
-		g_src_color       : in fixed_t;
-		a_dst_color       : in fixed_t;
-		r_dst_color       : in fixed_t;
-		b_dst_color       : in fixed_t;
-		g_dst_color       : in fixed_t;
-		a_blend_color     : out fixed_t;
-		r_blend_color     : out fixed_t;
-		b_blend_color : out fixed_t;
-		g_blend_color : out fixed_t;
+		a_src_color       : in unsigned(7 downto 0);
+		r_src_color       : in unsigned(7 downto 0);
+		b_src_color       : in unsigned(7 downto 0);
+		g_src_color       : in unsigned(7 downto 0);
+		a_dst_color       : in unsigned(7 downto 0);
+		r_dst_color       : in unsigned(7 downto 0);
+		b_dst_color       : in unsigned(7 downto 0);
+		g_dst_color       : in unsigned(7 downto 0);
+		a_blend_color     : out unsigned(7 downto 0);
+		r_blend_color     : out unsigned(7 downto 0);
+		b_blend_color : out unsigned(7 downto 0);
+		g_blend_color : out unsigned(7 downto 0);
 		dst_src_in	: in std_logic_vector(31 downto 0));
 	end component alphaBlending;
 
@@ -279,20 +279,26 @@ architecture behavioral of sgp_renderOutput is
   signal g_color_reg                : std_logic_vector(7 downto 0);
   signal b_color_reg                : std_logic_vector(7 downto 0);
   
-  signal a_color_reg64              : std_logic_vector(63 downto 0);
-  signal r_color_reg64              : std_logic_vector(63 downto 0);
-  signal g_color_reg64              : std_logic_vector(63 downto 0);
-  signal b_color_reg64              : std_logic_vector(63 downto 0);
+  signal a_color2                   : unsigned(63 downto 0);
+  signal r_color2                   : unsigned(63 downto 0);
+  signal g_color2                   : unsigned(63 downto 0);
+  signal b_color2                   : unsigned(63 downto 0);
+  
+  signal a_color3                   : unsigned(7 downto 0);
+  signal r_color3                   : unsigned(7 downto 0);
+  signal g_color3                   : unsigned(7 downto 0);
+  signal b_color3                   : unsigned(7 downto 0);
+  
 
-  signal g_dest_color               : fixed_t;
-  signal a_dest_color               : fixed_t;
-  signal b_dest_color               : fixed_t;
-  signal r_dest_color               : fixed_t;
+  signal g_dest_color               : unsigned(7 downto 0);
+  signal a_dest_color               : unsigned(7 downto 0);
+  signal b_dest_color               : unsigned(7 downto 0);
+  signal r_dest_color               : unsigned(7 downto 0);
 
-  signal g_blend_color              : fixed_t;
-  signal a_blend_color              : fixed_t;
-  signal b_blend_color              : fixed_t;
-  signal r_blend_color              : fixed_t;
+  signal g_blend_color              : unsigned(7 downto 0);
+  signal a_blend_color              : unsigned(7 downto 0);
+  signal b_blend_color              : unsigned(7 downto 0);
+  signal r_blend_color              : unsigned(7 downto 0);
 
   signal alpha_config        		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal depth_config         		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -302,11 +308,11 @@ begin
 
   sgp_renderOutput_alphaBlending : alphaBlending
 	port map(
-		gl_Enable		=> gl_Enable, --if not needed, simply set to '1'
-		a_src_color		=> a_color, 
-		r_src_color		=> r_color,
-		b_src_color		=> b_color,
-		g_src_color		=> g_color,
+		gl_Enable		=> gl_Enable,
+		a_src_color		=> a_color2, 
+		r_src_color		=> r_color2,
+		b_src_color		=> b_color2,
+		g_src_color		=> g_color2,
 		a_dst_color		=> a_dest_color,
 		r_dst_color		=> r_dest_color,
 		b_dst_color		=> b_dest_color,
@@ -619,16 +625,16 @@ begin
                 -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
                 -- Truncate color to a fixed_t
                 -- 32 bits * 32 bits => 64 bit result
-                r_color_reg64 <= std_logic_vector(unsigned(r_blend_color * x"00FF0000"));
-                g_color_reg64 <= std_logic_vector(unsigned(g_blend_color * x"00FF0000"));
-                b_color_reg64 <= std_logic_vector(unsigned(b_blend_color * x"00FF0000"));
-                a_color_reg64 <= std_logic_vector(unsigned(a_blend_color * x"00FF0000"));
+                r_color2 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
+                g_color2 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
+                b_color2 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
+                a_color2 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
                 
                 -- Want the first 8 integer bits of the integer result
-                r_color_reg     <= r_color_reg64(39 downto 32);
-                g_color_reg     <= g_color_reg64(39 downto 32);
-                b_color_reg     <= b_color_reg64(39 downto 32);
-                a_color_reg     <= a_color_reg64(39 downto 32);
+                r_color3     <= r_color2(39 downto 32);
+                g_color3     <= g_color2(39 downto 32);
+                b_color3     <= b_color2(39 downto 32);
+                a_color3     <= a_color2(39 downto 32);
                 
                 -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
                 -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
@@ -641,7 +647,7 @@ begin
                 frag_address    <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;
                 -- frag_color      <= std_logic_vector(a_color_reg & r_color_reg & b_color_reg & g_color_reg); -- results in red=black blue=blue green=red
                 -- frag_color      <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg); -- results in red=green green=black, blue=blue
-                frag_color      <= std_logic_vector(g_color_reg & a_color_reg & b_color_reg & r_color_reg);
+                frag_color      <= std_logic_vector(g_blend_color & a_blend_color & b_blend_color & r_blend_color);
                 
                 state <= WRITE_ADDRESS_COLOR;
                 
