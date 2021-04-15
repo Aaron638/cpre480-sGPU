@@ -37,8 +37,8 @@ architecture arc of alphaBlending is
 	signal r_temp   : unsigned(15 downto 0);
 	signal b_temp   : unsigned(15 downto 0);
 	signal g_temp   : unsigned(15 downto 0);
-	signal src_factor 	: std_logic_vector(16 downto 0);
-	signal dst_factor  	: std_logic_vector(16 downto 0);
+	signal src_factor 	: std_logic_vector(15 downto 0);
+	signal dst_factor  	: std_logic_vector(15 downto 0);
 
 	
 
@@ -62,17 +62,17 @@ begin
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
 	a_blend_color <= 	a_src_color when gl_Enable = '0' else
-						x"FF" when a_temp(31 downto 16) /= x"00" else 
-						a_temp(15 downto 0); 
+						x"FF" when a_temp(15 downto 8) /= x"00" else 
+						a_temp(7 downto 0); 
 	r_blend_color <= 	r_src_color when gl_Enable = '0' else
-						x"FF" when r_temp(31 downto 16) /= x"00" else
-						r_temp(15 downto 0);
+						x"FF" when r_temp(15 downto 8) /= x"00" else
+						r_temp(7 downto 0);
 	b_blend_color <= 	b_src_color when gl_Enable = '0' else
-						x"FF" when b_temp(31 downto 16) /= x"00" else
-						b_temp(15 downto 0);
+						x"FF" when b_temp(15 downto 8) /= x"00" else
+						b_temp(7 downto 0);
 	g_blend_color <= 	g_src_color when gl_Enable = '0' else
-						x"FF" when g_temp(31 downto 16) /= x"00" else
-						g_temp(15 downto 0);
+						x"FF" when g_temp(15 downto 8) /= x"00" else
+						g_temp(7 downto 0);
 	
 	src_factor <= dst_src_in(15 downto 0);
 	dst_factor <= dst_src_in(31 downto 16);
