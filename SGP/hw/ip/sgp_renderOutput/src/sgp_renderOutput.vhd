@@ -149,12 +149,10 @@ architecture behavioral of sgp_renderOutput is
 	    SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_DEPTH_FUNC   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_BLEND_FUNC   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_DEPTH   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_ALPHA   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)	    
-
-		);
+        SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0));
 	end component sgp_renderOutput_axi_lite_regs;
 
     component dcache is
@@ -227,6 +225,9 @@ architecture behavioral of sgp_renderOutput is
   signal state        : STATE_TYPE;   
 
   -- User register values
+  signal axi_lite_arready           : std_logic;
+  signal axi_lite_rdata             : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal axi_lite_araddr            : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
   signal renderoutput_colorbuffer 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_depthbuffer 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_cachectrl 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -345,11 +346,11 @@ begin
 		S_AXI_BRESP	=> s_axi_lite_bresp,
 		S_AXI_BVALID	=> s_axi_lite_bvalid,
 		S_AXI_BREADY	=> s_axi_lite_bready,
-		S_AXI_ARADDR	=> s_axi_lite_araddr,
+		S_AXI_ARADDR	=> axi_lite_araddr,
 		S_AXI_ARPROT	=> s_axi_lite_arprot,
 		S_AXI_ARVALID	=> s_axi_lite_arvalid,
-		S_AXI_ARREADY	=> s_axi_lite_arready,
-		S_AXI_RDATA	=> s_axi_lite_rdata,
+		S_AXI_ARREADY	=> axi_lite_arready,
+		S_AXI_RDATA	=> axi_lite_rdata,
 		S_AXI_RRESP	=> s_axi_lite_rresp,
 		S_AXI_RVALID	=> s_axi_lite_rvalid,
 		S_AXI_RREADY	=> s_axi_lite_rready,
@@ -489,26 +490,26 @@ begin
         else
         case state is
             when DEPTH_READ_CONFIG =>
-                if (s_axi_lite_arready = '1') then
-                    s_axi_lite_araddr <= std_logic_vector(renderoutput_depth);
+                if (axi_lite_arready = '1') then
+                    axi_lite_araddr <= std_logic_vector(renderoutput_depth);
                     state <= DEPTH_WAIT_FOR_RESPONSE;
                 end if;
         
             when DEPTH_WAIT_FOR_RESPONSE =>
                 if (s_axi_lite_arvalid = '1') then
-                    depth_config <= s_axi_lite_rdata;
+                    depth_config <= axi_lite_rdata;
                     state <= ALPHA_READ_CONFIG;
                 end if;
 
             when ALPHA_READ_CONFIG =>
-                if (s_axi_lite_arready = '1') then
-                    s_axi_lite_araddr <= std_logic_vector(renderoutput_alpha);
+                if (axi_lite_arready = '1') then
+                    axi_lite_araddr <= std_logic_vector(renderoutput_alpha);
                     state <= ALPHA_WAIT_FOR_RESPONSE;
                 end if;
         
             when ALPHA_WAIT_FOR_RESPONSE =>
                 if (s_axi_lite_arvalid = '1') then
-                    alpha_config <= s_axi_lite_rdata;
+                    alpha_config <= axi_lite_rdata;
                     state <= WAIT_FOR_FRAGMENT;
                 end if;
 
@@ -547,13 +548,13 @@ begin
                 
                 if (depth_config /= x"00000200") then
                     state <= READ_ADDRESS_DEPTH;
-                else if (alpha_config /= x"00000000") then  -- TODO this should be a value
+                elsif (alpha_config /= x"00000000") then  -- TODO this should be a value
                     state <= READ_COLOR_BUFFER_ALPHA;
 					gl_Enable <= '1';
                 else
                     state <= GEN_ADDRESS_COLOR;
 					gl_Enable <= '0';
-                end
+                end if;
 
 
             when READ_ADDRESS_DEPTH =>
@@ -581,17 +582,17 @@ begin
             
             when READ_COLOR_BUFFER_ALPHA => 
                 if (mem_accept = '1') then
-                    mem_addr <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
+                    mem_addr <= std_logic_vector(signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4));
                     mem_rd          <= '1';
                     state <= READ_COLOR_WAIT_FOR_RESPONSE;
                 end if;
 
             when READ_COLOR_WAIT_FOR_RESPONSE =>
                 if (mem_ack = '1') then
-                    g_dest_color <= mem_data_rd(31 downto 24); --need to convert our 8 bit values back into Q16.16
-                    a_dest_color <= mem_data_rd(23 downto 16);
-                    b_dest_color <= mem_data_rd(15 downto 8);
-                    r_dest_color <= mem_data_rd(7 downto 0);
+                    g_dest_color <= unsigned(mem_data_rd(31 downto 24)); --need to convert our 8 bit values back into Q16.16
+                    a_dest_color <= unsigned(mem_data_rd(23 downto 16));
+                    b_dest_color <= unsigned(mem_data_rd(15 downto 8));
+                    r_dest_color <= unsigned(mem_data_rd(7 downto 0));
                     state <= GEN_ADDRESS_COLOR;
                 end if;
             -- To generate the address value, we have to get info from the global framebuffer memory

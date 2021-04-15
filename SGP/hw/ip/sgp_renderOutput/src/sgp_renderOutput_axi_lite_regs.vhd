@@ -15,16 +15,7 @@ entity sgp_renderOutput_axi_lite_regs is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 10
 	);
 	port (
-		-- Users to add ports here
-	    SGP_AXI_RENDEROUTPUT_COLORBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-	    SGP_AXI_RENDEROUTPUT_DEPTHBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-		SGP_AXI_RENDEROUTPUT_DEPTH        : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-		SGP_AXI_RENDEROUTPUT_ALPHA		  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -88,7 +79,18 @@ entity sgp_renderOutput_axi_lite_regs is
 		S_AXI_RVALID	: out std_logic;
 		-- Read ready. This signal indicates that the master can
     		-- accept the read data and response information.
-		S_AXI_RREADY	: in std_logic
+		S_AXI_RREADY	: in std_logic;
+		
+		-- Users to add ports here
+	    SGP_AXI_RENDEROUTPUT_COLORBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_RENDEROUTPUT_DEPTHBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+        SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+		SGP_AXI_RENDEROUTPUT_DEPTH        : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_ALPHA		  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 	);
 end sgp_renderOutput_axi_lite_regs;
 
