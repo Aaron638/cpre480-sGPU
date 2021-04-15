@@ -1,7 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../../../sgp_types.vhd" \
-"../../../../../src/alphaBlending.vhd" \
-
-# Do not sort compile order
-nosort
