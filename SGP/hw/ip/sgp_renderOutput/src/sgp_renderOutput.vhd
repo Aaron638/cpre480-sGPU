@@ -625,10 +625,10 @@ begin
                 -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
                 -- Truncate color to a fixed_t
                 -- 32 bits * 32 bits => 64 bit result
-                r_color2 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
-                g_color2 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
-                b_color2 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
-                a_color2 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+                r_color2 <= unsigned(r_color * x"00FF0000");
+                g_color2 <= unsigned(g_color * x"00FF0000");
+                b_color2 <= unsigned(b_color * x"00FF0000");
+                a_color2 <= unsigned(a_color * x"00FF0000");
                 
                 -- Want the first 8 integer bits of the integer result
                 r_color3     <= r_color2(39 downto 32);
