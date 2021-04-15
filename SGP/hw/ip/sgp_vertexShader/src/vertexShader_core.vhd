@@ -179,7 +179,7 @@ begin
                     -- make read request to the imem cache
                     when FETCH =>
 						if (imem_rdy = '1') then
-							vertexDone <= '1';
+							
 							imem_rd_req <= '1';
 							state <= FETCH2;
 						end if;
@@ -292,11 +292,7 @@ begin
 										   & unsigned(signed(a1 - b1))
 										   & unsigned(signed(a0 - b0));
 
-<<<<<<< HEAD
 								state <= WB;
-=======
-								state <= WRITEBACK;
->>>>>>> 0ea94a56948d19c0cfd58e31c70656471a3ce59d
 								
                             when FSUB =>
 								c <= unsigned(signed(a3 - b3))
@@ -308,11 +304,7 @@ begin
 								
 							when AAND =>
 								c <= a and b;
-<<<<<<< HEAD
 								state <= WB;
-=======
-								state state<= WRITEBACK;
->>>>>>> 0ea94a56948d19c0cfd58e31c70656471a3ce59d
 							
 							when OOR =>
 								c <= a or b;
@@ -421,7 +413,8 @@ begin
 								c <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
 								state <= WB;
 	
-							when DONE =>	
+							when DONE =>
+							    vertexDone <= '1';	
 								state <= WAIT_TO_START;
 						
 							when others =>
