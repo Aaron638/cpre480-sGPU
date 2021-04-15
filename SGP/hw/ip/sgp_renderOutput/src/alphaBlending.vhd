@@ -62,16 +62,16 @@ begin
     g_temp <= g_src * g_src_color + g_dst * g_dst_color;
     
 	a_blend_color <= 	a_src_color when gl_Enable = '0' else
-						x"FF" when a_temp(32) = '1' else  ----------------------need to fix this line so the condition is correct
+						x"FF" when a_temp and x"1100" /= x"0000" else 
 						a_temp(15 downto 0); 
 	r_blend_color <= 	r_src_color when gl_Enable = '0' else
-						x"FF" when r_temp(32) = '1' else
+						x"FF" when r_temp and x"1100" /= x"0000" else
 						r_temp(15 downto 0);
 	b_blend_color <= 	b_src_color when gl_Enable = '0' else
-						x"FF" when b_temp(32) = '1' else
+						x"FF" when b_temp and x"1100" /= x"0000" else
 						b_temp(15 downto 0);
 	g_blend_color <= 	g_src_color when gl_Enable = '0' else
-						x"FF" when g_temp(32) = '1' else
+						x"FF" when g_temp and x"1100" /= x"0000" else
 						g_temp(15 downto 0);
 	
 	src_factor <= dst_src_in(15 downto 0);
