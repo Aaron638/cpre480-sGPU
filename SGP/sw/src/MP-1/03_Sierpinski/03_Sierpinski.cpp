@@ -25,7 +25,7 @@ GLFWwindow* window;
 
 
 int main() {
-  
+  printf("flag 1\n");
   if (!glfwInit()) {
     fprintf(stderr, "ERROR: could not start GLFW3\n");
     return 1;
@@ -38,11 +38,11 @@ int main() {
     return 1;
   }
   glfwMakeContextCurrent(window);
-                                  
+  printf("flag 2\n");                                
   // start GLEW extension handler
   glewExperimental = GL_TRUE;
   glewInit();
-
+	printf("flag 3\n");
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
@@ -53,10 +53,10 @@ int main() {
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
-
+printf("flag 4\n");
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "../common/shaders/bigpoints.vert", "../common/shaders/passthrough.frag" );
-
+printf("flag 5\n");
 	#define TOTAL_POINTS 75000
 	static GLfloat g_vertex_buffer_data[3*TOTAL_POINTS]; 
 
@@ -87,7 +87,7 @@ int main() {
                 g_color_buffer_data[3*i+1] = g_color_buffer_data[1];
                 g_color_buffer_data[3*i+2] = g_color_buffer_data[2];
 	}
-
+printf("flag 6\n");
 
 
 
@@ -103,7 +103,7 @@ int main() {
 
 	// It can be hard to see single pixels at a time.
 	glEnable(GL_PROGRAM_POINT_SIZE);
-
+printf("flag 7\n");
 
 	while( glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0 ) {
    
@@ -128,7 +128,7 @@ int main() {
 
     glfwPollEvents();
     glfwSwapBuffers(window);
-
+	printf("frame\n");
   }
 
   glfwTerminate();
