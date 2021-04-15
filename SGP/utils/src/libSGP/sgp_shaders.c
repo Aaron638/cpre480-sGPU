@@ -745,8 +745,6 @@ void SGP_glEnable(GLenum cap)
 	return;
 }
 
-// As of right now, glDisable() just writes a 0 to the MODE register 
-// to indicate that all features are disabled
 void SGP_glDisable(GLenum cap)
 {
 	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
@@ -761,6 +759,7 @@ void SGP_glDisable(GLenum cap)
 	case GL_BLEND:
 		message = 0;
 		address = baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA;
+		break;
 	default:
 		return;
 	}

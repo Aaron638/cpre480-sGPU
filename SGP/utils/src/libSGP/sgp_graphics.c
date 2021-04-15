@@ -409,6 +409,10 @@ void SGP_glClear(GLbitfield mask)
 
 		SGP_DMArequest(SGPconfig, SGP_graphicsmap[SGP_CLEARBUFFER_1].baseaddr, destaddr, 1920 * 1080 * 4, SGP_DMA_REGULAR);
 	}
+	// https://discord.com/channels/760551675739373650/800458137743392769/832171714820833313
+	if (mask & GL_DEPTH_BUFFER_BIT) {
+        // SGP_DMArequest(SGPconfig, SGP_graphicsmap[SGP_COLORBUFFER_3].baseaddr, SGP_graphicsmap[SGP_DEPTHBUFFER_1].baseaddr, 1920 * 1080 * 4, SGP_DMA_REGULAR);
+	}
 }
 
 // Our implementation of glxSwapBuffers
@@ -444,7 +448,7 @@ void SGP_glxSwapBuffers(uint32_t flag)
 				else
 					i = 0;
 			} while (i != 2);
-			
+
 		}
 	}
 	// Wait 1 second per frame
