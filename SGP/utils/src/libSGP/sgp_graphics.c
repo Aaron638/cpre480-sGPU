@@ -434,19 +434,23 @@ void SGP_glxSwapBuffers(uint32_t flag)
 			uint32_t i = 0;
 			uint32_t idle;
 			uint32_t rastStatus;
-			uint32_t vertexStatus;
+			//uint32_t vertexStatus;
 			// uint32_t renderStatus;
 
 			do {
 				rastStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RASTERIZER].baseaddr + SGP_AXI_RASTERIZER_STATUS);
-				vertexStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEXSHADER].baseaddr + SGP_AXI_VERTEXFETCH_STATUS);
+				//vertexStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEXSHADER].baseaddr + SGP_AXI_VERTEXFETCH_STATUS);
 				// renderStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr + SGP_AXI_RASTERIZER_STATUS);
 
-				idle = rastStatus == 0 && vertexStatus == 0;
-				if (idle)
+				idle = rastStatus == 0; //&& vertexStatus == 0;
+				if (idle){
 					i++;
-				else
+				}
+				else{
+					printf("Rasterizer Status: %08x\n", rastStatus);
+					//printf("Vertex Status: %08x\n", vertexStatus);
 					i = 0;
+				}
 			} while (i != 2);
 
 		}
