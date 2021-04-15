@@ -304,6 +304,7 @@ architecture behavioral of sgp_renderOutput is
   signal alpha_config        		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal depth_config         		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal gl_Enable					: std_logic;
+  signal s_mem_flush				: std_logic;
 
 begin
 
@@ -383,7 +384,7 @@ begin
         mem_req_tag_i       => mem_req_tag,
         mem_invalidate_i    => mem_invalidate,
         mem_writeback_i     => mem_writeback,
-        mem_flush_i         => mem_flush,
+        mem_flush_i         => s_mem_flush,
         axi_awready_i       => m_axi_awready,
         axi_wready_i        => m_axi_wready,
         axi_bvalid_i        => m_axi_bvalid,
@@ -520,9 +521,15 @@ begin
                     input_fragment <= signed(S_AXIS_TDATA);
                     state <= GEN_ADDRESS_DEPTH;
                     --if TLAST = '1' then mem_cacheable <= '1'??
+					if (S_AXIS_TLAST = '1') then
+						s_mem_flush <= '1';
+					end if;
                 end if;
 
             when GEN_ADDRESS_DEPTH => 
+				if (s_mem_flush = '1') then
+					s_mem_flush <= 0;
+				end if;
                 -- xvp and yvp are Q16.16s that need to be converted into signed ints
                 -- Round if fraction >= 0.5
                 if (x_pos_fixed(15) = '1') then
