@@ -2,14 +2,16 @@
  * Joseph Zambreno               
  * Department of Electrical and Computer Engineering
  * Iowa State University
+ * Aaron Martin
  *****************************************************************************/
 
 /*****************************************************************************
- * 03_Sierpinski - draws a 2D Sierpinski gasket. 
+ * 07_ShaderTest - draws a blue triangle, obviously. 
  *
  *
  * NOTES:
- * 11/19/20 by JAZ::Design created.
+ * 12/09/20 by JAZ::Design created.
+ * 04/14/21 by AAM::Modified code for Shader Testing 
  *****************************************************************************/
 
 
@@ -25,71 +27,51 @@ GLFWwindow* window;
 
 
 int main() {
-  printf("flag 1\n");
+  
   if (!glfwInit()) {
     fprintf(stderr, "ERROR: could not start GLFW3\n");
     return 1;
   } 
 
-  window = glfwCreateWindow(1280, 1024, "Sierpinski", NULL, NULL);
+  window = glfwCreateWindow(1280, 1024, "TheRedTriangle", NULL, NULL);
   if (!window) {
     fprintf(stderr, "ERROR: could not open window with GLFW3\n");
     glfwTerminate();
     return 1;
   }
   glfwMakeContextCurrent(window);
-  printf("flag 2\n");                                
+                                  
   // start GLEW extension handler
   glewExperimental = GL_TRUE;
   glewInit();
-	printf("flag 3\n");
+
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	// Black background
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	// Dark blue background
+	glClearColor(0.68f, 0.85f, 0.90f, 0.0f);
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
-printf("flag 4\n");
+
 	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "../common/shaders/bigpoints.vert", "../common/shaders/passthrough.frag" );
-printf("flag 5\n");
-	#define TOTAL_POINTS 75000
-	static GLfloat g_vertex_buffer_data[3*TOTAL_POINTS]; 
+	GLuint programID = LoadShaders( "../common/shaders/passthrough.vert", "../common/shaders/passthrough.frag" );
+
+	// Just a single triangle for GL_TRIANGLES to test. Add to this to draw more points
+	static const GLfloat g_vertex_buffer_data[] = { 
+		 -0.9f, -0.9f, 0.0f,
+		 0.0f, 0.9f, 0.0f,
+		 0.9f,  -0.9f, 0.0f,
+	};
 
 	// One color (RGB for this) for each vertex.
-	static GLfloat g_color_buffer_data[3*TOTAL_POINTS];
-
-
-       static const GLfloat initial_points[12] = {
-                -1.0, -1.0, 0.0,
-                0.0, 1.0, 0.0,
-                1.0, -1.0, 0.0,
-                0.5, 0.5, 0.0};
-        static const GLfloat initial_colors[3] = {
-                0.0, 0.98, 0.0};
-
-        int i, j;
-        for (i = 0; i < 12; i++) {
-                g_vertex_buffer_data[i] = initial_points[i];
-                g_color_buffer_data[i] = initial_colors[i%3];
-        }
-
-        for (i = 4; i < TOTAL_POINTS; i++) {
-                j = rand()%3;
-                g_vertex_buffer_data[3*i] = (initial_points[3*j]+g_vertex_buffer_data[3*(i-1)])/2;
-                g_vertex_buffer_data[3*i+1] = (initial_points[3*j+1]+g_vertex_buffer_data[3*(i-1)+1])/2;
-                g_vertex_buffer_data[3*i+2] = 0.0f;
-                g_color_buffer_data[3*i] = g_color_buffer_data[0];
-                g_color_buffer_data[3*i+1] = g_color_buffer_data[1];
-                g_color_buffer_data[3*i+2] = g_color_buffer_data[2];
-	}
-printf("flag 6\n");
-
-
+	static const GLfloat g_color_buffer_data[] = { 
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+	};
 
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
@@ -101,13 +83,10 @@ printf("flag 6\n");
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 
-	// It can be hard to see single pixels at a time.
-	glEnable(GL_PROGRAM_POINT_SIZE);
-printf("flag 7\n");
 
 	while( glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0 ) {
    
-    		glClear(GL_COLOR_BUFFER_BIT);
+    	glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(programID);
 
 		// 1st attribute buffer : vertices
@@ -120,18 +99,17 @@ printf("flag 7\n");
 		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-		// Draw the points
-		glDrawArrays(GL_POINTS, 0, TOTAL_POINTS); // TOTAL_POINTS points starting at 0
+		// Draw the triangle!
+		glDrawArrays(GL_TRIANGLES, 0, 3); // 3 index starting at 0
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 
-    glfwPollEvents();
-    glfwSwapBuffers(window);
-	printf("frame\n");
-  }
+    	glfwPollEvents();
+    	glfwSwapBuffers(window);
+  	}
 
-  glfwTerminate();
-  return 0;
+  	glfwTerminate();
+  	return 0;
 
 }

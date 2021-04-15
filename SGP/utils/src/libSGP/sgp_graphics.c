@@ -409,6 +409,10 @@ void SGP_glClear(GLbitfield mask)
 
 		SGP_DMArequest(SGPconfig, SGP_graphicsmap[SGP_CLEARBUFFER_1].baseaddr, destaddr, 1920 * 1080 * 4, SGP_DMA_REGULAR);
 	}
+	// https://discord.com/channels/760551675739373650/800458137743392769/832171714820833313
+	if (mask & GL_DEPTH_BUFFER_BIT) {
+        // SGP_DMArequest(SGPconfig, SGP_graphicsmap[SGP_COLORBUFFER_3].baseaddr, SGP_graphicsmap[SGP_DEPTHBUFFER_1].baseaddr, 1920 * 1080 * 4, SGP_DMA_REGULAR);
+	}
 }
 
 // Our implementation of glxSwapBuffers
@@ -424,17 +428,31 @@ void SGP_glxSwapBuffers(uint32_t flag)
 
 		// For each component in the pipeline that has a status register, check it and wait until it is =0. Only do this if we're in a transmit mode.
 		// Loop until all components are done at the same time.
+		// Copied from group 4's MP-2
 		if (SGPconfig->driverMode & SGP_ETH)
 		{
-			int all_done = 0;
-			while (all_done == 0)
-			{
-				if (	SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
-					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
-				{
-					all_done = 1;
+			uint32_t i = 0;
+			uint32_t idle;
+			uint32_t rastStatus;
+			//uint32_t vertexStatus;
+			// uint32_t renderStatus;
+
+			do {
+				rastStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RASTERIZER].baseaddr + SGP_AXI_RASTERIZER_STATUS);
+				//vertexStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEXSHADER].baseaddr + SGP_AXI_VERTEXFETCH_STATUS);
+				// renderStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr + SGP_AXI_RASTERIZER_STATUS);
+
+				idle = rastStatus == 0; //&& vertexStatus == 0;
+				if (idle){
+					i++;
 				}
-			}
+				else{
+					printf("Rasterizer Status: %08x\n", rastStatus);
+					//printf("Vertex Status: %08x\n", vertexStatus);
+					i = 0;
+				}
+			} while (i != 2);
+
 		}
 	}
 	// Wait 1 second per frame
@@ -457,6 +475,8 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		//renderOutput backbuffer COLORBUFFER_2 -> COLORBUFFER_1
 		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
 	}
+
+	printf("Swapped frontbuffer to COLORBUFFER_%d\n", backbuffer + 1);
 
 	// Cache clearing
 	// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
