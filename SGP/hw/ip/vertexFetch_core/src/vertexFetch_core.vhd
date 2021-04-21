@@ -81,7 +81,8 @@ entity vertexFetch_core is
 		M_AXIS_TVALID	: out	std_logic;
 		M_AXIS_TDATA	: out	std_logic_vector(C_NUM_VERTEX_ATTRIB*128-1 downto 0);
 		M_AXIS_TLAST	: out	std_logic;
-		M_AXIS_TREADY	: in	std_logic);
+		M_AXIS_TREADY	: in	std_logic
+		);
 
 attribute SIGIS : string; 
 attribute SIGIS of ACLK : signal is "Clk"; 
@@ -120,6 +121,7 @@ architecture behavioral of vertexFetch_core is
 		S_AXI_RRESP	: out std_logic_vector(1 downto 0);
 		S_AXI_RVALID	: out std_logic;
 		S_AXI_RREADY	: in std_logic;
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 		
 		-- Our registers that we need to operate this core. Manually map these in axi_lite_regs
 		SGP_AXI_VERTEXFETCH_CTRL          : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -185,6 +187,7 @@ begin
 		S_AXI_RRESP	=> s_axi_lite_rresp,
 		S_AXI_RVALID	=> s_axi_lite_rvalid,
 		S_AXI_RREADY	=> s_axi_lite_rready,
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER => ,
 		
 		SGP_AXI_VERTEXFETCH_CTRL  => vertexfetch_ctrl,
         SGP_AXI_VERTEXFETCH_STATUS => vertexfetch_status,

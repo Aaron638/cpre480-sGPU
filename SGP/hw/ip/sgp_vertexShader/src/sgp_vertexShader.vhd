@@ -201,7 +201,7 @@ architecture behavioral of sgp_vertexShader is
         SGP_AXI_VERTEXSHADER_VAL3	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_VERTEXSHADER_STATUS	      : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_VERTEXSHADER_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)	    
-		
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 		);
 	end component sgp_vertexShader_axi_lite_regs;
 
@@ -409,7 +409,8 @@ begin
         SGP_AXI_VERTEXSHADER_VAL2 => vertexshader_val2,
         SGP_AXI_VERTEXSHADER_VAL3    => vertexshader_val3,	    		
         SGP_AXI_VERTEXSHADER_STATUS    => vertexshader_status,	    		
-        SGP_AXI_VERTEXSHADER_DEBUG => vertexshader_debug
+        SGP_AXI_VERTEXSHADER_DEBUG => vertexshader_debug,
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER => 
 	);
 
 
