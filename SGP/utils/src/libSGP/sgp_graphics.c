@@ -596,3 +596,20 @@ void SGP_print_graphicsmap()
 
 	return;
 }
+
+void SGP_print_pc_regs()
+{
+
+	printf("\nSGP graphics subsystem debug registers:\n");
+	printf("   Name                   Value\n");
+	for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
+	{
+		if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_DEBUG)
+		{
+			printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].debug_register));
+		}
+	}
+	printf("\x1B[0m\n");
+
+	return;
+}
