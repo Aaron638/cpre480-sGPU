@@ -476,7 +476,7 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
 	}
 
-	printf("Swapped frontbuffer to COLORBUFFER_%d\n", backbuffer + 1);
+	//printf("Swapped frontbuffer to COLORBUFFER_%d\n", backbuffer + 1);
 
 	// Cache clearing
 	// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
