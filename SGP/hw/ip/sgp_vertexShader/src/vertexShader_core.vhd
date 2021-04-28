@@ -49,7 +49,7 @@ entity vertexShader_core is
 end vertexShader_core;
 
 architecture behavioral of vertexShader_core is
-    type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, EXECUTE, WB, LD2, LD3, ST2);
+    type state_type is (WAIT_TO_START, FETCH, FETCH2, DECODE, DECODE2, EXECUTE, WB, LD2, LD3, ST2);
     type register_file_t is array (0 to 255) of unsigned(127 downto 0);
     constant debug : std_logic_vector(3 downto 0) := x"3";
     
@@ -61,6 +61,7 @@ architecture behavioral of vertexShader_core is
     signal a : unsigned(127 downto 0);
     signal b : unsigned(127 downto 0);
     signal c : unsigned(127 downto 0);
+	signal d : unsigned(127 downto 0);
     
     signal temp : unsigned(127 downto 0);
 
@@ -86,6 +87,7 @@ architecture behavioral of vertexShader_core is
     alias a3 is a(127 downto 96); alias a2 is a( 95 downto 64); alias a1 is a( 63 downto 32); alias a0 is a( 31 downto  0);
     alias b3 is b(127 downto 96); alias b2 is b( 95 downto 64); alias b1 is b( 63 downto 32); alias b0 is b( 31 downto  0);
     alias c3 is c(127 downto 96); alias c2 is c( 95 downto 64); alias c1 is c( 63 downto 32); alias c0 is c( 31 downto  0);
+	alias d3 is d(127 downto 96); alias d2 is d( 95 downto 64); alias d1 is d( 63 downto 32); alias d0 is d( 31 downto  0);
 
     constant NOP        : unsigned(7 downto 0) := "00000000";   -- could use x"00"
     constant SWIZZLE    : unsigned(7 downto 0) := "00000001";
@@ -125,8 +127,10 @@ architecture behavioral of vertexShader_core is
 	constant INTERLEAVEHI		: unsigned(7 downto 0) := "00001101";
 	constant INTERLEAVELOPAIRS	: unsigned(7 downto 0) := "00001110";
 	constant INTERLEAVEHIPAIRS	: unsigned(7 downto 0) := "00001111";
-	
 
+	constant INSERTXY : unsigned(7 downto 0) := "01001000";
+	constant INSERTZW : unsigned(7 downto 0) := "01001001";
+	
     constant DONE       : unsigned(7 downto 0) := "11111111";
 
 begin
@@ -194,12 +198,20 @@ begin
 					
 					--decode the instruction in one clock cycle, this is done through dataflow logic, but it just needs a cycle to propagate
 					when DECODE =>
-						state <= EXECUTE;
 						a <= unsigned(v(ra_int));
 						b <= unsigned(v(rb_int));
+
+						if (op = INSERTXY or op = INSERTZW) then
+							state <= DECODE2;
+						else
+							state <= EXECUTE;
+						end if;
 						
 						--add in a,b,c from the ir so that the execute stage can use them for the add and sub operations
-					
+					when DECODE2 => 
+						d <= unsigned(v(rd_int));
+
+						state <= EXECUTE;
 					
 					when EXECUTE =>
 						case op is
@@ -412,6 +424,14 @@ begin
 	
 							when INTERLEAVEHIPAIRS =>
 								c <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
+								state <= WB;
+							
+							when INSERTXY =>
+								c <= a0 & b0 & d1 & d0;
+								state <= WB;
+
+							when INSERTZW =>
+							    c <= d3 & d2 & a0 & b0;								
 								state <= WB;
 	
 							when DONE =>
