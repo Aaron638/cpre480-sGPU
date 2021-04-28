@@ -566,21 +566,21 @@ void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value) {
 		}
 		return;
 	} 
-
+	uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr;
 	// For every vec4 in array of size count:
 	for (int32_t i = 0; i < count*4; i+=4)
 	{
 		// Write value.{xyzw}
 		for (int32_t j = 0; j < 4; j++)
 		{
-			uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].baseaddr;
+			baseaddr = baseaddr + i + j;
 			sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i+j], 16);
 
 			if (SGPconfig->driverMode & SGP_DEEP) {
 				printf("SGP_glUniform4fv: updating uniform %s[%d] at address 0x%08x with value %f = 0x%08x\n", 
-				SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].name,
+				SGP_shadersstate.uniforms[sgp_uniform_loc].name,
 				(i+j),
-				SGP_shadersstate.uniforms[sgp_uniform_loc+i+j].baseaddr,
+				SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr+i+j,
 				value[i+j],
 				value_fixed);
 			}
@@ -658,7 +658,7 @@ void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, 
 		j_inc = 1;
 		k_inc = 4;
 	}
-
+	uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr;
 	// For every mat4x4 in array of size count:
 	for (int32_t i = 0; i < count; i+=16)
 	{
@@ -670,14 +670,14 @@ void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, 
 		{
 			for (int32_t k = 0; k < count*k_inc; k+=k_inc)
 			{
-				uint32_t baseaddr = SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].baseaddr;
-
+				
+				baseaddr = baseaddr + i + j + k;
 				sglu_fixed_t value_fixed = sglu_float_to_fixed(value[i+j+k], 16);
 
 				printf("glUniformMatrix4fv: updating uniform %s[%d] at address 0x%08x with value %f = 0x%08x\n", 
-					SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].name,
+					SGP_shadersstate.uniforms[sgp_uniform_loc].name,
 					(i+j+k),
-					SGP_shadersstate.uniforms[sgp_uniform_loc+i+j+k].baseaddr,
+					SGP_shadersstate.uniforms[sgp_uniform_loc].baseaddr+i+j+k,
 					value[i+j+k],
 					value_fixed);
 
@@ -724,4 +724,97 @@ int32_t SGP_lookupUniform(GLuint gl_uniformID) {
 		}
 	}
 	return -1;
+}
+
+// enable or disable server-side GL capabilities
+// https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glEnable.xml
+void SGP_glEnable(GLenum cap)
+{
+	switch (cap)
+	{
+	case GL_DEPTH_TEST: // 0x0B71
+		SGP_glDepthFunc(GL_LESS);
+		break;
+	case GL_BLEND: // 0x0BE2
+		// For now, SGP_glEnable(GL_BLEND) is just hard coded to have src overwrite dst.
+		SGP_glBlendFunc(GL_DST_COLOR, GL_ZERO);
+		break;
+	default:
+		return;
+	}
+	return;
+}
+
+void SGP_glDisable(GLenum cap)
+{
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	uint32_t message = 0;
+	uint32_t address;
+	switch (cap)
+	{
+	case GL_DEPTH_TEST:
+		message = GL_NEVER;
+		address = baseaddr + SGP_AXI_RENDEROUTPUT_DEPTH;
+		break;
+	case GL_BLEND:
+		message = 0;
+		address = baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA;
+		break;
+	default:
+		return;
+	}
+	SGP_write32(SGPconfig, address, message );
+	return;
+}
+ 
+/* 
+Depth Function enums defined on gl.h line 87, shares w/ AlphaFunction.
+	GL_NEVER    0x0200
+	GL_LESS     0x0201
+	GL_EQUAL    0x0202
+	GL_LEQUAL   0x0203
+	GL_GREATER  0x0204
+	GL_NOTEQUAL 0x0205
+	GL_GEQUAL   0x0206
+	GL_ALWAYS   0x0207
+*/
+void SGP_glDepthFunc(GLenum func)
+{
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_DEPTH, func);
+}
+
+void SGP_glDepthRange(GLclampd nearVal, GLclampd farVal)
+{
+	// Convert Glclampd values which are doubles, to floats, then to a Q16.16s
+	uint32_t nearVal_fixed = sglu_float_to_fixed((float)nearVal, 16);
+	uint32_t farVal_fixed = sglu_float_to_fixed((float)farVal, 16);
+	uint32_t baseaddr = SGP_graphicsmap[SGP_VIEWPORT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_NEARVAL_REG, nearVal_fixed);
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VIEWPORT_FARVAL_REG, farVal_fixed);
+}
+
+/* 
+Destination factor is concatenated with source factor, and placed into ALPHA_FUNC reg
+	Blend Function enums defined on gl.h line 140.
+	As of right now, BlendEquationMode is not defined.
+	Possible Dest factors:
+		GL_ZERO                0
+		GL_ONE                 1
+		GL_SRC_COLOR           0x0300
+		GL_ONE_MINUS_SRC_COLOR 0x0301
+		GL_SRC_ALPHA           0x0302
+		GL_ONE_MINUS_SRC_ALPHA 0x0303
+		GL_DST_ALPHA           0x0304
+		GL_ONE_MINUS_DST_ALPHA 0x0305
+	Possible Src factors:
+		GL_DST_COLOR           0x0306
+		GL_ONE_MINUS_DST_COLOR 0x0307
+		GL_SRC_ALPHA_SATURATE  0x0308
+*/
+void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
+{
+	uint32_t destsrc = (destfactor << 16) | srcfactor;
+	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA, destsrc);
 }

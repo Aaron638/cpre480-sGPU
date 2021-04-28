@@ -119,9 +119,15 @@ int SGP_glLinkProgram(GLuint gl_programID);
 int SGP_glUseProgram(GLuint gl_programID);
 int SGP_glShaderSource(GLuint gl_shaderID, GLsizei count, const GLchar * const * string, const GLint * length);
 int SGP_glGetUniformLocation(GLuint gl_programID, GLint gl_uniformID, const GLchar * name);
+
 void SGP_glUniform1f(GLint location, GLfloat v0);
 void SGP_glUniform4fv(GLint location, GLsizei count, const GLfloat *value);
 void SGP_glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
+void SGP_glEnable(GLenum cap);
+void SGP_glDisable(GLenum cap);
+void SGP_glDepthFunc(GLenum func);
+void SGP_glDepthRange(GLclampd nearVal, GLclampd farVal);
+void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor);
 
 // Utility functions for program/shader/uniform ID match
 int32_t SGP_lookupProgram(GLuint gl_programID);

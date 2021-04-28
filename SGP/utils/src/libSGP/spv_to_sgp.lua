@@ -337,11 +337,8 @@ function AllocateUniform(name, size)
 end
 
 
-outs =
-{
-    {name = "gl_PerVertex.gl_Position", location = 0},
-}
-outLocation = 1
+outs = {}
+outLocation = 0
 
 function AllocateOutLocation(name)
     if outs[name] then
@@ -584,6 +581,45 @@ typeHandlers.Pointer = function(words)
     node.type = t
 end
 
+typeHandlers.Image = function(words)
+    local id = words[1]
+    local sampledType = words[4]
+    local dim = words[5]
+    local depth = words[6]
+    local arrayed = words[7]
+    local ms = words[8]
+    local sampled = words[9]
+    local imageFormat = words[10]
+    local accessQualifier = words[11]
+
+    node = GetId(id)
+    node.op = "OpTypeImage"
+    node.sampledType = sampledType
+    node.dim = dim
+    node.depth = depth
+    node.arrayed = arrayed
+    node.ms = ms
+    node.sampled = sampled
+    node.imageFormat = imageFormat
+    node.accessQualifier = accessQualifier
+end
+
+typeHandlers.Sampler = function(words)
+    local id = words[1]
+
+    node = GetId(id)
+    node.op = "OpTypeSampler"
+end
+
+typeHandlers.SampledImage = function(words)
+    local id = words[1]
+    local imageType = words[4]
+
+    node = GetId(id)
+    node.op = "OpTypeSampledImage"
+    node.imageType = imageType
+end
+
 handlers.OpType = function(words, t)
     if typeHandlers[t] then
         typeHandlers[t](words)
@@ -726,6 +762,12 @@ function ComputeSize(id)
             i = i + 1
         end
         return size
+    elseif node.op == "OpTypeImage" then
+        return 0
+    elseif node.op == "OpTypeSampler" then
+        return 0
+    elseif node.op == "OpTypeSampledImage" then
+        return 0
     end
 end
 
@@ -889,7 +931,18 @@ handlers.OpLoad = function(words)
                 Avenge_insert(dest, dest, temp, i)
             end
         elseif storageClass == "Output" then
-            location = AllocateOutLocation(realName)
+            local realName = names[pointer]
+            local location = decorations[pointer]["Location"] or AllocateOutLocation(realName)
+
+            -- JAZ. We need to output in our preferred order, even if OpenGL requires color to be output 0 for frag shaders
+            if isFragmentShader then
+                if tonumber(location) == 0 then
+                    location = 1
+                elseif tonumber(location) == 1 then
+                    location = 0
+                end
+            end
+
             AvengeComment("read 'out' variable " .. name .. " from shadow register " .. location)
             -- use swizzle as move
             Avenge_swizzle(dest, location, SwizzleByte(0, 1, 2, 3))
@@ -956,8 +1009,18 @@ handlers.OpStore = function(words)
             SourceError("OpStore: Storing to an 'in' variable not supported")
         elseif storageClass == "Output" then
             local realName = names[pointer]
-            location = AllocateOutLocation(realName)
-            
+            local location = decorations[pointer]["Location"] or AllocateOutLocation(realName)
+
+            -- JAZ. We need to output in our preferred order, even if OpenGL requires color to be output 0 for frag shaders
+            if isFragmentShader then
+                if tonumber(location) == 0 then
+                    location = 1
+                elseif tonumber(location) == 1 then
+                    location = 0
+                end
+            end
+
+
             local source = objectNode.register
             local temp = vectorRegister
 
@@ -974,7 +1037,7 @@ handlers.OpStore = function(words)
         if storageClass == "Input" then
             SourceError("OpStore: Storing to an 'in' variable not supported")
         elseif storageClass == "Output" then
-            local location = -1
+            local location = nil
 
             if pointerNode.base then
                 local baseNode = GetId(pointerNode.base)
@@ -984,12 +1047,21 @@ handlers.OpStore = function(words)
                 end
             end
 
-            if location == -1 then
+            if not location then
                 local realName = names[pointer]
-                location = AllocateOutLocation(realName)
+                location = decorations[pointer]["Location"] or AllocateOutLocation(realName)
             end
             
             local source = objectNode.register
+
+            -- JAZ. We need to output in our preferred order, even if OpenGL requires color to be output 0 for frag shaders
+            if isFragmentShader then
+                if tonumber(location) == 0 then
+                    location = 1
+                elseif tonumber(location) == 1 then
+                    location = 0
+                end
+            end
 
             AvengeComment("write variable " .. name .. " to shadow output location " .. location)
             Avenge_swizzle(location, source, SwizzleByte(0, 1, 2, 3))
@@ -1501,6 +1573,40 @@ handlers.OpExtInst = function(words)
     end
 end
 
+handlers.OpImageSampleImplicitLod = function(words)
+    local id = words[1]
+    local resultType = words[4]
+    local sampledImage = words[5]
+    local coordinate = words[6]
+    local imageOperands = words[7]
+    -- todo: optional ids.
+
+    local node = GetId(id)
+    node.op = "OpImageSampleImplicitLod"
+    node.resultType = resultType
+    node.sampledImage = sampledImage
+    node.coordinate = coordinate
+    node.imageOperands = imageOperands
+    
+
+    -- generate asm
+    local dest = AllocateRegister()
+    
+    AvengeComment("OpImageSampleImplicitLod just returns the current color as a placeholder")
+    Avenge_swizzle(dest, 0, SwizzleByte(0, 1, 2, 3))
+    
+    node.register = dest;
+end
+
+
+if isVertexShader then
+    table.insert(outs, {name = "gl_PerVertex.gl_Position", location = 0})
+    outLocation = 1
+end
+
+if isFragmentShader then
+    decorations["%gl_FragCoord"] = {["Location"] = 0}
+end
 
 for i = 1, #sourceLines do
     lineNumber = i

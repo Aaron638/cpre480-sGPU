@@ -5,32 +5,36 @@ The goal is to build an OpenGL-compliant GPU
 
 ## Useful links:
 - https://rogerdudler.github.io/git-guide/
-- https://git.ece.iastate.edu/class/cpre480/MP-1.git
-- https://gist.github.com/RSchneyer/8ae559751f10e92e16399f679acb1097
+- https://git.ece.iastate.edu/class/cpre480
 
-## TODO (In order of importance):
+## WSL2 Dev Environment
+- Install WSL2 and Ubuntu
+- Install these packages
+    - Generally Useful:
+        - tree
+        - dos2unix
+        - build-essential
+    - C/C++/OpenGL:
+        - make
+        - g++
+        - libglfw3
+        - libglew-dev
+        - ubuntu-desktop
+        - meas-utils
+    - For ShaderC
+        - cmake
+        - python3
+        - lcov
+        - ninja-build
+        - sudo apt-get install gcc-mingw-w64
+        - lua5.3
+        - ![shaderc](https://storage.googleapis.com/shaderc/badges/build_link_linux_clang_release.html)
+- Follow these instructions:
+    - https://gist.github.com/RSchneyer/8ae559751f10e92e16399f679acb1097
+> - [1:07 AM] Nathan Bellows: Anyone still having problems with WSL MP-3? I got it working tonight, wasn't super terrible, a couple things:
+>   - Just follow shaderc git README and build from source is what I did
+>   - Install lua 5.4.2 from online
+>   - Add these appropriately to lib/ and include/ folders, such as under /usr/local/{lib | include}. If you use /usr/local/, you may want to update setup.sh to include it in LD_LIBRARY_PATH so the .so (shared object) files are properly linked dynamically/at runtime
+>   - Fix library linker order in a few makefiles such that lua and shaderc FOLLOW SGP rather than precede it (my linker removes all the symbols that are not referenced yet, thank god for SO telling me this is a thing)
 
-### Viewport (sgp_viewPort.vhd)
-- Need to understand and draw the FSM for AXI handshakes (see LM02)
-- Use that knowledge to make make a testbench or testing script.
-- Use the tests to implement a properly working sgp_viewPort.vhd which writes to the vector buffer.
 
-### Render Output (sgp_renderOutput.vhd)
-- Same thing as viewport with the FSM for AXI handshakes
-- Testbench or testing script
-- Implement a working renderOutput.vhd which writes to the color buffer
-
-### Driver (sgp_graphics.c/h)
-- Need to test `SGP_glViewPort()` in sgp_graphics.c (should be ez after tweaking sgp settings in console)
-- Need to implement `SGP_glxSwapBuffers()`
-
-### Get Running on actual hardware
-- Modify 02_TheRedPixel with hard coded constants to use as a testbench
-- Test display of 1-3 pixels and different positions
-- Test display of 1-3 colors
-- Try to get 07_Paint running
-
-### Report
-- Answer more questions from the report
-- Draw diagrams with more detail, especially those handling the FSMs
-    (we lost points for it last time)
