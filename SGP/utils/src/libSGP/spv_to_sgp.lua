@@ -74,6 +74,8 @@ local op_fmax		= 38
 
 local op_fpow		= 40
 
+local op_texfetch   = 254
+
 local op_done		= 255
 
 
@@ -275,6 +277,11 @@ end
 function Avenge_fpow(rd, ra, rb)
     AvengeBinary(op_fpow, rd, ra, rb)
     AvengeAssembler3op("fpow", rd, ra, rb)
+end
+
+function Avenge_texfetch(rd, ra, rb)
+    AvengeBinary(op_texfetch, rd, ra, rb)
+    AvengeAssembler3op("texfetch", rd, ra, rb)
 end
 
 function Avenge_done()
@@ -767,7 +774,7 @@ function ComputeSize(id)
     elseif node.op == "OpTypeSampler" then
         return 0
     elseif node.op == "OpTypeSampledImage" then
-        return 0
+        return 1
     end
 end
 
@@ -918,6 +925,20 @@ handlers.OpLoad = function(words)
         end
 
         node.register = dest
+    elseif typeNode.op == "OpTypeSampledImage" then
+        local dest = AllocateRegister()
+
+        if storageClass == "Input" then
+            SourceError("OpLoad: Loading sampled image 'in' variables not currently supported")
+        elseif storageClass == "Output" then
+            SourceError("OpLoad: Loading sampled image 'out' variables not currently supported")
+        else
+            local p = pointerNode.register
+            AvengeComment("load variable " .. name)
+            Avenge_ld(dest, p, 0)
+        end
+
+        node.register = dest
     elseif typeNode.op == "OpTypeVector" then
         local dest = AllocateRegister()
 
@@ -1008,6 +1029,15 @@ handlers.OpStore = function(words)
         if storageClass == "Input" then
             SourceError("OpStore: Storing to an 'in' variable not supported")
         elseif storageClass == "Output" then
+            if pointerNode.base then
+                local baseNode = GetId(pointerNode.base)
+                local baseResultTypeNode = GetId(baseNode.resultType)
+                if names[baseResultTypeNode.type] == "gl_PerVertex" then
+                    print("Ignoring write to gl_PointSize.")
+                    return
+                end
+            end
+
             local realName = names[pointer]
             local location = decorations[pointer]["Location"] or AllocateOutLocation(realName)
 
@@ -1591,9 +1621,15 @@ handlers.OpImageSampleImplicitLod = function(words)
 
     -- generate asm
     local dest = AllocateRegister()
+
+    local sampledImageNode = GetId(sampledImage)
+    local sampledImageRegister = sampledImageNode.register
+
+    local coordinateNode = GetId(coordinate)
+    local coordinateRegister = coordinateNode.register
     
-    AvengeComment("OpImageSampleImplicitLod just returns the current color as a placeholder")
-    Avenge_swizzle(dest, 0, SwizzleByte(0, 1, 2, 3))
+    AvengeComment("texture look up")
+    Avenge_texfetch(dest, sampledImageRegister, coordinateRegister)
     
     node.register = dest;
 end

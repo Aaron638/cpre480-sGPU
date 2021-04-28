@@ -17,7 +17,6 @@
 #include "sgp_graphics.h"
 #include "sgp_system.h"
 #include "sgp_transmit.h"
-#include <math.h>
 
 
 // Global shaders state. 
@@ -209,6 +208,13 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 	lua_pushinteger(L, SGP_graphicsstate.gpu_mem_free_ptr);
 	lua_setglobal(L, "memoryBase");	
 
+	lua_pushboolean(L, SGP_shadersstate.shaders[cur_shader_index].gl_type == GL_VERTEX_SHADER ? 1 : 0);
+	lua_setglobal(L, "isVertexShader");	
+
+	lua_pushboolean(L, SGP_shadersstate.shaders[cur_shader_index].gl_type == GL_FRAGMENT_SHADER ? 1 : 0);
+	lua_setglobal(L, "isFragmentShader");	
+
+
     if (SGPconfig->driverMode & SGP_STDOUT) {
         lua_pushboolean(L, 1);
         lua_setglobal(L, "debugValue");
@@ -309,6 +315,30 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 			printf("\n");
 		}
 
+    }
+
+    lua_getglobal(L, "outs");
+    size_t num_outs = lua_rawlen(L, -1);
+    if (num_outs) {
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("SGP Outs:             name |   location \n");
+		}
+        for (int i = 1; i <= num_outs; i++) {
+            lua_geti(L, -1, i);
+            lua_getfield(L, -1, "name");
+        	const char *out_name = lua_tostring(L, -1);
+			lua_getfield(L, -2, "location");
+			const uint32_t out_location = lua_tointeger(L, -1);
+            lua_pop(L, 3);
+			if (SGPconfig->driverMode & SGP_STDOUT) {
+    	        printf("              %16s | %d\n", out_name, out_location);
+			}
+			
+            
+        }
+		if (SGPconfig->driverMode & SGP_STDOUT) {
+			printf("\n");
+		}
     }
 
 	// Update the gpu_mem_free_ptr if we allocated buffer memory for the shader
@@ -420,7 +450,7 @@ int SGP_glUseProgram(GLuint gl_programID) {
 				printf("SGP_glUseProgram: setting vertex shader starting PC to 0x%08x\n", SGP_shadersstate.shaders[cur_shader_index].baseaddr);
 			}
 			SGP_write32(SGPconfig, baseaddr+SGP_AXI_VERTEXSHADER_PC, SGP_shadersstate.shaders[cur_shader_index].baseaddr);
-			break;
+			//break;
 		}
 	}
 
@@ -818,3 +848,4 @@ void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
 	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA, destsrc);
 }
+
