@@ -86,6 +86,8 @@ entity sgp_vertexShader_axi_lite_regs is
 		-- Read ready. This signal indicates that the master can
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
+		
+		SGP_AXI_VERTEXSHADER_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	);
 end sgp_vertexShader_axi_lite_regs;
 
@@ -147,6 +149,7 @@ begin
 
     slv_reg14 <= SGP_AXI_VERTEXSHADER_STATUS;
     slv_reg15 <= SGP_AXI_VERTEXSHADER_DEBUG;
+	SGP_AXI_VERTEXSHADER_RTCOUNTER   <= slv_reg14;
 
 
 
@@ -565,7 +568,12 @@ begin
 
 
 	-- Add user logic here
-
+	process( S_AXI_ACLK) is
+	begin
+		if (rising_edge (S_AXI_ACLK)) then
+			slv_reg14 <= std_logic_vector(unsigned(slv_reg14) + 1);
+		end if;
+	end process;
 	-- User logic ends
 
 end arch_imp;

@@ -152,7 +152,7 @@ begin
     SGP_AXI_RENDEROUTPUT_HEIGHT      <= slv_reg4;
 	SGP_AXI_RENDEROUTPUT_DEPTH		 <= slv_reg5;
 	SGP_AXI_RENDEROUTPUT_ALPHA		 <= slv_reg6;
-	SGP_AXI_RENDEROUTPUT_RTCOUNTER   <= slv_reg7;
+	SGP_AXI_RENDEROUTPUT_RTCOUNTER   <= slv_reg14;
 
     slv_reg15 <= SGP_AXI_RENDEROUTPUT_DEBUG;
 
@@ -573,7 +573,12 @@ begin
 
 
 	-- Add user logic here
-
+	process( S_AXI_ACLK) is
+	begin
+		if (rising_edge (S_AXI_ACLK)) then
+			slv_reg14 <= std_logic_vector(unsigned(slv_reg14) + 1);
+		end if;
+	end process;
 	-- User logic ends
 
 end arch_imp;
