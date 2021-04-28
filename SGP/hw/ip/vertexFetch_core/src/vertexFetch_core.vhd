@@ -146,6 +146,7 @@ architecture behavioral of vertexFetch_core is
     signal vertexfetch_attrib_001_size 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal vertexfetch_attrib_010_size 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal vertexfetch_attrib_011_size 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	signal vertexfetch_rtcounter		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
 
 
@@ -187,7 +188,7 @@ begin
 		S_AXI_RRESP	=> s_axi_lite_rresp,
 		S_AXI_RVALID	=> s_axi_lite_rvalid,
 		S_AXI_RREADY	=> s_axi_lite_rready,
-		SGP_AXI_RENDEROUTPUT_RTCOUNTER => ,
+		SGP_AXI_VERTEXFETCH_RTCOUNTER => vertexfetch_rtcounter,
 		
 		SGP_AXI_VERTEXFETCH_CTRL  => vertexfetch_ctrl,
         SGP_AXI_VERTEXFETCH_STATUS => vertexfetch_status,

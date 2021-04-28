@@ -87,7 +87,7 @@ entity sgp_vertexShader_axi_lite_regs is
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
 		
-		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VERTEXSHADER_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	);
 end sgp_vertexShader_axi_lite_regs;
 
@@ -149,7 +149,7 @@ begin
 
     slv_reg14 <= SGP_AXI_VERTEXSHADER_STATUS;
     slv_reg15 <= SGP_AXI_VERTEXSHADER_DEBUG;
-	SGP_AXI_RENDEROUTPUT_RTCOUNTER   <= slv_reg14;
+	SGP_AXI_VERTEXSHADER_RTCOUNTER   <= slv_reg14;
 
 
 

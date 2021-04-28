@@ -88,7 +88,7 @@ entity vertexFetch_axi_lite_regs is
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
 		
-		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VERTEXFETCH_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	);
 end vertexFetch_axi_lite_regs;
 
@@ -151,7 +151,7 @@ begin
     SGP_AXI_VERTEXFETCH_ATTRIB_001_SIZE <= slv_reg5; 
     SGP_AXI_VERTEXFETCH_ATTRIB_010_SIZE <= slv_reg6; 
     SGP_AXI_VERTEXFETCH_ATTRIB_011_SIZE <= slv_reg7; 	
-	SGP_AXI_RENDEROUTPUT_RTCOUNTER   <= slv_reg14;
+	SGP_AXI_VERTEXFETCH_RTCOUNTER   <= slv_reg14;
 
 
 	-- I/O Connections assignments
