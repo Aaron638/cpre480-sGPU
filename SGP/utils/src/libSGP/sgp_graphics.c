@@ -627,7 +627,7 @@ void SGP_print_pc_regs()
 void SGP_print_statusregs()
 {
 
-	printf("\nSGP graphics subsystem debug registers:\n");
+	printf("\nSGP graphics subsystem status registers:\n");
 	printf("   Name                   Value\n");
 	for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
 	{
