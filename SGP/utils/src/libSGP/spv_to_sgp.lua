@@ -74,6 +74,10 @@ local op_fmax		= 38
 
 local op_fpow		= 40
 
+local op_mac        = 50
+local op_insert2    = 72
+-- local op_insert2    = 73
+
 local op_texfetch   = 254
 
 local op_done		= 255
@@ -192,6 +196,17 @@ function Avenge_insert(rd, ra, rb, i)
     rb = "v" .. rb
     i = swizzleLetters[i]
     AvengeAssembler("insert", "" .. rd .. ", " .. ra .. ", " .. rb .. ", " .. i)
+end
+
+function Avenge_insert2(rd, ra, rb, i)
+    AvengeBinary(op_insert2 + i, rd, ra, rb)
+
+    rd = "v" .. rd
+    ra = "v" .. ra
+    rb = "v" .. rb
+    -- Ternary: if i == 0, then i = "xy", otherwise, i = "zw"
+    i = ((i == 0) and "xy" or "zw")
+    AvengeAssembler("insert2", "" .. rd .. ", " .. ra .. ", " .. rb .. ", " .. i)
 end
 
 function Avenge_interleavelo(rd, ra, rb)
@@ -1193,6 +1208,15 @@ handlers.OpCompositeConstruct = function(words)
             local source = sourceNode.register
             Avenge_insert(dest, dest, source, j)
         end
+        
+        -- AvengeComment("Modified to user insert2")
+        -- We perform 2 insert2 calls instead.
+        -- local sourceNode = GetId(node[0])
+        -- local source = sourceNode.register
+        -- Avenge_insert2(dest, dest, source, 0)
+        -- sourceNode = GetId(node[1])
+        -- source = sourceNode.register
+        -- Avenge_insert2(dest, dest, source, 1)
         
         node.register = dest
     elseif resultTypeNode.op == "OpTypeMatrix" then
