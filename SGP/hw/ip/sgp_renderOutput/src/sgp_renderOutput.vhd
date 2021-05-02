@@ -151,7 +151,8 @@ architecture behavioral of sgp_renderOutput is
         SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_DEPTH   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_ALPHA   : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_STATUS        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0));
 	end component sgp_renderOutput_axi_lite_regs;
 
@@ -222,7 +223,10 @@ architecture behavioral of sgp_renderOutput is
 
 
   type STATE_TYPE is (	WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE, READ_COLOR_BUFFER_ALPHA, READ_COLOR_WAIT_FOR_RESPONSE, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
-  signal state        : STATE_TYPE;   
+  signal state        : STATE_TYPE; 
+  
+  type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
+  signal counter_state    : CTR_STATE_TYPE;
 
   -- User register values
   signal axi_lite_arready           : std_logic;
@@ -236,7 +240,10 @@ architecture behavioral of sgp_renderOutput is
   signal renderoutput_depth         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_alpha         : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_rtcounter     : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal renderoutput_status        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal renderoutput_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+
+  signal renderoutput_clk_count     : unsigned(31 downto 0);
 
   signal input_fragment	            : vertexVector_t;
   signal input_fragment_array       : vertexArray_t;       
@@ -289,7 +296,6 @@ architecture behavioral of sgp_renderOutput is
   signal r_color3                   : unsigned(7 downto 0);
   signal g_color3                   : unsigned(7 downto 0);
   signal b_color3                   : unsigned(7 downto 0);
-  
 
   signal g_dest_color               : unsigned(7 downto 0);
   signal a_dest_color               : unsigned(7 downto 0);
@@ -363,7 +369,8 @@ begin
         SGP_AXI_RENDEROUTPUT_HEIGHT    => renderoutput_height,
         SGP_AXI_RENDEROUTPUT_DEPTH => renderoutput_depth,
         SGP_AXI_RENDEROUTPUT_ALPHA => renderoutput_alpha,
-		SGP_AXI_RENDEROUTPUT_RTCOUNTER => renderoutput_rtcounter,	    		
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER => renderoutput_rtcounter,
+        SGP_AXI_RENDEROUTPUT_STATUS => renderoutput_status,
         SGP_AXI_RENDEROUTPUT_DEBUG => renderoutput_debug
 	);
 
@@ -461,7 +468,9 @@ begin
 
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
-    renderoutput_debug <= x"00000011";
+    -- TODO: renderoutput_status NEEDS TO BE CHANGED
+    renderoutput_status <= x"0000_0000";
+    renderoutput_debug <= x"0000_0501";
 
     -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
     -- and generate an AXI Write request based on that data.
@@ -487,7 +496,7 @@ begin
 			gl_Enable 		<= '0';
 			alpha_config <= (others => '0');
             depth_config <= (others => '0');
-
+            
         else
         case state is
             when DEPTH_READ_CONFIG =>
@@ -528,7 +537,7 @@ begin
 
             when GEN_ADDRESS_DEPTH => 
 				if (s_mem_flush = '1') then
-					s_mem_flush <= 0;
+					s_mem_flush <= '0';
 				end if;
                 -- xvp and yvp are Q16.16s that need to be converted into signed ints
                 -- Round if fraction >= 0.5
@@ -645,16 +654,9 @@ begin
                 a_color3     <= a_color2(39 downto 32);
                 
                 -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
-                -- sgp_graphics.c will swap these buffers every frame with glxSwapBuffers
-                
-                -- Viewport handles the conversion of coordinates.
-                -- Every 4 bits in COLORBUFFER reto_integer(unsigned(ra))presents a pixel
-                -- COLORBUFFER is a 1D array, so the conversion from vp coords to memory address is:
-                -- baseaddr + (1920 * 4 * yvp) + (4 * x)
-                
+                -- Driver will swap these buffers every frame with glxSwapBuffers
+
                 frag_address    <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;
-                -- frag_color      <= std_logic_vector(a_color_reg & r_color_reg & b_color_reg & g_color_reg); -- results in red=black blue=blue green=red
-                -- frag_color      <= std_logic_vector(r_color_reg & g_color_reg & b_color_reg & a_color_reg); -- results in red=green green=black, blue=blue
                 frag_color      <= std_logic_vector(g_blend_color & a_blend_color & b_blend_color & r_blend_color);
                 
                 state <= WRITE_ADDRESS_COLOR;
@@ -688,5 +690,40 @@ begin
       end if;
     end if;
    end process;
+
+    --   Program counter to count cycles per vertex delivered
+    process (ACLK, state)
+    begin
+        if rising_edge(ACLK) then
+            if ARESETN = '0' then
+                renderoutput_rtcounter <= (others => '0');
+                renderoutput_clk_count <= (others => '0');
+                counter_state <= NOT_COUNTING;
+            else
+                case counter_state is
+                    when NOT_COUNTING =>
+                        renderoutput_clk_count <= x"0000_0000";
+                        if state = GEN_ADDRESS_DEPTH then
+                            counter_state <= COUNTING;
+                        end if;
+                        
+                    when COUNTING =>
+                        if state = WRITE_ADDRESS_COLOR then
+                            counter_state <= WRITE_COUNT;
+                        else
+                            renderoutput_clk_count <= renderoutput_clk_count + 1;
+                        end if;
+                        
+                    when WRITE_COUNT =>
+                        renderoutput_rtcounter <= std_logic_vector(renderoutput_clk_count);
+                        renderoutput_clk_count <= (others => '0');
+                        counter_state <= NOT_COUNTING;
+                    when others =>
+                        counter_state <= NOT_COUNTING;
+                end case;
+            end if;
+        end if;
+    end process;
+
 end architecture behavioral;
 

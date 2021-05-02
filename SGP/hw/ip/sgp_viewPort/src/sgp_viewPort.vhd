@@ -106,6 +106,8 @@ architecture behavioral of sgp_viewPort is
 			SGP_AXI_VIEWPORT_HEIGHT_REG  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 			SGP_AXI_VIEWPORT_NEARVAL_REG : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 			SGP_AXI_VIEWPORT_FARVAL_REG  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+			SGP_AXI_VIEWPORT_RTCTR            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+			SGP_AXI_VIEWPORT_STATUS            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 			SGP_AXI_VIEWPORT_DEBUG       : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0)
 
 		);
@@ -118,6 +120,8 @@ architecture behavioral of sgp_viewPort is
 	signal viewport_height_reg  : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal viewport_nearval_reg : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal viewport_farval_reg  : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal viewport_rtctr       : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal viewport_status      : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal viewport_debug       : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
 	-- Intermediate values for viewport transformation. 
@@ -175,6 +179,8 @@ begin
 		SGP_AXI_VIEWPORT_HEIGHT_REG  => viewport_height_reg,
 		SGP_AXI_VIEWPORT_NEARVAL_REG => viewport_nearval_reg,
 		SGP_AXI_VIEWPORT_FARVAL_REG  => viewport_farval_reg,
+		SGP_AXI_VIEWPORT_RTCTR		=> viewport_rtctr,
+		SGP_AXI_VIEWPORT_STATUS		=> viewport_status,
 		SGP_AXI_VIEWPORT_DEBUG       => viewport_debug
 
 	);
@@ -199,7 +205,11 @@ begin
 	viewport_height_div_2 <= signed('0' & viewport_height_reg(15 downto 0) & "000000000000000");
 	-- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
 	-- It would also be useful to connect internal signals to this register for software debug purposes
-	viewport_debug <= x"00000003";
+	-- Optional TODO: hook up a performance counter to viewPort
+	viewport_rtctr <= x"0000_0000";
+	--  TODO: SET THIS STATUS correctly
+	viewport_status <= x"0000_0000";
+	viewport_debug <= x"0000_0501";
 
 	process (ACLK) is
 	begin
