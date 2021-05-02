@@ -199,7 +199,7 @@ architecture behavioral of sgp_vertexShader is
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VERTEXSHADER_VAL2       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_VERTEXSHADER_VAL3	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	
-        SGP_AXI_RENDEROUTPUT_RTCTR          : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);    
+        SGP_AXI_VERTEXSHADER_RTCTR          : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);    
         SGP_AXI_VERTEXSHADER_STATUS	      : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_VERTEXSHADER_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 		);
@@ -663,7 +663,7 @@ begin
                         end if;
                         
                     when WRITE_COUNT =>
-                        vertexshader_rtcounter <= vertexShader_clk_count;
+                        vertexshader_rtcounter <= std_logic_vector(vertexShader_clk_count);
                         vertexShader_clk_count <= (others => '0');
                         counter_state <= NOT_COUNTING;
                     when others =>

@@ -537,7 +537,7 @@ begin
 
             when GEN_ADDRESS_DEPTH => 
 				if (s_mem_flush = '1') then
-					s_mem_flush <= 0;
+					s_mem_flush <= '0';
 				end if;
                 -- xvp and yvp are Q16.16s that need to be converted into signed ints
                 -- Round if fraction >= 0.5
@@ -715,7 +715,7 @@ begin
                         end if;
                         
                     when WRITE_COUNT =>
-                        renderoutput_rtcounter <= renderoutput_clk_count;
+                        renderoutput_rtcounter <= std_logic_vector(renderoutput_clk_count);
                         renderoutput_clk_count <= (others => '0');
                         counter_state <= NOT_COUNTING;
                     when others =>

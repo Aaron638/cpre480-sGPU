@@ -1,8 +1,8 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Mon Mar  8 15:29:42 2021
--- Host        : CO2050-10 running 64-bit major release  (build 9200)
+-- Date        : Sat May  1 18:58:45 2021
+-- Host        : CO2050-04 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               u:/cpre480/SGP/hw/ip/sgp_rasterizer/src/shared_divider/shared_divider_stub.vhdl
 -- Design      : shared_divider
