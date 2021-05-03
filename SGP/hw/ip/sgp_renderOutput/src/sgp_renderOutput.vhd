@@ -203,7 +203,7 @@ architecture behavioral of sgp_renderOutput is
         axi_rready_o        : out std_logic);
   end component dcache;
 
-  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE, READ_COLOR_BUFFER_ALPHA, READ_COLOR_WAIT_FOR_RESPONSE, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
+  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE ,READ_ADDRESS);
   signal state        : STATE_TYPE; 
   
   type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
@@ -526,12 +526,12 @@ begin
                 case counter_state is
                     when NOT_COUNTING =>
                         renderoutput_clk_count <= x"0000_0000";
-                        if state = GEN_ADDRESS_DEPTH then
+                        if state = GEN_ADDRESS then
                             counter_state <= COUNTING;
                         end if;
                         
                     when COUNTING =>
-                        if state = WRITE_ADDRESS_COLOR then
+                        if state = WRITE_ADDRESS then
                             counter_state <= WRITE_COUNT;
                         else
                             renderoutput_clk_count <= renderoutput_clk_count + 1;
