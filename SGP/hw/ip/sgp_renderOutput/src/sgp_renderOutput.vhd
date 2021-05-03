@@ -202,25 +202,6 @@ architecture behavioral of sgp_renderOutput is
         axi_arburst_o       : out std_logic_vector(1 downto 0);
         axi_rready_o        : out std_logic);
   end component dcache;
-  
-  component alphaBlending is
-	port(
-		gl_Enable		  : in std_logic;
-		a_src_color       : in unsigned(7 downto 0);
-		r_src_color       : in unsigned(7 downto 0);
-		b_src_color       : in unsigned(7 downto 0);
-		g_src_color       : in unsigned(7 downto 0);
-		a_dst_color       : in unsigned(7 downto 0);
-		r_dst_color       : in unsigned(7 downto 0);
-		b_dst_color       : in unsigned(7 downto 0);
-		g_dst_color       : in unsigned(7 downto 0);
-		a_blend_color     : out unsigned(7 downto 0);
-		r_blend_color     : out unsigned(7 downto 0);
-		b_blend_color : out unsigned(7 downto 0);
-		g_blend_color : out unsigned(7 downto 0);
-		dst_src_in	: in std_logic_vector(31 downto 0));
-	end component alphaBlending;
-
 
   type STATE_TYPE is (	WAIT_FOR_FRAGMENT, CHECK_DEPTH, GEN_ADDRESS_COLOR, GEN_ADDRESS_DEPTH, WRITE_ADDRESS_COLOR, WAIT_FOR_RESPONSE_COLOR, DEPTH_READ_CONFIG, DEPTH_WAIT_FOR_RESPONSE, ALPHA_READ_CONFIG, ALPHA_WAIT_FOR_RESPONSE, READ_COLOR_BUFFER_ALPHA, READ_COLOR_WAIT_FOR_RESPONSE, READ_ADDRESS_DEPTH, WAIT_FOR_RESPONSE_DEPTH);
   signal state        : STATE_TYPE; 
@@ -273,9 +254,9 @@ architecture behavioral of sgp_renderOutput is
   signal y_pos_fixed                : fixed_t;
   signal y_pos_short                : signed(15 downto 0);
   signal y_pos_short_reg            : signed(15 downto 0);
-  signal z_pos_fixed                : fixed_t;
-  signal z_pos_short                : signed(15 downto 0);
-  signal z_pos_short_reg            : signed(15 downto 0);
+  --signal z_pos_fixed                : fixed_t;
+  --signal z_pos_short                : signed(15 downto 0);
+  --signal z_pos_short_reg            : signed(15 downto 0);
   signal frag_address               : signed(31 downto 0);
   signal frag_color                 : std_logic_vector(31 downto 0);
   signal a_color                    : fixed_t;
@@ -287,51 +268,14 @@ architecture behavioral of sgp_renderOutput is
   signal g_color_reg                : std_logic_vector(7 downto 0);
   signal b_color_reg                : std_logic_vector(7 downto 0);
   
-  signal a_color2                   : unsigned(63 downto 0);
-  signal r_color2                   : unsigned(63 downto 0);
-  signal g_color2                   : unsigned(63 downto 0);
-  signal b_color2                   : unsigned(63 downto 0);
-  
-  signal a_color3                   : unsigned(7 downto 0);
-  signal r_color3                   : unsigned(7 downto 0);
-  signal g_color3                   : unsigned(7 downto 0);
-  signal b_color3                   : unsigned(7 downto 0);
+  signal a_color_reg64 : std_logic_vector(63 downto 0);
+  signal r_color_reg64 : std_logic_vector(63 downto 0);
+  signal g_color_reg64 : std_logic_vector(63 downto 0);
+  signal b_color_reg64 : std_logic_vector(63 downto 0);
 
-  signal g_dest_color               : unsigned(7 downto 0);
-  signal a_dest_color               : unsigned(7 downto 0);
-  signal b_dest_color               : unsigned(7 downto 0);
-  signal r_dest_color               : unsigned(7 downto 0);
-
-  signal g_blend_color              : unsigned(7 downto 0);
-  signal a_blend_color              : unsigned(7 downto 0);
-  signal b_blend_color              : unsigned(7 downto 0);
-  signal r_blend_color              : unsigned(7 downto 0);
-
-  signal alpha_config        		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-  signal depth_config         		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-  signal gl_Enable					: std_logic;
   signal s_mem_flush				: std_logic;
 
 begin
-
-  sgp_renderOutput_alphaBlending : alphaBlending
-	port map(
-		gl_Enable		=> gl_Enable,
-		a_src_color		=> a_color2, 
-		r_src_color		=> r_color2,
-		b_src_color		=> b_color2,
-		g_src_color		=> g_color2,
-		a_dst_color		=> a_dest_color,
-		r_dst_color		=> r_dest_color,
-		b_dst_color		=> b_dest_color,
-		g_dst_color		=> g_dest_color,
-		a_blend_color	=> a_blend_color,
-		r_blend_color	=> r_blend_color,
-		b_blend_color	=> b_blend_color,
-		g_blend_color	=> g_blend_color,
-		dst_src_in		=> alpha_config
-	);
-
 
   -- Instantiation of Axi Bus Interface S_AXI_LITE
   sgp_renderOutput_axi_lite_regs_inst : sgp_renderOutput_axi_lite_regs
@@ -459,12 +403,17 @@ begin
     
     x_pos_fixed <= input_fragment_array(0)(0);
     y_pos_fixed <= input_fragment_array(0)(1);
-    z_pos_fixed <= input_fragment_array(0)(2);
+    --z_pos_fixed <= input_fragment_array(0)(2);
     
     a_color <= input_fragment_array(1)(0);
     r_color <= input_fragment_array(1)(1);
     b_color <= input_fragment_array(1)(2);
     g_color <= input_fragment_array(1)(3);
+	
+	r_color_reg64 <= std_logic_vector(unsigned(r_color * x"00FF0000"));
+    g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
+    b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
+    a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
 
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
@@ -488,41 +437,13 @@ begin
             input_fragment  <= vertexVector_t_zero;
             x_pos_short_reg <= (others => '0');
             y_pos_short_reg <= (others => '0');
-            z_pos_short_reg <= (others => '0');
             a_color_reg     <= (others => '0');
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
-			gl_Enable 		<= '0';
-			alpha_config <= (others => '0');
-            depth_config <= (others => '0');
             
         else
         case state is
-            when DEPTH_READ_CONFIG =>
-                if (axi_lite_arready = '1') then
-                    axi_lite_araddr <= std_logic_vector(renderoutput_depth);
-                    state <= DEPTH_WAIT_FOR_RESPONSE;
-                end if;
-        
-            when DEPTH_WAIT_FOR_RESPONSE =>
-                if (s_axi_lite_arvalid = '1') then
-                    depth_config <= axi_lite_rdata;
-                    state <= ALPHA_READ_CONFIG;
-                end if;
-
-            when ALPHA_READ_CONFIG =>
-                if (axi_lite_arready = '1') then
-                    axi_lite_araddr <= std_logic_vector(renderoutput_alpha);
-                    state <= ALPHA_WAIT_FOR_RESPONSE;
-                end if;
-        
-            when ALPHA_WAIT_FOR_RESPONSE =>
-                if (s_axi_lite_arvalid = '1') then
-                    alpha_config <= axi_lite_rdata;
-                    state <= WAIT_FOR_FRAGMENT;
-                end if;
-
             -- Wait here until we receive a fragment
             -- Consider looking at TLAST to determine cache flushability
             when WAIT_FOR_FRAGMENT =>
@@ -530,9 +451,9 @@ begin
                     input_fragment <= signed(S_AXIS_TDATA);
                     state <= GEN_ADDRESS_DEPTH;
                     --if TLAST = '1' then mem_cacheable <= '1'??
-					if (S_AXIS_TLAST = '1') then
-						s_mem_flush <= '1';
-					end if;
+--					if (S_AXIS_TLAST = '1') then
+--						s_mem_flush <= '1';
+--					end if;
                 end if;
 
             when GEN_ADDRESS_DEPTH => 
