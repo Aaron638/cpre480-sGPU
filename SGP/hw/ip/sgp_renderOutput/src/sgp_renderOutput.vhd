@@ -418,7 +418,7 @@ begin
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
     -- TODO: renderoutput_status NEEDS TO BE CHANGED
-    renderoutput_status <= x"0000_0000";
+
     renderoutput_debug <= x"0000_0501";
 
     -- A 4-state FSM, where we copy fragments, determine the address and color from the input attributes, 
@@ -441,6 +441,7 @@ begin
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
+			renderoutput_status <= x"0000_0000";
             
         else
         case state is
@@ -493,6 +494,7 @@ begin
             -- to all 4 bytes of the data signal.
             when WRITE_ADDRESS =>
                 if (mem_accept = '1') then
+					renderoutput_status <= x"0000_0001";
                     mem_addr        <= std_logic_vector(frag_address);
                     mem_data_wr     <= frag_color;
                     mem_rd          <= '0';
@@ -505,6 +507,7 @@ begin
                 mem_wr <= "0000";
                 if (mem_ack = '1') then
                     state <= WAIT_FOR_FRAGMENT;
+					renderoutput_status <= x"0000_0000";
                 end if;
                 
             when others => 
