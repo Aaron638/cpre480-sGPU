@@ -429,7 +429,7 @@ begin
         if ARESETN = '0' then    
 
             -- Start at WAIT_FOR_FRAGMENT and initialize all other registers
-            state           <= DEPTH_READ_CONFIG;  -- TODO change this to wherever we start
+            state           <= WAIT_FOR_FRAGMENT;  -- TODO change this to wherever we start
             mem_addr        <= (others => '0');
             mem_data_wr     <= (others => '0');
             mem_rd          <= '0';
@@ -449,17 +449,17 @@ begin
             when WAIT_FOR_FRAGMENT =>
                 if (S_AXIS_TVALID = '1') then
                     input_fragment <= signed(S_AXIS_TDATA);
-                    state <= GEN_ADDRESS_DEPTH;
+                    state <= GEN_ADDRESS;
                     --if TLAST = '1' then mem_cacheable <= '1'??
 --					if (S_AXIS_TLAST = '1') then
 --						s_mem_flush <= '1';
 --					end if;
                 end if;
 
-            when GEN_ADDRESS_DEPTH => 
-				if (s_mem_flush = '1') then
-					s_mem_flush <= '0';
-				end if;
+            when GEN_ADDRESS => 
+--				if (s_mem_flush = '1') then
+--					s_mem_flush <= '0';
+--				end if;
                 -- xvp and yvp are Q16.16s that need to be converted into signed ints
                 -- Round if fraction >= 0.5
                 if (x_pos_fixed(15) = '1') then
@@ -467,120 +467,22 @@ begin
                 else
                     x_pos_short_reg <= x_pos_fixed(31 downto 16);
                 end if;
-                
+
                 if (y_pos_fixed(15) = '1') then
                     y_pos_short_reg <= y_pos_fixed(31 downto 16) + 1;
                 else
                     y_pos_short_reg <= y_pos_fixed(31 downto 16);
                 end if;
+				
+				r_color_reg <= r_color_reg64(39 downto 32);
+				g_color_reg <= g_color_reg64(39 downto 32);
+				b_color_reg <= b_color_reg64(39 downto 32);
+				a_color_reg <= a_color_reg64(39 downto 32);
 
-                if (z_pos_fixed(15) = '1') then
-                    z_pos_short_reg <= z_pos_fixed(31 downto 16) + 1;
-                else
-                    z_pos_short_reg <= z_pos_fixed(31 downto 16);
-                end if;
-
-                frag_address    <= signed(renderoutput_depthbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;    
-                frag_color      <= std_logic_vector(z_pos_fixed);  -- We can actually store the full 16.16 since we have 32 bits just for this value
+                frag_address    <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;    
+                frag_color      <= std_logic_vector(g_color_reg & a_color_reg & r_color_reg & b_color_reg);
                 
-                if (depth_config /= x"00000200") then
-                    state <= READ_ADDRESS_DEPTH;
-                elsif (alpha_config /= x"00000000") then  -- TODO this should be a value
-                    state <= READ_COLOR_BUFFER_ALPHA;
-					gl_Enable <= '1';
-                else
-                    state <= GEN_ADDRESS_COLOR;
-					gl_Enable <= '0';
-                end if;
-
-
-            when READ_ADDRESS_DEPTH =>
-                if (mem_accept = '1') then
-                    mem_addr        <= std_logic_vector(frag_address);
-                    mem_rd          <= '1';
-                    mem_wr          <= "0000";  -- Not writing
-                    state <= WAIT_FOR_RESPONSE_DEPTH;
-                end if;
-            
-            when WAIT_FOR_RESPONSE_DEPTH =>
-                if (mem_ack = '1') then
-                    state <= CHECK_DEPTH;
-                end if;
-
-            -- This area checks if the fragment is actually visible. 
-            -- If it isn't, then skip to the next fragment
-            -- If it is, proceed to write
-            when CHECK_DEPTH =>
-                if (unsigned(z_pos_fixed) > unsigned(mem_data_wr)) then  -- TODO make sure this works properly
-                    state <= READ_COLOR_BUFFER_ALPHA;
-                else
-                    state <= WAIT_FOR_FRAGMENT;
-                end if;
-            
-            when READ_COLOR_BUFFER_ALPHA => 
-                if (mem_accept = '1') then
-                    mem_addr <= std_logic_vector(signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4));
-                    mem_rd          <= '1';
-                    state <= READ_COLOR_WAIT_FOR_RESPONSE;
-                end if;
-
-            when READ_COLOR_WAIT_FOR_RESPONSE =>
-                if (mem_ack = '1') then
-                    g_dest_color <= unsigned(mem_data_rd(31 downto 24)); --need to convert our 8 bit values back into Q16.16
-                    a_dest_color <= unsigned(mem_data_rd(23 downto 16));
-                    b_dest_color <= unsigned(mem_data_rd(15 downto 8));
-                    r_dest_color <= unsigned(mem_data_rd(7 downto 0));
-                    state <= GEN_ADDRESS_COLOR;
-                end if;
-            -- To generate the address value, we have to get info from the global framebuffer memory
-            -- sgp_graphics.c has the addressses for the 2 color buffers we use, we want to always draw to the "back buffer"
-            -- SGP_graphicsmap[SGP_RENDER_OUTPUT] contains the render output config
-            -- The config will tell us whether COLORBUFFER_1 or 2 is the backbuffer
-            -- sgp_graphics.h defines SGP_AXI_RENDEROUTPUT_COLORBUFFER as the renderOutput register 0x0000
-            when GEN_ADDRESS_COLOR =>
-                -- xvp and yvp are Q16.16s that need to be converted into signed ints
-                -- Round if fraction >= 0.5
-                if (x_pos_fixed(15) = '1') then
-                    x_pos_short_reg <= x_pos_fixed(31 downto 16) + 1;
-                else
-                    x_pos_short_reg <= x_pos_fixed(31 downto 16);
-                end if;
-                
-                if (y_pos_fixed(15) = '1') then
-                    y_pos_short_reg <= y_pos_fixed(31 downto 16) + 1;
-                else
-                    y_pos_short_reg <= y_pos_fixed(31 downto 16);
-                end if;
-
-                if (z_pos_fixed(15) = '1') then
-                    z_pos_short_reg <= z_pos_fixed(31 downto 16) + 1;
-                else
-                    z_pos_short_reg <= z_pos_fixed(31 downto 16);
-                end if;
-                
-                -- Convert colors into ungisned ints
-                -- 1.0 = 255, 0.5 = 127
-                -- Just multiply by 255.0 (I'm not sure if this multiplication is producing intended results)
-                -- Truncate color to a fixed_t
-                -- 32 bits * 32 bits => 64 bit result
-                r_color2 <= unsigned(r_color * x"00FF0000");
-                g_color2 <= unsigned(g_color * x"00FF0000");
-                b_color2 <= unsigned(b_color * x"00FF0000");
-                a_color2 <= unsigned(a_color * x"00FF0000");
-                
-                -- Want the first 8 integer bits of the integer result
-                r_color3     <= r_color2(39 downto 32);
-                g_color3     <= g_color2(39 downto 32);
-                b_color3     <= b_color2(39 downto 32);
-                a_color3     <= a_color2(39 downto 32);
-                
-                -- renderoutput_colorbuffer is the current backbuffer, which is either COLORBUFFER_1 or COLORBUFFER_2
-                -- Driver will swap these buffers every frame with glxSwapBuffers
-
-                frag_address    <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4) ;
-                frag_color      <= std_logic_vector(g_blend_color & a_blend_color & b_blend_color & r_blend_color);
-                
-                state <= WRITE_ADDRESS_COLOR;
+                state <= WRITE_ADDRESS;
                 
             -- Parker Bibus: ... the data cache sets mem_accept high when it is ready to recieve data, 
             -- at which point the write and data signals can be set, and finally the cache will 
@@ -589,17 +491,17 @@ begin
             -- mem_data_wr for the data to write to the address, and mem_wr for the bytes to write 
             -- to at the address which in this case should be "1111" since we are writing 
             -- to all 4 bytes of the data signal.
-            when WRITE_ADDRESS_COLOR =>
+            when WRITE_ADDRESS =>
                 if (mem_accept = '1') then
                     mem_addr        <= std_logic_vector(frag_address);
                     mem_data_wr     <= frag_color;
                     mem_rd          <= '0';
                     mem_wr          <= "1111";  
-                    state <= WAIT_FOR_RESPONSE_COLOR;
+                    state <= WAIT_FOR_RESPONSE;
                 end if;
                 
             -- Once the data has been recieved, we reset
-            when WAIT_FOR_RESPONSE_COLOR =>
+            when WAIT_FOR_RESPONSE =>
                 mem_wr <= "0000";
                 if (mem_ack = '1') then
                     state <= WAIT_FOR_FRAGMENT;
