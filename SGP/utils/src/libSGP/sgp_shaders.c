@@ -18,6 +18,7 @@
 #include "sgp_system.h"
 #include "sgp_transmit.h"
 
+#include <regex.h>
 
 // Global shaders state. 
 SGP_shadersstate_t SGP_shadersstate;
@@ -904,18 +905,39 @@ void SGP_compileHijack_insert2(char *assembly_text){
 	// strtok modifies the string, need a copy
 	char* assembly_text_copy = malloc(strlen(assembly_text) + 1);
 	strcpy(assembly_text_copy, assembly_text);
-	char* s = strtok(assembly_text_copy, ";");
+	char* operation = strtok(assembly_text_copy, ";");
+	// char* str_to_replace; 
+	
+	// Compile regular expression
+	regex_t regex;
+	regmatch_t pmatch[1];
+	if(regcomp(&regex, "/\s+swizzle\s+v(\d+), v\d+, xxxx/gm", 0))
+		printf("REGEX ERROR\n");
+		return;
 
 	// strtok splits assembly text into lines using semicolons as a delimiter.
 	// Every translated SPIR-V instruction has a semicolon comment, so we can use that to easily identify the string we want.
-	while (s != NULL)
+	while (operation != NULL)
 	{
+		// Skip if no matches
+		if (regexec(&regex, operation, strlen(operation), pmatch, 0))
+		{
+			break;
+		}
+		// Otherwise, print string
 		printf("HIJACK:\n");
 		printf("%s\n\n", s);
+
+		printf("REPLACED WITH:\n");
+
 		// Null pointer tells the function to keep scanning where it left off
-		s = strtok(NULL, ";");
+		operation = strtok(NULL, ";");
 	}
 	free(assembly_text_copy);
-	free(s);
+	free(operation);
+	regfree(regex);
 }
 
+// int regex(char *src, char *regex_str){
+// 	strstr("read 'in' variable")
+// }
