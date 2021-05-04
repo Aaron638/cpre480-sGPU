@@ -441,6 +441,7 @@ begin
 								c1 <= unsigned(signed(d1) + resize(signed(a1 * b1)));
 								c2 <= unsigned(signed(d2) + resize(signed(a2 * b2)));
 								c3 <= unsigned(signed(d3) + resize(signed(a3 * b3)));
+								state <= WB;
 	
 							when DONE =>
 							    vertexDone <= '1';	
