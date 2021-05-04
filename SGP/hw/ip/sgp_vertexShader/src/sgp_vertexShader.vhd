@@ -198,10 +198,10 @@ architecture behavioral of sgp_vertexShader is
 	    SGP_AXI_VERTEXSHADER_PC         : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VERTEXSHADER_VAL2       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_VERTEXSHADER_VAL3	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+        SGP_AXI_VERTEXSHADER_VAL3	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	
+        SGP_AXI_VERTEXSHADER_RTCTR          : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);    
         SGP_AXI_VERTEXSHADER_STATUS	      : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_VERTEXSHADER_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)	    
-		
+        SGP_AXI_VERTEXSHADER_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 		);
 	end component sgp_vertexShader_axi_lite_regs;
 
@@ -328,6 +328,7 @@ architecture behavioral of sgp_vertexShader is
   signal vertexshader_numvertex 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_val2 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_val3        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal vertexshader_rtcounter		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_status        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
@@ -363,6 +364,9 @@ architecture behavioral of sgp_vertexShader is
   type STATE_TYPE is (WAIT_FOR_PROGRAM, WAIT_FOR_VERTEX, WAIT_FOR_DONE, WRITE_OUTPUT);
   signal vertexShader_state        : STATE_TYPE;
 
+  type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
+  signal counter_state    : CTR_STATE_TYPE;
+
   -- vertexShader_core signals
   signal vertexShader_core_startPC          : unsigned(31 downto 0);
   signal vertexShader_core_inputVertex      : vertexArray_t;
@@ -371,6 +375,7 @@ architecture behavioral of sgp_vertexShader is
   signal vertexShader_core_Done             : std_logic;
   signal vertexShader_vertexCount           : unsigned(31 downto 0);
   signal vertexShader_core_mem_wr           : std_logic;
+  signal vertexShader_clk_count             : unsigned(31 downto 0);
 
 begin
 
@@ -407,7 +412,8 @@ begin
 	    SGP_AXI_VERTEXSHADER_PC => vertexshader_pc,
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  => vertexshader_numvertex,
         SGP_AXI_VERTEXSHADER_VAL2 => vertexshader_val2,
-        SGP_AXI_VERTEXSHADER_VAL3    => vertexshader_val3,	    		
+        SGP_AXI_VERTEXSHADER_VAL3    => vertexshader_val3,
+        SGP_AXI_VERTEXSHADER_RTCTR => vertexshader_rtcounter,  		
         SGP_AXI_VERTEXSHADER_STATUS    => vertexshader_status,	    		
         SGP_AXI_VERTEXSHADER_DEBUG => vertexshader_debug
 	);
@@ -576,8 +582,9 @@ begin
 
   -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
   -- It would also be useful to connect internal signals to this register for software debug purposes
-  vertexshader_debug <= x"00000028";
+--  TODO: SET THIS STATUS correctly
   vertexshader_status <= x"00000000";
+  vertexshader_debug <= x"00000501"; -- Set the date
 
 
    process (ACLK) is
@@ -590,7 +597,7 @@ begin
         vertexShader_core_Start <= '0';
         vertexShader_vertexCount <= (others => '0');
         vertexShader_state <= WAIT_FOR_PROGRAM;
-        M_AXIS_TDATA <= (others => '0');        
+        M_AXIS_TDATA <= (others => '0');
       else
 
         case vertexShader_state is
@@ -631,4 +638,39 @@ begin
        end if;
     end if;
    end process;
+
+    --   Program counter to count cycles per shader instruction
+    process (ACLK, vertexShader_core_Start, vertexShader_core_Done)
+    begin
+        if rising_edge(ACLK) then
+            if ARESETN = '0' then
+                vertexshader_rtcounter <= (others => '0');
+                vertexShader_clk_count <= (others => '0');
+                counter_state <= NOT_COUNTING;
+            else
+                case counter_state is
+                    when NOT_COUNTING =>
+                        vertexShader_clk_count <= x"0000_0000";
+                        if vertexShader_core_Start = '1' then
+                            counter_state <= COUNTING;
+                        end if;
+                        
+                    when COUNTING =>
+                        if vertexShader_core_Done = '1' then
+                            counter_state <= WRITE_COUNT;
+                        else
+                            vertexShader_clk_count <= vertexShader_clk_count + 1;
+                        end if;
+                        
+                    when WRITE_COUNT =>
+                        vertexshader_rtcounter <= std_logic_vector(vertexShader_clk_count);
+                        vertexShader_clk_count <= (others => '0');
+                        counter_state <= NOT_COUNTING;
+                    when others =>
+                        counter_state <= NOT_COUNTING;
+                end case;
+            end if;
+        end if;
+    end process;
+
 end architecture behavioral;

@@ -15,13 +15,7 @@ entity sgp_renderOutput_axi_lite_regs is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 10
 	);
 	port (
-		-- Users to add ports here
-	    SGP_AXI_RENDEROUTPUT_COLORBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-	    SGP_AXI_RENDEROUTPUT_DEPTHBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -85,7 +79,19 @@ entity sgp_renderOutput_axi_lite_regs is
 		S_AXI_RVALID	: out std_logic;
 		-- Read ready. This signal indicates that the master can
     		-- accept the read data and response information.
-		S_AXI_RREADY	: in std_logic
+		S_AXI_RREADY	: in std_logic;
+		
+		-- Users to add ports here
+	    SGP_AXI_RENDEROUTPUT_COLORBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_RENDEROUTPUT_DEPTHBUFFER  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_CACHECTRL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_STRIDE	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+        SGP_AXI_RENDEROUTPUT_HEIGHT	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+		SGP_AXI_RENDEROUTPUT_DEPTH        : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_ALPHA		  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_RTCOUNTER    : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_RENDEROUTPUT_STATUS        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RENDEROUTPUT_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 	);
 end sgp_renderOutput_axi_lite_regs;
 
@@ -145,11 +151,12 @@ begin
     SGP_AXI_RENDEROUTPUT_CACHECTRL   <= slv_reg2;
     SGP_AXI_RENDEROUTPUT_STRIDE      <= slv_reg3;
     SGP_AXI_RENDEROUTPUT_HEIGHT      <= slv_reg4;
+	SGP_AXI_RENDEROUTPUT_DEPTH		 <= slv_reg5;
+	SGP_AXI_RENDEROUTPUT_ALPHA		 <= slv_reg6;
 
-
+	slv_reg13 <= SGP_AXI_RENDEROUTPUT_RTCOUNTER;
+	slv_reg14 <= SGP_AXI_RENDEROUTPUT_STATUS;
     slv_reg15 <= SGP_AXI_RENDEROUTPUT_DEBUG;
-
-
 
 	-- I/O Connections assignments
 
@@ -259,8 +266,8 @@ begin
 	      slv_reg10 <= (others => '0');
 	      slv_reg11 <= (others => '0');
 	      slv_reg12 <= (others => '0');
-	      slv_reg13 <= (others => '0');
-	      slv_reg14 <= (others => '0');
+	    --   slv_reg13 <= (others => '0');
+	    --   slv_reg14 <= (others => '0');
 --	      slv_reg15 <= (others => '0');
 
 	    else
@@ -377,7 +384,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 13
-	                slv_reg13(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                -- slv_reg13(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001110" =>
@@ -385,7 +392,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 14
-	                slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                -- slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001111" =>
@@ -411,8 +418,8 @@ begin
 	            slv_reg10 <= slv_reg10;
 	            slv_reg11 <= slv_reg11;
 	            slv_reg12 <= slv_reg12;
-	            slv_reg13 <= slv_reg13;
-	            slv_reg14 <= slv_reg14;
+	            -- slv_reg13 <= slv_reg13;
+	            -- slv_reg14 <= slv_reg14;
 --	            slv_reg15 <= slv_reg15;
 
 	        end case;
@@ -566,7 +573,12 @@ begin
 
 
 	-- Add user logic here
-
+	-- process( S_AXI_ACLK) is
+	-- begin
+	-- 	if (rising_edge (S_AXI_ACLK)) then
+	-- 		slv_reg14 <= std_logic_vector(unsigned(slv_reg14) + 1);
+	-- 	end if;
+	-- end process;
 	-- User logic ends
 
 end arch_imp;

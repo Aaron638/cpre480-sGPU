@@ -22,20 +22,20 @@
 // Manually determined values. Add as needed. Note that the color buffers need to be aligned for VDMA
 // operations to work properly.
 SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS] = {
-	[SGP_COLORBUFFER_1] = {0x00000000, 0x007E8FFC, "SGP_COLORBUFFER_1 ", "Frame (color) buffer for video out - 1", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_COLORBUFFER_2] = {0x007E9000, 0x00FD1FFC, "SGP_COLORBUFFER_2 ", "Frame (color) buffer for video out - 2", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_COLORBUFFER_3] = {0x00FD2000, 0x017BAFFC, "SGP_COLORBUFFER_3 ", "Frame (color) buffer for video out - 3", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_DEPTHBUFFER_1] = {0x017BB000, 0x01FA3FFC, "SGP_DEPTHBUFFER_1 ", "Depth buffer                          ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_CLEARBUFFER_1] = {0x01FA4000, 0x0278CFFC, "SGP_CLEARBUFFER_1 ", "Clear buffer                          ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_ARRAYBUFFERS] = {0x0278D000, 0x0678CFFC, "SGP_ARRAYBUFFERS  ", "Vertex array buffer region            ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_SHADERS] = {0x0678D000, 0x06F8CFFC, "SGP_SHADERS       ", "Shader instruction memory region      ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_UNIFORMS] = {0x06F8D000, 0x0778CFFC, "SGP_UNIFORMS      ", "Shader uniform data memory region     ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_VERTEX_FETCH] = {0x44A50000, 0x44A5FFFC, "SGP_VERTEX_FETCH  ", "Vertex fetch unit config and FIFOs    ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_AXI_VERTEXFETCH_STATUS},
-	[SGP_VIEWPORT] = {0x44A80000, 0x44A8FFFC, "SGP_VIEWPORT      ", "Viewport transformation config        ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_VIEWPORT_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_RENDER_OUTPUT] = {0x44A90000, 0x44A9FFFC, "SGP_RENDER_OUTPUT ", "Render Output (ROP) config            ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RENDEROUTPUT_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_RASTERIZER] = {0x44AA0000, 0x44AAFFFC, "SGP_RASTERIZER    ", "Rasterization unit config             ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RASTERIZER_DEBUG, SGP_AXI_RASTERIZER_STATUS},
-	[SGP_VERTEXSHADER] = {0x44AB0000, 0x44ABFFFC, "SGP_VERTEXSHADER  ", "Vertex shader control and config      ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS},
-	[SGP_FRAGMENTSHADER] = {0x44AC0000, 0x44ACFFFC, "SGP_FRAGMENTSHADER", "Fragment shader control and config    ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG, SGP_GRAPHICS_NO_STATUS}};
+	[SGP_COLORBUFFER_1] = {0x00000000, 0x007E8FFC, "SGP_COLORBUFFER_1 ", "Frame (color) buffer for video out - 1", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_COLORBUFFER_2] = {0x007E9000, 0x00FD1FFC, "SGP_COLORBUFFER_2 ", "Frame (color) buffer for video out - 2", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_COLORBUFFER_3] = {0x00FD2000, 0x017BAFFC, "SGP_COLORBUFFER_3 ", "Frame (color) buffer for video out - 3", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_DEPTHBUFFER_1] = {0x017BB000, 0x01FA3FFC, "SGP_DEPTHBUFFER_1 ", "Depth buffer                          ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_CLEARBUFFER_1] = {0x01FA4000, 0x0278CFFC, "SGP_CLEARBUFFER_1 ", "Clear buffer                          ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_ARRAYBUFFERS] 	= {0x0278D000, 0x0678CFFC, "SGP_ARRAYBUFFERS  ", "Vertex array buffer region            ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_SHADERS] 		= {0x0678D000, 0x06F8CFFC, "SGP_SHADERS       ", "Shader instruction memory region      ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_UNIFORMS] 		= {0x06F8D000, 0x0778CFFC, "SGP_UNIFORMS      ", "Shader uniform data memory region     ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_VERTEX_FETCH] 	= {0x44A50000, 0x44A5FFFC, "SGP_VERTEX_FETCH  ", "Vertex fetch unit config and FIFOs    ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_AXI_VERTEXFETCH_STATUS, SGP_GRAPHICS_NO_PCOUNT},
+	[SGP_VIEWPORT] 		= {0x44A80000, 0x44A8FFFC, "SGP_VIEWPORT      ", "Viewport transformation config        ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_VIEWPORT_DEBUG	, SGP_AXI_VIEWPORT_STATUS, SGP_AXI_VIEWPORT_RTCTR},
+	[SGP_RENDER_OUTPUT] = {0x44A90000, 0x44A9FFFC, "SGP_RENDER_OUTPUT ", "Render Output (ROP) config            ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RENDEROUTPUT_DEBUG, SGP_AXI_VERTEXSHADER_STATUS, SGP_AXI_VERTEXSHADER_RTCTR},
+	[SGP_RASTERIZER] 	= {0x44AA0000, 0x44AAFFFC, "SGP_RASTERIZER    ", "Rasterization unit config             ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RASTERIZER_DEBUG	, SGP_AXI_RASTERIZER_STATUS, SGP_AXI_RASTERIZER_RTCTR},
+	[SGP_VERTEXSHADER] 	= {0x44AB0000, 0x44ABFFFC, "SGP_VERTEXSHADER  ", "Vertex shader control and config      ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_VERTEXSHADER_DEBUG, SGP_AXI_VERTEXSHADER_STATUS, SGP_AXI_VERTEXSHADER_RTCTR},
+	[SGP_FRAGMENTSHADER]= {0x44AC0000, 0x44ACFFFC, "SGP_FRAGMENTSHADER", "Fragment shader control and config    ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT}};
 
 // Global graphics state. This is likely replicating much of the work in apitrace, but tighter integration of the two codebases is a lot to ask
 SGP_graphicsstate_t SGP_graphicsstate;
@@ -62,9 +62,9 @@ void SGP_glDrawArrays(GLenum mode, GLint first, GLsizei count)
 		//printf("SGP_glDrawArrays warning: first value of %d ignored\n", first);
 	}
 
-// We need to limit our burst length to 256 vertex attributes of a single index at a time so that the shared
-// buffer object FIFO doesn't get full, preventing us from sending in the rest of the attributes.
-#define MAX_VERTEX_ATTRIBUTE_BURST 256
+	// We need to limit our burst length to 256 vertex attributes of a single index at a time so that the shared
+	// buffer object FIFO doesn't get full, preventing us from sending in the rest of the attributes.
+	#define MAX_VERTEX_ATTRIBUTE_BURST 256
 	uint32_t num_bursts = count / MAX_VERTEX_ATTRIBUTE_BURST;
 	uint32_t burst_length = MAX_VERTEX_ATTRIBUTE_BURST;
 	uint32_t last_burst_length = count % MAX_VERTEX_ATTRIBUTE_BURST;
@@ -409,6 +409,11 @@ void SGP_glClear(GLbitfield mask)
 
 		SGP_DMArequest(SGPconfig, SGP_graphicsmap[SGP_CLEARBUFFER_1].baseaddr, destaddr, 1920 * 1080 * 4, SGP_DMA_REGULAR);
 	}
+	// https://discord.com/channels/760551675739373650/800458137743392769/832171714820833313
+	if (mask & GL_DEPTH_BUFFER_BIT)
+	{
+		// SGP_DMArequest(SGPconfig, SGP_graphicsmap[SGP_COLORBUFFER_3].baseaddr, SGP_graphicsmap[SGP_DEPTHBUFFER_1].baseaddr, 1920 * 1080 * 4, SGP_DMA_REGULAR);
+	}
 }
 
 // Our implementation of glxSwapBuffers
@@ -424,21 +429,46 @@ void SGP_glxSwapBuffers(uint32_t flag)
 
 		// For each component in the pipeline that has a status register, check it and wait until it is =0. Only do this if we're in a transmit mode.
 		// Loop until all components are done at the same time.
+		// Copied from group 4's MP-2
 		if (SGPconfig->driverMode & SGP_ETH)
 		{
-			int all_done = 0;
-			while (all_done == 0)
+			uint32_t i = 0;
+			uint32_t idle;
+			uint32_t vtxFetchStatus, vtxShaderStatus, vpStatus, rastStatus, fragShaderStatus, renderOutStatus;
+
+			do
 			{
-				if (	SGP_graphicsmap[SGP_VIEWPORT].status_register == 0 &&
-					SGP_graphicsmap[SGP_RENDER_OUTPUT].status_register == 0)
+				vtxFetchStatus 	= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEX_FETCH].baseaddr 	+ SGP_AXI_VERTEXFETCH_STATUS);
+				vtxShaderStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEXSHADER].baseaddr 	+ SGP_AXI_RASTERIZER_STATUS);
+				vpStatus 		= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VIEWPORT].baseaddr 		+ SGP_AXI_VIEWPORT_STATUS);
+				rastStatus 		= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RASTERIZER].baseaddr 	+ SGP_AXI_RASTERIZER_STATUS);
+				// fragShaderStatus= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_FRAGMENTSHADER].baseaddr+ SGP_AXI_RASTERIZER_STATUS);
+				renderOutStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr + SGP_AXI_RENDEROUTPUT_STATUS);
+
+				idle = 	(
+					(vtxFetchStatus == 0) && 
+					(vtxShaderStatus == 0) &&
+					(vpStatus == 0) &&
+					(rastStatus == 0) &&
+					// (fragShaderStatus == 0) &&
+					(renderOutStatus == 0)
+				);
+				if (idle)
 				{
-					all_done = 1;
+					i++;
 				}
-			}
+				else
+				{
+					// printf("Rasterizer Status: %08x\n", rastStatus);
+					//printf("Vertex Status: %08x\n", vertexStatus);
+					SGP_print_statusregs();
+					i = 0;
+				}
+			} while (i != 2);
 		}
 	}
 	// Wait 1 second per frame
-	sleep(1);
+	// sleep(1);
 
 	// Backbuffer is now the active buffer
 	uint8_t backbuffer = SGP_getbackbuffer(SGPconfig);
@@ -458,8 +488,7 @@ void SGP_glxSwapBuffers(uint32_t flag)
 		SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_COLORBUFFER, SGP_graphicsmap[SGP_COLORBUFFER_1].baseaddr);
 	}
 
-	// Cache clearing
-	// SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_CACHECTRL, DCACHE_CTRL_CACHEABLE_FLAG);
+	//printf("Swapped frontbuffer to COLORBUFFER_%d\n", backbuffer + 1);
 
 	framecount++;
 	if (framecount % 100 == 0)
@@ -543,6 +572,7 @@ int SGP_graphicsInit(sgp_config *config)
 
 	if (SGPconfig->driverMode & SGP_ETH)
 		SGP_print_debugregs();
+		SGP_print_pc_regs();
 
 	return 0;
 }
@@ -573,6 +603,40 @@ void SGP_print_graphicsmap()
 	{
 		printf("   %s     0x%08x     0x%08x     %s\n", SGP_graphicsmap[i].name, SGP_graphicsmap[i].baseaddr, SGP_graphicsmap[i].highaddr, SGP_graphicsmap[i].desc);
 	}
+
+	return;
+}
+
+void SGP_print_pc_regs()
+{
+
+	printf("\nSGP graphics subsystem performance counter registers:\n");
+	printf("   Name                   Value\n");
+	for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
+	{
+		if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_PCOUNT)
+		{
+			printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].pcount_register));
+		}
+	}
+	printf("\x1B[0m\n");
+
+	return;
+}
+
+void SGP_print_statusregs()
+{
+
+	printf("\nSGP graphics subsystem status registers:\n");
+	printf("   Name                   Value\n");
+	for (int i = 0; i < SGP_GRAPHICS_NUMCOMPONENTS; i++)
+	{
+		if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_STATUS)
+		{
+			printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].status_register));
+		}
+	}
+	printf("\x1B[0m\n");
 
 	return;
 }

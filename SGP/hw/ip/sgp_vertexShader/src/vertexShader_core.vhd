@@ -431,11 +431,11 @@ begin
 								state <= WB;
 							
 							when INSERTXY =>
-								c <= d3 & d2 & b0 & a0;
+								c <= a0 & b0 & d1 & d0;
 								state <= WB;
 
 							when INSERTZW =>
-								c <= b0 & a0 & d1 & d0;
+							    c <= d3 & d2 & a0 & b0;								
 								state <= WB;
 	
 							when DONE =>

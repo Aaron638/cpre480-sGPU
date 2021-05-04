@@ -16,12 +16,13 @@ entity sgp_vertexShader_axi_lite_regs is
 	);
 	port (
 		-- Users to add ports here
-	    SGP_AXI_VERTEXSHADER_PC  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	    SGP_AXI_VERTEXSHADER_PC  		: out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_VERTEXSHADER_VAL2  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_VERTEXSHADER_VAL3  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_VERTEXSHADER_STATUS  : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
-        SGP_AXI_VERTEXSHADER_DEBUG : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_VERTEXSHADER_VAL2  		: out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_VERTEXSHADER_VAL3  		: out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VERTEXSHADER_RTCTR 		: in  std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);        
+        SGP_AXI_VERTEXSHADER_STATUS		: in  std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
+        SGP_AXI_VERTEXSHADER_DEBUG 		: in  std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -145,10 +146,9 @@ begin
     SGP_AXI_VERTEXSHADER_VAL2 <= slv_reg2;
     SGP_AXI_VERTEXSHADER_VAL3 <= slv_reg3;
 
+	slv_reg13 <= SGP_AXI_VERTEXSHADER_RTCTR;
     slv_reg14 <= SGP_AXI_VERTEXSHADER_STATUS;
     slv_reg15 <= SGP_AXI_VERTEXSHADER_DEBUG;
-
-
 
 	-- I/O Connections assignments
 
@@ -258,7 +258,7 @@ begin
 	      slv_reg10 <= (others => '0');
 	      slv_reg11 <= (others => '0');
 	      slv_reg12 <= (others => '0');
-	      slv_reg13 <= (others => '0');
+	    --   slv_reg13 <= (others => '0');
 --	      slv_reg14 <= (others => '0');
 --	      slv_reg15 <= (others => '0');
 
@@ -376,7 +376,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 13
-	                slv_reg13(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                -- slv_reg13(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001110" =>
@@ -410,7 +410,7 @@ begin
 	            slv_reg10 <= slv_reg10;
 	            slv_reg11 <= slv_reg11;
 	            slv_reg12 <= slv_reg12;
-	            slv_reg13 <= slv_reg13;
+	            -- slv_reg13 <= slv_reg13;
 --	            slv_reg14 <= slv_reg14;
 --	            slv_reg15 <= slv_reg15;
 
@@ -565,7 +565,13 @@ begin
 
 
 	-- Add user logic here
-
+	-- Moved to sgp_vertexShader.vhd ~Aaron
+	-- process( S_AXI_ACLK) is
+	-- begin
+	-- 	if (rising_edge (S_AXI_ACLK)) then
+	-- 		slv_reg13 <= std_logic_vector(unsigned(slv_reg13) + 1);
+	-- 	end if;
+	-- end process;
 	-- User logic ends
 
 end arch_imp;

@@ -59,16 +59,16 @@ int main() {
 
   // Just a single vertex for GL_POINTS to test. Add to this to draw more points
 	static const GLfloat g_vertex_buffer_data[] = { 
+		 0.0f, -0.5f, 0.0f,
 		 0.0f, 0.0f, 0.0f,
-		 //0.5f, -0.5f, 0.0f,
-		 //0.0f,  0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f,
 	};
 
 	// One color (RGB for this) for each vertex.
 	static const GLfloat g_color_buffer_data[] = { 
 		1.0f, 0.0f, 0.0f,
-		//1.0f, 0.0f, 0.0f,
-		//1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f,
 	};
 
 	GLuint vertexbuffer;
