@@ -254,13 +254,17 @@ begin
 							-- mod is synthesizable as long as 2nd operand is power of 2
 							-- Source: https://forums.xilinx.com/t5/Synthesis/Modulus-synthesizable-or-non-synthesizable/m-p/747509/highlight/true#M20684
 							-- c(31 downto 0) <= unsigned(inputVertex(rb_int/4)(rb_int mod 4));
-								c <= x"0000_0000" & x"0000_0000" & x"0000_0000" & unsigned(inputVertex(rb_int)(0));
+								c0 <= unsigned(inputVertex(rb_int)(0));
+								c1 <= unsigned(inputVertex(rb_int)(1));
+								c2 <= unsigned(inputVertex(rb_int)(2));
+								c3 <= unsigned(inputVertex(rb_int)(3));
 								state <= WB;
 	
 							when OUTFIFO =>
-							-- outputVertex(rd_int/4) <= signed(b(31 downto 0));
-								--outputVertex(rd_int) <= x"0000000" & x"0000000" & x"0000000" & v(rb_int)(31 downto 0);
-								outputVertex(rd_int) <= (x"0000_0000", x"0000_0000", x"0000_0000", signed(b0));
+								outputVertex(rd_int)(0) <= signed(b0);  -- I started assuming the user doesn't pass in garbage
+						        outputVertex(rd_int)(1) <= signed(b1);
+								outputVertex(rd_int)(2) <= signed(b2);
+								outputVertex(rd_int)(3) <= signed(b3);
 								state <= WB;
 	
 							when INSERT0 =>
