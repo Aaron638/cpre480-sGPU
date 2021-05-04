@@ -901,22 +901,21 @@ void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
 */
 void SGP_compileHijack_insert2(char *assembly_text){
 
+	// strtok modifies the string, need a copy
+	char* assembly_text_copy = malloc(strlen(assembly_text) + 1);
+	strcpy(assembly_text_copy, assembly_text);
+	char* s = strtok(assembly_text_copy, ";");
+
 	// strtok splits assembly text into lines using semicolons as a delimiter.
 	// Every translated SPIR-V instruction has a semicolon comment, so we can use that to easily identify the string we want.
-	char *p = strtok(assembly_text, ";");
-	while (p != NULL)
+	while (s != NULL)
 	{
-		printf("%s\n", p);
-
-		/*if (strcmp(p, ))
-		{
-			 code 
-		}*/
-		
-
+		printf("HIJACK:\n");
+		printf("%s\n\n", s);
 		// Null pointer tells the function to keep scanning where it left off
-		p = strtok(NULL, ";");
+		s = strtok(NULL, ";");
 	}
-	
+	free(assembly_text_copy);
+	free(s);
 }
 
