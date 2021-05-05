@@ -110,6 +110,7 @@ extern SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS];
 #define SGP_AXI_RENDEROUTPUT_DEBUG         0x003C
 
 // Vertex Shader registers
+#define SGP_AXI_VERTEXSHADER_CONTROL       0x000C
 #define SGP_AXI_VERTEXSHADER_RTCTR         0x001C
 #define SGP_AXI_VERTEXSHADER_STATUS        0x0038
 #define SGP_AXI_VERTEXSHADER_DEBUG         0x003C

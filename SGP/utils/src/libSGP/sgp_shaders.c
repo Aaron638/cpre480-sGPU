@@ -18,7 +18,7 @@
 #include "sgp_system.h"
 #include "sgp_transmit.h"
 
-#include <regex.h>
+
 
 // Global shaders state. 
 SGP_shadersstate_t SGP_shadersstate;
@@ -243,7 +243,7 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 		return 1; 
 	}
 	// HIJACK THE ASSEMBLY TEXT
-	SGP_compileHijack_insert2(assembly_text);
+	// SGP_compileHijack_insert2(assembly_text);
 
 	SGP_shadersstate.shaders[cur_shader_index].sgp_src = (char *)malloc(strlen(assembly_text)+1);
 	strcpy(SGP_shadersstate.shaders[cur_shader_index].sgp_src, assembly_text);
@@ -867,36 +867,36 @@ void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
 	Hijacks the OpCompositeExtract and OpCompositeConstruct to re-use the composite register and use our insert2 instruction.
 	
 	SGP ASM Before:
-	; read 'in' variable %color at location 1
+		; read 'in' variable %color at location 1
         infifo              v20, 4
         insert              v19, v19, v20, x
         infifo              v20, 5
         insert              v19, v19, v20, y
         infifo              v20, 6
         insert              v19, v19, v20, z
-	; extract element from composite
+		; extract element from composite
         swizzle             v20, v19, xxxx
-	; extract element from composite
+		; extract element from composite
         swizzle             v21, v19, yyyy
-	; extract element from composite
+		; extract element from composite
         swizzle             v22, v19, zzzz
-	; construct composite vector from elements
+		; construct composite vector from elements
         insert              v23, v23, v20, x
         insert              v23, v23, v21, y
         insert              v23, v23, v22, z
         insert              v23, v23, v8, w
 	
 	SGP ASM After:
-	; read 'in' variable %color at location 1
+		; read 'in' variable %color at location 1
         infifo              v20, 4
         insert              v19, v19, v20, x
         infifo              v20, 5
         insert              v19, v19, v20, y
         infifo              v20, 6
         insert              v19, v19, v20, z
-	;
+		; grab constant
         insert              v19, v19, v8,  w
-	; construct composite vector
+		; construct composite vector
         insert2             v23, v23, v19, xy
         insert2             v23, v23, v19, zw
 */
@@ -906,28 +906,13 @@ void SGP_compileHijack_insert2(char *assembly_text){
 	char* assembly_text_copy = malloc(strlen(assembly_text) + 1);
 	strcpy(assembly_text_copy, assembly_text);
 	char* operation = strtok(assembly_text_copy, ";");
-	// char* str_to_replace; 
-	
-	// Compile regular expression
-	regex_t regex;
-	regmatch_t pmatch[1];
-	if(regcomp(&regex, "/\s+swizzle\s+v(\d+), v\d+, xxxx/gm", 0))
-		printf("REGEX ERROR\n");
-		return;
 
 	// strtok splits assembly text into lines using semicolons as a delimiter.
 	// Every translated SPIR-V instruction has a semicolon comment, so we can use that to easily identify the string we want.
 	while (operation != NULL)
 	{
-		// Skip if no matches
-		if (regexec(&regex, operation, strlen(operation), pmatch, 0))
-		{
-			break;
-		}
-		// Otherwise, print string
 		printf("HIJACK:\n");
-		printf("%s\n\n", s);
-
+		printf("%s\n\n", operation);
 		printf("REPLACED WITH:\n");
 
 		// Null pointer tells the function to keep scanning where it left off
@@ -935,9 +920,4 @@ void SGP_compileHijack_insert2(char *assembly_text){
 	}
 	free(assembly_text_copy);
 	free(operation);
-	regfree(regex);
 }
-
-// int regex(char *src, char *regex_str){
-// 	strstr("read 'in' variable")
-// }

@@ -570,6 +570,10 @@ int SGP_graphicsInit(sgp_config *config)
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_STRIDE, SGP_videomodes[VMODE_1920x1080].width * 4);
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_HEIGHT, SGP_videomodes[VMODE_1920x1080].height);
 
+	//Toggle on the vertex shader
+	uint32_t one = 0x00000001;
+	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VERTEXSHADER_CONTROL, one);
+
 	if (SGPconfig->driverMode & SGP_ETH)
 		SGP_print_debugregs();
 		SGP_print_pc_regs();
