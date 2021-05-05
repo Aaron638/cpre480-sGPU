@@ -361,7 +361,7 @@ architecture behavioral of sgp_vertexShader is
   signal req_error            : std_logic;
 
 
-  type STATE_TYPE is (WAIT_FOR_PROGRAM, WAIT_FOR_VERTEX, WAIT_FOR_DONE, WRITE_OUTPUT);
+  type STATE_TYPE is (WAIT_FOR_PROGRAM, WAIT_FOR_VERTEX, WAIT_FOR_DONE, WRITE_OUTPUT, COUNT_ADD);
   signal vertexShader_state        : STATE_TYPE;
 
   type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
@@ -614,7 +614,7 @@ begin
                     vertexShader_core_inputVertex <= to_vertexArray_t(signed(S_AXIS_TDATA));
                     vertexShader_core_Start <= '1';
                     vertexShader_state <= WAIT_FOR_DONE;
-                end if;
+                end if;			
 
             when WAIT_FOR_DONE =>
                 vertexShader_core_Start <= '0';
