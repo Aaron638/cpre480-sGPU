@@ -376,6 +376,13 @@ architecture behavioral of sgp_vertexShader is
   signal vertexShader_vertexCount           : unsigned(31 downto 0);
   signal vertexShader_core_mem_wr           : std_logic;
   signal vertexShader_clk_count             : unsigned(31 downto 0);
+  
+  signal clk_count     : unsigned(31 downto 0);
+  type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
+  signal counter_state    : CTR_STATE_TYPE;
+  signal rtcounter	: std_logic_vector(31 downto 0);
+	
+  signal temp_count : std_logic_vector(31 downto 0);
 
 begin
 
@@ -562,6 +569,8 @@ begin
     m2_axi_arcache  <= "1111";            -- AXI Read Cache. Check the cache, and return a read response from the cache (vs final destination)
     m2_axi_arprot   <= "000";             -- AXI Read Protection. No special protection needed here. 
     m2_axi_arqos    <= "0000";            -- AXI Read QoS. Not used
+	
+	vertexShader_core_outputVertex(3)(0) <= clk_count;
 
 
 
@@ -638,19 +647,19 @@ begin
        end if;
     end if;
    end process;
-
-    --   Program counter to count cycles per shader instruction
-    process (ACLK, vertexShader_core_Start, vertexShader_core_Done)
+	
+	--   Program counter to count cycles per vertex delivered
+    process (ACLK, state)
     begin
         if rising_edge(ACLK) then
             if ARESETN = '0' then
-                vertexshader_rtcounter <= (others => '0');
-                vertexShader_clk_count <= (others => '0');
+                rtcounter <= (others => '0');
+                clk_count <= (others => '0');
                 counter_state <= NOT_COUNTING;
             else
                 case counter_state is
                     when NOT_COUNTING =>
-                        vertexShader_clk_count <= x"0000_0000";
+                        clk_count <= x"0000_0000";
                         if vertexShader_core_Start = '1' then
                             counter_state <= COUNTING;
                         end if;
@@ -659,12 +668,12 @@ begin
                         if vertexShader_core_Done = '1' then
                             counter_state <= WRITE_COUNT;
                         else
-                            vertexShader_clk_count <= vertexShader_clk_count + 1;
+                            clk_count <= clk_count + 1;
                         end if;
                         
                     when WRITE_COUNT =>
-                        vertexshader_rtcounter <= std_logic_vector(vertexShader_clk_count);
-                        vertexShader_clk_count <= (others => '0');
+                        rtcounter <= std_logic_vector(clk_count);
+                        clk_count <= (others => '0');
                         counter_state <= NOT_COUNTING;
                     when others =>
                         counter_state <= NOT_COUNTING;
