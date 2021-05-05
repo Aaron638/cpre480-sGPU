@@ -533,7 +533,7 @@ begin
                     state <= WRITE_ADDRESS2;
 					renderoutput_status <= x"0000_0000";
 					--set up the address and color write for the color buffer 3 for the clock clycle timing
-					frag_address    <= signed(renderoutput_colorbuffer) + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
+					frag_address    <= x"807e9000" + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
 					frag_color      <= std_logic_vector(t0_reg & t1_reg & t2_reg & t3_reg);
 					--will be setting:
 					--g = t0 = vertexShader
