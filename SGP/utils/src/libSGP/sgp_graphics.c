@@ -32,7 +32,7 @@ SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS] = {
 	[SGP_UNIFORMS] 		= {0x06F8D000, 0x0778CFFC, "SGP_UNIFORMS      ", "Shader uniform data memory region     ", SGP_GRAPHICS_MEMORY_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT},
 	[SGP_VERTEX_FETCH] 	= {0x44A50000, 0x44A5FFFC, "SGP_VERTEX_FETCH  ", "Vertex fetch unit config and FIFOs    ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_AXI_VERTEXFETCH_STATUS, SGP_GRAPHICS_NO_PCOUNT},
 	[SGP_VIEWPORT] 		= {0x44A80000, 0x44A8FFFC, "SGP_VIEWPORT      ", "Viewport transformation config        ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_VIEWPORT_DEBUG	, SGP_AXI_VIEWPORT_STATUS, SGP_AXI_VIEWPORT_RTCTR},
-	[SGP_RENDER_OUTPUT] = {0x44A90000, 0x44A9FFFC, "SGP_RENDER_OUTPUT ", "Render Output (ROP) config            ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RENDEROUTPUT_DEBUG, SGP_AXI_VERTEXSHADER_STATUS, SGP_AXI_VERTEXSHADER_RTCTR},
+	[SGP_RENDER_OUTPUT] = {0x44A90000, 0x44A9FFFC, "SGP_RENDER_OUTPUT ", "Render Output (ROP) config            ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RENDEROUTPUT_DEBUG, SGP_AXI_RENDEROUTPUT_STATUS, SGP_AXI_RENDEROUTPUT_RTCTR},
 	[SGP_RASTERIZER] 	= {0x44AA0000, 0x44AAFFFC, "SGP_RASTERIZER    ", "Rasterization unit config             ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_RASTERIZER_DEBUG	, SGP_AXI_RASTERIZER_STATUS, SGP_AXI_RASTERIZER_RTCTR},
 	[SGP_VERTEXSHADER] 	= {0x44AB0000, 0x44ABFFFC, "SGP_VERTEXSHADER  ", "Vertex shader control and config      ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_AXI_VERTEXSHADER_DEBUG, SGP_AXI_VERTEXSHADER_STATUS, SGP_AXI_VERTEXSHADER_RTCTR},
 	[SGP_FRAGMENTSHADER]= {0x44AC0000, 0x44ACFFFC, "SGP_FRAGMENTSHADER", "Fragment shader control and config    ", SGP_GRAPHICS_SYSTEM_OFFSET, SGP_GRAPHICS_NO_DEBUG	, SGP_GRAPHICS_NO_STATUS, SGP_GRAPHICS_NO_PCOUNT}};
@@ -442,15 +442,15 @@ void SGP_glxSwapBuffers(uint32_t flag)
 				vtxShaderStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEXSHADER].baseaddr 	+ SGP_AXI_RASTERIZER_STATUS);
 				vpStatus 		= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VIEWPORT].baseaddr 		+ SGP_AXI_VIEWPORT_STATUS);
 				rastStatus 		= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RASTERIZER].baseaddr 	+ SGP_AXI_RASTERIZER_STATUS);
-				// fragShaderStatus= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_FRAGMENTSHADER].baseaddr+ SGP_AXI_RASTERIZER_STATUS);
-				renderOutStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr + SGP_AXI_RENDEROUTPUT_STATUS);
+				fragShaderStatus= SGP_read32(SGPconfig, SGP_graphicsmap[SGP_FRAGMENTSHADER].baseaddr+ SGP_AXI_RASTERIZER_STATUS);
+				//renderOutStatus = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr + SGP_AXI_RENDEROUTPUT_STATUS);
 
 				idle = 	(
 					(vtxFetchStatus == 0) && 
 					(vtxShaderStatus == 0) &&
 					(vpStatus == 0) &&
 					(rastStatus == 0) &&
-					// (fragShaderStatus == 0) &&
+					(fragShaderStatus == 0) &&
 					(renderOutStatus == 0)
 				);
 				if (idle)
@@ -572,14 +572,18 @@ int SGP_graphicsInit(sgp_config *config)
 
 	//Toggle on the vertex shader
 	uint32_t one = 0x00000001;
+	baseaddr = SGP_graphicsmap[SGP_VERTEXSHADER].baseaddr;
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VERTEXSHADER_CONTROL, one);
+	
+	//printf("COLOR BUFFER 3 BASEADDR: %08x \n", SGP_graphicsmap[SGP_COLORBUFFER_2].baseaddr);
 
 	printf("PRINTING DEBUG REGS\n");
 
-	if (SGPconfig->driverMode & SGP_ETH)
+	if (SGPconfig->driverMode & SGP_ETH){
 		SGP_print_debugregs();
-		printf("PRINTING PC REGS\n");
-		SGP_print_pc_regs();
+		//printf("PRINTING PC REGS\n");
+		//SGP_print_pc_regs();
+	}
 
 	printf("DONE PRINTING DEBUG REGS\n");
 
@@ -596,6 +600,7 @@ void SGP_print_debugregs()
 		if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_DEBUG)
 		{
 			printf("%s\n", SGP_graphicsmap[i].name);
+			printf("Address: %08x\n", SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].debug_register);
 			printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].debug_register));
 		}
 	}
