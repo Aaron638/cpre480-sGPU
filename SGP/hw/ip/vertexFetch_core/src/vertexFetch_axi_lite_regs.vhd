@@ -86,9 +86,9 @@ entity vertexFetch_axi_lite_regs is
 		S_AXI_RVALID	: out std_logic;
 		-- Read ready. This signal indicates that the master can
     		-- accept the read data and response information.
-		S_AXI_RREADY	: in std_logic
+		S_AXI_RREADY	: in std_logic;
 		
-		SGP_AXI_VERTEXFETCH_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VERTEXFETCH_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 	);
 end vertexFetch_axi_lite_regs;
 
@@ -390,7 +390,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 14
-	                slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                --slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001111" =>
@@ -417,7 +417,7 @@ begin
 	            slv_reg11 <= slv_reg11;
 	            slv_reg12 <= slv_reg12;
 	            slv_reg13 <= slv_reg13;
-	            slv_reg14 <= slv_reg14;
+	            --slv_reg14 <= slv_reg14;
 	            slv_reg15 <= slv_reg15;
 
 	        end case;
