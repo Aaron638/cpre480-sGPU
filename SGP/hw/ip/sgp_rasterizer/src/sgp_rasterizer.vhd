@@ -421,7 +421,7 @@ begin
    triangleTest_fragment_out_ready <= M_AXIS_TREADY;
    
    --   Program counter to count cycles per vertex delivered
-    process (ACLK, state)
+    process (ACLK)
     begin
         if rising_edge(ACLK) then
             if ARESETN = '0' then
@@ -446,7 +446,7 @@ begin
                     when WRITE_COUNT =>
                         rtcounter <= std_logic_vector(clk_count);
                         clk_count <= (others => '0');
-						triangleTest_fragment_out(3)(2) <= clk_count;
+						triangleTest_fragment_out(3)(2) <= signed(clk_count);
                         counter_state <= NOT_COUNTING;
                     when others =>
                         counter_state <= NOT_COUNTING;
