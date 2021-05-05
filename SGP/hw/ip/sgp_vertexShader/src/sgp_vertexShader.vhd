@@ -198,7 +198,8 @@ architecture behavioral of sgp_vertexShader is
 	    SGP_AXI_VERTEXSHADER_PC         : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VERTEXSHADER_VAL2       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-        SGP_AXI_VERTEXSHADER_VAL3	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	
+        SGP_AXI_VERTEXSHADER_VAL3	      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_VERTEXSHADER_CONTROL    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	
         SGP_AXI_VERTEXSHADER_RTCTR          : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);    
         SGP_AXI_VERTEXSHADER_STATUS	      : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_VERTEXSHADER_DEBUG        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
@@ -296,9 +297,12 @@ architecture behavioral of sgp_vertexShader is
 
 
     component vertexShader_core is
-
+       generic (
+	       C_S_AXI_DATA_WIDTH	: integer := 32 
+	   );
 	   port (ACLK	: in	std_logic;
 		 ARESETN	: in	std_logic;
+		 enable     : in    std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
          startPC          : in unsigned(31 downto 0);
          inputVertex      : in vertexArray_t;
@@ -328,7 +332,7 @@ architecture behavioral of sgp_vertexShader is
   signal vertexshader_numvertex 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_val2 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_val3        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-  signal vertexshader_control       : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
+  signal vertexshader_control       : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_rtcounter		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_status        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -519,6 +523,9 @@ begin
     mem_wr <= "1111" when vertexShader_core_mem_wr = '1' else "0000";
 
     sgp_vertexShader_core : vertexShader_core
+       generic map (
+	       C_S_AXI_DATA_WIDTH	=> C_S_AXI_DATA_WIDTH
+	   )
 	   port map(ACLK => ACLK,
                 ARESETN => ARESETN,
                 startPC => vertexShader_core_startPC,

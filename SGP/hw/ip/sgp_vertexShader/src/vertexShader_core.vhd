@@ -137,7 +137,7 @@ architecture behavioral of vertexShader_core is
 	
     constant DONE       : unsigned(7 downto 0) := "11111111";
 
-	constant enabled  : unsigned(C_S_AXI_DATA_WIDTH-1 downto 0) := "00000001";
+	constant enabled  : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := x"00000001";
 
 begin
     op <= ir(31 downto 24);
@@ -168,7 +168,7 @@ begin
 
     process(ACLK)
     begin
-		if(enable = enabled) then
+		if enable = enabled then
 			if rising_edge(ACLK) then
 				if ARESETN = '0' then
 					state <= WAIT_TO_START;
