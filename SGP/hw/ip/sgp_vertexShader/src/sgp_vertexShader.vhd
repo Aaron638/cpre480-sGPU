@@ -364,9 +364,6 @@ architecture behavioral of sgp_vertexShader is
   type STATE_TYPE is (WAIT_FOR_PROGRAM, WAIT_FOR_VERTEX, WAIT_FOR_DONE, WRITE_OUTPUT, COUNT_ADD);
   signal vertexShader_state        : STATE_TYPE;
 
-  type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
-  signal counter_state    : CTR_STATE_TYPE;
-
   -- vertexShader_core signals
   signal vertexShader_core_startPC          : unsigned(31 downto 0);
   signal vertexShader_core_inputVertex      : vertexArray_t;
@@ -570,7 +567,7 @@ begin
     m2_axi_arprot   <= "000";             -- AXI Read Protection. No special protection needed here. 
     m2_axi_arqos    <= "0000";            -- AXI Read QoS. Not used
 	
-	vertexShader_core_outputVertex(3)(0) <= clk_count;
+	vertexShader_core_outputVertex(3)(0) <= signed(clk_count);
 
 
 
@@ -649,7 +646,7 @@ begin
    end process;
 	
 	--   Program counter to count cycles per vertex delivered
-    process (ACLK, state)
+    process (ACLK, vertexShader_state)
     begin
         if rising_edge(ACLK) then
             if ARESETN = '0' then
