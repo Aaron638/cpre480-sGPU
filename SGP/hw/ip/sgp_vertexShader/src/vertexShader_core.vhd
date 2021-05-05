@@ -20,6 +20,10 @@ use ieee.numeric_std.all;
 use WORK.sgp_types.all;
 
 entity vertexShader_core is
+	generic (
+		C_S_AXI_DATA_WIDTH	: integer	:= 32
+	);
+
 	port
 	(
         ACLK	: in	std_logic;
