@@ -595,6 +595,7 @@ void SGP_print_debugregs()
 	{
 		if (SGP_graphicsmap[i].debug_register != SGP_GRAPHICS_NO_DEBUG)
 		{
+			printf("%s\n", SGP_graphicsmap[i].name);
 			printf("\x1B[32m   %s     0x%08x\n", SGP_graphicsmap[i].name, SGP_read32(SGPconfig, SGP_graphicsmap[i].baseaddr + SGP_graphicsmap[i].debug_register));
 		}
 	}
