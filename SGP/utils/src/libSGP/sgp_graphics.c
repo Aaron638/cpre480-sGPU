@@ -574,9 +574,13 @@ int SGP_graphicsInit(sgp_config *config)
 	uint32_t one = 0x00000001;
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_VERTEXSHADER_CONTROL, one);
 
+	printf("PRINTING DEBUG REGS\n");
+
 	if (SGPconfig->driverMode & SGP_ETH)
 		SGP_print_debugregs();
 		SGP_print_pc_regs();
+
+	printf("DONE PRINTING DEBUG REGS\n");
 
 	return 0;
 }
