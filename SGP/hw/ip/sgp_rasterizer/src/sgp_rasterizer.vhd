@@ -432,12 +432,12 @@ begin
                 case counter_state is
                     when NOT_COUNTING =>
                         clk_count <= x"0000_0000";
-                        if vertexShader_core_Start = '1' then
+                        if primitiveAssembly_vertex_in_ready = '1' then
                             counter_state <= COUNTING;
                         end if;
                         
                     when COUNTING =>
-                        if vertexShader_core_Done = '1' then
+                        if triangleTest_fragment_out_ready = '1' then
                             counter_state <= WRITE_COUNT;
                         else
                             clk_count <= clk_count + 1;
@@ -446,6 +446,7 @@ begin
                     when WRITE_COUNT =>
                         rtcounter <= std_logic_vector(clk_count);
                         clk_count <= (others => '0');
+						triangleTest_fragment_out(3)(2) <= clk_count;
                         counter_state <= NOT_COUNTING;
                     when others =>
                         counter_state <= NOT_COUNTING;
