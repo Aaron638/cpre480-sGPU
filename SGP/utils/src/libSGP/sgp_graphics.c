@@ -578,6 +578,7 @@ int SGP_graphicsInit(sgp_config *config)
 
 	if (SGPconfig->driverMode & SGP_ETH)
 		SGP_print_debugregs();
+		printf("PRINTING PC REGS\n");
 		SGP_print_pc_regs();
 
 	printf("DONE PRINTING DEBUG REGS\n");
