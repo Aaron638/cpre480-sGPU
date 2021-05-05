@@ -131,6 +131,8 @@ architecture behavioral of vertexShader_core is
 	constant INSERTXY : unsigned(7 downto 0) := "01001000";
 	constant INSERTZW : unsigned(7 downto 0) := "01001001";
 	
+	constant MAC	: unsigned(7 downto 0) := "01001010";
+	
     constant DONE       : unsigned(7 downto 0) := "11111111";
 
 begin
@@ -436,6 +438,13 @@ begin
 
 							when INSERTZW =>
 							    c <= d3 & d2 & a0 & b0;								
+								state <= WB;
+								
+							when MAC =>
+								c0 <= unsigned(signed(d0) + resize(signed(a0 * b0),32));
+								c1 <= unsigned(signed(d1) + resize(signed(a1 * b1),32));
+								c2 <= unsigned(signed(d2) + resize(signed(a2 * b2),32));
+								c3 <= unsigned(signed(d3) + resize(signed(a3 * b3),32));
 								state <= WB;
 	
 							when DONE =>
