@@ -328,6 +328,7 @@ architecture behavioral of sgp_vertexShader is
   signal vertexshader_numvertex 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_val2 	: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_val3        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+  signal vertexshader_control       : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
   signal vertexshader_rtcounter		: std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_status        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
   signal vertexshader_debug 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -413,6 +414,7 @@ begin
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  => vertexshader_numvertex,
         SGP_AXI_VERTEXSHADER_VAL2 => vertexshader_val2,
         SGP_AXI_VERTEXSHADER_VAL3    => vertexshader_val3,
+        SGP_AXI_VERTEXSHADER_CONTROL => vertexshader_control, 
         SGP_AXI_VERTEXSHADER_RTCTR => vertexshader_rtcounter,  		
         SGP_AXI_VERTEXSHADER_STATUS    => vertexshader_status,	    		
         SGP_AXI_VERTEXSHADER_DEBUG => vertexshader_debug
@@ -520,6 +522,7 @@ begin
 	   port map(ACLK => ACLK,
                 ARESETN => ARESETN,
                 startPC => vertexShader_core_startPC,
+                enable => vertexshader_control, 
                 inputVertex => vertexShader_core_inputVertex,
                 outputVertex => vertexShader_core_outputVertex,
                 vertexStart => vertexShader_core_Start,
