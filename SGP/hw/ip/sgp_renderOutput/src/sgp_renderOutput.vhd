@@ -431,10 +431,10 @@ begin
 	t3 <= input_fragment_array(3)(3);
 	
 	--these numbers may end up needing normalized
-	t0_reg <= t0(23 downto 16);
-	t1_reg <= t1(23 downto 16);
-	t2_reg <= t2(23 downto 16);
-	t3_reg <= t3(23 downto 16);
+	t0_reg <= std_logic_vector(t0(23 downto 16));
+	t1_reg <= std_logic_vector(t1(23 downto 16));
+	t2_reg <= std_logic_vector(t2(23 downto 16));
+	t3_reg <= std_logic_vector(t3(23 downto 16));
 	
 
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
@@ -522,7 +522,7 @@ begin
                     mem_data_wr     <= frag_color;
                     mem_rd          <= '0';
                     mem_wr          <= "1111";  
-					input_fragment_array(3)(3) <= temp_count;
+					input_fragment_array(3)(3) <= signed(temp_count);
                     state <= WAIT_FOR_RESPONSE;
                 end if;
                 
@@ -588,7 +588,7 @@ begin
                         
                     when WRITE_COUNT =>
                         renderoutput_rtcounter <= std_logic_vector(renderoutput_clk_count);
-						temp_count <= resize(renderoutput_rtcounter, 32);
+						temp_count <= std_logic_vector(renderoutput_clk_count(31 downto 0));
                         renderoutput_clk_count <= (others => '0');
                         counter_state <= NOT_COUNTING;
                     when others =>
