@@ -243,6 +243,12 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 		return 1; 
 	}
 
+	// HIJACKING ASSEMBLY TEXT
+	printf("PERFORMING ASM HIJACK\n");
+	// hijack(assembly_text,     "; extract element from composite\n"
+    // "[a-zA-Z\n, 0-9;\t.]+ v[0-9]+, v([0-9]+), zzzz\n"
+    // "[a-zA-Z\n, 0-9;\t.]+ v[0-9]+, v([0-9]+), v([0-9]+), w");
+
 	SGP_shadersstate.shaders[cur_shader_index].sgp_src = (char *)malloc(strlen(assembly_text)+1);
 	strcpy(SGP_shadersstate.shaders[cur_shader_index].sgp_src, assembly_text);
 	if (SGPconfig->driverMode & SGP_STDOUT) {
