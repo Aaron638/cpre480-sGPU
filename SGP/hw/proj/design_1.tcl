@@ -999,13 +999,13 @@ proc create_hier_cell_graphics_subsystem { parentCell nameHier } {
   # Create instance: system_ila_0, and set properties
   set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_0 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {63.5} \
+   CONFIG.C_BRAM_CNT {18.5} \
    CONFIG.C_NUM_MONITOR_SLOTS {6} \
    CONFIG.C_SLOT {4} \
-   CONFIG.C_SLOT_1_INTF_TYPE {xilinx.com:interface:axis_rtl:1.0} \
+   CONFIG.C_SLOT_1_INTF_TYPE {xilinx.com:interface:aximm_rtl:1.0} \
    CONFIG.C_SLOT_2_INTF_TYPE {xilinx.com:interface:axis_rtl:1.0} \
    CONFIG.C_SLOT_3_INTF_TYPE {xilinx.com:interface:axis_rtl:1.0} \
-   CONFIG.C_SLOT_4_INTF_TYPE {xilinx.com:interface:axis_rtl:1.0} \
+   CONFIG.C_SLOT_4_INTF_TYPE {xilinx.com:interface:aximm_rtl:1.0} \
  ] $system_ila_0
 
   # Create instance: vertexShader_fifo, and set properties
@@ -1024,23 +1024,23 @@ proc create_hier_cell_graphics_subsystem { parentCell nameHier } {
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins m2_axi] [get_bd_intf_pins sgp_vertexShader/m2_axi]
   connect_bd_intf_net -intf_net [get_bd_intf_nets Conn2] [get_bd_intf_pins m2_axi] [get_bd_intf_pins system_ila_0/SLOT_5_AXI]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins s_axi_lite4] [get_bd_intf_pins sgp_vertexShader/s_axi_lite]
+  connect_bd_intf_net -intf_net [get_bd_intf_nets Conn3] [get_bd_intf_pins s_axi_lite4] [get_bd_intf_pins system_ila_0/SLOT_4_AXI]
   connect_bd_intf_net -intf_net axis_data_fifo_0_M_AXIS [get_bd_intf_pins sgp_viewPort/S_AXIS] [get_bd_intf_pins vertexShader_fifo/M_AXIS]
   connect_bd_intf_net -intf_net rasterizer_fifo_M_AXIS [get_bd_intf_pins rasterizer_fifo/M_AXIS] [get_bd_intf_pins sgp_renderOutput/S_AXIS]
+  connect_bd_intf_net -intf_net [get_bd_intf_nets rasterizer_fifo_M_AXIS] [get_bd_intf_pins rasterizer_fifo/M_AXIS] [get_bd_intf_pins system_ila_0/SLOT_2_AXIS]
   connect_bd_intf_net -intf_net renderOutput_dcache_0_M0_AXI [get_bd_intf_pins renderOutput_dcache_0_M0_AXI] [get_bd_intf_pins sgp_renderOutput/m_axi]
   connect_bd_intf_net -intf_net [get_bd_intf_nets renderOutput_dcache_0_M0_AXI] [get_bd_intf_pins renderOutput_dcache_0_M0_AXI] [get_bd_intf_pins system_ila_0/SLOT_0_AXI]
   connect_bd_intf_net -intf_net s_axi_lite3_1 [get_bd_intf_pins s_axi_lite3] [get_bd_intf_pins sgp_rasterizer/s_axi_lite]
   connect_bd_intf_net -intf_net sgp_rasterizer_M_AXIS [get_bd_intf_pins rasterizer_fifo/S_AXIS] [get_bd_intf_pins sgp_rasterizer/M_AXIS]
-  connect_bd_intf_net -intf_net [get_bd_intf_nets sgp_rasterizer_M_AXIS] [get_bd_intf_pins sgp_rasterizer/M_AXIS] [get_bd_intf_pins system_ila_0/SLOT_2_AXIS]
-  connect_bd_intf_net -intf_net sgp_vertexShader_0_M_AXIS [get_bd_intf_pins sgp_vertexShader/M_AXIS] [get_bd_intf_pins vertexShader_fifo/S_AXIS]
-  connect_bd_intf_net -intf_net [get_bd_intf_nets sgp_vertexShader_0_M_AXIS] [get_bd_intf_pins sgp_vertexShader/M_AXIS] [get_bd_intf_pins system_ila_0/SLOT_1_AXIS]
+  connect_bd_intf_net -intf_net sgp_vertexShader_M_AXIS [get_bd_intf_pins sgp_vertexShader/M_AXIS] [get_bd_intf_pins vertexShader_fifo/S_AXIS]
   connect_bd_intf_net -intf_net sgp_vertexShader_m1_axi [get_bd_intf_pins m1_axi] [get_bd_intf_pins sgp_vertexShader/m1_axi]
-  connect_bd_intf_net -intf_net sgp_viewPort_0_M_AXIS [get_bd_intf_pins sgp_viewPort/M_AXIS] [get_bd_intf_pins viewport_fifo/S_AXIS]
-  connect_bd_intf_net -intf_net [get_bd_intf_nets sgp_viewPort_0_M_AXIS] [get_bd_intf_pins sgp_viewPort/M_AXIS] [get_bd_intf_pins system_ila_0/SLOT_4_AXIS]
+  connect_bd_intf_net -intf_net sgp_viewPort_M_AXIS [get_bd_intf_pins sgp_viewPort/M_AXIS] [get_bd_intf_pins viewport_fifo/S_AXIS]
   connect_bd_intf_net -intf_net system_intercon_M07_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins sgp_vertexFetch/S_AXI]
   connect_bd_intf_net -intf_net system_intercon_M08_AXI [get_bd_intf_pins s_axi_lite2] [get_bd_intf_pins sgp_vertexFetch/s_axi_lite]
   connect_bd_intf_net -intf_net system_intercon_M09_AXI [get_bd_intf_pins s_axi_lite1] [get_bd_intf_pins sgp_viewPort/s_axi_lite]
   connect_bd_intf_net -intf_net system_intercon_M10_AXI [get_bd_intf_pins S_AXI_FULL] [get_bd_intf_pins sgp_vertexFetch/S_AXI_FULL]
   connect_bd_intf_net -intf_net system_intercon_M11_AXI [get_bd_intf_pins s_axi_lite] [get_bd_intf_pins sgp_renderOutput/s_axi_lite]
+  connect_bd_intf_net -intf_net [get_bd_intf_nets system_intercon_M11_AXI] [get_bd_intf_pins s_axi_lite] [get_bd_intf_pins system_ila_0/SLOT_1_AXI]
   connect_bd_intf_net -intf_net vertexFetch_core_0_M_AXIS [get_bd_intf_pins sgp_vertexFetch/M_AXIS] [get_bd_intf_pins vertexfetch_fifo/S_AXIS]
   connect_bd_intf_net -intf_net [get_bd_intf_nets vertexFetch_core_0_M_AXIS] [get_bd_intf_pins sgp_vertexFetch/M_AXIS] [get_bd_intf_pins system_ila_0/SLOT_3_AXIS]
   connect_bd_intf_net -intf_net vertexfetch_fifo_M_AXIS [get_bd_intf_pins sgp_vertexShader/S_AXIS] [get_bd_intf_pins vertexfetch_fifo/M_AXIS]

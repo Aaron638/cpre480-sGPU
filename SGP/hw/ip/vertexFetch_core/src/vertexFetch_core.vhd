@@ -124,7 +124,6 @@ architecture behavioral of vertexFetch_core is
 		
 		
 		-- Our registers that we need to operate this core. Manually map these in axi_lite_regs
-		SGP_AXI_VERTEXFETCH_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 		SGP_AXI_VERTEXFETCH_CTRL          : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_VERTEXFETCH_STATUS        : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_VERTEXFETCH_NUMVERTEX     : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -189,7 +188,6 @@ begin
 		S_AXI_RRESP	=> s_axi_lite_rresp,
 		S_AXI_RVALID	=> s_axi_lite_rvalid,
 		S_AXI_RREADY	=> s_axi_lite_rready,
-		SGP_AXI_VERTEXFETCH_RTCOUNTER => vertexfetch_rtcounter,
 		
 		SGP_AXI_VERTEXFETCH_CTRL  => vertexfetch_ctrl,
         SGP_AXI_VERTEXFETCH_STATUS => vertexfetch_status,

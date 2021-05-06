@@ -3,7 +3,7 @@
   <spirit:vendor>xilinx.com</spirit:vendor>
   <spirit:library>user</spirit:library>
   <spirit:name>sgp_rasterizer</spirit:name>
-  <spirit:version>MP5</spirit:version>
+  <spirit:version>1.0</spirit:version>
   <spirit:busInterfaces>
     <spirit:busInterface>
       <spirit:name>M_AXIS</spirit:name>
@@ -325,7 +325,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0d86a9ef</spirit:value>
+            <spirit:value>12b09875</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -344,7 +344,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0d86a9ef</spirit:value>
+            <spirit:value>12b09875</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -358,7 +358,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0224029d</spirit:value>
+            <spirit:value>315a3b08</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -857,24 +857,20 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>src/shared_divider/shared_divider.xci</spirit:name>
-        <spirit:userFileType>xci</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>../sgp_types.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/sgp_rasterizer_axi_lite_regs.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>src/sgp_rasterizer.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:name>src/shared_divider/shared_divider.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>src/primitiveAssembly_core.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/sgp_rasterizer_axi_lite_regs.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -882,13 +878,17 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>src/triangleTest_core.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>src/triangleTraversal_core.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/triangleTest_core.vhd</spirit:name>
+        <spirit:name>src/sgp_rasterizer.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_0812d92e</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_ef44391e</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -904,24 +904,20 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>src/shared_divider/shared_divider.xci</spirit:name>
-        <spirit:userFileType>xci</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>../sgp_types.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/sgp_rasterizer_axi_lite_regs.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>src/sgp_rasterizer.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:name>src/shared_divider/shared_divider.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>src/primitiveAssembly_core.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/sgp_rasterizer_axi_lite_regs.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -929,11 +925,15 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>src/triangleTest_core.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>src/triangleTraversal_core.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/triangleTest_core.vhd</spirit:name>
+        <spirit:name>src/sgp_rasterizer.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1009,10 +1009,10 @@
       <xilinx:taxonomies>
         <xilinx:taxonomy>/UserIP</xilinx:taxonomy>
       </xilinx:taxonomies>
-      <xilinx:displayName>sgp_rasterizer_MP5</xilinx:displayName>
+      <xilinx:displayName>sgp_rasterizer</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>44</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-05-02T00:01:48Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>48</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-05-06T01:03:35Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f2b5770_ARCHIVE_LOCATION">c:/Users/zambr/Desktop/MP-1/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5162e5e8_ARCHIVE_LOCATION">c:/Users/zambr/Desktop/MP-1/hw/ip/sgp_rasterizer</xilinx:tag>
@@ -1457,13 +1457,77 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@436c199d_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2d216e83_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7d679b34_ARCHIVE_LOCATION">u:/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67d5084e_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f5dd208_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ad93bc1_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7541bd67_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29a7e52f_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5288236a_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72b02e1a_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d43ffe_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@777ebcca_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10f5a261_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@409bad8e_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@782fa5e4_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14b57eb8_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e9b71b3_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77ca6a34_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3edc8809_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b34029c_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5525e120_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ec02c97_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40f7d97_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5587aad6_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48158dda_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14ba4364_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@180fae83_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@87c986_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73a7188_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6effa6be_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ba8dc6b_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74d3a3e2_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2bd7d2b4_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f3a383e_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34b4a448_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c3e8cf2_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a607d77_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@326ef6e8_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@647f3c77_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b243fc7_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1be9f43f_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c5f04c4_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@bcbb741_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c5fc61e_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14ccf3c8_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48848128_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18a462d3_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46f25c36_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2090a6f6_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a68c63c_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5bd4e6e2_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3823d7e9_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6931477a_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2aa1c027_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c8bf52f_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d3fe335_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cdcbf05_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@64c8bb40_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@842238b_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49b3f471_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d88bc48_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a5c359b_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7376b92a_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67dca300_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@439068d5_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4eefd997_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7507be58_ARCHIVE_LOCATION">u:/spring21/cpre480/SGP/hw/ip/sgp_rasterizer</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="e52d02b1"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="a869f448"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="e191f84d"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="75800c91"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="6ff7fe6e"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="54d82e33"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="151474b6"/>
