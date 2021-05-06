@@ -133,7 +133,3 @@ void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor);
 int32_t SGP_lookupProgram(GLuint gl_programID);
 int32_t SGP_lookupShader(GLuint gl_shaderID);
 int32_t SGP_lookupUniform(GLuint gl_uniformID);
-
-// Final Project functions for hijacking the lua compiler
-void SGP_compileHijack_insert2(char *assembly_text);
-void SGP_compileHijack_mac2(char *assembly_text);

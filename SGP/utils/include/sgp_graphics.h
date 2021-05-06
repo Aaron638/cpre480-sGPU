@@ -110,6 +110,8 @@ extern SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS];
 #define SGP_AXI_RENDEROUTPUT_DEBUG         0x003C
 
 // Vertex Shader registers
+#define SGP_AXI_VERTEXSHADER_PC            0x0000
+#define SGP_AXI_VERTEXSHADER_NUMVERTEX     0x0004
 #define SGP_AXI_VERTEXSHADER_CONTROL       0x000C
 #define SGP_AXI_VERTEXSHADER_RTCTR         0x001C
 #define SGP_AXI_VERTEXSHADER_STATUS        0x0038
@@ -179,6 +181,7 @@ void SGP_print_debugregs();
 void SGP_print_graphicsmap();
 void SGP_print_pc_regs();
 void SGP_print_statusregs();
+void SGP_analyze_performance();
 
 // Implementation of driver callbacks. Put these in sgp_graphics.c to avoid having to update glxtrace.cpp that often
 void SGP_glDrawArrays(GLenum mode, GLint first, GLsizei count);

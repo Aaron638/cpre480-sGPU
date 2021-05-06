@@ -242,8 +242,6 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 		}
 		return 1; 
 	}
-	// HIJACK THE ASSEMBLY TEXT
-	// SGP_compileHijack_insert2(assembly_text);
 
 	SGP_shadersstate.shaders[cur_shader_index].sgp_src = (char *)malloc(strlen(assembly_text)+1);
 	strcpy(SGP_shadersstate.shaders[cur_shader_index].sgp_src, assembly_text);
@@ -264,8 +262,6 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 	}
 
 	const char *binary = lua_tostring(L, -1);
-
-	//TODO: Lua compiler is modified to already output correct binary.
 
 	SGP_shadersstate.shaders[cur_shader_index].sgp_bin_len = (int32_t)num_bytes_in_binary;
 	SGP_shadersstate.shaders[cur_shader_index].sgp_bin = (int32_t *)malloc(num_bytes_in_binary);
@@ -854,70 +850,4 @@ void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
 	uint32_t destsrc = (destfactor << 16) | srcfactor;
 	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA, destsrc);
-}
-
-/*
-	Functions that optimize the SGP assembly output for our final project.
-	Modifies the string output of the spv_to_sgp.lua compiler called inside  SGP_glCompileShader().
-	Current Instructions:
-		insert2
-		mac
-*/
-/*
-	Hijacks the OpCompositeExtract and OpCompositeConstruct to re-use the composite register and use our insert2 instruction.
-	
-	SGP ASM Before:
-		; read 'in' variable %color at location 1
-        infifo              v20, 4
-        insert              v19, v19, v20, x
-        infifo              v20, 5
-        insert              v19, v19, v20, y
-        infifo              v20, 6
-        insert              v19, v19, v20, z
-		; extract element from composite
-        swizzle             v20, v19, xxxx
-		; extract element from composite
-        swizzle             v21, v19, yyyy
-		; extract element from composite
-        swizzle             v22, v19, zzzz
-		; construct composite vector from elements
-        insert              v23, v23, v20, x
-        insert              v23, v23, v21, y
-        insert              v23, v23, v22, z
-        insert              v23, v23, v8, w
-	
-	SGP ASM After:
-		; read 'in' variable %color at location 1
-        infifo              v20, 4
-        insert              v19, v19, v20, x
-        infifo              v20, 5
-        insert              v19, v19, v20, y
-        infifo              v20, 6
-        insert              v19, v19, v20, z
-		; grab constant
-        insert              v19, v19, v8,  w
-		; construct composite vector
-        insert2             v23, v23, v19, xy
-        insert2             v23, v23, v19, zw
-*/
-void SGP_compileHijack_insert2(char *assembly_text){
-
-	// strtok modifies the string, need a copy
-	char* assembly_text_copy = malloc(strlen(assembly_text) + 1);
-	strcpy(assembly_text_copy, assembly_text);
-	char* operation = strtok(assembly_text_copy, ";");
-
-	// strtok splits assembly text into lines using semicolons as a delimiter.
-	// Every translated SPIR-V instruction has a semicolon comment, so we can use that to easily identify the string we want.
-	while (operation != NULL)
-	{
-		printf("HIJACK:\n");
-		printf("%s\n\n", operation);
-		printf("REPLACED WITH:\n");
-
-		// Null pointer tells the function to keep scanning where it left off
-		operation = strtok(NULL, ";");
-	}
-	free(assembly_text_copy);
-	free(operation);
 }
