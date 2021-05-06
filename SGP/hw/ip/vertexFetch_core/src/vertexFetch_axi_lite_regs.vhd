@@ -87,8 +87,6 @@ entity vertexFetch_axi_lite_regs is
 		-- Read ready. This signal indicates that the master can
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
-		
-		SGP_AXI_VERTEXFETCH_RTCOUNTER    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	);
 end vertexFetch_axi_lite_regs;
 
@@ -151,7 +149,7 @@ begin
     SGP_AXI_VERTEXFETCH_ATTRIB_001_SIZE <= slv_reg5; 
     SGP_AXI_VERTEXFETCH_ATTRIB_010_SIZE <= slv_reg6; 
     SGP_AXI_VERTEXFETCH_ATTRIB_011_SIZE <= slv_reg7; 	
-	SGP_AXI_VERTEXFETCH_RTCOUNTER   <= slv_reg14;
+	--SGP_AXI_VERTEXFETCH_RTCOUNTER   <= slv_reg14;
 
 
 	-- I/O Connections assignments
@@ -263,7 +261,7 @@ begin
 	      slv_reg11 <= (others => '0');
 	      slv_reg12 <= (others => '0');
 	      slv_reg13 <= (others => '0');
-	      slv_reg14 <= (others => '0');
+	      --slv_reg14 <= (others => '0');
 	      slv_reg15 <= (others => '0');
 
 	    else
@@ -389,8 +387,8 @@ begin
 	            for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
-	                -- slave registor 14
-	                slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                --slave registor 14
+	               slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001111" =>
@@ -571,12 +569,6 @@ begin
 
 
 	-- Add user logic here
-	process( S_AXI_ACLK) is
-	begin
-		if (rising_edge (S_AXI_ACLK)) then
-			slv_reg14 <= std_logic_vector(unsigned(slv_reg14) + 1);
-		end if;
-	end process;
 	-- User logic ends
 
 end arch_imp;

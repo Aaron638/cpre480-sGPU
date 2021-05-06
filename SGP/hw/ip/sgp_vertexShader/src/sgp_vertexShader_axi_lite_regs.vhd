@@ -20,6 +20,7 @@ entity sgp_vertexShader_axi_lite_regs is
 	    SGP_AXI_VERTEXSHADER_NUMVERTEX  : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_VERTEXSHADER_VAL2  		: out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_VERTEXSHADER_VAL3  		: out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VERTEXSHADER_CONTROL	: out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 		SGP_AXI_VERTEXSHADER_RTCTR 		: in  std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);        
         SGP_AXI_VERTEXSHADER_STATUS		: in  std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);	        
         SGP_AXI_VERTEXSHADER_DEBUG 		: in  std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
@@ -145,6 +146,7 @@ begin
     SGP_AXI_VERTEXSHADER_NUMVERTEX <= slv_reg1;
     SGP_AXI_VERTEXSHADER_VAL2 <= slv_reg2;
     SGP_AXI_VERTEXSHADER_VAL3 <= slv_reg3;
+	SGP_AXI_VERTEXSHADER_CONTROL <= slv_reg12;
 
 	slv_reg13 <= SGP_AXI_VERTEXSHADER_RTCTR;
     slv_reg14 <= SGP_AXI_VERTEXSHADER_STATUS;
