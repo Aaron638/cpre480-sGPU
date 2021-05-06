@@ -661,7 +661,7 @@ void SGP_analyze_performance()
 	printf("   Name                   Value\n");
 
 	//Time in clock cycles
-	uint32_t pc_arr[4] = malloc(4*sizeof(uint32_t));
+	uint32_t pc_arr[4];
 
 	pc_arr[0] = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VERTEXSHADER	].baseaddr 	+ SGP_AXI_VERTEXSHADER_STATUS);
 	pc_arr[1] = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_VIEWPORT		].baseaddr 	+ SGP_AXI_VIEWPORT_STATUS);
@@ -669,7 +669,7 @@ void SGP_analyze_performance()
 	pc_arr[3] = SGP_read32(SGPconfig, SGP_graphicsmap[SGP_RENDER_OUTPUT	].baseaddr 	+ SGP_AXI_RASTERIZER_STATUS);
 
 	// Clock: 1 clock cycle = 10ns;
-	int runtime[4] = malloc(4*sizeof(int));
+	int runtime[4];
 	for (int i = 0; i < 4; i++)
 	{
 		runtime[i] = (int)pc_arr * 10;
