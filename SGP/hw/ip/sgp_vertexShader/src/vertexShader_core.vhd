@@ -135,6 +135,8 @@ architecture behavioral of vertexShader_core is
 	constant INSERTXY : unsigned(7 downto 0) := "01001000";
 	constant INSERTZW : unsigned(7 downto 0) := "01001001";
 	
+	constant MAC	: unsigned(7 downto 0) := "01001010";
+	
     constant DONE       : unsigned(7 downto 0) := "11111111";
 
 	constant enabled  : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0) := x"00000001";
@@ -365,7 +367,7 @@ begin
 											& shift_left(unsigned(a(95 downto 64) ), to_integer(b(95 downto 80)))
 											& shift_left(unsigned(a(63 downto 32) ), to_integer(b(63 downto 48)))
 											& shift_left(unsigned(a(31 downto 0)  ), to_integer(b(31 downto 16))); 
-
+											
 									state <= WB;
 		
 								when FMUL =>
@@ -437,12 +439,19 @@ begin
 									c <=  unsigned(to_attributeRecord_t(b).w) & unsigned(to_attributeRecord_t(b).z) & unsigned(to_attributeRecord_t(a).w) & unsigned(to_attributeRecord_t(a).z);
 									state <= WB;
 								
-								when INSERTXY =>
+							when INSERTXY =>
 									c <= a0 & b0 & d1 & d0;
-									state <= WB;
-
+									state <= WB;						
+							
 								when INSERTZW =>
 									c <= d3 & d2 & a0 & b0;								
+									state <= WB;
+
+								when MAC =>
+									c0 <= unsigned(signed(d0) + resize(signed(a0 * b0),32));
+									c1 <= unsigned(signed(d1) + resize(signed(a1 * b1),32));
+									c2 <= unsigned(signed(d2) + resize(signed(a2 * b2),32));
+									c3 <= unsigned(signed(d3) + resize(signed(a3 * b3),32));
 									state <= WB;
 		
 								when DONE =>

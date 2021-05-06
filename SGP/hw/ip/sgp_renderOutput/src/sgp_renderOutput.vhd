@@ -203,7 +203,7 @@ architecture behavioral of sgp_renderOutput is
         axi_rready_o        : out std_logic);
   end component dcache;
 
-  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE ,READ_ADDRESS);
+  type STATE_TYPE is (	WAIT_FOR_FRAGMENT, GEN_ADDRESS, WRITE_ADDRESS, WAIT_FOR_RESPONSE ,READ_ADDRESS, WRITE_ADDRESS2, WAIT_FOR_RESPONSE2);
   signal state        : STATE_TYPE; 
   
   type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
@@ -263,6 +263,14 @@ architecture behavioral of sgp_renderOutput is
   signal r_color                    : fixed_t;
   signal g_color                    : fixed_t;
   signal b_color                    : fixed_t;
+  signal t0							: fixed_t;
+  signal t1							: fixed_t;
+  signal t2							: fixed_t;
+  signal t3							: fixed_t;
+  signal t0_reg						: std_logic_vector(7 downto 0);
+  signal t1_reg						: std_logic_vector(7 downto 0);
+  signal t2_reg						: std_logic_vector(7 downto 0);
+  signal t3_reg						: std_logic_vector(7 downto 0);
   signal a_color_reg                : std_logic_vector(7 downto 0);
   signal r_color_reg                : std_logic_vector(7 downto 0);
   signal g_color_reg                : std_logic_vector(7 downto 0);
@@ -272,6 +280,8 @@ architecture behavioral of sgp_renderOutput is
   signal r_color_reg64 : std_logic_vector(63 downto 0);
   signal g_color_reg64 : std_logic_vector(63 downto 0);
   signal b_color_reg64 : std_logic_vector(63 downto 0);
+  
+  signal temp_count	:	std_logic_vector(31 downto 0);
 
   signal s_mem_flush				: std_logic;
 
@@ -414,6 +424,18 @@ begin
     g_color_reg64 <= std_logic_vector(unsigned(g_color * x"00FF0000"));
     b_color_reg64 <= std_logic_vector(unsigned(b_color * x"00FF0000"));
     a_color_reg64 <= std_logic_vector(unsigned(a_color * x"00FF0000"));
+	
+	t0 <= input_fragment_array(3)(0);
+	t1 <= input_fragment_array(3)(1);
+	t2 <= input_fragment_array(3)(2);
+	t3 <= input_fragment_array(3)(3);
+	
+	--these numbers may end up needing normalized
+	t0_reg <= std_logic_vector(t0(23 downto 16));
+	t1_reg <= std_logic_vector(t1(23 downto 16));
+	t2_reg <= std_logic_vector(t2(23 downto 16));
+	t3_reg <= std_logic_vector(t3(23 downto 16));
+	
 
     -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
     -- It would also be useful to connect internal signals to this register for software debug purposes
@@ -441,6 +463,7 @@ begin
             r_color_reg     <= (others => '0');
             b_color_reg     <= (others => '0');
             g_color_reg     <= (others => '0');
+			temp_count		<= (others => '0');
 			renderoutput_status <= x"0000_0000";
             
         else
@@ -499,6 +522,7 @@ begin
                     mem_data_wr     <= frag_color;
                     mem_rd          <= '0';
                     mem_wr          <= "1111";  
+					input_fragment_array(3)(3) <= signed(temp_count);
                     state <= WAIT_FOR_RESPONSE;
                 end if;
                 
@@ -506,9 +530,31 @@ begin
             when WAIT_FOR_RESPONSE =>
                 mem_wr <= "0000";
                 if (mem_ack = '1') then
+                    state <= WRITE_ADDRESS2;
+					renderoutput_status <= x"0000_0000";
+					--set up the address and color write for the color buffer 3 for the clock clycle timing
+					frag_address    <= x"807e9000" + (7680 * (1080 - y_pos_short_reg)) + (x_pos_short_reg * 4);
+					frag_color      <= std_logic_vector(t0_reg & t1_reg & t2_reg & t3_reg);
+					--will be setting:
+					--g = t0 = vertexShader
+					--a = t1 = viewPort
+					--r = t2 = rasterizer
+					--b = t3 = renderOutput
+					
+					--TODO modify the base address
+                end if;
+				
+			when WRITE_ADDRESS2 =>
+				--need to write to color buffer 3 as well as the attr3.w in the vertex
+				state <= WAIT_FOR_RESPONSE2;
+			
+			when WAIT_FOR_RESPONSE2 => 
+				mem_wr <= "0000";
+                if (mem_ack = '1') then
                     state <= WAIT_FOR_FRAGMENT;
 					renderoutput_status <= x"0000_0000";
                 end if;
+			
                 
             when others => 
                 state <= WAIT_FOR_FRAGMENT;
@@ -542,6 +588,7 @@ begin
                         
                     when WRITE_COUNT =>
                         renderoutput_rtcounter <= std_logic_vector(renderoutput_clk_count);
+						temp_count <= std_logic_vector(renderoutput_clk_count(31 downto 0));
                         renderoutput_clk_count <= (others => '0');
                         counter_state <= NOT_COUNTING;
                     when others =>
@@ -552,4 +599,3 @@ begin
     end process;
 
 end architecture behavioral;
-

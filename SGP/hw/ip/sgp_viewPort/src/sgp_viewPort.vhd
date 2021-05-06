@@ -132,6 +132,13 @@ architecture behavioral of sgp_viewPort is
 	signal viewport_height_div_2 : fixed_t;
 	signal viewport_xmult        : wfixed_t;
 	signal viewport_ymult        : wfixed_t;
+	
+	signal clk_count     : unsigned(31 downto 0);
+	type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
+    signal counter_state    : CTR_STATE_TYPE;
+	signal rtcounter	: std_logic_vector(31 downto 0);
+	
+	signal temp_count : std_logic_vector(31 downto 0);
 
 	-- Input and output of viewport transformation. Keep in Q16.16 format and if input is normalized, there should be no overflow. 
 	signal x_ndc_coords : fixed_t;
@@ -188,7 +195,7 @@ begin
 	M_AXIS_TDATA(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64) <= tdata_reg(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64);
 	M_AXIS_TDATA(31 downto 0)                             <= std_logic_vector(x_vp_coords);
 	M_AXIS_TDATA(63 downto 32)                            <= std_logic_vector(y_vp_coords);
-
+	M_AXIS_TDATA(447 downto 416)						  <= temp_count;
 	M_AXIS_TLAST <= S_AXIS_TLAST;
 
 	M_AXIS_TVALID <= '1' when state = VERTEX_WRITE else
@@ -219,6 +226,7 @@ begin
 			if ARESETN = '0' then
 				state          <= WAIT_FOR_VERTEX;
 				tdata_reg      <= (others => '0');
+				temp_count     <= (others => '0');
 				x_ndc_coords   <= fixed_t_zero;
 				y_ndc_coords   <= fixed_t_zero;
 				viewport_xmult <= wfixed_t_zero;
@@ -258,6 +266,7 @@ begin
 					when CALC_VPCOORDS =>
 						x_vp_coords <= wfixed_t_to_fixed_t (viewport_xmult);
 						y_vp_coords <= wfixed_t_to_fixed_t (viewport_ymult);
+						temp_count  <= rtcounter;
 						state       <= VERTEX_WRITE;
 
 						-- We tell M_AXIS we're ready to write, ctrl+f VERTEX_WRITE to see that he already sets M_AXIS_TVALID here
@@ -274,4 +283,40 @@ begin
 			end if;
 		end if;
 	end process;
+	
+	--   Program counter to count cycles per vertex delivered
+    process (ACLK, state)
+    begin
+        if rising_edge(ACLK) then
+            if ARESETN = '0' then
+                rtcounter <= (others => '0');
+                clk_count <= (others => '0');
+                counter_state <= NOT_COUNTING;
+            else
+                case counter_state is
+                    when NOT_COUNTING =>
+                        clk_count <= x"0000_0000";
+                        if state = CALC_XMULT then
+                            counter_state <= COUNTING;
+                        end if;
+                        
+                    when COUNTING =>
+                        if state = CALC_VPCOORDS then
+                            counter_state <= WRITE_COUNT;
+                        else
+                            clk_count <= clk_count + 1;
+                        end if;
+                        
+                    when WRITE_COUNT =>
+                        rtcounter <= std_logic_vector(clk_count);
+                        clk_count <= (others => '0');
+                        counter_state <= NOT_COUNTING;
+                    when others =>
+                        counter_state <= NOT_COUNTING;
+                end case;
+            end if;
+        end if;
+    end process;
+	
+
 end architecture behavioral;
