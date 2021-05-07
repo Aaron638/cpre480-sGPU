@@ -115,6 +115,7 @@ architecture behavioral of sgp_rasterizer is
 	    SGP_AXI_RASTERIZER_UNUSED3_REG    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_RASTERIZER_UNUSED4_REG    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_RASTERIZER_UNUSED5_REG    : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+        SGP_AXI_RASTERIZER_RTCTR         : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RASTERIZER_STATUS         : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_RASTERIZER_DEBUG          : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0)
 		
@@ -195,7 +196,7 @@ architecture behavioral of sgp_rasterizer is
     signal rasterizer_primtype_reg 	    : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal rasterizer_debug 	        : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
     signal rasterizer_status            : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-
+    signal rasterizer_rtctr           : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 
     -- Interface signals for the primitiveAssembly_core
     signal primtype                             : primtype_t;
@@ -236,6 +237,11 @@ architecture behavioral of sgp_rasterizer is
     signal triangleTest_fragment_out_valid     : std_logic;
     signal triangleTest_fragment_out           : vertexArray_t;
     signal fragment_valid                      : std_logic;
+	
+	signal clk_count     : unsigned(31 downto 0);
+	type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
+    signal counter_state    : CTR_STATE_TYPE;
+	signal rtcounter	: std_logic_vector(31 downto 0);
 
 begin
 
@@ -275,6 +281,7 @@ begin
 	    SGP_AXI_RASTERIZER_UNUSED3_REG            => open,
 	    SGP_AXI_RASTERIZER_UNUSED4_REG            => open,
 	    SGP_AXI_RASTERIZER_UNUSED5_REG            => open,
+        SGP_AXI_RASTERIZER_RTCTR                  => rasterizer_rtctr,
         SGP_AXI_RASTERIZER_STATUS                 => rasterizer_status,	
         SGP_AXI_RASTERIZER_DEBUG                  => rasterizer_debug	
 		
@@ -352,8 +359,11 @@ begin
 
    -- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
    -- It would also be useful to connect internal signals to this register for software debug purposes
-   rasterizer_debug  <= x"00000039";
+--    Optional TODO: Set Performance Counter
+   rasterizer_rtctr <= x"0000_0000";
    rasterizer_status <= (0 => triangleTraversal_status_out, others => '0'); 
+   rasterizer_debug  <= x"0000_0501";
+
 
    -- Convert the register to the primtype_t.
    primtype <= to_integer(unsigned(rasterizer_primtype_reg));
@@ -409,5 +419,40 @@ begin
    triangleTraversal_startposition_in <= triangleTraversal_startvertex.att0;
    
    triangleTest_fragment_out_ready <= M_AXIS_TREADY;
+   
+   --   Program counter to count cycles per vertex delivered
+    process (ACLK)
+    begin
+        if rising_edge(ACLK) then
+            if ARESETN = '0' then
+                rtcounter <= (others => '0');
+                clk_count <= (others => '0');
+                counter_state <= NOT_COUNTING;
+            else
+                case counter_state is
+                    when NOT_COUNTING =>
+                        clk_count <= x"0000_0000";
+                        if primitiveAssembly_vertex_in_ready = '1' then
+                            counter_state <= COUNTING;
+                        end if;
+                        
+                    when COUNTING =>
+                        if triangleTest_fragment_out_ready = '1' then
+                            counter_state <= WRITE_COUNT;
+                        else
+                            clk_count <= clk_count + 1;
+                        end if;
+                        
+                    when WRITE_COUNT =>
+                        rtcounter <= std_logic_vector(clk_count);
+                        clk_count <= (others => '0');
+						triangleTest_fragment_out(3)(2) <= signed(clk_count);
+                        counter_state <= NOT_COUNTING;
+                    when others =>
+                        counter_state <= NOT_COUNTING;
+                end case;
+            end if;
+        end if;
+    end process;
    
 end architecture behavioral;

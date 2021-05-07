@@ -106,6 +106,8 @@ architecture behavioral of sgp_viewPort is
 			SGP_AXI_VIEWPORT_HEIGHT_REG  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 			SGP_AXI_VIEWPORT_NEARVAL_REG : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 			SGP_AXI_VIEWPORT_FARVAL_REG  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+			SGP_AXI_VIEWPORT_RTCTR            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+			SGP_AXI_VIEWPORT_STATUS            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 			SGP_AXI_VIEWPORT_DEBUG       : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0)
 
 		);
@@ -118,6 +120,8 @@ architecture behavioral of sgp_viewPort is
 	signal viewport_height_reg  : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal viewport_nearval_reg : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal viewport_farval_reg  : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal viewport_rtctr       : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal viewport_status      : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal viewport_debug       : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
 	-- Intermediate values for viewport transformation. 
@@ -128,6 +132,13 @@ architecture behavioral of sgp_viewPort is
 	signal viewport_height_div_2 : fixed_t;
 	signal viewport_xmult        : wfixed_t;
 	signal viewport_ymult        : wfixed_t;
+	
+	signal clk_count     : unsigned(31 downto 0);
+	type CTR_STATE_TYPE is (NOT_COUNTING, COUNTING, WRITE_COUNT);
+    signal counter_state    : CTR_STATE_TYPE;
+	signal rtcounter	: std_logic_vector(31 downto 0);
+	
+	signal temp_count : std_logic_vector(31 downto 0);
 
 	-- Input and output of viewport transformation. Keep in Q16.16 format and if input is normalized, there should be no overflow. 
 	signal x_ndc_coords : fixed_t;
@@ -175,6 +186,8 @@ begin
 		SGP_AXI_VIEWPORT_HEIGHT_REG  => viewport_height_reg,
 		SGP_AXI_VIEWPORT_NEARVAL_REG => viewport_nearval_reg,
 		SGP_AXI_VIEWPORT_FARVAL_REG  => viewport_farval_reg,
+		SGP_AXI_VIEWPORT_RTCTR		=> viewport_rtctr,
+		SGP_AXI_VIEWPORT_STATUS		=> viewport_status,
 		SGP_AXI_VIEWPORT_DEBUG       => viewport_debug
 
 	);
@@ -182,7 +195,7 @@ begin
 	M_AXIS_TDATA(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64) <= tdata_reg(C_NUM_VERTEX_ATTRIB * 128 - 1 downto 64);
 	M_AXIS_TDATA(31 downto 0)                             <= std_logic_vector(x_vp_coords);
 	M_AXIS_TDATA(63 downto 32)                            <= std_logic_vector(y_vp_coords);
-
+	M_AXIS_TDATA(447 downto 416)						  <= temp_count;
 	M_AXIS_TLAST <= S_AXIS_TLAST;
 
 	M_AXIS_TVALID <= '1' when state = VERTEX_WRITE else
@@ -199,7 +212,11 @@ begin
 	viewport_height_div_2 <= signed('0' & viewport_height_reg(15 downto 0) & "000000000000000");
 	-- At least set a unique ID for each synthesis run in the debug register, so we know that we're looking at the most recent IP core
 	-- It would also be useful to connect internal signals to this register for software debug purposes
-	viewport_debug <= x"00000003";
+	-- Optional TODO: hook up a performance counter to viewPort
+	viewport_rtctr <= x"0000_0000";
+	--  TODO: SET THIS STATUS correctly
+	viewport_status <= x"0000_0000";
+	viewport_debug <= x"0000_0501";
 
 	process (ACLK) is
 	begin
@@ -209,6 +226,7 @@ begin
 			if ARESETN = '0' then
 				state          <= WAIT_FOR_VERTEX;
 				tdata_reg      <= (others => '0');
+				temp_count     <= (others => '0');
 				x_ndc_coords   <= fixed_t_zero;
 				y_ndc_coords   <= fixed_t_zero;
 				viewport_xmult <= wfixed_t_zero;
@@ -248,6 +266,7 @@ begin
 					when CALC_VPCOORDS =>
 						x_vp_coords <= wfixed_t_to_fixed_t (viewport_xmult);
 						y_vp_coords <= wfixed_t_to_fixed_t (viewport_ymult);
+						temp_count  <= rtcounter;
 						state       <= VERTEX_WRITE;
 
 						-- We tell M_AXIS we're ready to write, ctrl+f VERTEX_WRITE to see that he already sets M_AXIS_TVALID here
@@ -264,4 +283,40 @@ begin
 			end if;
 		end if;
 	end process;
+	
+	--   Program counter to count cycles per vertex delivered
+    process (ACLK, state)
+    begin
+        if rising_edge(ACLK) then
+            if ARESETN = '0' then
+                rtcounter <= (others => '0');
+                clk_count <= (others => '0');
+                counter_state <= NOT_COUNTING;
+            else
+                case counter_state is
+                    when NOT_COUNTING =>
+                        clk_count <= x"0000_0000";
+                        if state = CALC_XMULT then
+                            counter_state <= COUNTING;
+                        end if;
+                        
+                    when COUNTING =>
+                        if state = CALC_VPCOORDS then
+                            counter_state <= WRITE_COUNT;
+                        else
+                            clk_count <= clk_count + 1;
+                        end if;
+                        
+                    when WRITE_COUNT =>
+                        rtcounter <= std_logic_vector(clk_count);
+                        clk_count <= (others => '0');
+                        counter_state <= NOT_COUNTING;
+                    when others =>
+                        counter_state <= NOT_COUNTING;
+                end case;
+            end if;
+        end if;
+    end process;
+	
+
 end architecture behavioral;

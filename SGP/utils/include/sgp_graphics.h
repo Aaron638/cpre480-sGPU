@@ -34,6 +34,7 @@ typedef struct {
     uint8_t system_offset;
     uint32_t debug_register;
     uint32_t status_register;
+    uint32_t pcount_register;
 } SGP_graphicsmap_t;
 
 // Manually determined values. Add as needed
@@ -46,7 +47,7 @@ enum SGP_GRAPHICS_COMPONENTS {SGP_COLORBUFFER_1=0, SGP_COLORBUFFER_2, SGP_COLORB
 #define SGP_GRAPHICS_MEMORY_OFFSET 0x1
 #define SGP_GRAPHICS_NO_DEBUG      0x0
 #define SGP_GRAPHICS_NO_STATUS     0x0
-
+#define SGP_GRAPHICS_NO_PCOUNT     0x0
 
 extern SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS];
 
@@ -74,10 +75,15 @@ extern SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS];
 #define SGP_AXI_VIEWPORT_HEIGHT_REG     0x000C
 #define SGP_AXI_VIEWPORT_NEARVAL_REG    0x0010
 #define SGP_AXI_VIEWPORT_FARVAL_REG     0x0014
+
+#define SGP_AXI_VIEWPORT_RTCTR          0x001C
+#define SGP_AXI_VIEWPORT_STATUS         0x0038
 #define SGP_AXI_VIEWPORT_DEBUG          0x003C
 
 // rasterizer registers
 #define SGP_AXI_RASTERIZER_PRIMTYPE_REG  0x0000
+
+#define SGP_AXI_RASTERIZER_RTCTR         0x001C
 #define SGP_AXI_RASTERIZER_STATUS        0x0038
 #define SGP_AXI_RASTERIZER_DEBUG         0x003C
 
@@ -98,17 +104,29 @@ extern SGP_graphicsmap_t SGP_graphicsmap[SGP_GRAPHICS_NUMCOMPONENTS];
 #define SGP_AXI_RENDEROUTPUT_HEIGHT        0x0010
 #define SGP_AXI_RENDEROUTPUT_DEPTH         0x0014
 #define SGP_AXI_RENDEROUTPUT_ALPHA         0x0018
-#define SGP_AXI_RENDEROUTPUT_RTCOUNTER     0x001C
+
+#define SGP_AXI_RENDEROUTPUT_RTCTR         0x001C
+#define SGP_AXI_RENDEROUTPUT_STATUS        0x0038
 #define SGP_AXI_RENDEROUTPUT_DEBUG         0x003C
+
+// Vertex Shader registers
+#define SGP_AXI_VERTEXSHADER_PC            0x0000
+#define SGP_AXI_VERTEXSHADER_NUMVERTEX     0x0004
+#define SGP_AXI_VERTEXSHADER_CONTROL       0x000C
+#define SGP_AXI_VERTEXSHADER_RTCTR         0x001C
+#define SGP_AXI_VERTEXSHADER_STATUS        0x0038
+#define SGP_AXI_VERTEXSHADER_DEBUG         0x003C
+
+// Fragment Shader registers
+#define SGP_AXI_FRAGMENTSHADER_RTCTR       0x001C
+#define SGP_AXI_FRAGMENTSHADER_STATUS      0x0038
+#define SGP_AXI_FRAGMENTSHADER_DEBUG       0x003C
 
 // cache configuration flags
 #define DCACHE_CTRL_CACHEABLE_FLAG       0x0001
 #define DCACHE_CTRL_INVALIDATE_FLAG      0x0002
 #define DCACHE_CTRL_WRITEBACK_FLAG       0x0004
 #define DCACHE_CTRL_FLUSH_FLAG           0x0008
-
-
-
 
 // Graphics buffer object data structure
 typedef struct {
@@ -161,6 +179,9 @@ extern SGP_graphicsstate_t SGP_graphicsstate;
 int SGP_graphicsInit(sgp_config *config);
 void SGP_print_debugregs();
 void SGP_print_graphicsmap();
+void SGP_print_pc_regs();
+void SGP_print_statusregs();
+void SGP_analyze_performance();
 
 // Implementation of driver callbacks. Put these in sgp_graphics.c to avoid having to update glxtrace.cpp that often
 void SGP_glDrawArrays(GLenum mode, GLint first, GLsizei count);

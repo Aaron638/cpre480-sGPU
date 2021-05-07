@@ -19,6 +19,7 @@
 #include "sgp_transmit.h"
 
 
+
 // Global shaders state. 
 SGP_shadersstate_t SGP_shadersstate;
 
@@ -241,8 +242,15 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 		}
 		return 1; 
 	}
+
+	// HIJACKING ASSEMBLY TEXT
+	// printf("PERFORMING ASM HIJACK\n");
+	// hijack(assembly_text,     "; extract element from composite\n"
+    // "[a-zA-Z\n, 0-9;\t.]+ v[0-9]+, v([0-9]+), zzzz\n"
+    // "[a-zA-Z\n, 0-9;\t.]+ v[0-9]+, v([0-9]+), v([0-9]+), w");
+
 	SGP_shadersstate.shaders[cur_shader_index].sgp_src = (char *)malloc(strlen(assembly_text)+1);
-	strcpy(SGP_shadersstate.shaders[cur_shader_index].sgp_src, assembly_text);		
+	strcpy(SGP_shadersstate.shaders[cur_shader_index].sgp_src, assembly_text);
 	if (SGPconfig->driverMode & SGP_STDOUT) {
 		printf("\nSGP_glCompileShader: SGP assembly:\n%s\n", SGP_shadersstate.shaders[cur_shader_index].sgp_src);
 	}
@@ -260,6 +268,7 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 	}
 
 	const char *binary = lua_tostring(L, -1);
+
 	SGP_shadersstate.shaders[cur_shader_index].sgp_bin_len = (int32_t)num_bytes_in_binary;
 	SGP_shadersstate.shaders[cur_shader_index].sgp_bin = (int32_t *)malloc(num_bytes_in_binary);
 	memcpy((char *)SGP_shadersstate.shaders[cur_shader_index].sgp_bin, binary, num_bytes_in_binary);
@@ -848,4 +857,3 @@ void SGP_glBlendFunc(GLenum srcfactor, GLenum destfactor)
 	uint32_t baseaddr = SGP_graphicsmap[SGP_RENDER_OUTPUT].baseaddr;
 	SGP_write32(SGPconfig, baseaddr + SGP_AXI_RENDEROUTPUT_ALPHA, destsrc);
 }
-

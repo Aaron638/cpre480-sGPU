@@ -22,6 +22,8 @@ entity sgp_viewPort_axi_lite_regs is
 	    SGP_AXI_VIEWPORT_HEIGHT_REG       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VIEWPORT_NEARVAL_REG      : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	    SGP_AXI_VIEWPORT_FARVAL_REG       : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VIEWPORT_RTCTR            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+		SGP_AXI_VIEWPORT_STATUS            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         SGP_AXI_VIEWPORT_DEBUG            : in std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
         
 		-- User ports ends
@@ -147,6 +149,8 @@ begin
     SGP_AXI_VIEWPORT_HEIGHT_REG <= slv_reg3;
     SGP_AXI_VIEWPORT_NEARVAL_REG <= slv_reg4;
     SGP_AXI_VIEWPORT_FARVAL_REG <= slv_reg5;
+	slv_reg13 <= SGP_AXI_VIEWPORT_RTCTR;
+	slv_reg14 <= SGP_AXI_VIEWPORT_STATUS;
     slv_reg15 <= SGP_AXI_VIEWPORT_DEBUG;
 
 	-- I/O Connections assignments
@@ -257,8 +261,8 @@ begin
 	      slv_reg10 <= (others => '0');
 	      slv_reg11 <= (others => '0');
 	      slv_reg12 <= (others => '0');
-	      slv_reg13 <= (others => '0');
-	      slv_reg14 <= (others => '0');
+	    --   slv_reg13 <= (others => '0');
+	    --   slv_reg14 <= (others => '0');
 --	      slv_reg15 <= (others => '0');
 
 	    else
@@ -375,7 +379,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 13
-	                slv_reg13(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                -- slv_reg13(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001110" =>
@@ -383,7 +387,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 14
-	                slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+	                -- slv_reg14(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when b"00001111" =>
@@ -409,8 +413,8 @@ begin
 	            slv_reg10 <= slv_reg10;
 	            slv_reg11 <= slv_reg11;
 	            slv_reg12 <= slv_reg12;
-	            slv_reg13 <= slv_reg13;
-	            slv_reg14 <= slv_reg14;
+	            -- slv_reg13 <= slv_reg13;
+	            -- slv_reg14 <= slv_reg14;
 --	            slv_reg15 <= slv_reg15;
 
 	        end case;
