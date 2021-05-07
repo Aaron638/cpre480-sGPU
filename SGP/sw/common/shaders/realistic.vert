@@ -1,9 +1,15 @@
+#version 330 core
+
 uniform mat4 transform;
-attribute vec4 a_Position;
-attribute vec4 a_Color;
-varying vec4 color;
+layout (location = 0) in vec3 position;
+layout(location = 1) in vec3 color;
+
+out vec4 vColor;
+
 void main()
 {
-  color = a_Color;
-  gl_Position = transform * a_Position;
+    vColor = vec4(color, 0.0);
+
+    vec4 t_position = vec4(position, 1.0);
+    gl_Position = transform * a_Position;
 }

@@ -244,7 +244,7 @@ int SGP_glCompileShader(GLuint gl_shaderID) {
 	}
 
 	// HIJACKING ASSEMBLY TEXT
-	printf("PERFORMING ASM HIJACK\n");
+	// printf("PERFORMING ASM HIJACK\n");
 	// hijack(assembly_text,     "; extract element from composite\n"
     // "[a-zA-Z\n, 0-9;\t.]+ v[0-9]+, v([0-9]+), zzzz\n"
     // "[a-zA-Z\n, 0-9;\t.]+ v[0-9]+, v([0-9]+), v([0-9]+), w");

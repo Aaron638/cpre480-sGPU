@@ -174,7 +174,7 @@ char *assembly_string =
 /*
     https://gist.github.com/ianmackinnon/3294587
 */
-int *get_regex_idxs(char *source, char *regexString, size_t maxMatches, size_t maxGroups, int* numResults)
+int *get_regex_idxs(char *source, char *regexString, size_t maxMatches, size_t maxGroups, int *numResults)
 {
     int *res = (int *)malloc(2 * maxMatches * maxGroups * sizeof(int));
 
@@ -274,13 +274,14 @@ char *Avenge_string(char *op, int reg_dest, int reg_a, int reg_b)
     return res;
 }
 
-char* string_to_chararr(string input){
-    char* res;
+char *string_to_chararr(string input)
+{
+    char *res;
     res = &input[0];
     return res;
 }
 
-char *hijack(char *sgp_asm, char *search, int op)
+char *hijack_asm(char *sgp_asm, char *search, int op)
 {
     // 1. Manage char* as a string (deep copy).
     std::string asm_str(sgp_asm);
@@ -288,25 +289,37 @@ char *hijack(char *sgp_asm, char *search, int op)
     static int numResults;
     int *indices = get_regex_idxs(sgp_asm, search, 30, 30, &numResults);
 
-    if (op == 1)
-    {
-        //insert2
-        
-    }
+    //3. Moidify the string using C++ string functions
+    // Result [0-1] is the start and end index of the search
+    int inc = 4;
+    if (op == 2)
+        inc == 8;
     
 
-    // 3. Parse string
-    // Result [0-1] is the start and end index of the search
-    for (int i = 0; i < numResults; i+=2)
+    for (int i = 0; i < numResults; i+=inc)
     {
-        
-        //asm_str.replace(i, i+1, replacement);
+        int start = indices[i];
+        int end = indices[i+1];
+        //insert2
+        if (op == 1)
+        {
+            // string replacement = Avenge_insert2( , indices[i+2], indices[i+2]);
+            // asm_str.replace(start, (end-start), replacement);
+
+        }
+        //mac
+        else if (op == 2)
+        {
+            
+        }
     }
+
     return string_to_chararr(asm_str);
-    
 }
 
-
+char *hijack_bin(char *sgp_bin, char *search, int op)
+{
+}
 
 int main()
 {
@@ -315,7 +328,7 @@ int main()
     int va[] = {1, 2, 3, 4};
     printf("%s", Avenge_mac(10, va, 12));
 
-    printf("%s\n", hijack(assembly_string, pattern_cc, Avenge_insert2()));
+    printf("%s\n", hijack_asm(assembly_string, pattern_cc, 1);
 
     return 0;
 }

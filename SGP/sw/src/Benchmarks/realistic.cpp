@@ -59,7 +59,7 @@ int main( void ) {
 	glBindVertexArray(VertexArrayID);
 
 	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "../common/shaders/vertexshifter.vert", "../common/shaders/passthrough.frag" );
+	GLuint programID = LoadShaders( "../common/shaders/realistic.vert", "../common/shaders/passthrough.frag" );
 	glUseProgram(programID);
 
 	// Just a single triangle for GL_TRIANGLES to test. Add to this to draw more points
@@ -96,10 +96,13 @@ int main( void ) {
 
 
 	// Get a handle for our uniforms
-	GLuint xoffsetID = glGetUniformLocation(programID, "xoffset");
-	GLuint yoffsetID = glGetUniformLocation(programID, "yoffset");
-	GLuint xscaleID = glGetUniformLocation(programID, "xscale"); 
-	GLuint yscaleID = glGetUniformLocation(programID, "yscale"); 
+	// GLuint xoffsetID = glGetUniformLocation(programID, "xoffset");
+	// GLuint yoffsetID = glGetUniformLocation(programID, "yoffset");
+	// GLuint xscaleID = glGetUniformLocation(programID, "xscale"); 
+	// GLuint yscaleID = glGetUniformLocation(programID, "yscale"); 
+
+    GLuint projection = glGetUniformLocation(programID, "transform");
+    glUniformMatrix4fv()
 
 	int frame_count = 0;
 	while( glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0 ) {
@@ -120,10 +123,10 @@ int main( void ) {
 		frame_count++;
 
 		// Send our uniforms to the currently bound shader
-		glUniform1f(xoffsetID, xoffset);
-		glUniform1f(yoffsetID, yoffset);
-		glUniform1f(xscaleID, xscale);
-		glUniform1f(yscaleID, yscale);
+		// glUniform1f(xoffsetID, xoffset);
+		// glUniform1f(yoffsetID, yoffset);
+		// glUniform1f(xscaleID, xscale);
+		// glUniform1f(yscaleID, yscale);
 
     	glClear(GL_COLOR_BUFFER_BIT);
 
